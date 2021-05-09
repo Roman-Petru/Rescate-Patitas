@@ -1,44 +1,45 @@
 package domain;
 
-import domain.exceptions.*;
+
 import domain.validacionesContrasenias.*;
+import domain.validacionesContrasenias.excepciones.*;
 import org.junit.Test;
 
 public class TestValidacionDeContrasenias {
 
-    @Test(expected = longitudDeContraseniaBajaException.class)
+    @Test(expected = LongitudDeContraseniaBajaExcepcion.class)
     public void validarContraseniaCorta() {
-        ValidadorDeLongitud validador = new ValidadorDeLongitud();
+        ValidacionDeLongitud validador = new ValidacionDeLongitud();
         validador.validar("baja");
     }
 
-    @Test(expected = contraseniaComunException.class)
+    @Test(expected = ContraseniaComunExcepcion.class)
     public void validarContraseniaComun() {
-        ValidadorDeContraseniaComun validador = new ValidadorDeContraseniaComun();
+        ValidacionDeContraseniaComun validador = new ValidacionDeContraseniaComun();
         validador.validar("password");
     }
 
-    @Test(expected = contraseniaSinMayusculaException.class)
+    @Test(expected = ContraseniaSinMayusculaExcepcion.class)
     public void validarContraseniaSinMayuscula(){
-        ValidadorDeMayuscula validador = new ValidadorDeMayuscula();
+        ValidacionDeMayuscula validador = new ValidacionDeMayuscula();
         validador.validar("sinmayuscula");
     }
 
-    @Test(expected = contraseniaSinMinusculaException.class)
+    @Test(expected = ContraseniaSinMinusculaExcepcion.class)
     public void validarContraseniaSinMinuscula(){
-        ValidadorDeMinuscula validador = new ValidadorDeMinuscula();
+        ValidacionDeMinuscula validador = new ValidacionDeMinuscula();
         validador.validar("SINMINUSCULA");
     }
 
-    @Test(expected = contraseniaSinNumeroException.class)
+    @Test(expected = ContraseniaSinNumeroExcepcion.class)
     public void validarContraseniaSinNumero() {
-        ValidadorDeNumero validador = new ValidadorDeNumero();
+        ValidacionDeNumero validador = new ValidacionDeNumero();
         validador.validar("SiNnUmErO");
     }
 
     @Test
     public void validarContraseniaCompletamente() {
-        ValidarTodo validador = new ValidarTodo();
+        ValidadorDeContrasenia validador = new ValidadorDeContrasenia();
         validador.validar("iWierFgsA96");
     }
 

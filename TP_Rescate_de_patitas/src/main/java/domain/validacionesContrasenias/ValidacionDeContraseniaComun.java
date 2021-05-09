@@ -1,39 +1,39 @@
 package domain.validacionesContrasenias;
 
-import domain.exceptions.aperturaArchivoException;
-import domain.exceptions.contraseniaComunException;
-import domain.exceptions.entradaSalidaDeArchivoException;
+import domain.validacionesContrasenias.excepciones.AperturaArchivoExcepcion;
+import domain.validacionesContrasenias.excepciones.ContraseniaComunExcepcion;
+import domain.validacionesContrasenias.excepciones.EntradaSalidaDeArchivoExcepcion;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidadorDeContraseniaComun implements Validador{
+public class ValidacionDeContraseniaComun implements Validacion {
     private List<String> listaContrasenias = new ArrayList<>();
     private BufferedReader archivoContrasenias;
 
-    public ValidadorDeContraseniaComun() {
+    public ValidacionDeContraseniaComun() {
         this.setArchivoContrasenias();
         this.leerArchivo(listaContrasenias, archivoContrasenias);
     }
 
     public void validar(String contrasenia) {
         if (listaContrasenias.stream().anyMatch(unaContrasenia -> unaContrasenia.contentEquals(contrasenia))) {
-            throw new contraseniaComunException();
+            throw new ContraseniaComunExcepcion();
         }
     }
 
     private void setArchivoContrasenias(){
 
-        try {
-            archivoContrasenias = new BufferedReader(new FileReader("D:\\10k-peores-contraseñas.txt"));
-        } catch (FileNotFoundException e) {
-            throw new aperturaArchivoException(
-                    "Algo salio mal al usar setArchivoContraseñas() en clase ValidadorDeContraseñaComun", e);
-        }
+     try {
+         InputStreamReader isr = new InputStreamReader(
+                 this.getClass().getResourceAsStream("/" + "10k-peores-contraseñas.txt"));
+         archivoContrasenias = new BufferedReader(isr);
+     }
+     catch (NullPointerException e){
+         throw new AperturaArchivoExcepcion(
+                 "Algo salio mal al usar setArchivoContraenias() en clase ValidadorDeContraseñaComun", e);
+     }
     }
 
     private void leerArchivo(List<String> lista, BufferedReader archivo) {
@@ -44,7 +44,7 @@ public class ValidadorDeContraseniaComun implements Validador{
             }
             archivo.close();
         } catch (IOException e) {
-            throw new entradaSalidaDeArchivoException(
+            throw new EntradaSalidaDeArchivoExcepcion(
                     "Algo salio mal al usar leerArchivo() en clase ValidadorDeContraseñaComun", e);
         }
     }
