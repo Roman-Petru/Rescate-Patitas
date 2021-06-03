@@ -1,6 +1,6 @@
-package domain.ModuloNotificador.Adapters;
+package domain.modulos.notificador.adapters;
 
-import domain.ModuloNotificador.Mensajeable;
+import domain.modulos.notificador.Mensajeable;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;

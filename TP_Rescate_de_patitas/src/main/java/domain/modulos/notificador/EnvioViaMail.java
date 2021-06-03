@@ -1,12 +1,20 @@
-package domain.ModuloNotificador;
+package domain.modulos.notificador;
 
-import domain.ModuloNotificador.Adapters.JavaGMailAdapter;
-import domain.ModuloNotificador.Adapters.MailAdapter;
+import domain.modulos.notificador.adapters.JavaGMailAdapter;
+import domain.modulos.notificador.adapters.MailAdapter;
 
 public class EnvioViaMail implements EstrategiaNotificacion{
 
     private static EnvioViaMail instancia = null;
     private MailAdapter AdapterParaEnvio;
+
+
+    public static EnvioViaMail instancia(){
+        if(instancia== null){
+            instancia = new EnvioViaMail();
+        }
+        return instancia;
+    }
 
     private EnvioViaMail() {
         this.AdapterParaEnvio = new JavaGMailAdapter();

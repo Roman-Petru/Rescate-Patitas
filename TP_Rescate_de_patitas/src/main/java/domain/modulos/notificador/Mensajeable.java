@@ -1,4 +1,4 @@
-package domain.ModuloNotificador;
+package domain.modulos.notificador;
 
 public interface Mensajeable {
 String texto();

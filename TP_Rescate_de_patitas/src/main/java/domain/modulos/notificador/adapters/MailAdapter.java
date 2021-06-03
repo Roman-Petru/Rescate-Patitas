@@ -1,6 +1,6 @@
-package domain.ModuloNotificador.Adapters;
+package domain.modulos.notificador.adapters;
 
-import domain.ModuloNotificador.Mensajeable;
+import domain.modulos.notificador.Mensajeable;
 
 public interface MailAdapter {
     void enviar(Mensajeable mensajeAEnviar);

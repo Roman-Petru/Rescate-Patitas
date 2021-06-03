@@ -1,4 +1,4 @@
-package domain.ModuloNotificador;
+package domain.modulos.notificador;
 
 public class Notificador {
 

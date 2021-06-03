@@ -1,10 +1,15 @@
-package domain.ModuloNotificador;
+package domain.modulos.notificador;
 
 public class Mensaje implements Mensajeable {
 
     private String textoMensaje;
     private String destinoMensaje;
     private String asuntoMensaje;
+
+    public Mensaje(String cuerpo, String destino) {
+        this.textoMensaje = cuerpo;
+        this.destinoMensaje = destino;
+    }
 
     public String texto() {
         return textoMensaje;
@@ -16,5 +21,9 @@ public class Mensaje implements Mensajeable {
 
     public String asunto() {
         return asuntoMensaje;
+    }
+
+    public void setAsuntoMensaje(String asuntoMensaje) {
+        this.asuntoMensaje = asuntoMensaje;
     }
 }
