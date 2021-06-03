@@ -1,8 +1,7 @@
 package domain;
 
-import domain.modulos.notificador.EnvioViaMail;
-import domain.modulos.notificador.Mensaje;
-import domain.modulos.notificador.Mensajeable;
+import domain.modulos.notificador.estrategias.EnvioViaMail;
+import domain.modulos.notificador.mensaje.Mensaje;
 import domain.modulos.notificador.Notificador;
 import org.junit.Test;
 

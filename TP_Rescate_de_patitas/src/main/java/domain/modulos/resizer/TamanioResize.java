@@ -1,4 +1,4 @@
-package domain.ajustesDeImagen;
+package domain.modulos.resizer;
 
 public class TamanioResize {
     private Integer alto;

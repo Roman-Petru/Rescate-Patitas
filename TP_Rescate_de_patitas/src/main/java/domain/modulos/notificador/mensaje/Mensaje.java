@@ -1,4 +1,6 @@
-package domain.modulos.notificador;
+package domain.modulos.notificador.mensaje;
+
+import domain.modulos.notificador.mensaje.Mensajeable;
 
 public class Mensaje implements Mensajeable {
 

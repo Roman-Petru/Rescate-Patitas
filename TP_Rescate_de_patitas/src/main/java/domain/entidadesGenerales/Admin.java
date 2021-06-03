@@ -1,7 +1,7 @@
 package domain.entidadesGenerales;
 
-import domain.ajustesDeImagen.Resizer;
-import domain.ajustesDeImagen.TamanioResize;
+import domain.modulos.resizer.Resizer;
+import domain.modulos.resizer.TamanioResize;
 
 public class Admin extends Usuario {
 

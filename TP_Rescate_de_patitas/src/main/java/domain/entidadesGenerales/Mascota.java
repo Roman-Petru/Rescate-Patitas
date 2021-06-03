@@ -1,7 +1,7 @@
 package domain.entidadesGenerales;
 import domain.enums.Animal;
-import domain.notificaciones.NotificadorHelper;
-
+import domain.modulos.notificador.Notificador;
+import domain.modulos.notificador.NotificadorHelper;
 import java.util.List;
 
 public class Mascota {
@@ -17,12 +17,11 @@ public class Mascota {
     private List<CaracteristicaPersonalizada> caracteristicas;
     private NotificadorHelper helper;
 
-    public Mascota(NotificadorHelper helper){
-        this.helper = helper;
+    public Mascota() {
+        this.helper = new NotificadorHelper(new Notificador());
     }
 
-    public void notificar(){
-        helper.enviarMensaje(contactos);
+    public void notificar(){  helper.enviarMensaje(contactos);
     }
 
     //---------GETTER AND SETTER------------

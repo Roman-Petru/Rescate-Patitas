@@ -1,5 +1,5 @@
 package domain.entidadesGenerales;
-import domain.notificaciones.estrategias.EstrategiaDeNotificacion;
+import domain.modulos.notificador.estrategias.EstrategiaNotificacion;
 import java.util.List;
 
 public class Contacto {
@@ -7,9 +7,9 @@ public class Contacto {
     private String apellido;
     private String telefono;
     private String email;
-    private List<EstrategiaDeNotificacion> notificadores;
+    private List<EstrategiaNotificacion> notificadores;
 
-    public Contacto(List<EstrategiaDeNotificacion> notificadores){
+    public Contacto(List<EstrategiaNotificacion> notificadores){
         this.notificadores = notificadores;
     }
 
@@ -46,11 +46,11 @@ public class Contacto {
         this.email = email;
     }
 
-    public List<EstrategiaDeNotificacion> getNotificadores() {
+    public List<EstrategiaNotificacion> getNotificadores() {
         return notificadores;
     }
 
-    public void setNotificadores(List<EstrategiaDeNotificacion> notificadores) {
+    public void setNotificadores(List<EstrategiaNotificacion> notificadores) {
         this.notificadores = notificadores;
     }
 }

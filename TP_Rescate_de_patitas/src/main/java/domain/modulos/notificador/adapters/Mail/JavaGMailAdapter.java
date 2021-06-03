@@ -1,6 +1,6 @@
-package domain.modulos.notificador.adapters;
+package domain.modulos.notificador.adapters.Mail;
 
-import domain.modulos.notificador.Mensajeable;
+import domain.modulos.notificador.mensaje.Mensajeable;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 
-public class JavaGMailAdapter implements MailAdapter{
+public class JavaGMailAdapter implements MailAdapter {
 
     @Override
     public void enviar(Mensajeable mensajeAEnviar) {

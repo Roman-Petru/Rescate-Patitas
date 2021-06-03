@@ -1,6 +1,6 @@
-package domain.ajustesDeImagen.adapter;
+package domain.modulos.resizer.adapter;
 
-import domain.ajustesDeImagen.TamanioResize;
+import domain.modulos.resizer.TamanioResize;
 
 public interface ResizeAdapter {
     public String resize(String imagenUrl, TamanioResize tamanio, Integer calidad);

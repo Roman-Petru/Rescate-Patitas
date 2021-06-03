@@ -1,6 +1,6 @@
-package domain.ajustesDeImagen;
+package domain.modulos.resizer;
 
-import domain.ajustesDeImagen.adapter.ResizeAdapter;
+import domain.modulos.resizer.adapter.ResizeAdapter;
 
 public class Resizer {
 
