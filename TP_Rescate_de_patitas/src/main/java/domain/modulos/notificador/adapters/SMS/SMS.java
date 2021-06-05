@@ -12,8 +12,7 @@ public class SMS implements SMSAdapter {
     public void enviar(Mensajeable mensajeAEnviar) {
         VonageClient client = VonageClient.builder().apiKey("e5b15925").apiSecret("ub9yUTDogcBgkAzM").build();
         TextMessage message = new TextMessage("Voyage APIs",
-                "541150957589",
-                "Hola! Te hablamos desde Rescate de Patitas. Encontramos a tu mascota!"
+                mensajeAEnviar.destinatario(), mensajeAEnviar.texto()
         );
 
         SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
@@ -21,7 +20,7 @@ public class SMS implements SMSAdapter {
         if (response.getMessages().get(0).getStatus() == MessageStatus.OK) {
             System.out.println("Mensaje enviado correctamente");
         } else {
-            System.out.println("El mensaje falló: " + response.getMessages().get(0).getErrorText());
+            System.out.println("El mensaje SMS falló: " + response.getMessages().get(0).getErrorText());
         }
     }
 }

@@ -12,8 +12,8 @@ public class Whatsapp implements WhatsappAdapter{
     public void enviar(Mensajeable mensajeAEnviar) {
 
         String ID = "QXtyB6vnH0iJuwiXUe5TqWp1dWxpYW5fZ29tZXpfYXRfeWFob29fZG90X2NvbV9kb3RfYXI=";
-        String celular = "5491150957589";
-        String mensaje = "Hola! Te hablamos desde Rescate de Patitas. Encontramos a tu mascota!";
+        String celular = mensajeAEnviar.destinatario();
+        String mensaje = mensajeAEnviar.texto();
 
         HttpURLConnection conexion = null;
         try{
@@ -32,12 +32,13 @@ public class Whatsapp implements WhatsappAdapter{
 
             InputStream entrada = conexion.getInputStream();
             BufferedReader lectura = new BufferedReader(new InputStreamReader(entrada));
-            JOptionPane.showMessageDialog(null, "Mensaje Enviado");
+            //JOptionPane.showMessageDialog(null, "Mensaje Enviado");
+            System.out.println("Mensaje enviado correctamente");
 
             lectura.close();
         }
         catch (Exception ex){
-            System.out.println(ex.getMessage());
+            System.out.println("El mensaje vía Whatsapp falló: " + ex.getMessage());
         }
         finally {
             if (conexion != null){

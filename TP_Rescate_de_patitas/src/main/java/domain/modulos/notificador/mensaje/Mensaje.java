@@ -5,20 +5,20 @@ import domain.modulos.notificador.mensaje.Mensajeable;
 public class Mensaje implements Mensajeable {
 
     private String textoMensaje;
-    private String destinoMensaje;
+    private String destinatarioMensaje;
     private String asuntoMensaje;
 
-    public Mensaje(String cuerpo, String destino) {
+    public Mensaje(String cuerpo, String destinatario) {
         this.textoMensaje = cuerpo;
-        this.destinoMensaje = destino;
+        this.destinatarioMensaje = destinatario;
     }
 
     public String texto() {
         return textoMensaje;
     }
 
-    public String destino() {
-        return destinoMensaje;
+    public String destinatario() {
+        return destinatarioMensaje;
     }
 
     public String asunto() {

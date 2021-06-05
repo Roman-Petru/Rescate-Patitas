@@ -26,7 +26,7 @@ public class JavaGMailAdapter implements MailAdapter {
 
         String correoEnvia = "CorreoRescateDePatitas@gmail.com";   //TODO se sacara de archivo de configuracion
         String contrasenia = "disenio35";
-        String destinatario = mensajeAEnviar.destino();
+        String destinatario = mensajeAEnviar.destinatario();
         String asunto = mensajeAEnviar.asunto();
 
 

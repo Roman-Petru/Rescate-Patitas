@@ -12,8 +12,9 @@ public class TestEnvioDeWhatsapp {
     @Test
     public void testEnvioWhatsapp(){
 
-        Mensaje unMensaje = new Mensaje("Testeando envio","549110957589");
-        unMensaje.setAsuntoMensaje("Encontramos a tu mascota!");
+        Mensaje unMensaje = new Mensaje("Hola! Te hablamos desde Rescate de Patitas. Encontramos a tu mascota!",
+                "541150957589");
+        unMensaje.setAsuntoMensaje("Test Envío Vía Whatsapp");
         Notificador notificador = new Notificador();
         notificador.setMensajeAEnviar(unMensaje);
         EnvioViaWhatsapp envioWhatsapp = EnvioViaWhatsapp.instancia();
