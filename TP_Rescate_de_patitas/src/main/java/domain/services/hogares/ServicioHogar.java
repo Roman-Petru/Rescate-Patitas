@@ -1,8 +1,8 @@
 package domain.services.hogares;
 
+import com.google.gson.JsonObject;
 import domain.services.hogares.entities.BearerToken;
 import domain.services.hogares.entities.ListadoDeHogares;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -29,6 +29,16 @@ public class ServicioHogar {
         return instancia;
     }
 
+    //POST
+    public BearerToken authorizationUsuario(JsonObject email) throws IOException {
+        HogarService hogarService = this.retrofit.create(HogarService.class);
+        Call<BearerToken> requestToken = hogarService.authorization(email);
+        Response<BearerToken> responseToken = requestToken.execute();
+
+        return responseToken.body();
+    }
+
+    //GET
     public ListadoDeHogares listadoDeHogares(int offset, String bearer_token) throws IOException {
         HogarService hogarService = this.retrofit.create(HogarService.class);
         Call<ListadoDeHogares> requestHogares = hogarService.hogares(offset, "Bearer " + bearer_token);
@@ -36,14 +46,5 @@ public class ServicioHogar {
 
         return responseHogares.body();
     }
-
-    public BearerToken authorizationUsuario(String email) throws IOException {
-        HogarService hogarService = this.retrofit.create(HogarService.class);
-        Call<BearerToken> requestUsuario = hogarService.authorization(email);
-        Response<BearerToken> responseUsuario = requestUsuario.execute();
-
-        return responseUsuario.body();
-    }
-
 
 }

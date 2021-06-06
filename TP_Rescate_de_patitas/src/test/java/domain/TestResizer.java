@@ -19,5 +19,5 @@ public class TestResizer {
         resizer.setCalidad(NivelCalidad.BAJA);
         resizer.resize("D:/prueba.jpg");
     }
-    }
+}
 
