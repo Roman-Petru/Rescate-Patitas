@@ -7,7 +7,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Whatsapp implements WhatsappAdapter{
+public class NiceApiWhatsappAdapter implements WhatsappAdapter{
     @Override
     public void enviar(Mensajeable mensajeAEnviar) {
 

@@ -1,5 +1,5 @@
 package domain.modulos.notificador.estrategias;
-import domain.modulos.notificador.adapters.SMS.SMS;
+import domain.modulos.notificador.adapters.SMS.VoyageSMSAdapter;
 import domain.modulos.notificador.adapters.SMS.SMSAdapter;
 import domain.modulos.notificador.mensaje.Mensajeable;
 
@@ -16,7 +16,7 @@ public class EnvioViaSMS implements EstrategiaNotificacion {
     }
 
     private EnvioViaSMS() {
-        this.adapter = new SMS();
+        this.adapter = new VoyageSMSAdapter();
     }
 
     @Override

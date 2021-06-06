@@ -6,7 +6,7 @@ import com.vonage.client.sms.SmsSubmissionResponse;
 import com.vonage.client.sms.messages.TextMessage;
 import domain.modulos.notificador.mensaje.Mensajeable;
 
-public class SMS implements SMSAdapter {
+public class VoyageSMSAdapter implements SMSAdapter {
 
     @Override
     public void enviar(Mensajeable mensajeAEnviar) {

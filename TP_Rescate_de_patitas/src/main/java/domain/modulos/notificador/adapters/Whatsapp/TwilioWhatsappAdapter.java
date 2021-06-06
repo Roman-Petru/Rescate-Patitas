@@ -1,0 +1,34 @@
+package domain.modulos.notificador.adapters.Whatsapp;
+import com.twilio.Twilio;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.api.v2010.account.Message;
+import domain.modulos.notificador.mensaje.Mensajeable;
+import com.twilio.type.PhoneNumber;
+
+import java.net.URI;
+import java.util.Arrays;
+
+public class TwilioWhatsappAdapter implements WhatsappAdapter{
+
+    public final String ACCOUNT_SID = "AC9e4dc4aa3b67ae22b3162490d96636b2";
+    public final String AUTH_TOKEN = "89757ba2b8d64410264838c71101bb76";
+
+    @Override
+    public void enviar(Mensajeable mensajeAEnviar) {
+
+        ProxiedTwilioClientCreator clientCreator = new ProxiedTwilioClientCreator(
+                ACCOUNT_SID, AUTH_TOKEN, "", 80);
+        TwilioRestClient twilioRestClient = clientCreator.getClient();
+        Twilio.setRestClient(twilioRestClient);
+
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+        Message message = Message.creator(
+                new com.twilio.type.PhoneNumber("whatsapp:+5491150957589"),
+                new com.twilio.type.PhoneNumber("whatsapp:+14155238886"),
+                "Your Twilio code is 555555555")
+                .create();
+
+        System.out.println(message.getSid());
+    }
+
+}
