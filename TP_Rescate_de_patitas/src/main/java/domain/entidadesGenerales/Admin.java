@@ -16,11 +16,4 @@ public class Admin extends Usuario {
         //TODO agregar admins
     }
 
-    public void editarResizeImagen(String imagenUrl, Integer calidad, Integer alto, Integer ancho){
-        resizer.setTamanio(new TamanioResize(alto, ancho));
-        resizer.setImagenUrl(imagenUrl);
-        resizer.setCalidad(calidad);
-
-        resizer.editarResize();
-    }
 }
