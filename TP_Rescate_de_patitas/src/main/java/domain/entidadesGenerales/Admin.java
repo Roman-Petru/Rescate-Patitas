@@ -1,19 +1,18 @@
 package domain.entidadesGenerales;
 
-import domain.modulos.resizer.Resizer;
-import domain.modulos.resizer.TamanioResize;
-
 public class Admin extends Usuario {
 
-    private Resizer resizer;
-
-    public Admin(Resizer resizer){
-        this.resizer = resizer;
+    public Admin(String usuario, String password){
+        super(usuario, password);
     }
-
 
     public void agregarAdmin(){
         //TODO agregar admins
+    }
+
+    public void agregarCaracteristicaGeneral(CaracteristicaGeneral caracteristicaGeneral) {
+        Repositorio repositorio = Repositorio.getInstancia();
+        repositorio.agregarCaracteristica(caracteristicaGeneral);
     }
 
 }

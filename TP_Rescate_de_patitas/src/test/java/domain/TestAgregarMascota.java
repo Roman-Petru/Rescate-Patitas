@@ -5,19 +5,23 @@ import domain.entidadesGenerales.Persona;
 
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 public class TestAgregarMascota {
 
     @Test
-    public void testAgregarMascota(){
+    public void testAgregarMascota_agregaDosMascotas(){
 
-        Persona Jorge = new Persona("Jorge","Pe", "3535",53535,"askdasd");
+        Persona jorge = new Persona("Jorge","Pe", "3535",53535,"askdasd");
 
-        Mascota Firulais = new Mascota("FIrulais","Firu",3);
-        Mascota Pelusa = new Mascota("Pelusa","Pelu",5);
+        Mascota firulais = new Mascota("FIrulais","Firu",3);
+        Mascota pelusa = new Mascota("Pelusa","Pelu",5);
 
 
-        Jorge.getDuenio().agregarMascota(Pelusa);
-        Jorge.getDuenio().agregarMascota(Firulais);
+        jorge.getDuenio().agregarMascota(pelusa);
+        jorge.getDuenio().agregarMascota(firulais);
 
+        assertThat(jorge.getDuenio().getMascotas().size(), is(2));
     }
 }

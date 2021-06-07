@@ -8,12 +8,12 @@ import java.util.List;
 public class DatosMascotaHogar {
     private Animal animal;
     private TamanioAnimal tamanio;
-    private List<Caracteristica> caracteristicas;
+    private List<CaracteristicaGeneral> caracteristicaGenerals;
 
-    public DatosMascotaHogar(Animal animal, TamanioAnimal tamanio, List<Caracteristica> caracteristicas) {
+    public DatosMascotaHogar(Animal animal, TamanioAnimal tamanio, List<CaracteristicaGeneral> caracteristicaGenerals) {
         this.animal = animal;
         this.tamanio = tamanio;
-        this.caracteristicas = caracteristicas;
+        this.caracteristicaGenerals = caracteristicaGenerals;
     }
 
     private List<HogarDeTransito> buscarHogar(Animal animal, TamanioAnimal tamanio) {
@@ -31,7 +31,7 @@ public class DatosMascotaHogar {
 
     public void setTamanio(TamanioAnimal tamanio) { this.tamanio = tamanio; }
 
-    public List<Caracteristica> getCaracteristicas() { return caracteristicas; }
+    public List<CaracteristicaGeneral> getCaracteristicaGenerals() { return caracteristicaGenerals; }
 
-    public void setCaracteristicas(List<Caracteristica> caracteristicas) { this.caracteristicas = caracteristicas; }
+    public void setCaracteristicaGenerals(List<CaracteristicaGeneral> caracteristicaGenerals) { this.caracteristicaGenerals = caracteristicaGenerals; }
 }
