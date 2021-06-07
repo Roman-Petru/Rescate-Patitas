@@ -22,7 +22,7 @@ public class CaracteristicaTest {
         adminPepe.agregarCaracteristicaGeneral(color);
         adminPepe.agregarCaracteristicaGeneral(contextura);
 
-        assertThat(Repositorio.getCaracteristicaGenerals().size(), is(2));
+        assertThat(Repositorio.getCaracteristicaGenerales().size(), is(2));
     }
 
 }

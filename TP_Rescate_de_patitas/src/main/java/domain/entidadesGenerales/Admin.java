@@ -6,7 +6,7 @@ public class Admin extends Usuario {
 
     public Admin(String usuario, String password){
         super(usuario, password);
-        repositorio = Repositorio.getInstancia();
+        this.repositorio = Repositorio.getInstancia();
     }
 
     public void agregarAdmin(Admin admin){

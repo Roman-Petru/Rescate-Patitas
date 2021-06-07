@@ -3,6 +3,10 @@ package domain.entidadesGenerales;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class DuenioMascota{
     private List<Mascota> Mascotas;
 
@@ -14,7 +18,4 @@ public class DuenioMascota{
         this.Mascotas.add(mascota);
     }
 
-    public List<Mascota> getMascotas() {
-        return Mascotas;
-    }
 }

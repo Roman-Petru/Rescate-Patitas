@@ -2,19 +2,13 @@ package domain;
 
 
 import com.google.gson.JsonObject;
-import domain.modulos.resizer.NivelCalidad;
-import domain.modulos.resizer.Resizer;
-import domain.modulos.resizer.TamanioResize;
-import domain.modulos.resizer.adapter.ResizerGraphics2d;
 import domain.services.hogares.ServicioHogar;
-import domain.services.hogares.entities.BearerToken;
-import domain.services.hogares.entities.Hogar;
+import domain.services.hogares.entities.BearerToken_Molde;
 import domain.services.hogares.entities.ListadoDeHogares;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 public class TestHogaresTransito {
 
@@ -26,7 +20,7 @@ public class TestHogaresTransito {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("email", "july.vr@hotmail.com");
 
-        BearerToken token = servicioHogar.authorizationUsuario(jsonObject);
+        BearerToken_Molde token = servicioHogar.authorizationUsuario(jsonObject);
 
         if (token != null){
             bearer_token = token.bearer_token;

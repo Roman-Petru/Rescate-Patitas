@@ -1,8 +1,9 @@
 package domain.entidadesGenerales;
-
-import java.util.Collections;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class Persona {
     private String nombre;
     private String apellido;
@@ -21,17 +22,24 @@ public class Persona {
         this.direccion = direccion;
     }
 
-      public DuenioMascota getDuenio() {
-        if (this.duenio == null)
-            {this.duenio = new DuenioMascota();
-            return this.duenio;}
-        else return this.duenio;}
+    public DuenioMascota getDuenio() {
+        if (this.duenio == null) {
+            this.duenio = new DuenioMascota();
+            return this.duenio;
+        } else {
+            return this.duenio;
+        }
+    }
 
 
     public Rescatista getRescatista() {
-        if (this.rescatista == null)
-        {this.rescatista = new Rescatista();
-            return this.rescatista;}
-        else return this.rescatista;}
+        if (this.rescatista == null) {
+            this.rescatista = new Rescatista();
+            return this.rescatista;
+        } else {
+            return this.rescatista;
+        }
+    }
+
 
 }

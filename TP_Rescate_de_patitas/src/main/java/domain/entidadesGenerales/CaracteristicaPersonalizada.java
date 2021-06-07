@@ -1,24 +1,16 @@
 package domain.entidadesGenerales;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class CaracteristicaPersonalizada {
     private CaracteristicaGeneral caracteristicaGeneral;
     private String valor;
 
+    public CaracteristicaPersonalizada(){}
 
-    //---------GETTER AND SETTER------------
-    public CaracteristicaGeneral getCaracteristicaGeneral() {
-        return caracteristicaGeneral;
-    }
-
-    public void setCaracteristicaGeneral(CaracteristicaGeneral caracteristicaGeneral) {
+    public CaracteristicaPersonalizada(CaracteristicaGeneral caracteristicaGeneral, String valor){
         this.caracteristicaGeneral = caracteristicaGeneral;
-    }
-
-    public String getValor() {
-        return valor;
-    }
-
-    public void setValor(String valor) {
         this.valor = valor;
     }
 }

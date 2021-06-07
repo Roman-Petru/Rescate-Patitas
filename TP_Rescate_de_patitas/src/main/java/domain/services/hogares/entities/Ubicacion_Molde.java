@@ -2,7 +2,7 @@ package domain.services.hogares.entities;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Ubicacion {
+public class Ubicacion_Molde {
 
     public String direccion;
 

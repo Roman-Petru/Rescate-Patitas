@@ -2,18 +2,20 @@ package domain.entidadesGenerales;
 
 import domain.enums.Animal;
 import domain.enums.TamanioAnimal;
-
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class DatosMascotaHogar {
     private Animal animal;
     private TamanioAnimal tamanio;
-    private List<CaracteristicaGeneral> caracteristicaGenerals;
+    private List<CaracteristicaGeneral> caracteristicaGenerales;
 
-    public DatosMascotaHogar(Animal animal, TamanioAnimal tamanio, List<CaracteristicaGeneral> caracteristicaGenerals) {
+    public DatosMascotaHogar(Animal animal, TamanioAnimal tamanio, List<CaracteristicaGeneral> caracteristicaGenerales) {
         this.animal = animal;
         this.tamanio = tamanio;
-        this.caracteristicaGenerals = caracteristicaGenerals;
+        this.caracteristicaGenerales = caracteristicaGenerales;
     }
 
     private List<HogarDeTransito> buscarHogar(Animal animal, TamanioAnimal tamanio) {
@@ -21,17 +23,4 @@ public class DatosMascotaHogar {
         return null;
     }
 
-
-    //---------GETTER AND SETTER------------
-    public Animal getAnimal() { return animal; }
-
-    public void setAnimal(Animal animal) { this.animal = animal; }
-
-    public TamanioAnimal getTamanio() {  return tamanio; }
-
-    public void setTamanio(TamanioAnimal tamanio) { this.tamanio = tamanio; }
-
-    public List<CaracteristicaGeneral> getCaracteristicaGenerals() { return caracteristicaGenerals; }
-
-    public void setCaracteristicaGenerals(List<CaracteristicaGeneral> caracteristicaGenerals) { this.caracteristicaGenerals = caracteristicaGenerals; }
 }

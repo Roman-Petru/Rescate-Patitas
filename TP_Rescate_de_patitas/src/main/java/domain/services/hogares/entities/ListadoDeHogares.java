@@ -4,5 +4,5 @@ import java.util.List;
 public class ListadoDeHogares {
     public Double total;
     public Integer offset;
-    public List<Hogar> hogares;
+    public List<Hogar_Molde> hogares;
 }

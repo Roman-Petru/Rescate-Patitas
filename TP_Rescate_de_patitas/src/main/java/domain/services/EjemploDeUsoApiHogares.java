@@ -1,8 +1,8 @@
 package domain.services;
 import com.google.gson.JsonObject;
 import domain.services.hogares.ServicioHogar;
-import domain.services.hogares.entities.BearerToken;
-import domain.services.hogares.entities.Hogar;
+import domain.services.hogares.entities.BearerToken_Molde;
+import domain.services.hogares.entities.Hogar_Molde;
 import domain.services.hogares.entities.ListadoDeHogares;
 import java.io.IOException;
 import java.util.Scanner;
@@ -19,7 +19,7 @@ public class EjemploDeUsoApiHogares {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("email", email);
 
-        BearerToken token = servicioHogar.authorizationUsuario(jsonObject);
+        BearerToken_Molde token = servicioHogar.authorizationUsuario(jsonObject);
         System.out.println("");
 
         if (token != null){
@@ -31,7 +31,7 @@ public class EjemploDeUsoApiHogares {
         System.out.println("listado de hogares de transito: ");
         System.out.println("");
         ListadoDeHogares listadoDeHogares = servicioHogar.listadoDeHogares(1, bearer_token);
-        for(Hogar unHogar: listadoDeHogares.hogares){
+        for(Hogar_Molde unHogar: listadoDeHogares.hogares){
             System.out.println("Hogar: " + unHogar.nombre);
         }
     }

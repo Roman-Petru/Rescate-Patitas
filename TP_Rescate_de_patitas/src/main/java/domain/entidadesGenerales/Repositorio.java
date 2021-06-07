@@ -7,28 +7,29 @@ public class Repositorio {
 
     private static Repositorio instancia = null;
 
-    public static List<CaracteristicaGeneral> caracteristicaGenerals;
+    public static String TOKEN_HOGARES = "fXTsYJiY5N2lAluwQ7fBKAq67LVFouvFRw2MvS1jBrM2I9ATEaG5zhin2dpu";
+    public static List<CaracteristicaGeneral> caracteristicaGenerales;
     public static List<Usuario> usuarios;
 
     public static Repositorio getInstancia(){
         if (instancia == null){
             instancia = new Repositorio();
-            caracteristicaGenerals = new ArrayList<>();
+            caracteristicaGenerales = new ArrayList<>();
             usuarios = new ArrayList<>();
         }
         return instancia;
     }
 
     public void agregarCaracteristica(CaracteristicaGeneral caracteristicaGeneral) {
-        caracteristicaGenerals.add(caracteristicaGeneral);
+        caracteristicaGenerales.add(caracteristicaGeneral);
     }
 
     public void agregarUsuario(Usuario usuario) {
         usuarios.add(usuario);
     }
 
-    public static List<CaracteristicaGeneral> getCaracteristicaGenerals() {
-        return caracteristicaGenerals;
+    public static List<CaracteristicaGeneral> getCaracteristicaGenerales() {
+        return caracteristicaGenerales;
     }
 
     public static List<Usuario> getUsuarios() {

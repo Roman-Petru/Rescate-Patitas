@@ -2,12 +2,12 @@ package domain.services.hogares.entities;
 
 import java.util.List;
 
-public class Hogar {
+public class Hogar_Molde {
     public String id;
     public String nombre;
-    public Ubicacion ubicacion;
+    public Ubicacion_Molde ubicacion;
     public String telefono;
-    public Admisiones admisiones;
+    public Admisiones_Molde admisiones;
     public Integer capacidad;
     public Integer lugares_disponibles;
     public Boolean patio;

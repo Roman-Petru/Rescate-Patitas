@@ -3,6 +3,10 @@ package domain.entidadesGenerales;
 import com.twilio.exception.ApiException;
 import domain.validacionesContrasenias.ValidadorDeContrasenia;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class Usuario {
     private String usuario;
     private String password;
@@ -22,31 +26,4 @@ public class Usuario {
         validadorDeContrasenia.validar(password);
     }
 
-    //---------GETTER AND SETTER------------
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Integer getIntentosFallidos() {
-        return intentosFallidos;
-    }
-
-    public void setIntentosFallidos(Integer intentosFallidos) {
-        this.intentosFallidos = intentosFallidos;
-    }
-
-    private void validarUsuario() {
-    }
 }

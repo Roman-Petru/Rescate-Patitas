@@ -51,6 +51,6 @@ public class TestAgregarMascota {
     }
 
     private CaracteristicaGeneral agregarCaracteristicaGeneral(Repositorio repositorio) {
-        return Repositorio.getCaracteristicaGenerals().stream().filter(cg -> "color".equalsIgnoreCase(cg.getDescripcion())).findAny().get();
+        return Repositorio.getCaracteristicaGenerales().stream().filter(cg -> "color".equalsIgnoreCase(cg.getDescripcion())).findAny().get();
     }
 }
