@@ -96,4 +96,10 @@ public class Mascota {
     public void setCaracteristicas(List<CaracteristicaPersonalizada> caracteristicas) {
         this.caracteristicas = caracteristicas;
     }
+
+    public Mascota(String nombre, String apodo, Integer edadAproximada) {
+        this.nombre = nombre;
+        this.apodo = apodo;
+        this.edadAproximada = edadAproximada;
+    }
 }

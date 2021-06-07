@@ -1,5 +1,6 @@
 package domain.entidadesGenerales;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Persona {
@@ -8,68 +9,27 @@ public class Persona {
     private String documento;
     private Integer numTramite;
     private String direccion;
-    private List<Rol> roles;
+    private DuenioMascota duenio;
+    private Rescatista rescatista;
     private List<Contacto> contactos;
 
-    public Persona(List<Contacto> contactos, List<Rol> roles){
-        this.contactos = contactos;
-        this.roles = roles;
-    }
-
-    //---------GETTER AND SETTER------------
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
+    public Persona(String nombre, String apellido, String documento, Integer numTramite, String direccion) {
         this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
         this.apellido = apellido;
-    }
-
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
         this.documento = documento;
-    }
-
-    public Integer getNumTramite() {
-        return numTramite;
-    }
-
-    public void setNumTramite(Integer numTramite) {
         this.numTramite = numTramite;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
-    public List<Rol> getRoles() {
-        return roles;
-    }
+      public DuenioMascota getDuenio() {
+        if (this.duenio == null)
+            {this.duenio = new DuenioMascota();
+            return this.duenio;}
+        else return this.duenio;}
 
-    public void setRoles(List<Rol> roles) {
-        this.roles = roles;
-    }
-
-    public List<Contacto> getContactos() {
-        return contactos;
-    }
-
-    public void setContactos(List<Contacto> contactos) {
-        this.contactos = contactos;
-    }
+    public Rescatista getRescatista() {
+        if (this.rescatista == null)
+        {this.rescatista = new Rescatista();
+            return this.rescatista;}
+        else return this.rescatista;}
 }

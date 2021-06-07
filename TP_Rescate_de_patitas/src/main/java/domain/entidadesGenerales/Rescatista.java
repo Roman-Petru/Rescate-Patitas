@@ -7,10 +7,7 @@ public class Rescatista {
     private Integer radioDeCercania;
     private List<DatosMascotaHogar> datosMascota;
 
-    public Rescatista(Ubicacion ubicacion, Integer radioDeCercania, List<DatosMascotaHogar> datosExtra) {
-        this.ubicacion = ubicacion;
-        this.radioDeCercania = radioDeCercania;
-        this.datosMascota = datosExtra;
+    public Rescatista() {
     }
 
     private List<HogarDeTransito> buscarHogar(DatosMascotaHogar datosMascota){
