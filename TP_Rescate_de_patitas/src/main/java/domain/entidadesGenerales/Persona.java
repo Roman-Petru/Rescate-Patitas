@@ -27,9 +27,11 @@ public class Persona {
             return this.duenio;}
         else return this.duenio;}
 
+
     public Rescatista getRescatista() {
         if (this.rescatista == null)
         {this.rescatista = new Rescatista();
             return this.rescatista;}
         else return this.rescatista;}
+
 }

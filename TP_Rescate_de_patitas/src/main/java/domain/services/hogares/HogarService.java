@@ -6,8 +6,6 @@ import domain.services.hogares.entities.ListadoDeHogares;
 import retrofit2.Call;
 import retrofit2.http.*;
 
-import java.util.HashMap;
-
 public interface HogarService {
 
     @Headers({

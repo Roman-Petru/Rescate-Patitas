@@ -6,7 +6,8 @@ public class Ubicacion {
 
     public String direccion;
 
-    public Double lat;
+    @SerializedName("lat")
+    public Double latitud;
 
     @SerializedName("long")
     public Double longitud;
