@@ -1,8 +1,11 @@
 package domain.entidadesGenerales;
 
-public class Caracteristica {
+public class CaracteristicaGeneral {
     private String descripcion;
 
+    public CaracteristicaGeneral(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
     //---------GETTER AND SETTER------------
     public String getDescripcion() {

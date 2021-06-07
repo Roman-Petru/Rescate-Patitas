@@ -12,18 +12,18 @@ public class HogarDeTransito {
     private Integer capacidad;
     private Integer lugaresDisponibles;
     private Boolean patio;
-    private List<Caracteristica> caracteristicas;
+    private List<CaracteristicaGeneral> caracteristicaGenerals;
 
     private Boolean admitirMascota(DatosMascotaHogar datosMascota){
-        if (coincideAdmision(datosMascota.getAnimal()) && coincideTamanio() && coincideCaracteristicas(datosMascota.getCaracteristicas()))
+        if (coincideAdmision(datosMascota.getAnimal()) && coincideTamanio() && coincideCaracteristicas(datosMascota.getCaracteristicaGenerals()))
             return true;
         else
             return false;
     }
 
-    private boolean coincideCaracteristicas(List<Caracteristica> caracteristicasAnimal) {
+    private boolean coincideCaracteristicas(List<CaracteristicaGeneral> caracteristicasAnimal) {
         return caracteristicasAnimal.stream()
-                    .allMatch( car -> caracteristicas.contains(car) ); //no estoy seguro de que sea asi
+                    .allMatch( car -> caracteristicaGenerals.contains(car) ); //no estoy seguro de que sea asi
     }
 
     private Boolean coincideTamanio() {
