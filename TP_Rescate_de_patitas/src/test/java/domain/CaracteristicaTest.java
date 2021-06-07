@@ -2,6 +2,7 @@ package domain;
 
 import domain.entidadesGenerales.Admin;
 import domain.entidadesGenerales.CaracteristicaGeneral;
+import domain.entidadesGenerales.CaracteristicaPersonalizada;
 import domain.entidadesGenerales.Repositorio;
 import org.junit.Test;
 

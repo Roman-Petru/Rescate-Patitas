@@ -2,6 +2,8 @@ package domain.entidadesGenerales;
 import domain.enums.Animal;
 import domain.modulos.notificador.Notificador;
 import domain.modulos.notificador.NotificadorHelper;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Mascota {
@@ -17,8 +19,12 @@ public class Mascota {
     private List<CaracteristicaPersonalizada> caracteristicas;
     private NotificadorHelper helper;
 
-    public Mascota() {
+    public Mascota(String nombre, String apodo, Integer edadAproximada) {
+        this.nombre = nombre;
+        this.apodo = apodo;
+        this.edadAproximada = edadAproximada;
         this.helper = new NotificadorHelper(new Notificador());
+        this.caracteristicas = new ArrayList<>();
     }
 
     public void notificar(){  helper.enviarMensaje(contactos);
@@ -97,9 +103,7 @@ public class Mascota {
         this.caracteristicas = caracteristicas;
     }
 
-    public Mascota(String nombre, String apodo, Integer edadAproximada) {
-        this.nombre = nombre;
-        this.apodo = apodo;
-        this.edadAproximada = edadAproximada;
+    public void agregarCaracteristicaPersonalizada(CaracteristicaPersonalizada caracteristicaPersonalizada) {
+        this.caracteristicas.add(caracteristicaPersonalizada);
     }
 }
