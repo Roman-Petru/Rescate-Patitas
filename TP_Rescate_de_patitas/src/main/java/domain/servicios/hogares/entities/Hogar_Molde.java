@@ -1,4 +1,4 @@
-package domain.services.hogares.entities;
+package domain.servicios.hogares.entities;
 
 import java.util.List;
 

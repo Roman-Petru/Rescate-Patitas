@@ -1,9 +1,9 @@
-package domain.services;
+package domain.servicios;
 import com.google.gson.JsonObject;
-import domain.services.hogares.ServicioHogar;
-import domain.services.hogares.entities.BearerToken_Molde;
-import domain.services.hogares.entities.Hogar_Molde;
-import domain.services.hogares.entities.ListadoDeHogares;
+import domain.servicios.hogares.ServicioHogar;
+import domain.servicios.hogares.entities.BearerToken_Molde;
+import domain.servicios.hogares.entities.Hogar_Molde;
+import domain.servicios.hogares.entities.ListadoDeHogares;
 import java.io.IOException;
 import java.util.Scanner;
 

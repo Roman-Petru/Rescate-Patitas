@@ -10,17 +10,12 @@ import lombok.Setter;
 public class DatosMascotaHogar {
     private Animal animal;
     private TamanioAnimal tamanio;
-    private List<CaracteristicaGeneral> caracteristicaGenerales;
+    private List<String> caracteristicasAnimal;
 
-    public DatosMascotaHogar(Animal animal, TamanioAnimal tamanio, List<CaracteristicaGeneral> caracteristicaGenerales) {
+    public DatosMascotaHogar(Animal animal, TamanioAnimal tamanio, List<String> caracteristicas) {
         this.animal = animal;
         this.tamanio = tamanio;
-        this.caracteristicaGenerales = caracteristicaGenerales;
-    }
-
-    private List<HogarDeTransito> buscarHogar(Animal animal, TamanioAnimal tamanio) {
-        //TODO
-        return null;
+        this.caracteristicasAnimal = caracteristicas;
     }
 
 }

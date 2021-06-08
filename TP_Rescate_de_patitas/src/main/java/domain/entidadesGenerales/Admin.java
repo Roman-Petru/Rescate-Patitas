@@ -3,6 +3,7 @@ package domain.entidadesGenerales;
 import domain.modulos.resizer.NivelCalidad;
 import domain.modulos.resizer.Resizer;
 import domain.modulos.resizer.TamanioImagen;
+import domain.repositorios.Repositorio;
 
 public class Admin extends Usuario {
 

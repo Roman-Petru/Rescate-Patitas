@@ -1,4 +1,4 @@
-package domain.services.hogares.entities;
+package domain.servicios.hogares.entities;
 
 public class BearerToken_Molde {
     public String bearer_token;

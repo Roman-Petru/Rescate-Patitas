@@ -1,8 +1,8 @@
-package domain.services.hogares;
+package domain.servicios.hogares;
 
 import com.google.gson.JsonObject;
-import domain.services.hogares.entities.BearerToken_Molde;
-import domain.services.hogares.entities.ListadoDeHogares;
+import domain.servicios.hogares.entities.BearerToken_Molde;
+import domain.servicios.hogares.entities.ListadoDeHogares;
 import retrofit2.Call;
 import retrofit2.http.*;
 

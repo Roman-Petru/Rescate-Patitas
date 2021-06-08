@@ -1,25 +1,29 @@
-package domain.services.hogares;
+package domain.servicios.hogares;
 
 import com.google.gson.JsonObject;
-import domain.services.hogares.entities.BearerToken_Molde;
-import domain.services.hogares.entities.ListadoDeHogares;
+import domain.entidadesGenerales.HogarDeTransito;
+import domain.servicios.hogares.entities.BearerToken_Molde;
+import domain.servicios.hogares.entities.ListadoDeHogares;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ServicioHogar {
     private static ServicioHogar instancia = null;
     private static final String urlAPI = "https://api.refugiosdds.com.ar/api/";
     private Retrofit retrofit;
+    private HogarMapper hogarMapper;
 
     private ServicioHogar(){
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        this.hogarMapper = HogarMapper.getInstancia();
     }
 
     public static ServicioHogar getInstancia(){
@@ -45,6 +49,11 @@ public class ServicioHogar {
         Response<ListadoDeHogares> responseHogares = requestHogares.execute();
 
         return responseHogares.body();
+    }
+
+
+    public List<HogarDeTransito> obtenerHogares (int offset, String bearer_token)throws IOException {
+        return hogarMapper.mapearHogaresMolde(this.listadoDeHogares(offset, bearer_token).hogares);
     }
 
 }
