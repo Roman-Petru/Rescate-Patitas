@@ -2,9 +2,12 @@ package domain.modulos.resizer;
 
 import domain.modulos.resizer.adapter.ResizerAdapter;
 import domain.modulos.resizer.adapter.ResizerGraphics2d;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
 
+@Getter @Setter
 public class Resizer {
 
     private String imagenEntrantePath;
@@ -24,28 +27,5 @@ public class Resizer {
       this.adapter.resize(imagenEntrantePath,imagenSalientePath,tamanio,calidad);
     }
 
-    public String getImagenSalientePath() {
-        return imagenSalientePath;
-    }
-
-    public void setImagenSalientePathPath(String imagenPath) {
-        this.imagenSalientePath = imagenPath;
-    }
-
-    public TamanioResize getTamanio() {
-        return tamanio;
-    }
-
-    public void setTamanio(TamanioResize tamanio) {
-        this.tamanio = tamanio;
-    }
-
-   public NivelCalidad getCalidad() {
-        return calidad;
-    }
-
-    public void setCalidad(NivelCalidad calidad) {
-        this.calidad = calidad;
-    }
 
 }

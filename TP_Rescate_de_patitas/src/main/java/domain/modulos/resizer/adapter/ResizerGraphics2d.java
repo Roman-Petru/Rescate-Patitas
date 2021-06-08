@@ -20,14 +20,14 @@ public class ResizerGraphics2d implements ResizerAdapter {
 
         // leer imagen entrante
         File archivoEntrada = new File(imagenEntrantePath);
-        BufferedImage imagenEntrada = ImageIO.read(archivoEntrada);
+        BufferedImage imagenEntrante = ImageIO.read(archivoEntrada);
 
         // crear imagen saliente
-        BufferedImage imagenSalida = new BufferedImage(ancho,
-                    alto, imagenEntrada.getType());
+        BufferedImage imagenSaliente = new BufferedImage(ancho,
+                    alto, imagenEntrante.getType());
 
 
-        Graphics2D g2d = imagenSalida.createGraphics();
+        Graphics2D g2d = imagenSaliente.createGraphics();
         // Chequeo calidad deseada
         switch(calidad){
             case ALTA:
@@ -41,7 +41,7 @@ public class ResizerGraphics2d implements ResizerAdapter {
                     break;
         }
 
-            g2d.drawImage(imagenEntrada, 0, 0, ancho, alto, null);
+            g2d.drawImage(imagenEntrante, 0, 0, ancho, alto, null);
             g2d.dispose();
 
             // extrae extension del path
@@ -49,7 +49,7 @@ public class ResizerGraphics2d implements ResizerAdapter {
                     .lastIndexOf(".") + 1);
 
             // escribe archivo de salida
-            ImageIO.write(imagenSalida, formatName, new File(imagenSalientePath));
+            ImageIO.write(imagenSaliente, formatName, new File(imagenSalientePath));
 
 
     }
