@@ -1,10 +1,10 @@
 package domain.modulos.resizer;
 
-public class TamanioResize {
+public class TamanioImagen {
     private Integer alto;
     private Integer ancho;
 
-    public TamanioResize(Integer alto, Integer ancho){
+    public TamanioImagen(Integer alto, Integer ancho){
         this.alto = alto;
         this.ancho = ancho;
     }

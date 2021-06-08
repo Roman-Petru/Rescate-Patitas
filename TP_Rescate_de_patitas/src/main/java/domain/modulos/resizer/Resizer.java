@@ -12,7 +12,7 @@ public class Resizer {
 
     private String imagenEntrantePath;
     private String imagenSalientePath;
-    private TamanioResize tamanio;
+    private TamanioImagen tamanio;
     private ResizerAdapter adapter;
     private NivelCalidad calidad;
 

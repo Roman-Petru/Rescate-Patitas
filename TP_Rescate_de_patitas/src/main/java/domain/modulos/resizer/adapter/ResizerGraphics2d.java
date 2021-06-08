@@ -1,7 +1,7 @@
 package domain.modulos.resizer.adapter;
 
 import domain.modulos.resizer.NivelCalidad;
-import domain.modulos.resizer.TamanioResize;
+import domain.modulos.resizer.TamanioImagen;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 public class ResizerGraphics2d implements ResizerAdapter {
 
     @Override
-    public void resize(String imagenEntrantePath, String imagenSalientePath, TamanioResize tamanio, NivelCalidad calidad) throws IOException {
+    public void resize(String imagenEntrantePath, String imagenSalientePath, TamanioImagen tamanio, NivelCalidad calidad) throws IOException {
         int ancho = tamanio.getAncho();
         int alto = tamanio.getAlto();
 

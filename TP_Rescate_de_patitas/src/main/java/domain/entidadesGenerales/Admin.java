@@ -1,5 +1,9 @@
 package domain.entidadesGenerales;
 
+import domain.modulos.resizer.NivelCalidad;
+import domain.modulos.resizer.Resizer;
+import domain.modulos.resizer.TamanioImagen;
+
 public class Admin extends Usuario {
 
     private Repositorio repositorio;
@@ -15,6 +19,14 @@ public class Admin extends Usuario {
 
     public void agregarCaracteristicaGeneral(CaracteristicaGeneral caracteristicaGeneral) {
         repositorio.agregarCaracteristica(caracteristicaGeneral);
+    }
+
+    public void modificarTamanioEstandarImagen(Resizer resizer, TamanioImagen tamanio){
+        resizer.setTamanio(tamanio);
+    }
+
+    public void modificarCalidadEstandarImagen(Resizer resizer, NivelCalidad calidad){
+        resizer.setCalidad(calidad);
     }
 
 }

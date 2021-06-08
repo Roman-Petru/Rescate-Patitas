@@ -3,7 +3,7 @@ package domain;
 
 import domain.modulos.resizer.NivelCalidad;
 import domain.modulos.resizer.Resizer;
-import domain.modulos.resizer.TamanioResize;
+import domain.modulos.resizer.TamanioImagen;
 import domain.modulos.resizer.adapter.ResizerGraphics2d;
 import org.junit.Test;
 
@@ -23,7 +23,7 @@ public class TestResizeTamanioNormalizado {
         ResizerGraphics2d resizerGraphics = new ResizerGraphics2d();
         Resizer resizer = new Resizer(resizerGraphics);
 
-        resizer.setTamanio(new TamanioResize(500,500));
+        resizer.setTamanio(new TamanioImagen(500,500));
         resizer.setCalidad(NivelCalidad.ALTA);
 
         String imagenEntrantePath = "src/main/resources/prueba.jpg";
