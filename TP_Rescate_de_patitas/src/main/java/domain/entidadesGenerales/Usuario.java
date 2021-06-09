@@ -1,7 +1,7 @@
 package domain.entidadesGenerales;
 
 import com.twilio.exception.ApiException;
-import domain.validacionesContrasenias.ValidadorDeContrasenia;
+import domain.validaciones.validacionesContrasenias.ValidadorDeContrasenia;
 
 import lombok.Getter;
 import lombok.Setter;

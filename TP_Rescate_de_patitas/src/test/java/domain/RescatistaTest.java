@@ -25,10 +25,20 @@ public class RescatistaTest {
         caracteristicasVistas.add("Amistoso");
         caracteristicasVistas.add("Manso");
 
-        DatosMascotaHogar datosMascota = new DatosMascotaHogar(animal,tamanio,caracteristicasVistas);
+        Ubicacion ubicacion = new Ubicacion();
+        ubicacion.setLatitud(-35.420619);
+        ubicacion.setLongitud(-59.572705);
+        ubicacion.setDireccion("Los Mimbres 100, B1648 DUB, Provincia de Buenos Aires");
 
         Rescatista rescatistaJuan = new Rescatista();
+        DatosMascotaHogar datosMascota = new DatosMascotaHogar(animal,tamanio,caracteristicasVistas);
         rescatistaJuan.setDatosMascota(datosMascota);
+        rescatistaJuan.setUbicacion(ubicacion);
+        rescatistaJuan.setRadioDeCercaniaEnKm(150);
+
+        Persona datosPersona = new Persona("Juan", "Perez", "35845454", "996558874", ubicacion);
+        datosPersona.setRescatista(rescatistaJuan);
+
         List<HogarDeTransito> hogares = rescatistaJuan.buscarHogares(datosMascota);
 
         Assert.assertTrue(hogares.size() > 0);

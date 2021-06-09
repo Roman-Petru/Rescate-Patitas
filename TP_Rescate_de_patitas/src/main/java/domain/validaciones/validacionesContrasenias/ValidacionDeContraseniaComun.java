@@ -1,8 +1,8 @@
-package domain.validacionesContrasenias;
+package domain.validaciones.validacionesContrasenias;
 
-import domain.validacionesContrasenias.excepciones.AperturaArchivoExcepcion;
-import domain.validacionesContrasenias.excepciones.ContraseniaComunExcepcion;
-import domain.validacionesContrasenias.excepciones.EntradaSalidaDeArchivoExcepcion;
+import domain.validaciones.validacionesContrasenias.excepciones.AperturaArchivoExcepcion;
+import domain.validaciones.validacionesContrasenias.excepciones.ContraseniaComunExcepcion;
+import domain.validaciones.validacionesContrasenias.excepciones.EntradaSalidaDeArchivoExcepcion;
 
 import java.io.*;
 import java.util.ArrayList;

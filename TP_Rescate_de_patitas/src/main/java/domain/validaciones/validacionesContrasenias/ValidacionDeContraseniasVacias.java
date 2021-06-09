@@ -1,6 +1,6 @@
-package domain.validacionesContrasenias;
+package domain.validaciones.validacionesContrasenias;
 
-import domain.validacionesContrasenias.excepciones.ContraseniaVaciaException;
+import domain.validaciones.validacionesContrasenias.excepciones.ContraseniaVaciaException;
 
 public class ValidacionDeContraseniasVacias implements Validacion{
 

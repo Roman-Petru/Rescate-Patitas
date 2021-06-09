@@ -1,9 +1,6 @@
 package domain;
 
-import domain.entidadesGenerales.CaracteristicaGeneral;
-import domain.entidadesGenerales.CaracteristicaPersonalizada;
-import domain.entidadesGenerales.Mascota;
-import domain.entidadesGenerales.Persona;
+import domain.entidadesGenerales.*;
 import domain.repositorios.Repositorio;
 import org.junit.Test;
 
@@ -15,7 +12,12 @@ public class TestAgregarMascota {
     @Test
     public void testAgregarMascota_agregaDosMascotas(){
 
-        Persona jorge = new Persona("Jorge","Pe", "3535",53535,"askdasd");
+        Ubicacion ubicacion = new Ubicacion();
+        ubicacion.setDireccion("Los hornos 4599, Buenos Aires");
+        ubicacion.setLatitud(-35.814884);
+        ubicacion.setLongitud(58.66555);
+
+        Persona jorge = new Persona("Jorge","Pe", "3535","53535",ubicacion);
 
         Mascota firulais = new Mascota("FIrulais","Firu",3);
         Mascota pelusa = new Mascota("Pelusa","Pelu",5);
@@ -33,7 +35,12 @@ public class TestAgregarMascota {
         Repositorio repositorio = Repositorio.getInstancia();
         repositorio.agregarCaracteristica(new CaracteristicaGeneral("color"));
 
-        Persona jorge = new Persona("Jorge","Pe", "3535",53535,"askdasd");
+        Ubicacion ubicacion = new Ubicacion();
+        ubicacion.setDireccion("Los hornos 4599, Buenos Aires");
+        ubicacion.setLatitud(-35.814884);
+        ubicacion.setLongitud(58.66555);
+
+        Persona jorge = new Persona("Jorge","Pe", "3535","53535",ubicacion);
 
         CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada();
         CaracteristicaGeneral color = agregarCaracteristicaGeneral(repositorio);

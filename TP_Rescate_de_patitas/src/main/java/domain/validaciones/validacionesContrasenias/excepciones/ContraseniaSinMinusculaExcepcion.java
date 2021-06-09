@@ -1,4 +1,4 @@
-package domain.validacionesContrasenias.excepciones;
+package domain.validaciones.validacionesContrasenias.excepciones;
 
 public class ContraseniaSinMinusculaExcepcion extends RuntimeException {
 }

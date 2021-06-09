@@ -1,4 +1,4 @@
-package domain.validacionesContrasenias.excepciones;
+package domain.validaciones.validacionesContrasenias.excepciones;
 
 public class AperturaArchivoExcepcion extends RuntimeException {
     public AperturaArchivoExcepcion(String msj, Throwable cause){

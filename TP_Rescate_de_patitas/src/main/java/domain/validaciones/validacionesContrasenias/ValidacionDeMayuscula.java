@@ -1,6 +1,6 @@
-package domain.validacionesContrasenias;
+package domain.validaciones.validacionesContrasenias;
 
-import domain.validacionesContrasenias.excepciones.ContraseniaSinMayusculaExcepcion;
+import domain.validaciones.validacionesContrasenias.excepciones.ContraseniaSinMayusculaExcepcion;
 
 public class ValidacionDeMayuscula implements Validacion {
 

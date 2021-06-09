@@ -1,6 +1,6 @@
-package domain.validacionesContrasenias;
+package domain.validaciones.validacionesContrasenias;
 
-import domain.validacionesContrasenias.excepciones.ContraseniaSinNumeroExcepcion;
+import domain.validaciones.validacionesContrasenias.excepciones.ContraseniaSinNumeroExcepcion;
 
 public class ValidacionDeNumero implements Validacion {
 

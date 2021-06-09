@@ -1,8 +1,6 @@
-package domain.validacionesContrasenias;
+package domain.validaciones.validacionesContrasenias;
 
-import domain.validacionesContrasenias.excepciones.LongitudDeContraseniaBajaExcepcion;
-
-import java.util.Properties;
+import domain.validaciones.validacionesContrasenias.excepciones.LongitudDeContraseniaBajaExcepcion;
 
 public class ValidacionDeLongitud implements Validacion {
 

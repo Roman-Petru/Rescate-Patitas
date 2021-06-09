@@ -11,11 +11,11 @@ import lombok.Setter;
 
 @Getter @Setter
 public class Rescatista {
-    private Ubicacion ubicacion;
-    private Integer radioDeCercania;
+    private Integer radioDeCercaniaEnKm;
     private DatosMascotaHogar datosMascota;
     private FormularioMascota formulario;
     private Boolean encontroConChapita;
+    private Ubicacion ubicacion;
 
     private ServicioHogar servicioHogar;
     private Repositorio repositorio;
@@ -33,9 +33,8 @@ public class Rescatista {
 
     public List<HogarDeTransito> buscarHogares (DatosMascotaHogar datosMascota) throws IOException {
         HogarDeTransito hogarDeTransito = new HogarDeTransito();
-        return hogarDeTransito.obtenerHogaresDependiendoMascota(datosMascota);
+        return hogarDeTransito.obtenerHogaresDependiendoMascota(datosMascota, this);
     }
-
 
     private List<String> caracteristicasPedidasPorHogares(DatosMascotaHogar ... datosMascotas ){
         //TODO

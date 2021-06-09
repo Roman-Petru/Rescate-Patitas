@@ -8,18 +8,20 @@ public class Persona {
     private String nombre;
     private String apellido;
     private String documento;
-    private Integer numTramite;
-    private String direccion;
+    private String numTramite;
+    private Ubicacion ubicacion;
+
     private DuenioMascota duenio;
     private Rescatista rescatista;
+
     private List<Contacto> contactos;
 
-    public Persona(String nombre, String apellido, String documento, Integer numTramite, String direccion) {
+    public Persona(String nombre, String apellido, String documento, String numTramite, Ubicacion ubicacion) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.documento = documento;
         this.numTramite = numTramite;
-        this.direccion = direccion;
+        this.ubicacion = ubicacion;
     }
 
     public DuenioMascota getDuenio() {

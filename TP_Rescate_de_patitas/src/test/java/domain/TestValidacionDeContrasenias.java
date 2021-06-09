@@ -1,8 +1,8 @@
 package domain;
 
 
-import domain.validacionesContrasenias.*;
-import domain.validacionesContrasenias.excepciones.*;
+import domain.validaciones.validacionesContrasenias.*;
+import domain.validaciones.validacionesContrasenias.excepciones.*;
 import org.junit.Test;
 
 public class TestValidacionDeContrasenias {
