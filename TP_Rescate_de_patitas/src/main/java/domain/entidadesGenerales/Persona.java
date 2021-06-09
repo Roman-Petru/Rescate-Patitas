@@ -13,6 +13,7 @@ public class Persona {
 
     private DuenioMascota duenio;
     private Rescatista rescatista;
+    private Voluntario voluntario;
 
     private List<Contacto> contactos;
 

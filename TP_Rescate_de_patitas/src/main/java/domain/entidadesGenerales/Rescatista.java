@@ -45,4 +45,7 @@ public class Rescatista {
         //TODO
     }
 
+    private void informarMascotaEncontrada(Mascota mascota){
+        mascota.notificar();
+    }
 }
