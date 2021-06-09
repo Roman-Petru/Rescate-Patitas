@@ -4,6 +4,7 @@ import domain.enums.Animal;
 import domain.modulos.notificador.Notificador;
 import domain.modulos.notificador.NotificadorHelper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class Mascota {
         this.caracteristicas = new ArrayList<>();
     }
 
-    public void notificar(){
+    public void notificar() throws IOException {
         helper.enviarMensaje(contactos);
     }
 

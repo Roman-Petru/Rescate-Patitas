@@ -49,7 +49,7 @@ public class Rescatista {
         //TODO
     }
 
-    private void informarMascotaEncontrada(Mascota mascota){
+    private void informarMascotaEncontrada(Mascota mascota) throws IOException {
         mascota.notificar();
     }
 }

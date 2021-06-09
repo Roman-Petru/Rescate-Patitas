@@ -16,11 +16,6 @@ public class TwilioWhatsappAdapter implements WhatsappAdapter{
     @Override
     public void enviar(Mensajeable mensajeAEnviar) {
 
-        ProxiedTwilioClientCreator clientCreator = new ProxiedTwilioClientCreator(
-                ACCOUNT_SID, AUTH_TOKEN, "127.0.0.1", 8888);
-        TwilioRestClient twilioRestClient = clientCreator.getClient();
-        Twilio.setRestClient(twilioRestClient);
-
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message.creator(
                 new com.twilio.type.PhoneNumber("whatsapp:+5491150957589"),

@@ -5,11 +5,13 @@ import domain.modulos.notificador.mensaje.Mensaje;
 import domain.modulos.notificador.Notificador;
 import org.junit.Test;
 
+import java.io.IOException;
+
 
 public class TestEnvioDeMail {
 
     @Test
-    public void testEnvioMail(){
+    public void testEnvioMail() throws IOException {
 
         Mensaje unMensaje = new Mensaje("Testeando envio","ropetru@hotmail.com");
         unMensaje.setAsuntoMensaje("Test Asunto");

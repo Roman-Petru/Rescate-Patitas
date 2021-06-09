@@ -6,11 +6,13 @@ import domain.modulos.notificador.estrategias.EnvioViaWhatsapp;
 import domain.modulos.notificador.mensaje.Mensaje;
 import org.junit.Test;
 
+import java.io.IOException;
+
 
 public class TestEnvioDeSMS {
 
     @Test
-    public void testEnvioSMS(){
+    public void testEnvioSMS() throws IOException {
 
         Mensaje unMensaje = new Mensaje("Hola! Te hablamos desde Rescate de Patitas. Encontramos a tu mascota!",
                 "541150957589");
