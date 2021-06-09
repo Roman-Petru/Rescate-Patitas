@@ -1,4 +1,5 @@
 package domain.modulos.notificador.estrategias;
+import domain.entidadesGenerales.Contacto;
 import domain.modulos.notificador.adapters.Whatsapp.Vonage.VonageWhatsappAdapter;
 import domain.modulos.notificador.adapters.Whatsapp.WhatsappAdapter;
 import domain.modulos.notificador.adapters.Whatsapp.TwilioWhatsappAdapter;
@@ -25,5 +26,10 @@ public class EnvioViaWhatsapp implements EstrategiaNotificacion {
     @Override
     public void enviar(Mensajeable mensajeAEnviar) throws IOException {
         adapter.enviar(mensajeAEnviar);
+    }
+
+    @Override
+    public String obtenerDestinatario(Contacto contacto) {
+        return contacto.getTelefono();
     }
 }

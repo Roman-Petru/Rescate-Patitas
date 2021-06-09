@@ -1,17 +1,16 @@
 package domain.entidadesGenerales.personas;
 
-import domain.entidadesGenerales.*;
+import domain.entidadesGenerales.Ubicacion;
 import domain.entidadesGenerales.hogares.DatosMascotaHogar;
 import domain.entidadesGenerales.hogares.FormularioMascota;
 import domain.entidadesGenerales.hogares.HogarDeTransito;
 import domain.repositorios.Repositorio;
 import domain.servicios.hogares.ServicioHogar;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.util.List;
-
-import lombok.Getter;
-import lombok.Setter;
 
 @Getter @Setter
 public class Rescatista {
@@ -40,6 +39,10 @@ public class Rescatista {
         return hogarDeTransito.obtenerHogaresDependiendoMascota(datosMascota, this);
     }
 
+    public FormularioMascota getFormulario() {
+        return new FormularioMascota();
+    }
+
     private List<String> caracteristicasPedidasPorHogares(DatosMascotaHogar ... datosMascotas ){
         //TODO
         return null;
@@ -47,9 +50,5 @@ public class Rescatista {
 
     private void completarFormulario() {
         //TODO
-    }
-
-    private void informarMascotaEncontrada(Mascota mascota) throws IOException {
-        mascota.notificar();
     }
 }

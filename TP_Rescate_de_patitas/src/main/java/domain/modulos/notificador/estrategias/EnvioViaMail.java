@@ -1,5 +1,6 @@
 package domain.modulos.notificador.estrategias;
 
+import domain.entidadesGenerales.Contacto;
 import domain.modulos.notificador.mensaje.Mensajeable;
 import domain.modulos.notificador.adapters.Mail.JavaGMailAdapter;
 import domain.modulos.notificador.adapters.Mail.MailAdapter;
@@ -24,6 +25,11 @@ public class EnvioViaMail implements EstrategiaNotificacion {
     @Override
     public void enviar(Mensajeable mensajeAEnviar) {
         adapter.enviar(mensajeAEnviar);
+    }
+
+    @Override
+    public String obtenerDestinatario(Contacto contacto) {
+        return contacto.getEmail();
     }
 
     public void setAdapterParaEnvio(MailAdapter adapterParaEnvio) {

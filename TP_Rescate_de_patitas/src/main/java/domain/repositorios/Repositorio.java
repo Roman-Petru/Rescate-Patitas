@@ -1,5 +1,6 @@
 package domain.repositorios;
 
+import domain.entidadesGenerales.Mascota;
 import domain.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.entidadesGenerales.usuarios.Usuario;
 
@@ -13,12 +14,14 @@ public class Repositorio {
     public static String TOKEN_HOGARES = "fXTsYJiY5N2lAluwQ7fBKAq67LVFouvFRw2MvS1jBrM2I9ATEaG5zhin2dpu";
     public static List<CaracteristicaGeneral> caracteristicaGenerales;
     public static List<Usuario> usuarios;
+    public static List<Mascota> mascotas;
 
     public static Repositorio getInstancia(){
         if (instancia == null){
             instancia = new Repositorio();
             caracteristicaGenerales = new ArrayList<>();
             usuarios = new ArrayList<>();
+            mascotas = new ArrayList<>();
         }
         return instancia;
     }
@@ -37,5 +40,13 @@ public class Repositorio {
 
     public static List<Usuario> getUsuarios() {
         return usuarios;
+    }
+
+    public Mascota obtenerMascota(String idMascota) {
+        return mascotas.stream().filter(mascota -> mascota.getId().equalsIgnoreCase(idMascota)).findAny().get();
+    }
+
+    public void agregarMascota(Mascota mascota) {
+        mascotas.add(mascota);
     }
 }

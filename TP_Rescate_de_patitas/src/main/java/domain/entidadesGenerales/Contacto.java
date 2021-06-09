@@ -1,9 +1,11 @@
 package domain.entidadesGenerales;
-import domain.modulos.notificador.estrategias.EstrategiaNotificacion;
-import java.util.List;
 
+import domain.modulos.notificador.estrategias.EstrategiaNotificacion;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 public class Contacto {
@@ -13,8 +15,14 @@ public class Contacto {
     private String email;
     private List<EstrategiaNotificacion> notificadores;
 
-    public Contacto(List<EstrategiaNotificacion> notificadores){
+    public Contacto(String nombre, String apellido, String telefono, String email, List<EstrategiaNotificacion> notificadores) {
+        if (notificadores.isEmpty()) {
+            this.notificadores = new ArrayList<>();
+        }
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+        this.email = email;
         this.notificadores = notificadores;
     }
-
 }

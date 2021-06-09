@@ -1,5 +1,6 @@
 package domain.entidadesGenerales;
 import domain.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
+import domain.entidadesGenerales.personas.Persona;
 import domain.enums.Animal;
 import domain.modulos.notificador.Notificador;
 import domain.modulos.notificador.NotificadorHelper;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @Getter @Setter
 public class Mascota {
 
+    private String id;
     private Animal tipo;
     private String nombre;
     private String apodo;
@@ -33,8 +35,8 @@ public class Mascota {
         this.caracteristicas = new ArrayList<>();
     }
 
-    public void notificar() throws IOException {
-        helper.enviarMensaje(contactos);
+    public void notificar(Persona persona) throws IOException {
+        helper.enviarMensaje(persona, contactos);
     }
 
     public void agregarCaracteristicaPersonalizada(CaracteristicaPersonalizada caracteristicaPersonalizada) {
