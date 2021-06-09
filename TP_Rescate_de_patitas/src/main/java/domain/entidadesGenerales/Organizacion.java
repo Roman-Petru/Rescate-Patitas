@@ -1,4 +1,5 @@
 package domain.entidadesGenerales;
+import domain.entidadesGenerales.personas.Persona;
 import lombok.Getter;
 import lombok.Setter;
 

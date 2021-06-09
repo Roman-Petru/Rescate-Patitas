@@ -1,6 +1,9 @@
 package domain;
 
 import domain.entidadesGenerales.*;
+import domain.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
+import domain.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
+import domain.entidadesGenerales.personas.Persona;
 import domain.repositorios.Repositorio;
 import org.junit.Test;
 

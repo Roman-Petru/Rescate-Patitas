@@ -1,8 +1,8 @@
 package domain.validaciones.validacionesHogarDeTransito;
 
-import domain.entidadesGenerales.DatosMascotaHogar;
-import domain.entidadesGenerales.HogarDeTransito;
-import domain.entidadesGenerales.Rescatista;
+import domain.entidadesGenerales.hogares.DatosMascotaHogar;
+import domain.entidadesGenerales.hogares.HogarDeTransito;
+import domain.entidadesGenerales.personas.Rescatista;
 
 public class ValidacionCercaniaRescatista implements ValidacionHogar {
 
@@ -12,7 +12,7 @@ public class ValidacionCercaniaRescatista implements ValidacionHogar {
                                                                 hogar.getUbicacion().getLongitud(),
                                                                 rescatista.getUbicacion().getLatitud(),
                                                                 rescatista.getUbicacion().getLongitud());
-        return distanciaEnKM <= rescatista.getRadioDeCercaniaEnKm();
+        return (distanciaEnKM != null) ? distanciaEnKM <= rescatista.getRadioDeCercaniaEnKm() : false;
     }
 
     private Double distanciaEntreDosUbicacionesEnKM(Double latitudUno, Double longitudUno, Double latitudDos, Double longitudDos) {

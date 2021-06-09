@@ -1,9 +1,11 @@
-package domain.entidadesGenerales;
+package domain.entidadesGenerales.hogares;
 
+import domain.entidadesGenerales.Ubicacion;
+import domain.entidadesGenerales.personas.Rescatista;
 import domain.enums.Animal;
-import domain.enums.TamanioAnimal;
 import domain.repositorios.Repositorio;
 import domain.servicios.hogares.ServicioHogar;
+import domain.servicios.hogares.entities.ListadoDeHogares;
 import domain.validaciones.validacionesHogarDeTransito.ValidadorHogarDeTransito;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,9 +45,16 @@ public class HogarDeTransito {
     }
 
     public List<HogarDeTransito> obtenerTodosLosHogaresDisponibles() throws IOException {
+
+        //Obtengo la cantidad de registros total que tiene la API
         int offset = 1;
+        ListadoDeHogares cantDeHogares = servicioHogar.listadoDeHogares(offset,Repositorio.TOKEN_HOGARES);
+
+        double iteraciones = Math.ceil((double) cantDeHogares.total /10);
+
+        //guardo en una sola lista el total de hogares
         List<HogarDeTransito> listaHogares = new ArrayList<>();
-        for(int i = offset; i < 5; i++){
+        for(int i = offset; i < iteraciones + 1; i++){
             List<HogarDeTransito> lista_h = servicioHogar.obtenerHogares(i, Repositorio.TOKEN_HOGARES);
             listaHogares.addAll(lista_h);
         }

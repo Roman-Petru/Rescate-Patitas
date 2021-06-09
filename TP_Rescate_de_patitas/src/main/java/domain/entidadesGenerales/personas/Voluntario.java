@@ -1,5 +1,6 @@
-package domain.entidadesGenerales;
+package domain.entidadesGenerales.personas;
 
+import domain.entidadesGenerales.Publicacion;
 import domain.enums.EstadoPublicacion;
 
 public class Voluntario {

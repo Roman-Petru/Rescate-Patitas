@@ -1,7 +1,7 @@
 package domain.servicios.hogares;
 
 import com.google.gson.JsonObject;
-import domain.entidadesGenerales.HogarDeTransito;
+import domain.entidadesGenerales.hogares.HogarDeTransito;
 import domain.servicios.hogares.entities.BearerToken_Molde;
 import domain.servicios.hogares.entities.ListadoDeHogares;
 import retrofit2.Call;

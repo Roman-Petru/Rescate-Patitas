@@ -1,6 +1,6 @@
 package domain;
 
-import domain.entidadesGenerales.Admin;
+import domain.entidadesGenerales.usuarios.Admin;
 import domain.repositorios.Repositorio;
 import org.junit.Test;
 

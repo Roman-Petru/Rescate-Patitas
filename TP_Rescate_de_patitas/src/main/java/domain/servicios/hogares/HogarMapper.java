@@ -1,6 +1,7 @@
 package domain.servicios.hogares;
 
 import domain.entidadesGenerales.*;
+import domain.entidadesGenerales.hogares.HogarDeTransito;
 import domain.enums.Animal;
 import domain.servicios.hogares.entities.Hogar_Molde;
 

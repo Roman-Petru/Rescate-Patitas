@@ -1,7 +1,7 @@
 package domain;
 
-import domain.entidadesGenerales.Admin;
-import domain.entidadesGenerales.CaracteristicaGeneral;
+import domain.entidadesGenerales.usuarios.Admin;
+import domain.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.repositorios.Repositorio;
 import org.junit.Test;
 

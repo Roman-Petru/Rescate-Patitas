@@ -1,4 +1,4 @@
-package domain.entidadesGenerales;
+package domain.entidadesGenerales.hogares;
 
 import domain.enums.Animal;
 import domain.enums.TamanioAnimal;

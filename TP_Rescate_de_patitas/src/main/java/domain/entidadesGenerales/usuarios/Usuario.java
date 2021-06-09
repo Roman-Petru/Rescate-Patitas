@@ -1,4 +1,4 @@
-package domain.entidadesGenerales;
+package domain.entidadesGenerales.usuarios;
 
 import com.twilio.exception.ApiException;
 import domain.validaciones.validacionesContrasenias.ValidadorDeContrasenia;

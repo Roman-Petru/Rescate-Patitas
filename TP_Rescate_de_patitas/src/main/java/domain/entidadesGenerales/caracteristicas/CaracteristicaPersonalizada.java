@@ -1,4 +1,5 @@
-package domain.entidadesGenerales;
+package domain.entidadesGenerales.caracteristicas;
+import domain.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import lombok.Getter;
 import lombok.Setter;
 

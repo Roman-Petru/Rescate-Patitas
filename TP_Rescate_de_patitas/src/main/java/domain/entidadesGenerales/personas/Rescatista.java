@@ -1,5 +1,9 @@
-package domain.entidadesGenerales;
+package domain.entidadesGenerales.personas;
 
+import domain.entidadesGenerales.*;
+import domain.entidadesGenerales.hogares.DatosMascotaHogar;
+import domain.entidadesGenerales.hogares.FormularioMascota;
+import domain.entidadesGenerales.hogares.HogarDeTransito;
 import domain.repositorios.Repositorio;
 import domain.servicios.hogares.ServicioHogar;
 

@@ -1,7 +1,7 @@
 package domain.repositorios;
 
-import domain.entidadesGenerales.CaracteristicaGeneral;
-import domain.entidadesGenerales.Usuario;
+import domain.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
+import domain.entidadesGenerales.usuarios.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;

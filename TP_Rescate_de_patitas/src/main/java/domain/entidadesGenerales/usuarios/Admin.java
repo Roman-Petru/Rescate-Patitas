@@ -1,5 +1,6 @@
-package domain.entidadesGenerales;
+package domain.entidadesGenerales.usuarios;
 
+import domain.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.modulos.resizer.NivelCalidad;
 import domain.modulos.resizer.Resizer;
 import domain.modulos.resizer.TamanioImagen;

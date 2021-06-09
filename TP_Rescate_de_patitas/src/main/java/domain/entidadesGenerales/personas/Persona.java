@@ -1,5 +1,8 @@
-package domain.entidadesGenerales;
+package domain.entidadesGenerales.personas;
 import java.util.List;
+
+import domain.entidadesGenerales.Contacto;
+import domain.entidadesGenerales.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
 

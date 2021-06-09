@@ -1,6 +1,10 @@
 package domain;
 
 import domain.entidadesGenerales.*;
+import domain.entidadesGenerales.hogares.DatosMascotaHogar;
+import domain.entidadesGenerales.hogares.HogarDeTransito;
+import domain.entidadesGenerales.personas.Persona;
+import domain.entidadesGenerales.personas.Rescatista;
 import domain.enums.Animal;
 import domain.enums.TamanioAnimal;
 import org.junit.Assert;

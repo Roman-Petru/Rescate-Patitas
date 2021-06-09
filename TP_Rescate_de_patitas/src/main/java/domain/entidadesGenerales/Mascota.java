@@ -1,4 +1,5 @@
 package domain.entidadesGenerales;
+import domain.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.enums.Animal;
 import domain.modulos.notificador.Notificador;
 import domain.modulos.notificador.NotificadorHelper;
