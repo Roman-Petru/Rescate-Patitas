@@ -2,7 +2,7 @@ package domain.modulos.notificador;
 
 import com.google.gson.Gson;
 import domain.entidadesGenerales.Contacto;
-import domain.entidadesGenerales.hogares.FormularioMascota;
+import domain.entidadesGenerales.FormularioMascota;
 import domain.entidadesGenerales.personas.Persona;
 import domain.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.modulos.notificador.mensaje.Mensaje;

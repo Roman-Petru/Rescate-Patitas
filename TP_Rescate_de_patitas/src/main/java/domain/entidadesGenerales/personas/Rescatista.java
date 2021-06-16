@@ -2,7 +2,7 @@ package domain.entidadesGenerales.personas;
 
 import domain.entidadesGenerales.Ubicacion;
 import domain.entidadesGenerales.hogares.DatosMascotaHogar;
-import domain.entidadesGenerales.hogares.FormularioMascota;
+import domain.entidadesGenerales.FormularioMascota;
 import domain.entidadesGenerales.hogares.HogarDeTransito;
 import domain.repositorios.Repositorio;
 import domain.servicios.hogares.ServicioHogar;
@@ -39,9 +39,6 @@ public class Rescatista {
         return hogarDeTransito.obtenerHogaresDependiendoMascota(datosMascota, this);
     }
 
-    public FormularioMascota getFormulario() {
-        return new FormularioMascota();
-    }
 
     private List<String> caracteristicasPedidasPorHogares(DatosMascotaHogar ... datosMascotas ){
         //TODO

@@ -4,7 +4,7 @@ import domain.entidadesGenerales.Contacto;
 import domain.entidadesGenerales.Mascota;
 import domain.entidadesGenerales.Ubicacion;
 import domain.entidadesGenerales.hogares.DatosMascotaHogar;
-import domain.entidadesGenerales.hogares.FormularioMascota;
+import domain.entidadesGenerales.FormularioMascota;
 import domain.entidadesGenerales.hogares.HogarDeTransito;
 import domain.entidadesGenerales.personas.Persona;
 import domain.entidadesGenerales.personas.Rescatista;
@@ -61,9 +61,9 @@ public class RescatistaTest {
 
         EnvioViaMail envioViaMail = EnvioViaMail.instancia();
         EnvioViaWhatsapp envioViaWhatsapp = EnvioViaWhatsapp.instancia();
-        List<EstrategiaNotificacion> estrategiasNotificacion = Arrays.asList(envioViaMail, envioViaMail, envioViaWhatsapp);
+        List<EstrategiaNotificacion> estrategiasNotificacion = Arrays.asList(envioViaMail, envioViaMail);
 
-        Contacto contacto = new Contacto("Carmen","Villalta", "5491150957589", "ropetru@hotmail.com", estrategiasNotificacion);
+        Contacto contacto = new Contacto("Carmen","Villalta", "123123", "ropetru@hotmail.com", estrategiasNotificacion);
 
         Persona juanDuenio = new Persona("Juan", "Perez", "35845454", "996558874", ubicacion);
         Mascota firulais = new Mascota("FIrulais","Firu",3);
@@ -73,9 +73,7 @@ public class RescatistaTest {
 
         Persona juliRescatista = new Persona("Juli", "Perez", "35845454", "996558874", ubicacion);
 
-        FormularioMascota formularioMascota = new FormularioMascota();
-        formularioMascota.setEstadoMascota("asustada");
-        formularioMascota.setDatos(juliRescatista);
+        FormularioMascota formularioMascota = new FormularioMascota(juliRescatista, "path imagen", "asustada", ubicacion);
 
         juliRescatista.getRescatista().setFormulario(formularioMascota);
 

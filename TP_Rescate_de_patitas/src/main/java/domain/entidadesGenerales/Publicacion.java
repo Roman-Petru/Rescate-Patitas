@@ -1,6 +1,5 @@
 package domain.entidadesGenerales;
 
-import domain.entidadesGenerales.hogares.FormularioMascota;
 import domain.enums.EstadoPublicacion;
 import lombok.Getter;
 import lombok.Setter;

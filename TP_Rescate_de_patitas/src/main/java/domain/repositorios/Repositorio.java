@@ -1,6 +1,7 @@
 package domain.repositorios;
 
 import domain.entidadesGenerales.Mascota;
+import domain.entidadesGenerales.Organizacion;
 import domain.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.entidadesGenerales.usuarios.Usuario;
 
@@ -15,6 +16,7 @@ public class Repositorio {
     public static List<CaracteristicaGeneral> caracteristicaGenerales;
     public static List<Usuario> usuarios;
     public static List<Mascota> mascotas;
+    public static List<Organizacion> organizaciones;
 
     public static Repositorio getInstancia(){
         if (instancia == null){
@@ -22,6 +24,7 @@ public class Repositorio {
             caracteristicaGenerales = new ArrayList<>();
             usuarios = new ArrayList<>();
             mascotas = new ArrayList<>();
+            organizaciones = new ArrayList<>();
         }
         return instancia;
     }
@@ -42,11 +45,18 @@ public class Repositorio {
         return usuarios;
     }
 
+    public List<Organizacion> getOrganizaciones() {
+        return organizaciones;
+    }
+
     public Mascota obtenerMascota(String idMascota) {
         return mascotas.stream().filter(mascota -> mascota.getId().equalsIgnoreCase(idMascota)).findAny().get();
     }
 
     public void agregarMascota(Mascota mascota) {
         mascotas.add(mascota);
+    }
+
+    public void agregarOrganizacion(Organizacion organizacion) { organizaciones.add(organizacion);
     }
 }
