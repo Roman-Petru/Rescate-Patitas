@@ -73,7 +73,7 @@ public class RescatistaTest {
 
         Persona juliRescatista = new Persona("Juli", "Perez", "35845454", "996558874", ubicacion);
 
-        FormularioMascota formularioMascota = new FormularioMascota(juliRescatista, "path imagen", "asustada", ubicacion);
+        FormularioMascota formularioMascota = new FormularioMascota(juliRescatista, "path imagen", "asustada", ubicacion, true);
 
         juliRescatista.getRescatista().setFormulario(formularioMascota);
 

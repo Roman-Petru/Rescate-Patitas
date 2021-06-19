@@ -33,7 +33,7 @@ public class TestNuevosFormulariosMascota{
         Organizacion organizacion2 = new Organizacion("org2", ubicacion2);
 
         Persona jorge = new Persona("Jorge","Pe", "3535","53535",ubicacion);
-        FormularioMascota formularioMascota = new FormularioMascota(jorge, "imagen path", "a pleno",ubicacion3);
+        FormularioMascota formularioMascota = new FormularioMascota(jorge, "imagen path", "a pleno",ubicacion3, false);
 
         assertThat(organizacion2.getFormulariosPendientes().size(), is(1));
         assertThat(organizacion1.getFormulariosPendientes().size(), is(0));

@@ -11,15 +11,16 @@ public class FormularioMascota {
     private String imagen;
     private String estadoMascota;
     private Ubicacion lugarEncontrado;
-    //private Repositorio repositorio;
+    private boolean tieneChapita;
 
-    public FormularioMascota(Persona personaQueRescato, String imagen, String estadoMascota, Ubicacion lugarEncontrado) {
+    public FormularioMascota(Persona personaQueRescato, String imagen, String estadoMascota, Ubicacion lugarEncontrado, boolean tieneChapita) {
         this.personaQueRescato = personaQueRescato;
         this.imagen = imagen;
         this.estadoMascota = estadoMascota;
         this.lugarEncontrado = lugarEncontrado;
+        this.tieneChapita = tieneChapita;
 
-        PasarFormularioAOrganizacion();
+        if (!tieneChapita) PasarFormularioAOrganizacion();
     }
 
     public void PasarFormularioAOrganizacion(){
