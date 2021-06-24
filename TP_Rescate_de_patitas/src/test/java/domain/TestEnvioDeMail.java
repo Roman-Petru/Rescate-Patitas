@@ -1,8 +1,8 @@
 package domain;
 
-import domain.modulos.notificador.estrategias.EnvioViaMail;
-import domain.modulos.notificador.mensaje.Mensaje;
-import domain.modulos.notificador.Notificador;
+import domain.models.entities.modulos.notificador.estrategias.EnvioViaMail;
+import domain.models.entities.modulos.notificador.mensaje.Mensaje;
+import domain.models.entities.modulos.notificador.Notificador;
 import org.junit.Test;
 
 import java.io.IOException;

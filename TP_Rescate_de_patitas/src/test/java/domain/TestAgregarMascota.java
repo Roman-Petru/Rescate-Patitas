@@ -1,10 +1,10 @@
 package domain;
 
-import domain.entidadesGenerales.*;
-import domain.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
-import domain.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
-import domain.entidadesGenerales.personas.Persona;
-import domain.repositorios.Repositorio;
+import domain.models.entities.entidadesGenerales.*;
+import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
+import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
+import domain.models.entities.entidadesGenerales.personas.Persona;
+import domain.models.repositories.Repositorio;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

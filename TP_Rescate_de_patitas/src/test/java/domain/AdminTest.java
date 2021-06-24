@@ -1,7 +1,7 @@
 package domain;
 
-import domain.entidadesGenerales.usuarios.Admin;
-import domain.repositorios.Repositorio;
+import domain.models.entities.entidadesGenerales.usuarios.Admin;
+import domain.models.repositories.Repositorio;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

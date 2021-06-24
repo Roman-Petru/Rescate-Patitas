@@ -1,18 +1,18 @@
 package domain;
 
-import domain.entidadesGenerales.Contacto;
-import domain.entidadesGenerales.Mascota;
-import domain.entidadesGenerales.Ubicacion;
-import domain.entidadesGenerales.hogares.DatosMascotaHogar;
-import domain.entidadesGenerales.FormularioMascota;
-import domain.entidadesGenerales.hogares.HogarDeTransito;
-import domain.entidadesGenerales.personas.Persona;
-import domain.entidadesGenerales.personas.Rescatista;
-import domain.enums.Animal;
-import domain.enums.TamanioAnimal;
-import domain.modulos.notificador.estrategias.EnvioViaMail;
-import domain.modulos.notificador.estrategias.EnvioViaWhatsapp;
-import domain.modulos.notificador.estrategias.EstrategiaNotificacion;
+import domain.models.entities.entidadesGenerales.Contacto;
+import domain.models.entities.entidadesGenerales.Mascota;
+import domain.models.entities.entidadesGenerales.Ubicacion;
+import domain.models.entities.entidadesGenerales.hogares.DatosMascotaHogar;
+import domain.models.entities.entidadesGenerales.FormularioMascota;
+import domain.models.entities.entidadesGenerales.hogares.HogarDeTransito;
+import domain.models.entities.entidadesGenerales.personas.Persona;
+import domain.models.entities.entidadesGenerales.personas.Rescatista;
+import domain.models.entities.enums.Animal;
+import domain.models.entities.enums.TamanioAnimal;
+import domain.models.entities.modulos.notificador.estrategias.EnvioViaMail;
+import domain.models.entities.modulos.notificador.estrategias.EnvioViaWhatsapp;
+import domain.models.entities.modulos.notificador.estrategias.EstrategiaNotificacion;
 import org.junit.Assert;
 import org.junit.Test;
 

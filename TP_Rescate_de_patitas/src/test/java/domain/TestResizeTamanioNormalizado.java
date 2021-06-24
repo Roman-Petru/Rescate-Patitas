@@ -1,10 +1,10 @@
 package domain;
 
 
-import domain.modulos.resizer.NivelCalidad;
-import domain.modulos.resizer.Resizer;
-import domain.modulos.resizer.TamanioImagen;
-import domain.modulos.resizer.adapter.ResizerGraphics2d;
+import domain.models.entities.modulos.resizer.NivelCalidad;
+import domain.models.entities.modulos.resizer.Resizer;
+import domain.models.entities.modulos.resizer.TamanioImagen;
+import domain.models.entities.modulos.resizer.adapter.ResizerGraphics2d;
 import org.junit.Test;
 
 

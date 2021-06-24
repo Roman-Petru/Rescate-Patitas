@@ -1,9 +1,9 @@
 package domain;
 
-import domain.entidadesGenerales.FormularioMascota;
-import domain.entidadesGenerales.Organizacion;
-import domain.entidadesGenerales.Ubicacion;
-import domain.entidadesGenerales.personas.Persona;
+import domain.models.entities.entidadesGenerales.FormularioMascota;
+import domain.models.entities.entidadesGenerales.Organizacion;
+import domain.models.entities.entidadesGenerales.Ubicacion;
+import domain.models.entities.entidadesGenerales.personas.Persona;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
