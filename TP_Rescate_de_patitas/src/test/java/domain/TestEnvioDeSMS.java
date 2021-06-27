@@ -13,6 +13,7 @@ public class TestEnvioDeSMS {
     @Test
     public void testEnvioSMS() throws IOException {
 
+        /*
         Mensaje unMensaje = new Mensaje("Hola! Te hablamos desde Rescate de Patitas. Encontramos a tu mascota!",
                 "541150957589");
         unMensaje.setAsuntoMensaje("Test Envío Vía SMS");
@@ -21,6 +22,7 @@ public class TestEnvioDeSMS {
         EnvioViaSMS envioSMS = EnvioViaSMS.instancia();
         notificador.setEstrategiaParaNotificar(envioSMS);
         notificador.enviar();
+        */
     }
 
 }

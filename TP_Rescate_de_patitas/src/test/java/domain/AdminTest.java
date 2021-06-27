@@ -1,7 +1,9 @@
 package domain;
 
+import domain.controllers.UsuarioController;
 import domain.models.entities.entidadesGenerales.usuarios.Admin;
 import domain.models.repositories.Repositorio;
+import domain.models.repositories.RepositorioUsuarios;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -11,13 +13,16 @@ public class AdminTest {
 
     @Test
     public void agregarAdmin_adminCarlosAgregaAAdminPepe() {
-        Repositorio repositorio = Repositorio.getInstancia();
+        RepositorioUsuarios repositorio = RepositorioUsuarios.getInstancia();
+        UsuarioController usuarioController = new UsuarioController();
+
         Admin adminCarlos = new Admin("admin_carlos", "passwordParaProbar123_");
-        Admin adminPepe = new Admin("admin_pepe", "passwordParaProbar1234_");
-
         repositorio.agregarUsuario(adminCarlos);
-        adminCarlos.agregarAdmin(adminPepe);
 
-        assertThat(Repositorio.getUsuarios().size(), is(2));
+        Admin adminPepe = new Admin("admin_pepe", "passwordParaProbar1234_");
+        usuarioController.agregarAdmin(adminPepe);
+
+
+        assertThat(repositorio.getUsuarios().size(), is(2));
     }
 }

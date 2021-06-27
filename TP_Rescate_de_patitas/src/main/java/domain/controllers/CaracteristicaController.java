@@ -1,6 +1,5 @@
 package domain.controllers;
 
-import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.repositories.RepositorioCaracteristicas;
 import java.util.List;
@@ -10,7 +9,7 @@ public class CaracteristicaController {
     private static CaracteristicaController instancia = null;
     private static RepositorioCaracteristicas repositorio;
 
-    private CaracteristicaController() {this.repositorio = new RepositorioCaracteristicas();}
+    public CaracteristicaController() {this.repositorio = new RepositorioCaracteristicas();}
 
     public static CaracteristicaController getInstancia(){
         if (instancia == null){

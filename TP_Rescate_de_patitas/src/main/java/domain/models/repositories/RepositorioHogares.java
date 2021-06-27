@@ -1,24 +1,25 @@
 package domain.models.repositories;
-
-import domain.models.entities.entidadesGenerales.Persistente;
+import domain.models.entities.entidadesGenerales.hogares.HogarDeTransito;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class RepositorioGenerico <T extends Persistente> {
+public class RepositorioHogares {
 
-    private List<T> coleccionDeElementos;
+    public static String TOKEN_HOGARES = "fXTsYJiY5N2lAluwQ7fBKAq67LVFouvFRw2MvS1jBrM2I9ATEaG5zhin2dpu";
 
-    protected RepositorioGenerico() {
+    private List<HogarDeTransito> coleccionDeElementos;
+
+    public RepositorioHogares() {
         this.coleccionDeElementos = new ArrayList<>();
     }
 
-    public List<T> buscarTodos() {
+    public List<HogarDeTransito> buscarTodos() {
         return this.coleccionDeElementos;
     }
 
-    public Optional<T> buscar(Integer id) {
+    public Optional<HogarDeTransito> buscar(String id) {
         //SELECT
         return this.coleccionDeElementos
                 .stream()
@@ -26,20 +27,19 @@ public abstract class RepositorioGenerico <T extends Persistente> {
                 .findFirst();
     }
 
-    public void agregar(T elemento) {
+    public void agregar(HogarDeTransito elemento) {
         //INSERT
         this.coleccionDeElementos.add(elemento);
     }
 
-    public void modificar(T elemento) {
+    public void modificar(HogarDeTransito elemento) {
         //UPDATE
         //TODO
     }
 
-    public void eliminar(T unElemento) {
+    public void eliminar(HogarDeTransito unElemento) {
         //DELETE
         this.coleccionDeElementos.remove(unElemento);
     }
+
 }
-
-

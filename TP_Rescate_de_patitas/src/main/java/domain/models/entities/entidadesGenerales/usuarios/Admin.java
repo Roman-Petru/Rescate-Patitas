@@ -8,19 +8,8 @@ import domain.models.repositories.Repositorio;
 
 public class Admin extends Usuario {
 
-    private Repositorio repositorio;
-
     public Admin(String usuario, String password){
         super(usuario, password);
-        this.repositorio = Repositorio.getInstancia();
-    }
-
-    public void agregarAdmin(Admin admin){
-        repositorio.agregarUsuario(admin);
-    }
-
-    public void agregarCaracteristicaGeneral(CaracteristicaGeneral caracteristicaGeneral) {
-        repositorio.agregarCaracteristica(caracteristicaGeneral);
     }
 
     public void modificarTamanioEstandarImagen(Resizer resizer, TamanioImagen tamanio){
@@ -30,5 +19,4 @@ public class Admin extends Usuario {
     public void modificarCalidadEstandarImagen(Resizer resizer, NivelCalidad calidad){
         resizer.setCalidad(calidad);
     }
-
 }

@@ -1,5 +1,6 @@
 package domain.models.entities.entidadesGenerales.personas;
 
+import domain.controllers.HogarController;
 import domain.models.entities.entidadesGenerales.Ubicacion;
 import domain.models.entities.entidadesGenerales.hogares.DatosMascotaHogar;
 import domain.models.entities.entidadesGenerales.FormularioMascota;
@@ -32,11 +33,6 @@ public class Rescatista {
         this.servicioHogar = ServicioHogar.getInstancia();
         this.repositorio = Repositorio.getInstancia();
         this.formulario = formulario;
-    }
-
-    public List<HogarDeTransito> buscarHogares (DatosMascotaHogar datosMascota) throws IOException {
-        HogarDeTransito hogarDeTransito = new HogarDeTransito();
-        return hogarDeTransito.obtenerHogaresDependiendoMascota(datosMascota, this);
     }
 
 

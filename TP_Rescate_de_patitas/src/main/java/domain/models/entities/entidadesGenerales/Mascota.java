@@ -12,7 +12,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
+@Getter @Setter
 public class Mascota extends Persistente {
 
     private Animal tipo;
@@ -39,6 +39,14 @@ public class Mascota extends Persistente {
         this.caracteristicas = caracteristicas;
     }
 
+    public Mascota(String nombre, String apodo, Integer edadAproximada) {
+        this.nombre = nombre;
+        this.apodo = apodo;
+        this.edadAproximada = edadAproximada;
+        this.caracteristicas = new ArrayList<>();
+        this.fotos = new ArrayList<>();
+    }
+
     public void notificar(Persona persona) throws IOException {
         helper.enviarMensaje(persona, contactos);
     }
@@ -48,17 +56,17 @@ public class Mascota extends Persistente {
     }
 
     public MascotaDTO toDTO() {
-        MascotaDTO dto           = new MascotaDTO();
-        dto.id                  = this.getId();
-        dto.nombre              = this.getNombre();
-        dto.apodo                = this.getApodo();
-        dto.tipo       = this.getTipo();
-        dto.edadAproximada                  = this.getEdadAproximada();
-        dto.esMacho              = this.getEsMacho();
-        dto.descripcionFisica                = this.getDescripcionFisica();
-        dto.fotos                  = this.getFotos();
-        dto.contactos              = this.getContactos();
-        dto.caracteristicas                = this.getCaracteristicas();
+        MascotaDTO dto = new MascotaDTO();
+        dto.id = this.getId();
+        dto.nombre = this.getNombre();
+        dto.apodo = this.getApodo();
+        dto.tipo = this.getTipo();
+        dto.edadAproximada = this.getEdadAproximada();
+        dto.esMacho = this.getEsMacho();
+        dto.descripcionFisica = this.getDescripcionFisica();
+        dto.fotos = this.getFotos();
+        dto.contactos = this.getContactos();
+        dto.caracteristicas = this.getCaracteristicas();
         return dto;
     }
     @Getter @Setter

@@ -50,7 +50,4 @@ public class MascotaController {
     public void eliminar(Integer id) {
         //TODO
     }
-
-
-
 }

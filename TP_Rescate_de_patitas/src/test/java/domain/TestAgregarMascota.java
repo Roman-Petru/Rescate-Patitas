@@ -5,6 +5,7 @@ import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaG
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.repositories.Repositorio;
+import domain.models.repositories.RepositorioCaracteristicas;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -35,7 +36,7 @@ public class TestAgregarMascota {
     @Test
     public void testAgregarMascota_agregarCaractisticasPersonalizadaColorMarron() {
 
-        Repositorio repositorio = Repositorio.getInstancia();
+        RepositorioCaracteristicas repositorio = RepositorioCaracteristicas.getInstancia();
         repositorio.agregarCaracteristica(new CaracteristicaGeneral("color"));
 
         Ubicacion ubicacion = new Ubicacion();
@@ -60,7 +61,7 @@ public class TestAgregarMascota {
         assertThat(jorge.getDuenio().getMascotas().get(0).getCaracteristicas().get(0).getValor(), is("marron"));
     }
 
-    private CaracteristicaGeneral agregarCaracteristicaGeneral(Repositorio repositorio) {
-        return Repositorio.getCaracteristicaGenerales().stream().filter(cg -> "color".equalsIgnoreCase(cg.getDescripcion())).findAny().get();
+    private CaracteristicaGeneral agregarCaracteristicaGeneral(RepositorioCaracteristicas repositorio) {
+        return repositorio.getCaracteristicaGenerales().stream().filter(cg -> "color".equalsIgnoreCase(cg.getDescripcion())).findAny().get();
     }
 }

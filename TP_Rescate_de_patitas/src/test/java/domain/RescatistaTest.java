@@ -1,5 +1,6 @@
 package domain;
 
+import domain.controllers.HogarController;
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.Ubicacion;
@@ -47,7 +48,8 @@ public class RescatistaTest {
         Persona datosPersona = new Persona("Juan", "Perez", "35845454", "996558874", ubicacion);
         datosPersona.setRescatista(rescatistaJuan);
 
-        List<HogarDeTransito> hogares = rescatistaJuan.buscarHogares(datosMascota);
+        HogarController hogarController = new HogarController();
+        List<HogarDeTransito> hogares = hogarController.obtenerHogaresDependiendoMascota(datosMascota,rescatistaJuan);
 
         Assert.assertTrue(hogares.size() > 0);
     }
@@ -67,7 +69,7 @@ public class RescatistaTest {
 
         Persona juanDuenio = new Persona("Juan", "Perez", "35845454", "996558874", ubicacion);
         Mascota firulais = new Mascota("FIrulais","Firu",3);
-        firulais.setId("1");
+        firulais.setId(1);
         firulais.setContactos(Arrays.asList(contacto));
         juanDuenio.getDuenio().agregarMascota(firulais);
 

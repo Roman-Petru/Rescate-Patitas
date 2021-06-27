@@ -24,7 +24,6 @@ public class Organizacion extends Persistente {
         this.publicaciones = new ArrayList<>();
         this.formulariosPendientes = new ArrayList<>();
         this.postulanteVoluntarios = new ArrayList<>();
-        Repositorio.getInstancia().agregarOrganizacion(this);
     }
 
     public void agregarFormulario(FormularioMascota formularioMascota) {
@@ -58,14 +57,14 @@ public class Organizacion extends Persistente {
     }
 
     public Organizacion.OrganizacionDTO toDTO() {
-        Organizacion.OrganizacionDTO dto           = new Organizacion.OrganizacionDTO();
-        dto.id                  = this.getId();
-        dto.nombre              = this.getNombre();
-        dto.ubicacion                = this.getUbicacion();
-        dto.voluntarios       = this.getVoluntarios();
-        dto.publicaciones                  = this.getPublicaciones();
-        dto.formulariosPendientes              = this.getFormulariosPendientes();
-        dto.postulanteVoluntarios              = this.getPostulanteVoluntarios();
+        Organizacion.OrganizacionDTO dto = new Organizacion.OrganizacionDTO();
+        dto.id = this.getId();
+        dto.nombre = this.getNombre();
+        dto.ubicacion = this.getUbicacion();
+        dto.voluntarios = this.getVoluntarios();
+        dto.publicaciones = this.getPublicaciones();
+        dto.formulariosPendientes = this.getFormulariosPendientes();
+        dto.postulanteVoluntarios = this.getPostulanteVoluntarios();
         return dto;
     }
 
