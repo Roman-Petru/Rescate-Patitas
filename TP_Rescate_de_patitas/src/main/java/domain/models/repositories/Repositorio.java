@@ -49,9 +49,9 @@ public class Repositorio {
         return organizaciones;
     }
 
-    public Mascota obtenerMascota(String idMascota) {
-        return mascotas.stream().filter(mascota -> mascota.getId().equalsIgnoreCase(idMascota)).findAny().get();
-    }
+   // public Mascota obtenerMascota(String idMascota) {
+  //      return mascotas.stream().filter(mascota -> mascota.getId().equalsIgnoreCase(idMascota)).findAny().get();
+  //  }
 
     public void agregarMascota(Mascota mascota) {
         mascotas.add(mascota);

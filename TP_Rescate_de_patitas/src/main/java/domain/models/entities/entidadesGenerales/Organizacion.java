@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Getter @Setter
-public class Organizacion {
+public class Organizacion extends Persistente {
     private String nombre;
     private Ubicacion ubicacion;
     private List<Persona> voluntarios ;
@@ -30,17 +30,8 @@ public class Organizacion {
     public void agregarFormulario(FormularioMascota formularioMascota) {
         this.formulariosPendientes.add(formularioMascota);
     }
-
-    //revisar, esto deberia ir en controller, y que mas se puede gestionar de las publicaciones
-    public void aprobarFormulario(Persona voluntario, FormularioMascota formularioPendiente) throws Exception {
-
-        if (!voluntarios.contains(voluntario))
-            throw new Exception("La persona no es voluntaria en esta organizacion");
-
-        formulariosPendientes.remove(formularioPendiente);
-        Publicacion nuevaPublicacion = new Publicacion(formularioPendiente, false, new Date());
-        nuevaPublicacion.setEsVisible(true);
-        publicaciones.add(nuevaPublicacion);
+    public void agregarPublicacion(Publicacion publicacion) {
+        this.publicaciones.add(publicacion);
     }
 
     public void postularseVoluntario (Persona postulanteVoluntario){
@@ -55,5 +46,28 @@ public class Organizacion {
         postulanteVoluntarios.remove(voluntario);
         voluntarios.add(voluntario);
     }
+    @Getter @Setter
+    public class OrganizacionDTO {
+        private Integer id;
+        private String nombre;
+        private Ubicacion ubicacion;
+        private List<Persona> voluntarios ;
+        private List<Publicacion> publicaciones;
+        private List<FormularioMascota> formulariosPendientes;
+        private List<Persona> postulanteVoluntarios ;
+    }
+
+    public Organizacion.OrganizacionDTO toDTO() {
+        Organizacion.OrganizacionDTO dto           = new Organizacion.OrganizacionDTO();
+        dto.id                  = this.getId();
+        dto.nombre              = this.getNombre();
+        dto.ubicacion                = this.getUbicacion();
+        dto.voluntarios       = this.getVoluntarios();
+        dto.publicaciones                  = this.getPublicaciones();
+        dto.formulariosPendientes              = this.getFormulariosPendientes();
+        dto.postulanteVoluntarios              = this.getPostulanteVoluntarios();
+        return dto;
+    }
+
 }
 

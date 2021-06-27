@@ -1,27 +1,33 @@
 package domain.models.entities.modulos.notificador;
 
 import com.google.gson.Gson;
+import domain.controllers.OrganizacionController;
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.FormularioMascota;
 import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.entities.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.models.entities.modulos.notificador.mensaje.Mensaje;
+import domain.models.repositories.RepositorioOrganizaciones;
 
 import java.io.IOException;
 import java.util.List;
 
 public class NotificadorHelper {
 
-    private Notificador notificador;
 
-    public NotificadorHelper(Notificador notificador){
-        this.notificador = notificador;
-    }
+    private static NotificadorHelper instancia = null;
+
+    public static NotificadorHelper getInstancia(){
+        if (instancia == null){
+            instancia = new NotificadorHelper();
+        }
+        return instancia; }
 
     public void enviarMensaje(Persona persona, List<Contacto> contactos) throws IOException {
 
         for (Contacto contacto:contactos) {
           for(EstrategiaNotificacion estrategiaNotificacion: contacto.getNotificadores()){
+              Notificador notificador = new Notificador();
               notificador.setMensajeAEnviar(armarMensajeable(persona, contacto, estrategiaNotificacion));
               notificador.setEstrategiaParaNotificar(estrategiaNotificacion);
               notificador.enviar();

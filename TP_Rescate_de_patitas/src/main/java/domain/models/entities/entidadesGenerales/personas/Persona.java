@@ -54,9 +54,8 @@ public class Persona {
     }
 
     public void contactarConDuenio(String idMascota) throws IOException {
-        Mascota mascota = repositorio.obtenerMascota(idMascota);
-        mascota.notificar(this);
+       // Mascota mascota = repositorio.obtenerMascota(idMascota);
+       // mascota.notificar(this);
     }
-
 
 }

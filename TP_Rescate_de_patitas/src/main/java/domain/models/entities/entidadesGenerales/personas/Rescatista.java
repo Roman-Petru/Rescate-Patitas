@@ -45,7 +45,4 @@ public class Rescatista {
         return null;
     }
 
-    private void completarFormulario() {
-        //TODO
-    }
 }
