@@ -1,5 +1,7 @@
 package domain.models.repositories;
 
-public class RepositorioPersonas {
+import domain.models.entities.entidadesGenerales.personas.Persona;
+
+public class RepositorioPersonas extends RepositorioGenerico<Persona>{
 
 }
