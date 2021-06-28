@@ -8,22 +8,5 @@ import java.util.List;
 
 public class RepositorioOrganizaciones extends RepositorioGenerico<Organizacion>{
 
-
-    private static RepositorioOrganizaciones instancia = null;
     public static List<Organizacion> organizaciones;
-
-    public static RepositorioOrganizaciones getInstancia(){
-        if (instancia == null){
-            instancia = new RepositorioOrganizaciones();
-            organizaciones = new ArrayList<>();
-        }
-        return instancia;
-    }
-
-    public List<Organizacion> getOrganizaciones() {
-        return organizaciones;
-    }
-
-    public void agregarOrganizacion(Organizacion organizacion) { organizaciones.add(organizacion);}
-
 }

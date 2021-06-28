@@ -28,7 +28,7 @@ public class Persona extends Persistente {
     private List<Contacto> contactos;
 
 
-    public Persona(Integer id,String nombre, String apellido, String documento, String numTramite, Ubicacion ubicacion, List<Contacto> contactos) {
+    public Persona(Integer id, String nombre, String apellido, String documento, String numTramite, Ubicacion ubicacion, List<Contacto> contactos) {
         this.setId(id);
         this.nombre = nombre;
         this.apellido = apellido;
@@ -59,13 +59,13 @@ public class Persona extends Persistente {
 
     public Persona.PersonaDTO toDTO() {
         Persona.PersonaDTO dto  = new Persona.PersonaDTO();
-        dto.id                  = this.getId();
-        dto.nombre              = this.getNombre();
-        dto.apellido            = this.getApellido();
-        dto.documento           = this.getDocumento();
-        dto.numTramite          = this.getNumTramite();
-        dto.ubicacion           = this.getUbicacion();
-        dto.contactos           = this.getContactos();
+        dto.id = this.getId();
+        dto.nombre = this.getNombre();
+        dto.apellido = this.getApellido();
+        dto.documento = this.getDocumento();
+        dto.numTramite = this.getNumTramite();
+        dto.ubicacion = this.getUbicacion();
+        dto.contactos = this.getContactos();
 
         return dto;
     }

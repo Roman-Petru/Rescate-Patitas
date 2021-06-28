@@ -1,5 +1,6 @@
 package domain;
 
+import domain.controllers.CaracteristicaController;
 import domain.models.entities.entidadesGenerales.*;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
@@ -21,7 +22,7 @@ public class TestAgregarMascota {
         ubicacion.setLatitud(-35.814884);
         ubicacion.setLongitud(58.66555);
 
-        Persona jorge = new Persona("Jorge","Pe", "3535","53535",ubicacion);
+        Persona jorge = new Persona(1,"Jorge","Pe", "3535","53535", ubicacion, null);
 
         Mascota firulais = new Mascota("FIrulais","Firu",3);
         Mascota pelusa = new Mascota("Pelusa","Pelu",5);
@@ -36,18 +37,18 @@ public class TestAgregarMascota {
     @Test
     public void testAgregarMascota_agregarCaractisticasPersonalizadaColorMarron() {
 
-        RepositorioCaracteristicas repositorio = RepositorioCaracteristicas.getInstancia();
-        repositorio.agregarCaracteristica(new CaracteristicaGeneral("color"));
+        CaracteristicaController caracteristicaController = new CaracteristicaController();
+        caracteristicaController.agregar(new CaracteristicaGeneral("color").toDTO());
 
         Ubicacion ubicacion = new Ubicacion();
         ubicacion.setDireccion("Los hornos 4599, Buenos Aires");
         ubicacion.setLatitud(-35.814884);
         ubicacion.setLongitud(58.66555);
 
-        Persona jorge = new Persona("Jorge","Pe", "3535","53535",ubicacion);
+        Persona jorge = new Persona(1, "Jorge","Pe", "3535","53535", ubicacion, null );
 
         CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada();
-        CaracteristicaGeneral color = agregarCaracteristicaGeneral(repositorio);
+        CaracteristicaGeneral color = agregarCaracteristicaGeneral(caracteristicaController);
 
         caracteristicaPersonalizada.setCaracteristicaGeneral(color);
         caracteristicaPersonalizada.setValor("marron");
@@ -61,7 +62,7 @@ public class TestAgregarMascota {
         assertThat(jorge.getDuenio().getMascotas().get(0).getCaracteristicas().get(0).getValor(), is("marron"));
     }
 
-    private CaracteristicaGeneral agregarCaracteristicaGeneral(RepositorioCaracteristicas repositorio) {
-        return repositorio.getCaracteristicaGenerales().stream().filter(cg -> "color".equalsIgnoreCase(cg.getDescripcion())).findAny().get();
+    private CaracteristicaGeneral agregarCaracteristicaGeneral(CaracteristicaController controller) {
+        return controller.listarTodos().stream().filter(cg -> "color".equalsIgnoreCase(cg.getDescripcion())).findAny().get();
     }
 }

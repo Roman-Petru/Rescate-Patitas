@@ -4,7 +4,6 @@ import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaG
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Permisos;
 import domain.models.entities.validaciones.validacionesContrasenias.ValidadorDeContrasenia;
-import domain.models.repositories.RepositorioCaracteristicas;
 import domain.models.repositories.RepositorioUsuarios;
 import java.util.List;
 import java.util.Optional;
@@ -37,13 +36,12 @@ public class UsuarioController {
         Usuario admin = new Usuario(dto.getUsuario(), dto.getPassword());
         this.validarUsuario(admin.getUsuario(), admin.getPassword());
         admin.agregarPermisos(Permisos.GENERAR_ADMIN);
-        admin.agregarPermisos(Permisos.EDITAR_CARACTERISTICAS);
+        admin.agregarPermisos(Permisos.ABM_CARACTERISTICAS);
         repositorio.agregar(admin);
     }
 
     public void agregarCaracteristicaGeneral(Usuario usuario, CaracteristicaGeneral caracteristicaGeneral) throws Exception {
-        //falta validacion de que si es usuario con rol admin solo permita agregar la caracteristica
-        if (!usuario.tienePermisoPara(Permisos.EDITAR_CARACTERISTICAS))
+        if (!usuario.tienePermisoPara(Permisos.ABM_CARACTERISTICAS))
             throw new Exception("El usuario no puede agregar caracteristicas");
 
         CaracteristicaGeneral.CaracteristicaGeneralDTO dto = caracteristicaGeneral.toDTO();

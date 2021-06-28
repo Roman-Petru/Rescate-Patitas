@@ -1,8 +1,8 @@
 package domain;
 
 import domain.controllers.UsuarioController;
-import domain.models.entities.entidadesGenerales.usuarios.Admin;
-import domain.models.repositories.Repositorio;
+import domain.models.entities.entidadesGenerales.usuarios.Usuario;
+import domain.models.entities.enums.Permisos;
 import domain.models.repositories.RepositorioUsuarios;
 import org.junit.Test;
 
@@ -12,17 +12,18 @@ import static org.junit.Assert.assertThat;
 public class AdminTest {
 
     @Test
-    public void agregarAdmin_adminCarlosAgregaAAdminPepe() {
-        RepositorioUsuarios repositorio = RepositorioUsuarios.getInstancia();
+    public void agregarAdmin_adminCarlosAgrega_a_AdminPepe() throws Exception {
         UsuarioController usuarioController = new UsuarioController();
 
-        Admin adminCarlos = new Admin("admin_carlos", "passwordParaProbar123_");
-        repositorio.agregar(adminCarlos);
+        Usuario adminCarlos = new Usuario("admin_carlos", "passwordParaProbar123_");
+        usuarioController.agregarUsuario(adminCarlos.toDTO());
+        adminCarlos.agregarPermisos(Permisos.GENERAR_ADMIN);
+        adminCarlos.agregarPermisos(Permisos.ABM_CARACTERISTICAS);
 
-        Admin adminPepe = new Admin("admin_pepe", "passwordParaProbar1234_");
-       // usuarioController.agregarAdmin(adminPepe);
 
+        Usuario adminPepe = new Usuario("admin_pepe", "passwordParaProbar1234_");
+        usuarioController.agregarAdmin(adminCarlos, adminPepe.toDTO());
 
-        assertThat(repositorio.buscarTodos().size(), is(2));
+        assertThat(usuarioController.listarTodos().size(), is(2));
     }
 }

@@ -1,6 +1,6 @@
 package domain.models.entities.enums;
 
 public enum Permisos {
-    EDITAR_CARACTERISTICAS,
+    ABM_CARACTERISTICAS,
     GENERAR_ADMIN
 }
