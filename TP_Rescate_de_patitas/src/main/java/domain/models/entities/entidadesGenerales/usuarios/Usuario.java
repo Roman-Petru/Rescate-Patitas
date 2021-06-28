@@ -6,11 +6,13 @@ import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.enums.Animal;
+import domain.models.entities.enums.Permisos;
 import domain.models.entities.validaciones.validacionesContrasenias.ValidadorDeContrasenia;
 
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
@@ -18,10 +20,13 @@ public class Usuario extends Persistente {
     private String usuario;
     private String password;
     private Integer intentosFallidos;
+    private List<Permisos> lista_permisos;
 
     public Usuario(String usuario, String password) {
         this.usuario = usuario;
         this.password = password;
+        this.intentosFallidos = 0;
+        this.lista_permisos = new ArrayList<>();
     }
 
     public Usuario.UsuarioDTO toDTO() {
@@ -41,4 +46,11 @@ public class Usuario extends Persistente {
         private Integer intentosFallidos;
     }
 
+    public boolean tienePermisoPara(Permisos permiso) {
+         return this.lista_permisos.contains(permiso);
+    }
+
+    public void agregarPermisos(Permisos permiso){
+        this.lista_permisos.add(permiso);
+    }
 }

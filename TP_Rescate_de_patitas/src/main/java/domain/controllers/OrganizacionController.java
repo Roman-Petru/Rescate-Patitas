@@ -4,8 +4,8 @@ import domain.models.entities.entidadesGenerales.FormularioMascota;
 import domain.models.entities.entidadesGenerales.Organizacion;
 import domain.models.entities.entidadesGenerales.Publicacion;
 import domain.models.entities.entidadesGenerales.personas.Persona;
-import domain.models.entities.modulos.DistanciaEntreDosPuntos;
-import domain.models.entities.modulos.notificador.NotificadorHelper;
+import domain.models.entities.utils.DistanciaEntreDosPuntos;
+import domain.models.entities.utils.NotificadorHelper;
 import domain.models.repositories.RepositorioOrganizaciones;
 
 import java.io.IOException;

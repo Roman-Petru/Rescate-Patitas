@@ -1,7 +1,4 @@
-package domain.models.entities.modulos;
-
-import domain.controllers.OrganizacionController;
-import domain.models.repositories.RepositorioOrganizaciones;
+package domain.models.entities.utils;
 
 public class DistanciaEntreDosPuntos {
 

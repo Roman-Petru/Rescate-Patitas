@@ -28,7 +28,7 @@ public class CaracteristicaController {
         return null;
     }
 
-    public void crear(CaracteristicaGeneral.CaracteristicaGeneralDTO dto) {
+    public void agregar(CaracteristicaGeneral.CaracteristicaGeneralDTO dto) {
         CaracteristicaGeneral caracteristica = new CaracteristicaGeneral(dto.getDescripcion());
         repositorio.agregar(caracteristica);
     }

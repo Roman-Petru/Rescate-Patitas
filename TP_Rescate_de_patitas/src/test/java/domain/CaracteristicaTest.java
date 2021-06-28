@@ -23,8 +23,8 @@ public class CaracteristicaTest {
         CaracteristicaGeneral contextura = new CaracteristicaGeneral("contextura");
 
         UsuarioController usuarioController = new UsuarioController();
-        usuarioController.agregarCaracteristicaGeneral(adminPepe, color);
-        usuarioController.agregarCaracteristicaGeneral(adminPepe, contextura);
+        //usuarioController.agregarCaracteristicaGeneral(adminPepe, color);
+        //agregarCaracteristicaGeneral(adminPepe, contextura);
 
         assertThat(repositorioCaracteristicas.getCaracteristicaGenerales().size(), is(2));
     }

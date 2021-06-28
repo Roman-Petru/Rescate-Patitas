@@ -1,8 +1,8 @@
 package domain.controllers;
 import com.twilio.exception.ApiException;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
-import domain.models.entities.entidadesGenerales.usuarios.Admin;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
+import domain.models.entities.enums.Permisos;
 import domain.models.entities.validaciones.validacionesContrasenias.ValidadorDeContrasenia;
 import domain.models.repositories.RepositorioCaracteristicas;
 import domain.models.repositories.RepositorioUsuarios;
@@ -13,12 +13,9 @@ public class UsuarioController {
 
     private static UsuarioController instancia = null;
     private static RepositorioUsuarios repositorio;
-    private static RepositorioCaracteristicas repositorioCaracteristicas;
-
 
     public UsuarioController() {
         this.repositorio = new RepositorioUsuarios();
-        this.repositorioCaracteristicas = new RepositorioCaracteristicas();
     }
 
     public static UsuarioController getInstancia(){
@@ -28,13 +25,29 @@ public class UsuarioController {
         return instancia;
     }
 
-    public void agregarAdmin(Admin admin){
-        repositorio.agregarUsuario(admin);
+    public void agregarUsuario(Usuario.UsuarioDTO dto) {
+        Usuario usuario = new Usuario(dto.getUsuario(), dto.getPassword());
+        this.validarUsuario(usuario.getUsuario(), usuario.getPassword());
+        repositorio.agregar(usuario);
+    }
+    public void agregarAdmin(Usuario adminGenerador, Usuario.UsuarioDTO dto) throws Exception {
+        if (!adminGenerador.tienePermisoPara(Permisos.GENERAR_ADMIN))
+            throw new Exception("El usuario no puede generar admin");
+
+        Usuario admin = new Usuario(dto.getUsuario(), dto.getPassword());
+        this.validarUsuario(admin.getUsuario(), admin.getPassword());
+        admin.agregarPermisos(Permisos.GENERAR_ADMIN);
+        admin.agregarPermisos(Permisos.EDITAR_CARACTERISTICAS);
+        repositorio.agregar(admin);
     }
 
-    public void agregarCaracteristicaGeneral(Usuario usuario, CaracteristicaGeneral caracteristicaGeneral) {
+    public void agregarCaracteristicaGeneral(Usuario usuario, CaracteristicaGeneral caracteristicaGeneral) throws Exception {
         //falta validacion de que si es usuario con rol admin solo permita agregar la caracteristica
-        repositorioCaracteristicas.agregarCaracteristica(caracteristicaGeneral);
+        if (!usuario.tienePermisoPara(Permisos.EDITAR_CARACTERISTICAS))
+            throw new Exception("El usuario no puede agregar caracteristicas");
+
+        CaracteristicaGeneral.CaracteristicaGeneralDTO dto = caracteristicaGeneral.toDTO();
+        CaracteristicaController.getInstancia().agregar(dto);
     }
 
 
@@ -49,11 +62,7 @@ public class UsuarioController {
         return this.repositorio.buscar(id);
     }
 
-    public void agregar(Usuario.UsuarioDTO dto) {
-        Usuario usuario = new Usuario(dto.getUsuario(), dto.getPassword());
-        this.validarUsuario(usuario.getUsuario(), usuario.getPassword());
-        repositorio.agregar(usuario);
-    }
+
 
     public void validarUsuario(String usuario, String password) {
         ValidadorDeContrasenia validadorDeContrasenia = new ValidadorDeContrasenia();
