@@ -17,12 +17,5 @@ public class RepositorioUsuarios extends RepositorioGenerico<Usuario>{
         return instancia;
     }
 
-    public void agregarUsuario(Usuario usuario) {
-        usuarios.add(usuario);
-    }
-
-    public static List<Usuario> getUsuarios() {
-        return usuarios;
-    }
 
 }

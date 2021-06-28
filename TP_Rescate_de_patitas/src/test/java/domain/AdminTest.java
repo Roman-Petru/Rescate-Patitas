@@ -17,12 +17,12 @@ public class AdminTest {
         UsuarioController usuarioController = new UsuarioController();
 
         Admin adminCarlos = new Admin("admin_carlos", "passwordParaProbar123_");
-        repositorio.agregarUsuario(adminCarlos);
+        repositorio.agregar(adminCarlos);
 
         Admin adminPepe = new Admin("admin_pepe", "passwordParaProbar1234_");
-        usuarioController.agregarAdmin(adminPepe);
+       // usuarioController.agregarAdmin(adminPepe);
 
 
-        assertThat(repositorio.getUsuarios().size(), is(2));
+        assertThat(repositorio.buscarTodos().size(), is(2));
     }
 }

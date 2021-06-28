@@ -1,12 +1,8 @@
 package domain.models.entities.entidadesGenerales;
 
 import domain.models.entities.entidadesGenerales.personas.Persona;
-import domain.models.entities.modulos.DistanciaEntreDosPuntos;
-import domain.models.repositories.Repositorio;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter @Setter
 public class FormularioMascota {

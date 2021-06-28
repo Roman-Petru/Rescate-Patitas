@@ -2,8 +2,7 @@ package domain.models.entities.entidadesGenerales;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.entities.enums.Animal;
-import domain.models.entities.modulos.notificador.Notificador;
-import domain.models.entities.modulos.notificador.NotificadorHelper;
+import domain.models.entities.utils.NotificadorHelper;
 
 
 import java.io.IOException;
