@@ -11,9 +11,9 @@ import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;
 import domain.models.entities.enums.Animal;
 import domain.models.entities.enums.TamanioAnimal;
-import domain.models.entities.modulos.notificador.estrategias.EnvioViaMail;
-import domain.models.entities.modulos.notificador.estrategias.EnvioViaWhatsapp;
-import domain.models.entities.modulos.notificador.estrategias.EstrategiaNotificacion;
+import domain.models.modulos.notificador.estrategias.EnvioViaMail;
+import domain.models.modulos.notificador.estrategias.EnvioViaWhatsapp;
+import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -45,7 +45,7 @@ public class RescatistaTest {
         rescatistaJuan.setUbicacion(ubicacion);
         rescatistaJuan.setRadioDeCercaniaEnKm(150);
 
-        Persona datosPersona = new Persona(1,"Juan", "Perez", "35845454", "996558874", ubicacion, null);
+        Persona datosPersona = new Persona(1,"Juan", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, null);
         datosPersona.setRescatista(rescatistaJuan);
 
         BuscarHogar busquedaDehogar = new BuscarHogar();
@@ -67,13 +67,13 @@ public class RescatistaTest {
 
         Contacto contacto = new Contacto("Carmen","Villalta", "123123", "ropetru@hotmail.com", estrategiasNotificacion);
 
-        Persona juanDuenio = new Persona(1, "Juan", "Perez", "35845454", "996558874", ubicacion, Arrays.asList(contacto));
+        Persona juanDuenio = new Persona(1, "Juan", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
         Mascota firulais = new Mascota("FIrulais","Firu",3);
         firulais.setId(1);
         firulais.setContactos(Arrays.asList(contacto));
         juanDuenio.getDuenio().agregarMascota(firulais);
 
-        Persona juliRescatista = new Persona(2,"Juli", "Perez", "35845454", "996558874", ubicacion,Arrays.asList(contacto));
+        Persona juliRescatista = new Persona(2,"Juli", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
 
         FormularioMascota formularioMascota = new FormularioMascota(juliRescatista, "path imagen", "asustada", ubicacion, true);
 

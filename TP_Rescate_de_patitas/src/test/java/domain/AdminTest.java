@@ -13,7 +13,7 @@ public class AdminTest {
 
     @Test
     public void agregarAdmin_adminCarlosAgrega_a_AdminPepe() throws Exception {
-        UsuarioController usuarioController = new UsuarioController();
+        UsuarioController usuarioController = UsuarioController.getInstancia();
 
         Usuario adminCarlos = new Usuario("admin_carlos", "passwordParaProbar123_");
         usuarioController.agregarUsuario(adminCarlos.toDTO());

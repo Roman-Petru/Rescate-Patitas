@@ -10,7 +10,7 @@ public class HogarController {
     private static HogarController instancia;
     private static RepositorioHogares repositorio;
 
-    public HogarController() {
+    private HogarController() {
         this.repositorio = new RepositorioHogares();
     }
 

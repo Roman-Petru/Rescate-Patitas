@@ -13,7 +13,7 @@ public class UsuarioController {
     private static UsuarioController instancia = null;
     private static RepositorioUsuarios repositorio;
 
-    public UsuarioController() {
+    private UsuarioController() {
         this.repositorio = new RepositorioUsuarios();
     }
 

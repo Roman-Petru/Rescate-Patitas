@@ -9,7 +9,7 @@ public class CaracteristicaController {
     private static CaracteristicaController instancia = null;
     private static RepositorioCaracteristicas repositorio;
 
-    public CaracteristicaController() {this.repositorio = new RepositorioCaracteristicas();}
+    private CaracteristicaController() {this.repositorio = new RepositorioCaracteristicas();}
 
     public static CaracteristicaController getInstancia(){
         if (instancia == null){

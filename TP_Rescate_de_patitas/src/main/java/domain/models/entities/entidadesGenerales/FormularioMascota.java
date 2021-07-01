@@ -29,12 +29,12 @@ public class FormularioMascota {
     }
 
     public FormularioMascota.FormularioMascotaDTO toDTO() {
-        FormularioMascota.FormularioMascotaDTO dto           = new FormularioMascota.FormularioMascotaDTO();
-        dto.personaQueRescato                  = this.getPersonaQueRescato();
-        dto.imagen              = this.getImagen();
-        dto.estadoMascota                = this.getEstadoMascota();
-        dto.lugarEncontrado       = this.getLugarEncontrado();
-        dto.tieneChapita                  = this.isTieneChapita();
+        FormularioMascota.FormularioMascotaDTO dto = new FormularioMascota.FormularioMascotaDTO();
+        dto.personaQueRescato= this.getPersonaQueRescato();
+        dto.imagen= this.getImagen();
+        dto.estadoMascota= this.getEstadoMascota();
+        dto.lugarEncontrado= this.getLugarEncontrado();
+        dto.tieneChapita= this.isTieneChapita();
         return dto;
     }
 }

@@ -1,10 +1,8 @@
 package domain.models.entities.entidadesGenerales.usuarios;
 
-import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
-import domain.models.entities.modulos.resizer.NivelCalidad;
-import domain.models.entities.modulos.resizer.Resizer;
-import domain.models.entities.modulos.resizer.TamanioImagen;
-import domain.models.repositories.Repositorio;
+import domain.models.modulos.resizer.NivelCalidad;
+import domain.models.modulos.resizer.Resizer;
+import domain.models.modulos.resizer.TamanioImagen;
 
 public class Admin extends Usuario {
 

@@ -1,6 +1,6 @@
 package domain.models.entities.entidadesGenerales;
 
-import domain.models.entities.modulos.notificador.estrategias.EstrategiaNotificacion;
+import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import lombok.Getter;
 import lombok.Setter;
 

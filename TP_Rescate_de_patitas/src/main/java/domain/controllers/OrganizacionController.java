@@ -16,11 +16,10 @@ import java.util.Optional;
 
 public class OrganizacionController {
 
-
     private static OrganizacionController instancia = null;
     private static RepositorioOrganizaciones repositorio;
 
-    public OrganizacionController() {this.repositorio = new RepositorioOrganizaciones();}
+    private OrganizacionController() {this.repositorio = new RepositorioOrganizaciones();}
 
     public static OrganizacionController getInstancia(){
         if (instancia == null){

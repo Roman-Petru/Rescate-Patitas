@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.FormularioMascota;
 import domain.models.entities.entidadesGenerales.personas.Persona;
-import domain.models.entities.modulos.notificador.Notificador;
-import domain.models.entities.modulos.notificador.estrategias.EstrategiaNotificacion;
-import domain.models.entities.modulos.notificador.mensaje.Mensaje;
+import domain.models.modulos.notificador.Notificador;
+import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
+import domain.models.modulos.notificador.mensaje.Mensaje;
 
 import java.io.IOException;
 import java.util.List;

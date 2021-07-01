@@ -4,6 +4,7 @@ import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.repositories.RepositorioMascotas;
 import domain.models.repositories.RepositorioPersonas;
+import domain.models.repositories.RepositorioUsuarios;
 
 import java.io.IOException;
 import java.util.List;
@@ -33,7 +34,7 @@ public class PersonaController {
     }
 
     public void agregar(Persona.PersonaDTO dto) {
-        Persona persona = new Persona(dto.getId(),dto.getNombre(), dto.getApellido(), dto.getDocumento(),dto.getNumTramite(), dto.getUbicacion(), dto.getContactos());
+        Persona persona = new Persona(dto.getId(),dto.getNombre(), dto.getApellido(), dto.getDocumento(),dto.getNumTramite(), dto.getEmail(), dto.getUbicacion(), dto.getContactos());
         repositorio.agregar(persona);
     }
 

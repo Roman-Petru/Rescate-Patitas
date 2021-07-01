@@ -17,7 +17,7 @@ public class CaracteristicaTest {
     @Test
     public void agregarCaracteristicaGeneral_adminAgregaDosCaracteristicasGenerales() throws Exception {
 
-        UsuarioController usuarioController = new UsuarioController();
+        UsuarioController usuarioController = UsuarioController.getInstancia();
         Usuario adminPepe = new Usuario("admin_pepe", "passwordParaProbar123_");
         usuarioController.agregarUsuario(adminPepe.toDTO());
         adminPepe.agregarPermisos(Permisos.ABM_CARACTERISTICAS);
