@@ -1,8 +1,8 @@
 package domain.servicios.hogares;
 
-import domain.models.entities.entidadesGenerales.*;
 import domain.models.entities.entidadesGenerales.hogares.HogarDeTransito;
 import domain.models.entities.enums.Animal;
+import domain.models.entities.utils.Ubicacion;
 import domain.servicios.hogares.entities.Hogar_Molde;
 
 import java.util.ArrayList;

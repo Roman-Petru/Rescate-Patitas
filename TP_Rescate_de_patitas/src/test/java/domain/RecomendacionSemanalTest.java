@@ -2,7 +2,7 @@ package domain;
 
 import domain.controllers.PersonaController;
 import domain.models.entities.entidadesGenerales.Contacto;
-import domain.models.entities.entidadesGenerales.Ubicacion;
+import domain.models.entities.utils.Ubicacion;
 import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.modulos.notificador.estrategias.EnvioViaMail;
 import domain.models.modulos.notificador.estrategias.EnvioViaWhatsapp;

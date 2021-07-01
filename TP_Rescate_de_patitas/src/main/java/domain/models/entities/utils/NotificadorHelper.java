@@ -2,7 +2,7 @@ package domain.models.entities.utils;
 
 import com.google.gson.Gson;
 import domain.models.entities.entidadesGenerales.Contacto;
-import domain.models.entities.entidadesGenerales.FormularioMascota;
+import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.modulos.notificador.Notificador;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;

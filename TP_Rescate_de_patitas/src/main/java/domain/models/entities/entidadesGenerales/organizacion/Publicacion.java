@@ -1,4 +1,4 @@
-package domain.models.entities.entidadesGenerales;
+package domain.models.entities.entidadesGenerales.organizacion;
 
 import domain.models.entities.enums.EstadoPublicacion;
 import lombok.Getter;

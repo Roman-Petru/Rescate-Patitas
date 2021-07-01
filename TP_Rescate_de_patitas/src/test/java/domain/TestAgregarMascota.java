@@ -5,8 +5,7 @@ import domain.models.entities.entidadesGenerales.*;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.personas.Persona;
-import domain.models.repositories.Repositorio;
-import domain.models.repositories.RepositorioCaracteristicas;
+import domain.models.entities.utils.Ubicacion;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

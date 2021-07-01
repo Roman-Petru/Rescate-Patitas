@@ -1,21 +1,11 @@
 package domain.models.entities.entidadesGenerales.hogares;
 
-import domain.models.entities.entidadesGenerales.Persistente;
-import domain.models.entities.entidadesGenerales.Ubicacion;
-import domain.models.entities.entidadesGenerales.personas.Rescatista;
-import domain.models.entities.entidadesGenerales.usuarios.Usuario;
+import domain.models.entities.utils.Ubicacion;
 import domain.models.entities.enums.Animal;
-import domain.models.repositories.Repositorio;
-import domain.servicios.hogares.ServicioHogar;
-import domain.servicios.hogares.entities.ListadoDeHogares;
-import domain.models.entities.validaciones.validacionesHogarDeTransito.ValidadorHogarDeTransito;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter @Setter
 public class HogarDeTransito {

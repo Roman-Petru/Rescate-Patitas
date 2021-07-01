@@ -1,6 +1,7 @@
-package domain.models.entities.entidadesGenerales;
+package domain.models.entities.entidadesGenerales.organizacion;
 
 import domain.models.entities.entidadesGenerales.personas.Persona;
+import domain.models.entities.utils.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
 

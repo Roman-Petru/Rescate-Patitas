@@ -2,10 +2,10 @@ package domain;
 
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Mascota;
-import domain.models.entities.entidadesGenerales.Ubicacion;
+import domain.models.entities.utils.Ubicacion;
 import domain.models.entities.entidadesGenerales.hogares.BuscarHogar;
 import domain.models.entities.entidadesGenerales.hogares.DatosMascotaHogar;
-import domain.models.entities.entidadesGenerales.FormularioMascota;
+import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.hogares.HogarDeTransito;
 import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;

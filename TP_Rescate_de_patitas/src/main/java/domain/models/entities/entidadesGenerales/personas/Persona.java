@@ -1,16 +1,11 @@
 package domain.models.entities.entidadesGenerales.personas;
 
 import domain.models.entities.entidadesGenerales.Contacto;
-import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.Persistente;
-import domain.models.entities.entidadesGenerales.Ubicacion;
-import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
-import domain.models.entities.enums.Animal;
-import domain.models.repositories.Repositorio;
+import domain.models.entities.utils.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.IOException;
 import java.util.List;
 
 @Getter @Setter

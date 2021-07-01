@@ -1,16 +1,13 @@
 package domain.models.entities.entidadesGenerales.personas;
 
-import domain.controllers.HogarController;
-import domain.models.entities.entidadesGenerales.Ubicacion;
+import domain.models.entities.utils.Ubicacion;
 import domain.models.entities.entidadesGenerales.hogares.DatosMascotaHogar;
-import domain.models.entities.entidadesGenerales.FormularioMascota;
-import domain.models.entities.entidadesGenerales.hogares.HogarDeTransito;
+import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.repositories.Repositorio;
 import domain.servicios.hogares.ServicioHogar;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.IOException;
 import java.util.List;
 
 @Getter @Setter

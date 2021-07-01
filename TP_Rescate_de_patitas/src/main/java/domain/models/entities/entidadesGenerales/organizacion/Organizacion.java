@@ -1,21 +1,26 @@
-package domain.models.entities.entidadesGenerales;
+package domain.models.entities.entidadesGenerales.organizacion;
+import domain.models.entities.entidadesGenerales.Persistente;
+import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
+import domain.models.entities.entidadesGenerales.usuarios.Usuario;
+import domain.models.entities.utils.Ubicacion;
 import domain.models.entities.entidadesGenerales.personas.Persona;
-import domain.models.repositories.Repositorio;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter @Setter
 public class Organizacion extends Persistente {
     private String nombre;
     private Ubicacion ubicacion;
-    private List<Persona> voluntarios ;
+    private List<Usuario> voluntarios ;
     private List<Publicacion> publicaciones;
     private List<FormularioMascota> formulariosPendientes;
-    private List<Persona> postulanteVoluntarios ;
+    private List<Usuario> postulanteVoluntarios ;
+    private List<PreguntaAdopcion> preguntasAdopcion ;
+    private List<PublicacionAdopcion> publicacionesAdopcion ;
+
 
     public Organizacion(String nombre, Ubicacion ubicacion) {
         this.nombre = nombre;
@@ -24,6 +29,8 @@ public class Organizacion extends Persistente {
         this.publicaciones = new ArrayList<>();
         this.formulariosPendientes = new ArrayList<>();
         this.postulanteVoluntarios = new ArrayList<>();
+        this.publicacionesAdopcion = new ArrayList<>();
+        this.preguntasAdopcion = new ArrayList<>();
     }
 
     public void agregarFormulario(FormularioMascota formularioMascota) {
@@ -33,11 +40,11 @@ public class Organizacion extends Persistente {
         this.publicaciones.add(publicacion);
     }
 
-    public void postularseVoluntario (Persona postulanteVoluntario){
+    public void postularseVoluntario (Usuario postulanteVoluntario){
         this.postulanteVoluntarios.add(postulanteVoluntario);
     }
 
-    public void agregarVoluntario (Persona personaQueAcepta, Persona voluntario) throws Exception {
+    public void agregarVoluntario (Usuario personaQueAcepta, Usuario voluntario) throws Exception {
     //ver quien puede aceptar voluntarios ( admins y otros voluntarios?)
         if (!voluntarios.contains(voluntario))
             throw new Exception("La persona no es voluntaria en esta organizacion");
@@ -50,10 +57,12 @@ public class Organizacion extends Persistente {
         private Integer id;
         private String nombre;
         private Ubicacion ubicacion;
-        private List<Persona> voluntarios ;
+        private List<Usuario> voluntarios ;
         private List<Publicacion> publicaciones;
         private List<FormularioMascota> formulariosPendientes;
-        private List<Persona> postulanteVoluntarios ;
+        private List<Usuario> postulanteVoluntarios ;
+        private List<PreguntaAdopcion> preguntasAdopcion ;
+        private List<PublicacionAdopcion> publicacionesAdopcion ;
     }
 
     public Organizacion.OrganizacionDTO toDTO() {
@@ -65,6 +74,8 @@ public class Organizacion extends Persistente {
         dto.publicaciones = this.getPublicaciones();
         dto.formulariosPendientes = this.getFormulariosPendientes();
         dto.postulanteVoluntarios = this.getPostulanteVoluntarios();
+        dto.preguntasAdopcion = this.getPreguntasAdopcion();
+        dto.publicacionesAdopcion = this.getPublicacionesAdopcion();
         return dto;
     }
 

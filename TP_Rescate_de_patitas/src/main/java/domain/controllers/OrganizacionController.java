@@ -1,8 +1,9 @@
 package domain.controllers;
 
-import domain.models.entities.entidadesGenerales.FormularioMascota;
-import domain.models.entities.entidadesGenerales.Organizacion;
-import domain.models.entities.entidadesGenerales.Publicacion;
+import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
+import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
+import domain.models.entities.entidadesGenerales.organizacion.Publicacion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
 import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.entities.utils.DistanciaEntreDosPuntos;
 import domain.models.entities.utils.NotificadorHelper;
@@ -76,7 +77,6 @@ public class OrganizacionController {
         //repositorio.modificar(organizacion);
     }
 
-
     public void aprobarFormulario(Organizacion.OrganizacionDTO dto, Persona voluntario, FormularioMascota formularioPendiente) throws Exception {  //personaDTO, formuDTO?
 
         Organizacion organizacion = this.buscarOrganizacionPorID(dto.getId()).get();
@@ -101,6 +101,11 @@ public class OrganizacionController {
 
         return lista_publicaciones;
     }
+
+    public List<PublicacionAdopcion> buscarPublicacionAdopcionDeOrganizacion(Integer organizacionID) {
+        return this.buscarOrganizacionPorID(organizacionID).get().getPublicacionesAdopcion();
+    }
+
 
     public void notificarRescatista(Organizacion.OrganizacionDTO dto, Publicacion publicacion, Persona persona) throws IOException {
         Organizacion organizacion = this.buscarOrganizacionPorID(dto.getId()).get();

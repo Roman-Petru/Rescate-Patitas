@@ -1,9 +1,6 @@
 package domain.models.repositories;
 
 import domain.models.entities.entidadesGenerales.Mascota;
-import domain.models.entities.entidadesGenerales.Organizacion;
-import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
-import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;

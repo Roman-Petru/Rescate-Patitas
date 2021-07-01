@@ -1,8 +1,8 @@
 package domain;
 
-import domain.models.entities.entidadesGenerales.FormularioMascota;
-import domain.models.entities.entidadesGenerales.Organizacion;
-import domain.models.entities.entidadesGenerales.Ubicacion;
+import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
+import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
+import domain.models.entities.utils.Ubicacion;
 import domain.models.entities.entidadesGenerales.personas.Persona;
 import org.junit.Test;
 
