@@ -1,8 +1,10 @@
 package domain.controllers;
 import com.twilio.exception.ApiException;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
+import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Permisos;
+import domain.models.entities.utils.PermisosDeAdmin;
 import domain.models.entities.validaciones.validacionesContrasenias.ValidadorDeContrasenia;
 import domain.models.repositories.RepositorioUsuarios;
 import java.util.List;
@@ -35,8 +37,7 @@ public class UsuarioController {
 
         Usuario admin = new Usuario(dto.getUsuario(), dto.getPassword());
         this.validarUsuario(admin.getUsuario(), admin.getPassword());
-        admin.agregarPermisos(Permisos.GENERAR_ADMIN);
-        admin.agregarPermisos(Permisos.ABM_CARACTERISTICAS);
+        admin.agregarPermisos(PermisosDeAdmin.obtener().toArray(new Permisos[0]));
         repositorio.agregar(admin);
     }
 
@@ -81,6 +82,10 @@ public class UsuarioController {
 
     public void modificar(Integer id, Usuario.UsuarioDTO dto) {
         //TODO
+        Usuario usuario = new Usuario(dto.getUsuario(), dto.getPassword());
+        usuario.setIntentosFallidos(dto.getIntentosFallidos());
+        usuario.setLista_permisos(dto.getLista_permisos());
+        repositorio.modificar(usuario);
     }
 
     public void eliminar(Integer id) {

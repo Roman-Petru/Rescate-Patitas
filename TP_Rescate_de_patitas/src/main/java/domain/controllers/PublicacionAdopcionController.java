@@ -32,10 +32,13 @@ public class PublicacionAdopcionController {
     //  return this.repositorio.buscar(id);
     //}
 
-    //public void agregar(PublicacionAdopcion.PublicacionAdopcionDTO dto, Integer organizacionID) {
-  //      PublicacionAdopcion publicacionAdopcion = new PublicacionAdopcion(dto.getNombre(), dto.getUbicacion());
-   //     repositorio.agregar(organizacion);
- //   }  donde se resuelve esto, aca o en organizacion?
+    public void agregar(PublicacionAdopcion.PublicacionAdopcionDTO dto, Integer organizacionID) {
+        Organizacion organizacion = OrganizacionController.getInstancia().buscarOrganizacionPorID(organizacionID).get();
+        PublicacionAdopcion publicacionAdopcion = new PublicacionAdopcion(dto.getMascota());
+        organizacion.agregarPublicacionAdopcion(publicacionAdopcion);
+        Organizacion.OrganizacionDTO dtoOrg = organizacion.toDTO();
+        OrganizacionController.getInstancia().modificar(organizacionID, dtoOrg);
+      }  //donde se resuelve esto, aca o en organizacion?
 
     public PublicacionAdopcion.PublicacionAdopcionDTO ver(Integer id) {
         //TODO

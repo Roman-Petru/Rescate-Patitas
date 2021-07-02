@@ -2,5 +2,7 @@ package domain.models.entities.enums;
 
 public enum Permisos {
     ABM_CARACTERISTICAS,
-    GENERAR_ADMIN
+    ADM_PREGUNTAS_ADOPCION,
+    GENERAR_ADMIN,
+    ACEPTAR_VOLUNTARIO
 }

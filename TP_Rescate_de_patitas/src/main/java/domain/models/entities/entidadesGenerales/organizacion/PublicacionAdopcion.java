@@ -7,6 +7,7 @@ import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopci
 import lombok.Getter;
 import lombok.Setter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +25,10 @@ public class PublicacionAdopcion extends Persistente {
         this.fecha = new Date();
     }
 
+    public void agregarRespuestasAdopcion(RespuestaAdopcion... respuestas) {
+        this.respuestasAdopcion.addAll(Arrays.asList(respuestas));
+    }
+
     @Getter    @Setter
     public class PublicacionAdopcionDTO {
         private Integer id;
@@ -39,7 +44,4 @@ public class PublicacionAdopcion extends Persistente {
         dto.fecha = this.getFecha();
         dto.respuestasAdopcion = this.getRespuestasAdopcion();
         return dto;
-    }
-
-
-}
+    }}

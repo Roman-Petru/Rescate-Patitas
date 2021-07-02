@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter @Setter
@@ -35,6 +36,7 @@ public class Usuario extends Persistente {
         dto.usuario = this.getUsuario();
         dto.password = this.getPassword();
         dto.intentosFallidos = this.getIntentosFallidos();
+        dto.lista_permisos = this.getLista_permisos();
         return dto;
     }
 
@@ -44,13 +46,14 @@ public class Usuario extends Persistente {
         private String usuario;
         private String password;
         private Integer intentosFallidos;
+        private List<Permisos> lista_permisos;
     }
 
     public boolean tienePermisoPara(Permisos permiso) {
          return this.lista_permisos.contains(permiso);
     }
 
-    public void agregarPermisos(Permisos permiso){
-        this.lista_permisos.add(permiso);
+    public void agregarPermisos(Permisos... permisos){
+        this.lista_permisos.addAll(Arrays.asList(permisos));
     }
 }

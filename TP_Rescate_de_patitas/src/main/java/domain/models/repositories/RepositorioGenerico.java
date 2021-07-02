@@ -33,6 +33,8 @@ public abstract class RepositorioGenerico <T extends Persistente> {
 
     public void modificar(T elemento) {
         //UPDATE
+        this.eliminar(this.buscar(elemento.getId()).get());
+        this.agregar(elemento);
         //TODO
     }
 

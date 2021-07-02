@@ -40,6 +40,14 @@ public class Organizacion extends Persistente {
         this.publicaciones.add(publicacion);
     }
 
+    public void agregarPublicacionAdopcion(PublicacionAdopcion publicacion) {
+        this.publicacionesAdopcion.add(publicacion);
+    }
+
+    public void agregarPreguntaAdopcion(PreguntaAdopcion pregunta) {
+        this.preguntasAdopcion.add(pregunta);
+    }
+
     public void postularseVoluntario (Usuario postulanteVoluntario){
         this.postulanteVoluntarios.add(postulanteVoluntario);
     }
@@ -52,6 +60,12 @@ public class Organizacion extends Persistente {
         postulanteVoluntarios.remove(voluntario);
         voluntarios.add(voluntario);
     }
+
+    public boolean esVoluntarioDeOrg(Usuario usuario) {
+        return this.voluntarios.contains(usuario);
+    }
+
+
     @Getter @Setter
     public class OrganizacionDTO {
         private Integer id;

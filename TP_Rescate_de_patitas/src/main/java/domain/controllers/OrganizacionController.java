@@ -1,10 +1,12 @@
 package domain.controllers;
 
+import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.Publicacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
 import domain.models.entities.entidadesGenerales.personas.Persona;
+import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.utils.DistanciaEntreDosPuntos;
 import domain.models.entities.utils.NotificadorHelper;
 import domain.models.repositories.RepositorioOrganizaciones;
@@ -53,6 +55,7 @@ public class OrganizacionController {
 
     public void modificar(Integer id, Organizacion.OrganizacionDTO dto) {
         //TODO
+
     }
 
     public void eliminar(Integer id) {
@@ -74,7 +77,7 @@ public class OrganizacionController {
         Organizacion organizacion = new BuscarOrganizacion().encontrarOrganizacionMasCercana(formulario);
         organizacion.agregarFormulario(formulario);
         //UPDATE en la base de datos cuando se haga
-        //repositorio.modificar(organizacion);
+        repositorio.modificar(organizacion);
     }
 
     public void aprobarFormulario(Organizacion.OrganizacionDTO dto, Persona voluntario, FormularioMascota formularioPendiente) throws Exception {  //personaDTO, formuDTO?
@@ -89,7 +92,7 @@ public class OrganizacionController {
         nuevaPublicacion.setEsVisible(true);
         organizacion.agregarPublicacion(nuevaPublicacion);
         //UPDATE en la base de datos cuando se haga
-        //repositorio.modificar(organizacion);
+        repositorio.modificar(organizacion);
     }
 
     public List<Publicacion> buscarTodasPublicaciones() {
@@ -111,5 +114,14 @@ public class OrganizacionController {
         Organizacion organizacion = this.buscarOrganizacionPorID(dto.getId()).get();
         //buscar publicacion de org por id??
         NotificadorHelper.getInstancia().enviarMensaje(persona, publicacion.getFormulario().getPersonaQueRescato().getContactos());
+    }
+
+    public void agregarPreguntaAdopcionOrganizacion(Integer organizacionID, PreguntaAdopcion.PreguntaAdopcionDTO dto, Usuario voluntario){
+        Organizacion organizacion = this.buscarOrganizacionPorID(dto.getId()).get();
+        if (!organizacion.esVoluntarioDeOrg(voluntario))
+            return;  //TODO throw exception
+        PreguntaAdopcion pregunta = new PreguntaAdopcion(dto.getDescripcion());
+        organizacion.agregarPreguntaAdopcion(pregunta);
+        repositorio.modificar(organizacion);
     }
 }
