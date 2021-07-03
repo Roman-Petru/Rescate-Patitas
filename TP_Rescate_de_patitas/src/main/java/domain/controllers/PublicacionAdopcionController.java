@@ -1,5 +1,6 @@
 package domain.controllers;
 
+import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
 
@@ -32,9 +33,10 @@ public class PublicacionAdopcionController {
     //  return this.repositorio.buscar(id);
     //}
 
-    public void agregar(PublicacionAdopcion.PublicacionAdopcionDTO dto, Integer organizacionID) {
+    public void agregar(PublicacionAdopcion.PublicacionAdopcionDTO dto, Integer organizacionID, RespuestaAdopcion... respuestas) {
         Organizacion organizacion = OrganizacionController.getInstancia().buscarOrganizacionPorID(organizacionID).get();
         PublicacionAdopcion publicacionAdopcion = new PublicacionAdopcion(dto.getMascota());
+        publicacionAdopcion.agregarRespuestasAdopcion(respuestas);
         organizacion.agregarPublicacionAdopcion(publicacionAdopcion);
         Organizacion.OrganizacionDTO dtoOrg = organizacion.toDTO();
         OrganizacionController.getInstancia().modificar(organizacionID, dtoOrg);

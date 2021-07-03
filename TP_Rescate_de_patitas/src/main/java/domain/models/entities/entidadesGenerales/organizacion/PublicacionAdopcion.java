@@ -30,7 +30,7 @@ public class PublicacionAdopcion extends Persistente {
     }
 
     @Getter    @Setter
-    public class PublicacionAdopcionDTO {
+    public static class PublicacionAdopcionDTO {
         private Integer id;
         private Mascota mascota;
         private Date fecha;

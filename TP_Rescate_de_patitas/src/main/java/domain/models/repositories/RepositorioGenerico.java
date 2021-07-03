@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public abstract class RepositorioGenerico <T extends Persistente> {
 
+    private static Integer generadorIDS = 0;
+
     private List<T> coleccionDeElementos;
 
     protected RepositorioGenerico() {
@@ -28,6 +30,8 @@ public abstract class RepositorioGenerico <T extends Persistente> {
 
     public void agregar(T elemento) {
         //INSERT
+        elemento.setId(generadorIDS);
+        generadorIDS++;  //TODO hacer bien las IDS
         this.coleccionDeElementos.add(elemento);
     }
 

@@ -67,7 +67,7 @@ public class Organizacion extends Persistente {
 
 
     @Getter @Setter
-    public class OrganizacionDTO {
+    public static class OrganizacionDTO {
         private Integer id;
         private String nombre;
         private Ubicacion ubicacion;
@@ -77,6 +77,10 @@ public class Organizacion extends Persistente {
         private List<Usuario> postulanteVoluntarios ;
         private List<PreguntaAdopcion> preguntasAdopcion ;
         private List<PublicacionAdopcion> publicacionesAdopcion ;
+
+        public OrganizacionDTO() {
+
+        }
     }
 
     public Organizacion.OrganizacionDTO toDTO() {

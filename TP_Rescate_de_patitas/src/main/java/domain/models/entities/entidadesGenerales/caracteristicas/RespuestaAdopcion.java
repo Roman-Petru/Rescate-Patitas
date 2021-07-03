@@ -6,13 +6,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RespuestaAdopcion {
-    private CaracteristicaGeneral caracteristicaGeneral;
+    private PreguntaAdopcion pregunta;
     private String valor;
 
     public RespuestaAdopcion(){}
 
-    public RespuestaAdopcion(CaracteristicaGeneral caracteristicaGeneral, String valor){
-        this.caracteristicaGeneral = caracteristicaGeneral;
+    public RespuestaAdopcion(PreguntaAdopcion pregunta, String valor){
+        this.pregunta = pregunta;
         this.valor = valor;
     }
 }

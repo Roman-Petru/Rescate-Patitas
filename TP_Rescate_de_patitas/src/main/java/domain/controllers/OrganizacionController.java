@@ -117,7 +117,7 @@ public class OrganizacionController {
     }
 
     public void agregarPreguntaAdopcionOrganizacion(Integer organizacionID, PreguntaAdopcion.PreguntaAdopcionDTO dto, Usuario voluntario){
-        Organizacion organizacion = this.buscarOrganizacionPorID(dto.getId()).get();
+        Organizacion organizacion = this.buscarOrganizacionPorID(organizacionID).get();
         if (!organizacion.esVoluntarioDeOrg(voluntario))
             return;  //TODO throw exception
         PreguntaAdopcion pregunta = new PreguntaAdopcion(dto.getDescripcion());
