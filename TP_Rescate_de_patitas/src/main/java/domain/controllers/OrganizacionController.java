@@ -113,6 +113,8 @@ public class OrganizacionController {
     public void notificarRescatista(Organizacion.OrganizacionDTO dto, Publicacion publicacion, Persona persona) throws IOException {
         Organizacion organizacion = this.buscarOrganizacionPorID(dto.getId()).get();
         //buscar publicacion de org por id??
+        //nuevo armador de mensaje = new Notificarporrescatista)
+        //armador.persona = persona
         NotificadorHelper.getInstancia().enviarMensaje(persona, publicacion.getFormulario().getPersonaQueRescato().getContactos());
     }
 

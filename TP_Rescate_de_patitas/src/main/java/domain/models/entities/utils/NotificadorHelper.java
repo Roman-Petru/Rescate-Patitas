@@ -27,7 +27,7 @@ public class NotificadorHelper {
         for (Contacto contacto:contactos) {
           for(EstrategiaNotificacion estrategiaNotificacion: contacto.getNotificadores()){
               Notificador notificador = new Notificador();
-              notificador.setMensajeAEnviar(armarMensajeable(persona, contacto, estrategiaNotificacion));
+              notificador.setMensajeAEnviar(armarMensajeable(persona, contacto, estrategiaNotificacion)); //pasar armador de mensaje
               notificador.setEstrategiaParaNotificar(estrategiaNotificacion);
               notificador.enviar();
           }
