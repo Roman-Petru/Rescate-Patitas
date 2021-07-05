@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.List;
 
 @Getter @Setter
-
 public class PublicacionAdopcion extends Persistente {
 
     private List<RespuestaAdopcion> respuestasAdopcion;
@@ -29,7 +28,7 @@ public class PublicacionAdopcion extends Persistente {
         this.respuestasAdopcion.addAll(Arrays.asList(respuestas));
     }
 
-    @Getter    @Setter
+    @Getter @Setter
     public static class PublicacionAdopcionDTO {
         private Integer id;
         private Mascota mascota;

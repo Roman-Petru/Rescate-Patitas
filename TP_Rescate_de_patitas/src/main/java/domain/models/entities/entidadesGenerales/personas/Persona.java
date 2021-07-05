@@ -19,7 +19,7 @@ public class Persona extends Persistente {
     private DuenioMascota duenio;
     private Rescatista rescatista;
     private Voluntario voluntario;
-    private boolean quieroRecibirRecomendacionesAdopcion;
+    private boolean recibirRecomendacionAdopcion;
 
     private List<Contacto> contactos;
 
@@ -36,7 +36,7 @@ public class Persona extends Persistente {
         this.email = email;
         this.ubicacion = ubicacion;
         this.contactos = contactos;
-        this.quieroRecibirRecomendacionesAdopcion = false;
+        this.recibirRecomendacionAdopcion = false;
     }
 
     public DuenioMascota getDuenio() {

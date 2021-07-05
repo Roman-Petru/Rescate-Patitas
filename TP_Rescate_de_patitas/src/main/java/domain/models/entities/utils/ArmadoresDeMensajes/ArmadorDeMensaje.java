@@ -8,8 +8,7 @@ import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.models.modulos.notificador.mensaje.Mensaje;
 
 public interface ArmadorDeMensaje {
-
-     String armarCuerpoMensaje();
-    }
+    String armarCuerpoMensaje();
+}
 
 

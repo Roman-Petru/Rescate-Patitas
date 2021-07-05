@@ -10,8 +10,8 @@ import java.util.List;
 
 public class PublicacionAdopcionController {
     private static PublicacionAdopcionController instancia = null;
-   //private static RepositorioOrganizaciones repositorio;
 
+   //private static RepositorioOrganizaciones repositorio;
    // private PublicacionAdopcionController() {this.repositorio = new RepositorioOrganizaciones();}
 
     public static PublicacionAdopcionController getInstancia(){
@@ -29,18 +29,16 @@ public class PublicacionAdopcionController {
         return lista_adopcion;
     }
 
-    //public Optional<PublicacionAdopcion> buscarOrganizacionPorID(Integer id){
-    //  return this.repositorio.buscar(id);
-    //}
-
     public void agregar(PublicacionAdopcion.PublicacionAdopcionDTO dto, Integer organizacionID, RespuestaAdopcion... respuestas) {
+
         Organizacion organizacion = OrganizacionController.getInstancia().buscarOrganizacionPorID(organizacionID).get();
         PublicacionAdopcion publicacionAdopcion = new PublicacionAdopcion(dto.getMascota());
         publicacionAdopcion.agregarRespuestasAdopcion(respuestas);
+
         organizacion.agregarPublicacionAdopcion(publicacionAdopcion);
         Organizacion.OrganizacionDTO dtoOrg = organizacion.toDTO();
         OrganizacionController.getInstancia().modificar(organizacionID, dtoOrg);
-      }  //donde se resuelve esto, aca o en organizacion?
+      }
 
     public PublicacionAdopcion.PublicacionAdopcionDTO ver(Integer id) {
         //TODO
@@ -58,5 +56,4 @@ public class PublicacionAdopcionController {
     public void eliminar(Integer id) {
         //TODO
     }
-
 }

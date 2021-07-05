@@ -14,7 +14,7 @@ import java.util.List;
 public class PublicacionInteresAdopcion extends Persistente {
 
     //Relacionamos
-    //Preferencias -> caracteristicas generales
+    //Preferencias -> caracteristicas personalizadas
     //Comodidades -> Respuestas para adopcion
 
     private Date fecha;

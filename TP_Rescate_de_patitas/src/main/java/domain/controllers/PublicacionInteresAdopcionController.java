@@ -7,7 +7,6 @@ import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcio
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PublicacionInteresAdopcionController {
