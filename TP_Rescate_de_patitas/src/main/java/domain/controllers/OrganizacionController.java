@@ -7,6 +7,8 @@ import domain.models.entities.entidadesGenerales.organizacion.Publicacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
 import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
+import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorDeMensaje;
+import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeDuenioARescatista;
 import domain.models.entities.utils.DistanciaEntreDosPuntos;
 import domain.models.entities.utils.NotificadorHelper;
 import domain.models.repositories.RepositorioOrganizaciones;
@@ -112,10 +114,8 @@ public class OrganizacionController {
 
     public void notificarRescatista(Organizacion.OrganizacionDTO dto, Publicacion publicacion, Persona persona) throws IOException {
         Organizacion organizacion = this.buscarOrganizacionPorID(dto.getId()).get();
-        //buscar publicacion de org por id??
-        //nuevo armador de mensaje = new Notificarporrescatista)
-        //armador.persona = persona
-        NotificadorHelper.getInstancia().enviarMensaje(persona, publicacion.getFormulario().getPersonaQueRescato().getContactos());
+        ArmadorMensajeDuenioARescatista armadorMensajeDuenioARescatista = new ArmadorMensajeDuenioARescatista(persona);
+        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeDuenioARescatista, publicacion.getFormulario().getPersonaQueRescato().getContactos());
     }
 
     public void agregarPreguntaAdopcionOrganizacion(Integer organizacionID, PreguntaAdopcion.PreguntaAdopcionDTO dto, Usuario voluntario){

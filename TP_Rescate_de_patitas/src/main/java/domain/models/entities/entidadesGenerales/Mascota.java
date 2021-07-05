@@ -47,9 +47,9 @@ public class Mascota extends Persistente {
         this.fotos = new ArrayList<>();
     }
 
-    public void notificar(Persona persona) throws IOException {
+   /* public void notificar(Persona persona) throws IOException {
         helper.enviarMensaje(persona, contactos);
-    }
+    }*/
 
     public void agregarCaracteristicaPersonalizada(CaracteristicaPersonalizada caracteristicaPersonalizada) {
         this.caracteristicas.add(caracteristicaPersonalizada);
