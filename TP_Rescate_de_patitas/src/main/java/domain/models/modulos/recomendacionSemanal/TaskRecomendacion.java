@@ -39,7 +39,7 @@ public class TaskRecomendacion implements Runnable {
         System.out.println("Envío de mail a: " + persona.getNombre() + " " + persona.getApellido() + "(" + formatter.format(instance) + ")");
 
         //Tiempo que se repite la notificación
-        //scheduler.schedule(new TaskRecomendacion(persona, scheduler), 5, TimeUnit.SECONDS);
-        scheduler.schedule(new TaskRecomendacion(persona, scheduler), 7, TimeUnit.DAYS);
+        scheduler.schedule(new TaskRecomendacion(persona, scheduler), 5, TimeUnit.SECONDS);
+        //scheduler.schedule(new TaskRecomendacion(persona, scheduler), 7, TimeUnit.DAYS);
     }
 }

@@ -44,4 +44,5 @@ public class PublicacionAdopcion extends Persistente {
         dto.fecha = this.getFecha();
         dto.respuestasAdopcion = this.getRespuestasAdopcion();
         return dto;
-    }}
+    }
+}

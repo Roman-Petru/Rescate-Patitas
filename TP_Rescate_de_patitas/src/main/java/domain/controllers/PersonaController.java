@@ -1,7 +1,11 @@
 package domain.controllers;
 
 import domain.models.entities.entidadesGenerales.Mascota;
+import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
+import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
 import domain.models.entities.entidadesGenerales.personas.Persona;
+import domain.models.entities.enums.Permisos;
 import domain.models.repositories.RepositorioMascotas;
 import domain.models.repositories.RepositorioPersonas;
 import domain.models.repositories.RepositorioUsuarios;
@@ -32,6 +36,14 @@ public class PersonaController {
     public Optional<Persona> buscarPersonaporID(Integer id){
         return this.repositorio.buscar(id);
     }
+
+
+    //1. Se debe permitir que una persona genere una publicación para dar en adopción a su mascota.
+    public void generarPublicacionParaDarEnAdopcion(Mascota mascota, int organizacionID, RespuestaAdopcion... respuestasAdopcion){
+        PublicacionAdopcion publicacionAdopcion = new PublicacionAdopcion(mascota);
+        PublicacionAdopcionController.getInstancia().agregar(publicacionAdopcion.toDTO(), organizacionID, respuestasAdopcion);
+    }
+
 
     public void agregar(Persona.PersonaDTO dto) {
         Persona persona = new Persona(dto.getId(),dto.getNombre(), dto.getApellido(), dto.getDocumento(),dto.getNumTramite(), dto.getEmail(), dto.getUbicacion(), dto.getContactos());

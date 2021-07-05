@@ -1,13 +1,9 @@
 package domain.controllers;
 
 import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
-import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
-import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
-import domain.models.entities.entidadesGenerales.organizacion.Publicacion;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.*;
 import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
-import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorDeMensaje;
 import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeDuenioARescatista;
 import domain.models.entities.utils.DistanciaEntreDosPuntos;
 import domain.models.entities.utils.NotificadorHelper;
@@ -90,16 +86,16 @@ public class OrganizacionController {
             throw new Exception("La persona no es voluntaria en esta organizacion");
 
         organizacion.getFormulariosPendientes().remove(formularioPendiente);
-        Publicacion nuevaPublicacion = new Publicacion(formularioPendiente, false, new Date());
+        PublicacionMascotaPerdida nuevaPublicacion = new PublicacionMascotaPerdida(formularioPendiente, false, new Date());
         nuevaPublicacion.setEsVisible(true);
         organizacion.agregarPublicacion(nuevaPublicacion);
         //UPDATE en la base de datos cuando se haga
         repositorio.modificar(organizacion);
     }
 
-    public List<Publicacion> buscarTodasPublicaciones() {
+    public List<PublicacionMascotaPerdida> buscarTodasPublicacionesDeMascotasPerdidas() {
         List<Organizacion> organizaciones = repositorio.buscarTodos();
-        List<Publicacion> lista_publicaciones = new ArrayList<>();
+        List<PublicacionMascotaPerdida> lista_publicaciones = new ArrayList<>();
 
         for (Organizacion organizacion : organizaciones)
             lista_publicaciones.addAll(organizacion.getPublicaciones());
@@ -111,8 +107,12 @@ public class OrganizacionController {
         return this.buscarOrganizacionPorID(organizacionID).get().getPublicacionesAdopcion();
     }
 
+    public List<PublicacionInteresAdopcion> buscarPublicacionesInteresAdopcionDeOrganizacion(Integer organizacionID) {
+        return this.buscarOrganizacionPorID(organizacionID).get().getPublicacionInteresAdopcion();
+    }
 
-    public void notificarRescatista(Organizacion.OrganizacionDTO dto, Publicacion publicacion, Persona persona) throws IOException {
+
+    public void notificarRescatista(Organizacion.OrganizacionDTO dto, PublicacionMascotaPerdida publicacion, Persona persona) throws IOException {
         Organizacion organizacion = this.buscarOrganizacionPorID(dto.getId()).get();
         ArmadorMensajeDuenioARescatista armadorMensajeDuenioARescatista = new ArmadorMensajeDuenioARescatista(persona);
         NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeDuenioARescatista, publicacion.getFormulario().getPersonaQueRescato().getContactos());

@@ -7,7 +7,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class EnviarEmailsConRecomendacion {
 
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     PersonaController personaController = PersonaController.getInstancia();
 
     public void enviar() {

@@ -1,29 +1,35 @@
 package domain;
 
 import domain.controllers.*;
+import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Mascota;
+import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
+import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
+import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Permisos;
 import domain.models.entities.utils.PermisosDeAdmin;
 import domain.models.entities.utils.Ubicacion;
+import domain.models.modulos.notificador.estrategias.EnvioViaMail;
+import domain.models.modulos.notificador.estrategias.EnvioViaWhatsapp;
+import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class TestPublicacionDeAdopcion {
+public class PublicacionInteresAdopcionTest {
 
     @Test
-
-    public void testPreguntasParaAdopcion() {
-      /*  Usuario.UsuarioDTO dtoMark = new Usuario.UsuarioDTO();
-        dtoMark.setUsuario("mark");
-        dtoMark.setPassword("pASDakfsda3r!");
-        UsuarioController.getInstancia().agregarUsuario(dtoMark);*/
+    public void publicacionInteresAdopcionTest()  {
 
         //----------------------------------------------------TEST PREGUNTAS GENERALES-------------------------------------------------------------//
         Usuario adminMark = new Usuario("mark", "12dsASDf43##%#");
@@ -35,14 +41,10 @@ public class TestPublicacionDeAdopcion {
         preg2.setDescripcion("Rompe todo?");
 
         PreguntaAdopcionController.getInstancia().agregarPreguntasObligatorias(preg1, adminMark);
-        //PreguntaAdopcionController.getInstancia().agregarPreguntasObligatorias(preg2, adminMark);
 
         assertThat(PreguntaAdopcionController.getInstancia().listarTodos().size(), is(1));
 
-
         //----------------------------------------------------TEST PUBLI ADOPCION-------------------------------------------------------------//
-
-
         Ubicacion ubicacion = new Ubicacion();
         ubicacion.setLatitud(-35.420619);
         ubicacion.setLongitud(-59.572705);
@@ -61,30 +63,32 @@ public class TestPublicacionDeAdopcion {
         RespuestaAdopcion resp1 = new RespuestaAdopcion(pregun1, "galgo");
         RespuestaAdopcion resp2 = new RespuestaAdopcion(pregun2, "si");
 
-        Mascota firulais = new Mascota("FIrulais","Firu",3);
 
-        PublicacionAdopcion.PublicacionAdopcionDTO dtoPubli = new PublicacionAdopcion.PublicacionAdopcionDTO();
-        dtoPubli.setMascota(firulais);
-        PublicacionAdopcionController.getInstancia().agregar(dtoPubli, 1, resp1, resp2);
+        //------persona--------
+        EnvioViaMail envioViaMail = EnvioViaMail.instancia();
+        EnvioViaWhatsapp envioViaWhatsapp = EnvioViaWhatsapp.instancia();
+        List<EstrategiaNotificacion> estrategiasNotificacion = Arrays.asList(envioViaWhatsapp, envioViaMail);
+        Contacto contacto = new Contacto("Carmen","Villalta", "123123", "ropetru@hotmail.com", estrategiasNotificacion);
+        Persona persona1 = new Persona(2,"Julian", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
 
-        assertThat(PublicacionAdopcionController.getInstancia().listarTodos().size(), is(1));
+        //Caracteristicas Personalizadas
 
-        /*
-        PublicacionAdopcion.PublicacionAdopcionDTO dtoPubli = new PublicacionAdopcion.PublicacionAdopcionDTO();
-        dtoPubli.setMascota(firulais);
-        PersonaController instanciaPersona = PersonaController.getInstancia();
-        instanciaPersona.generarPublicacionParaDarEnAdopcion(firulais, dtoOrg.getId(), resp1, resp2);
+        CaracteristicaGeneral color = new CaracteristicaGeneral("color");
+        CaracteristicaGeneral contextura = new CaracteristicaGeneral("contextura");
 
-        assertThat(PersonaController.getInstancia().listarTodos().size(), is(1));
-       */
+        CaracteristicaPersonalizada cp1 = new CaracteristicaPersonalizada();
+        cp1.setCaracteristicaGeneral(color);
+        cp1.setValor("marron");
 
-    }
+        CaracteristicaPersonalizada cp2 = new CaracteristicaPersonalizada();
+        cp2.setCaracteristicaGeneral(contextura);
+        cp2.setValor("grande");
 
-    @Test
+        PublicacionInteresAdopcion.PublicacionInteresAdopcionDTO dtoPubli = new PublicacionInteresAdopcion.PublicacionInteresAdopcionDTO();
+        dtoPubli.setPersona(persona1);
 
-    public void testPublicacionAdopcion() {
+        PublicacionInteresAdopcionController.getInstancia().agregar(dtoPubli, 1, Arrays.asList(resp1, resp2), Arrays.asList(cp1, cp2));
 
-
-
+        assertThat(PublicacionInteresAdopcionController.getInstancia().listarTodos().size(), is(1));
     }
 }

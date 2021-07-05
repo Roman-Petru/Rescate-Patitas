@@ -41,7 +41,7 @@ public class RecomendacionSemanalTest {
         //En el test necesito agregar delay para poder probarlo
         try {
             for (int i = 0; i < 1; i++) {
-                Thread.sleep(10000);
+                Thread.sleep(25000);
                 System.out.println("Sleep " + i );
             }
         }catch(Exception e) {
