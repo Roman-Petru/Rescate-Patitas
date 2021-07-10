@@ -7,6 +7,10 @@ import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.models.modulos.notificador.mensaje.Mensaje;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class ArmadorMensajeDuenioARescatista implements ArmadorDeMensaje {
     Persona personaRemitente;
 
@@ -15,9 +19,14 @@ public class ArmadorMensajeDuenioARescatista implements ArmadorDeMensaje {
 
     }
 
+    public String obtenerTelefonosContacto(Persona personaRemitente){
+        List<Contacto> contactosPersona = personaRemitente.getContactos();
+        List<String> telefonos = contactosPersona.stream().map(contacto -> contacto.getTelefono()).collect(Collectors.toList());
+        String telefonosStr = telefonos.toString();
+    return telefonosStr;
+    }
     public String armarCuerpoMensaje(){
-        //TODO Terminar de completar el cuerpo del mensaje
-        String cuerpoMensaje ="Hola! Encontré a mi mascota perdida, te dejo mis datos para que me contactes:";
+        String cuerpoMensaje ="Hola! mi nombre es " + personaRemitente.getNombre() +" " + personaRemitente.getApellido() + " encontré a mi mascota perdida, podes contactarte conmigo a cualquiera de estos numeros:" + obtenerTelefonosContacto(personaRemitente);
         return cuerpoMensaje;
     }
 }
