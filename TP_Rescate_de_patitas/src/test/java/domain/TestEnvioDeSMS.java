@@ -11,9 +11,8 @@ public class TestEnvioDeSMS {
     public void testEnvioSMS() throws IOException {
 
         /*
-        Mensaje unMensaje = new Mensaje("Hola! Te hablamos desde Rescate de Patitas. Encontramos a tu mascota!",
+        Mensaje unMensaje = new Mensaje("Test Envío Vía SMS", "Hola! Te hablamos desde Rescate de Patitas. Encontramos a tu mascota!",
                 "541150957589");
-        unMensaje.setAsuntoMensaje("Test Envío Vía SMS");
         Notificador notificador = new Notificador();
         notificador.setMensajeAEnviar(unMensaje);
         EnvioViaSMS envioSMS = EnvioViaSMS.instancia();

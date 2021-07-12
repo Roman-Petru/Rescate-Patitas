@@ -26,7 +26,7 @@ public class Mascota extends Persistente {
     private List<CaracteristicaPersonalizada> caracteristicas;
     private NotificadorHelper helper;
 
-    public Mascota(Integer id, Animal tipo, String nombre, String apodo, Integer edadAproximada, Boolean esMacho, String descripcionFisica, List<String> fotos, List<Contacto> contactos, List<CaracteristicaPersonalizada> caracteristicas) {
+    public Mascota(Integer id, Animal tipo, String nombre, String apodo, Integer edadAproximada, Boolean esMacho, String descripcionFisica) {
         this.setId(id);
         this.tipo = tipo;
         this.nombre = nombre;
@@ -34,15 +34,16 @@ public class Mascota extends Persistente {
         this.edadAproximada = edadAproximada;
         this.esMacho = esMacho;
         this.descripcionFisica = descripcionFisica;
-        this.fotos = fotos;
-        this.contactos = contactos;
-        this.caracteristicas = caracteristicas;
+        this.contactos = new ArrayList<>();
+        this.fotos = new ArrayList<>();
+        this.caracteristicas = new ArrayList<>();;
     }
 
     public Mascota(String nombre, String apodo, Integer edadAproximada) {
         this.nombre = nombre;
         this.apodo = apodo;
         this.edadAproximada = edadAproximada;
+        this.contactos = new ArrayList<>();
         this.caracteristicas = new ArrayList<>();
         this.fotos = new ArrayList<>();
     }

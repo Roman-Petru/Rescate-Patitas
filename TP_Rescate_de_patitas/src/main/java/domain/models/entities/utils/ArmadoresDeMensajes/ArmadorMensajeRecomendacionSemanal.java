@@ -13,10 +13,16 @@ public class ArmadorMensajeRecomendacionSemanal implements ArmadorDeMensaje {
         this.mascota = mascota;
     }
 
+    @Override
+    public String armarAsuntoMensaje() {
+        return "Rescate Patitas - Recodartorio Mascotas en adopción";
+    }
+
+    @Override
     public String armarCuerpoMensaje(){
 
-        String cuerpoMensaje = "Dejamos información sobre la mascota: " + mascota.getApodo() + " que según sus preferencias de adopción," +
-                "podría estar interesado en la adopción." + System.lineSeparator() + System.lineSeparator() +
+        String cuerpoMensaje = "Dejamos información sobre la mascota: " + mascota.getNombre() + " que según sus preferencias de adopción," +
+                "podría estar interesado: " + System.lineSeparator() + System.lineSeparator() +
                 " -Apodo: " + mascota.getApodo() + System.lineSeparator() +
                 " -Edad: " + mascota.getEdadAproximada() + System.lineSeparator() +
                 " -Caracteristicas: " + System.lineSeparator() + this.listadoDeCaracteristicasString() + System.lineSeparator() +

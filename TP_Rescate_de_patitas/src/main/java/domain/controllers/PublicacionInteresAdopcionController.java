@@ -5,6 +5,7 @@ import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopci
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
+import domain.models.repositories.RepositorioPublicacionInteresAdopcion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,8 @@ import java.util.List;
 public class PublicacionInteresAdopcionController {
 
     private static PublicacionInteresAdopcionController instancia = null;
-    //private static RepositorioOrganizaciones repositorio;
-
-    // private PublicacionInteresAdopcionController() {this.repositorio = new RepositorioOrganizaciones();}
+    private static RepositorioPublicacionInteresAdopcion repositorio;
+    private PublicacionInteresAdopcionController() {this.repositorio = new RepositorioPublicacionInteresAdopcion();}
 
     public static PublicacionInteresAdopcionController getInstancia(){
         if (instancia == null){
@@ -33,15 +33,17 @@ public class PublicacionInteresAdopcionController {
 
 
     public void agregar(PublicacionInteresAdopcion.PublicacionInteresAdopcionDTO dto, Integer organizacionID, List<RespuestaAdopcion> comodidades, List<CaracteristicaPersonalizada> preferencias) {
-        Organizacion organizacion = OrganizacionController.getInstancia().buscarOrganizacionPorID(organizacionID).get();
+
         PublicacionInteresAdopcion publicacionAdopcion = new PublicacionInteresAdopcion(dto.getPersona());
         publicacionAdopcion.setComodidades(comodidades);
         publicacionAdopcion.setPreferencias(preferencias);
 
+        repositorio.agregar(publicacionAdopcion);
+
+        Organizacion organizacion = OrganizacionController.getInstancia().buscarOrganizacionPorID(organizacionID).get();
         organizacion.agregarPublicacionInteresAdopcion(publicacionAdopcion);
         Organizacion.OrganizacionDTO dtoOrg = organizacion.toDTO();
         OrganizacionController.getInstancia().modificar(organizacionID, dtoOrg);
-
     }
 
     public PublicacionAdopcion.PublicacionAdopcionDTO ver(Integer id) {

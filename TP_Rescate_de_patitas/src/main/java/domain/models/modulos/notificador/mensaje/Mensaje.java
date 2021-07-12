@@ -6,7 +6,8 @@ public class Mensaje implements Mensajeable {
     private String destinatarioMensaje;
     private String asuntoMensaje;
 
-    public Mensaje(String cuerpo, String destinatario) {
+    public Mensaje(String asunto, String cuerpo, String destinatario) {
+        this.asuntoMensaje = asunto;
         this.textoMensaje = cuerpo;
         this.destinatarioMensaje = destinatario;
     }

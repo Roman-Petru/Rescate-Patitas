@@ -23,7 +23,6 @@ public class TestArmadorMensajes {
     @Test
     public void armadorMensajeDuenioARescatista(){
 
-
         List<EstrategiaNotificacion> notificadores = new ArrayList() ;
         EnvioViaSMS envioSMS = EnvioViaSMS.instancia();
         notificadores.add(envioSMS);
@@ -36,6 +35,7 @@ public class TestArmadorMensajes {
         Persona persona = new Persona(1,"Juan","Gomez",null,null,null,null,contactos);
         ArmadorDeMensaje armadorDeMensaje = new ArmadorMensajeDuenioARescatista(persona);
         String mensaje = armadorDeMensaje.armarCuerpoMensaje();
+
         System.out.println(mensaje);
     }
 }
