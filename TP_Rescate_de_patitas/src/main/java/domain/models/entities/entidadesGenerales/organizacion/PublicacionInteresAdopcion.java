@@ -46,4 +46,13 @@ public class PublicacionInteresAdopcion extends Persistente {
         dto.comodidades = this.getComodidades();
         return dto;
     }
+
+
+    public void agregarPreferencia(CaracteristicaPersonalizada preferencia){
+        this.preferencias.add(preferencia);
+    }
+
+    public void agregarComodidad(RespuestaAdopcion comodidad){
+        this.comodidades.add(comodidad);
+    }
 }

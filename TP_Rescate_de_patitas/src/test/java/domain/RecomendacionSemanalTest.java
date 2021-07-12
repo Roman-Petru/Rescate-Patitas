@@ -1,7 +1,13 @@
 package domain;
 
-import domain.controllers.PersonaController;
+import domain.controllers.*;
 import domain.models.entities.entidadesGenerales.Contacto;
+import domain.models.entities.entidadesGenerales.Mascota;
+import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
+import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
+import domain.models.entities.enums.Animal;
 import domain.models.entities.utils.Ubicacion;
 import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.modulos.notificador.estrategias.EnvioViaMail;
@@ -29,14 +35,40 @@ public class RecomendacionSemanalTest {
         Persona persona1 = new Persona(2,"Julian", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
         Persona persona2 = new Persona(3,"Martin", "Morales", "12312424", "325325235", "martin.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
 
-        //Agrego las personas al repositorio
+        //AGREGO PERSONAS A REPOSITORIO
         PersonaController personaController = PersonaController.getInstancia();
         personaController.agregar(persona1.toDTO());
         personaController.agregar(persona2.toDTO());
 
-        //Envio email a las personas interesadas
+
+        //------------------------AGREGAR CARACTERISTICA MASCOTA----------------------------
+        CaracteristicaController caracteristicaController = CaracteristicaController.getInstancia();
+        caracteristicaController.agregar(new CaracteristicaGeneral("color").toDTO());
+        CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada();
+        CaracteristicaGeneral color = getCaracteristicaGeneral(caracteristicaController);
+
+        caracteristicaPersonalizada.setCaracteristicaGeneral(color);
+        caracteristicaPersonalizada.setValor("marron");
+
+        Mascota firulais = new Mascota(1, Animal.PERRO, "Firulais","Firu",3, true,"MEDIANO");
+        firulais.agregarCaracteristicaPersonalizada(caracteristicaPersonalizada);
+
+
+        //--------------------AGREGO A PUBLICACIONES EN ADOPCION------------------------
+        PublicacionAdopcion enAdopcionFirulais = new PublicacionAdopcion(firulais);
+        PublicacionAdopcionController publicacionAdopcionController = PublicacionAdopcionController.getInstancia();
+        publicacionAdopcionController.agregar(enAdopcionFirulais.toDTO(),1, null);
+
+        //----------------------------INTERESADOS EN ADOPCION--------------------------
+        PublicacionInteresAdopcion interesAdopcion = new PublicacionInteresAdopcion(persona1);
+
+        PublicacionInteresAdopcionController interesController = PublicacionInteresAdopcionController.getInstancia();
+        interesController.agregar(interesAdopcion.toDTO(),1,null, Arrays.asList(caracteristicaPersonalizada));
+
+
+        //------------------ENVIO EMAIL A LAS PERSONAS INTERESADAS---------------
         EnviarEmailsConRecomendacion enviarEmailsConRecomendacion = new EnviarEmailsConRecomendacion();
-        enviarEmailsConRecomendacion.enviar();
+        enviarEmailsConRecomendacion.iniciarTarea();
 
         //En el test necesito agregar delay para poder probarlo
         try {
@@ -48,5 +80,9 @@ public class RecomendacionSemanalTest {
             System.out.println(e);
         }
 
+    }
+
+    private CaracteristicaGeneral getCaracteristicaGeneral(CaracteristicaController controller) {
+        return controller.listarTodos().stream().filter(cg -> "color".equalsIgnoreCase(cg.getDescripcion())).findAny().get();
     }
 }

@@ -13,7 +13,7 @@ public class TestEnvioDeMail {
     @Test
     public void testEnvioMail() throws IOException {
 
-        Mensaje unMensaje = new Mensaje("Testeando envio","ropetru@hotmail.com");
+        Mensaje unMensaje = new Mensaje("Test Mail","Test envio","ropetru@hotmail.com");
         unMensaje.setAsuntoMensaje("Test Asunto");
         Notificador notificador = new Notificador();
         notificador.setMensajeAEnviar(unMensaje);

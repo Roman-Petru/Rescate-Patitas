@@ -26,16 +26,18 @@ public class NotificadorHelper {
         for (Contacto contacto:contactos) {
           for(EstrategiaNotificacion estrategiaNotificacion: contacto.getNotificadores()){
               Notificador notificador = new Notificador();
-              notificador.setMensajeAEnviar(armarMensajeable(contacto, estrategiaNotificacion,armadorDeMensaje)); //pasar armador de mensaje
+              notificador.setMensajeAEnviar(armarMensajeable(contacto, estrategiaNotificacion, armadorDeMensaje));
               notificador.setEstrategiaParaNotificar(estrategiaNotificacion);
               notificador.enviar();
           }
         }
     }
 
-   private Mensaje armarMensajeable(Contacto contacto, EstrategiaNotificacion estrategiaNotificacion,ArmadorDeMensaje armadorDeMensaje) {
+   private Mensaje armarMensajeable(Contacto contacto, EstrategiaNotificacion estrategiaNotificacion, ArmadorDeMensaje armadorDeMensaje) {
 
-        return new Mensaje(armadorDeMensaje.armarCuerpoMensaje(), estrategiaNotificacion.obtenerDestinatario(contacto)) ;
+        return new Mensaje(armadorDeMensaje.armarAsuntoMensaje(),
+                           armadorDeMensaje.armarCuerpoMensaje(),
+                           estrategiaNotificacion.obtenerDestinatario(contacto));
     }
 
 }
