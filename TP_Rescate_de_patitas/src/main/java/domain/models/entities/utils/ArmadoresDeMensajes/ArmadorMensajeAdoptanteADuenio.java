@@ -24,4 +24,9 @@ public class ArmadorMensajeAdoptanteADuenio implements ArmadorDeMensaje {
         String cuerpoMensaje ="Hola! mi nombre es " + personaRemitente.getNombre() +" " + personaRemitente.getApellido() + " me interesaría adoptar a tu mascota, podes contactarte conmigo a cualquiera de estos numeros:" + obtenerTelefonosContacto(personaRemitente);
         return cuerpoMensaje;
     }
+
+    @Override
+    public String armarAsuntoMensaje() {
+        return "Rescate Patitas - Me interesa adoptar a su mascota!";
+    }
 }

@@ -11,7 +11,6 @@ public class ArmadorMensajeRescatistaADuenio implements ArmadorDeMensaje {
 
     public ArmadorMensajeRescatistaADuenio(Persona personaRemitente){
         this.personaRemitente = personaRemitente;
-
     }
 
     public String obtenerTelefonosContacto(Persona personaRemitente){
@@ -20,8 +19,15 @@ public class ArmadorMensajeRescatistaADuenio implements ArmadorDeMensaje {
         String telefonosStr = telefonos.toString();
         return telefonosStr;
     }
+
+    @Override
     public String armarCuerpoMensaje(){
         String cuerpoMensaje ="Hola! mi nombre es " + personaRemitente.getNombre() +" " + personaRemitente.getApellido() + " encontré a tu mascota perdida, podes contactarte conmigo a cualquiera de estos numeros:" + obtenerTelefonosContacto(personaRemitente);
         return cuerpoMensaje;
+    }
+
+    @Override
+    public String armarAsuntoMensaje() {
+        return "Rescate Patitas - Encontré a tu mascota!";
     }
 }
