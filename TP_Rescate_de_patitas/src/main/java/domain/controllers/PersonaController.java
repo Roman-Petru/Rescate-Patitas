@@ -7,8 +7,11 @@ import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
 import domain.models.entities.entidadesGenerales.personas.Persona;
+import domain.models.entities.entidadesGenerales.personas.Rescatista;
 import domain.models.entities.enums.Permisos;
+import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeAdoptanteADuenio;
 import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeDuenioARescatista;
+import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeRescatistaADuenio;
 import domain.models.entities.utils.NotificadorHelper;
 import domain.models.repositories.RepositorioMascotas;
 import domain.models.repositories.RepositorioPersonas;
@@ -74,9 +77,19 @@ public class PersonaController {
     //public void contactarConDuenio(Integer idMascota) throws IOException {
     //
 
-    public void notificarDuenioAlRescatista(PublicacionMascotaPerdida publicacion) throws IOException {
-        ArmadorMensajeDuenioARescatista armadorMensajeDuenioARescatista = new ArmadorMensajeDuenioARescatista(publicacion.getFormulario().getPersonaQueRescato());
+    public void notificarDuenioAlRescatista(PublicacionMascotaPerdida publicacion, Persona duenio) throws IOException {
+        ArmadorMensajeDuenioARescatista armadorMensajeDuenioARescatista = new ArmadorMensajeDuenioARescatista(duenio);
         NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeDuenioARescatista, publicacion.getFormulario().getPersonaQueRescato().getContactos());
+    }
+
+    public void notificarRescatistaADuenio(Mascota mascota, Persona rescatista) throws IOException {
+        ArmadorMensajeRescatistaADuenio armadorMensajeRescatistaADuenio = new ArmadorMensajeRescatistaADuenio(rescatista);
+        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeRescatistaADuenio, mascota.getContactos());
+    }
+
+    public void notificarAdoptanteADuenio(PublicacionAdopcion publicacion, Persona adoptante) throws IOException {
+        ArmadorMensajeAdoptanteADuenio armadorMensajeAdoptanteADuenio = new ArmadorMensajeAdoptanteADuenio(adoptante);
+        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeAdoptanteADuenio, publicacion.getMascota().getContactos());
     }
 
 }
