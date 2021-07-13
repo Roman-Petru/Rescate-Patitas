@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter @Setter
 public class FormularioMascota {
     private Persona personaQueRescato;
+    private Persona duenioMascota;
     private String imagen;
     private String estadoMascota;
     private Ubicacion lugarEncontrado;

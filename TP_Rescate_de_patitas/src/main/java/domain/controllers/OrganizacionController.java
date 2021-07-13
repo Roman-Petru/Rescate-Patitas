@@ -1,15 +1,16 @@
 package domain.controllers;
 
 import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
-import domain.models.entities.entidadesGenerales.organizacion.*;
+import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
+import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
 import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
-import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeDuenioARescatista;
 import domain.models.entities.utils.DistanciaEntreDosPuntos;
-import domain.models.entities.utils.NotificadorHelper;
 import domain.models.repositories.RepositorioOrganizaciones;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,7 +61,7 @@ public class OrganizacionController {
         //TODO
     }
 
-    public void crearFormulario(FormularioMascota.FormularioMascotaDTO dto) {
+    public void crearFormularioMascotaPerdida(FormularioMascota.FormularioMascotaDTO dto) {
 
         class BuscarOrganizacion {
             Organizacion encontrarOrganizacionMasCercana(FormularioMascota formulario) {
@@ -109,13 +110,6 @@ public class OrganizacionController {
 
     public List<PublicacionInteresAdopcion> buscarPublicacionesInteresAdopcionDeOrganizacion(Integer organizacionID) {
         return this.buscarOrganizacionPorID(organizacionID).get().getPublicacionInteresAdopcion();
-    }
-
-
-    public void notificarRescatista(Organizacion.OrganizacionDTO dto, PublicacionMascotaPerdida publicacion, Persona persona) throws IOException {
-        Organizacion organizacion = this.buscarOrganizacionPorID(dto.getId()).get();
-        ArmadorMensajeDuenioARescatista armadorMensajeDuenioARescatista = new ArmadorMensajeDuenioARescatista(persona);
-        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeDuenioARescatista, publicacion.getFormulario().getPersonaQueRescato().getContactos());
     }
 
     public void agregarPreguntaAdopcionOrganizacion(Integer organizacionID, PreguntaAdopcion.PreguntaAdopcionDTO dto, Usuario voluntario){
