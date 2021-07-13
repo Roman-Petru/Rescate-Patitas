@@ -38,7 +38,7 @@ public class Usuario extends Persistente {
         dto.intentosFallidos = this.getIntentosFallidos();
         dto.lista_permisos = this.getLista_permisos();
         return dto;
-    }
+}
 
     @Getter @Setter
     public static class UsuarioDTO {
