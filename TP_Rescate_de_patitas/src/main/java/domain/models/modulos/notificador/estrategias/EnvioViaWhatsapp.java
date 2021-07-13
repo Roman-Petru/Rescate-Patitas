@@ -31,4 +31,5 @@ public class EnvioViaWhatsapp implements EstrategiaNotificacion {
     public String obtenerDestinatario(Contacto contacto) {
         return contacto.getTelefono();
     }
+
 }

@@ -34,10 +34,11 @@ public class PublicacionAdopcionController {
 
         PublicacionAdopcion publicacionAdopcion = new PublicacionAdopcion(dto.getMascota());
         publicacionAdopcion.agregarRespuestasAdopcion(respuestas);
-
         repositorio.agregar(publicacionAdopcion);
 
-        Organizacion organizacion = OrganizacionController.getInstancia().buscarOrganizacionPorID(organizacionID).get();
+
+        OrganizacionController organizacionController = OrganizacionController.getInstancia();
+        Organizacion organizacion = organizacionController.buscarOrganizacionPorID(organizacionID).get();
         organizacion.agregarPublicacionAdopcion(publicacionAdopcion);
         Organizacion.OrganizacionDTO dtoOrg = organizacion.toDTO();
         OrganizacionController.getInstancia().modificar(organizacionID, dtoOrg);

@@ -21,12 +21,12 @@ public class ArmadorMensajeRecomendacionSemanal implements ArmadorDeMensaje {
     @Override
     public String armarCuerpoMensaje(){
 
-        String cuerpoMensaje = "Dejamos información sobre la mascota: " + mascota.getNombre() + " que según sus preferencias de adopción," +
+        String cuerpoMensaje = "Dejamos información sobre la mascota: " + mascota.getNombre() + " que según sus preferencias de adopción, " +
                 "podría estar interesado: " + System.lineSeparator() + System.lineSeparator() +
-                " -Apodo: " + mascota.getApodo() + System.lineSeparator() +
-                " -Edad: " + mascota.getEdadAproximada() + System.lineSeparator() +
-                " -Caracteristicas: " + System.lineSeparator() + this.listadoDeCaracteristicasString() + System.lineSeparator() +
-                " -Genero: " + this.generoAnimal() + System.lineSeparator() + System.lineSeparator() +
+                " •Apodo: " + mascota.getApodo() + System.lineSeparator() +
+                " •Edad: " + mascota.getEdadAproximada() + System.lineSeparator() +
+                " •Caracteristicas: " + System.lineSeparator() + this.listadoDeCaracteristicasString() + System.lineSeparator() +
+                " •Genero: " + this.generoAnimal() + System.lineSeparator() + System.lineSeparator() +
                 "Muchas gracias!";
 
         return cuerpoMensaje;
@@ -35,7 +35,7 @@ public class ArmadorMensajeRecomendacionSemanal implements ArmadorDeMensaje {
     public String listadoDeCaracteristicasString(){
         StringBuilder stringBuilder = new StringBuilder();
         for(CaracteristicaPersonalizada c: mascota.getCaracteristicas()){
-            stringBuilder.append(c.getCaracteristicaGeneral() + ": " + c.getValor());
+            stringBuilder.append("     -" + c.getCaracteristicaGeneral().getDescripcion() + ": " + c.getValor());
             stringBuilder.append(System.lineSeparator());
         }
         return stringBuilder.toString();
@@ -43,10 +43,10 @@ public class ArmadorMensajeRecomendacionSemanal implements ArmadorDeMensaje {
 
     public String generoAnimal(){
         if (mascota.getEsMacho()){
-            return "MACHO";
+            return "Macho";
         }
         else{
-            return "HEMBRA";
+            return "Hembra";
         }
     }
 

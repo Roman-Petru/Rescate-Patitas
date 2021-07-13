@@ -8,17 +8,20 @@ import java.io.IOException;
 public class Notificador {
 
     private Mensajeable mensajeAEnviar;
-    private EstrategiaNotificacion EstrategiaParaNotificar;
+    private EstrategiaNotificacion estrategiaParaNotificar;
+
+    public Notificador(){
+    }
 
     public void setMensajeAEnviar(Mensajeable mensaje) {
         this.mensajeAEnviar = mensaje;
     }
 
     public void setEstrategiaParaNotificar(EstrategiaNotificacion estrategia) {
-        this.EstrategiaParaNotificar = estrategia;
+        this.estrategiaParaNotificar = estrategia;
     }
 
     public void enviar() throws IOException {
-        EstrategiaParaNotificar.enviar(this.mensajeAEnviar);
+        estrategiaParaNotificar.enviar(this.mensajeAEnviar);
     }
 }
