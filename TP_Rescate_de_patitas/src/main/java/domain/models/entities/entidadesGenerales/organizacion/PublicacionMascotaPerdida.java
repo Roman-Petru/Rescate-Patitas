@@ -1,6 +1,5 @@
 package domain.models.entities.entidadesGenerales.organizacion;
 
-import domain.models.entities.enums.EstadoPublicacion;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,6 @@ import java.util.Date;
 public class PublicacionMascotaPerdida {
     private FormularioMascota formulario;
     private boolean mascostaEncontrada;
-    private EstadoPublicacion estado;
     private Date fecha;
     private boolean esVisible;
 

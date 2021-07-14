@@ -22,7 +22,6 @@ public class Mascota extends Persistente {
     private List<String> fotos;
     private List<Contacto> contactos;
     private List<CaracteristicaPersonalizada> caracteristicas;
-    private NotificadorHelper helper;
 
     public Mascota(Integer id, Animal tipo, String nombre, String apodo, Integer edadAproximada, Boolean esMacho, String descripcionFisica) {
         this.setId(id);
@@ -46,9 +45,6 @@ public class Mascota extends Persistente {
         this.fotos = new ArrayList<>();
     }
 
-   /* public void notificar(Persona persona) throws IOException {
-        helper.enviarMensaje(persona, contactos);
-    }*/
 
     public void agregarCaracteristicaPersonalizada(CaracteristicaPersonalizada caracteristicaPersonalizada) {
         this.caracteristicas.add(caracteristicaPersonalizada);
