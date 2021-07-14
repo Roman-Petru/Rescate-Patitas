@@ -11,6 +11,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 public class TestArmadorMensajes {
 
     @Test
@@ -28,6 +31,8 @@ public class TestArmadorMensajes {
         DatosDePersona persona = new DatosDePersona(1,"Juan","Gomez",null,null,null,null,contactos);
         ArmadorDeMensaje armadorDeMensaje = new ArmadorMensajeDuenioARescatista(persona);
         String mensaje = armadorDeMensaje.armarCuerpoMensaje();
+
+        assertThat(mensaje, is("Hola! mi nombre es Juan Gomez encontré a mi mascota perdida, podes contactarte conmigo a cualquiera de estos números:[1544687, 1116498]"));
 
         System.out.println(mensaje);
     }
