@@ -1,11 +1,13 @@
 package domain;
 
 import domain.controllers.CaracteristicaController;
+import domain.controllers.personas.DuenioMascotaController;
 import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.*;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
+import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.utils.Ubicacion;
 import org.junit.Test;
 
@@ -22,17 +24,20 @@ public class TestAgregarMascota {
         ubicacion.setLatitud(-35.814884);
         ubicacion.setLongitud(58.66555);
 
-        DatosDePersona jorge = new DatosDePersona(1,"Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null);
+        DuenioMascota jorgeDuenio = new DuenioMascota();
+        DatosDePersona datosDePersona = new DatosDePersona(1,"Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null);
+        jorgeDuenio.setDatosDePersona(datosDePersona);
 
         Mascota firulais = new Mascota("FIrulais","Firu",3);
         Mascota pelusa = new Mascota("Pelusa","Pelu",5);
 
 
-        PersonaController personaController = PersonaController.getInstancia();
-        personaController.agregarMascota(pelusa);
-        personaController.agregarMascota(firulais);
+        DuenioMascotaController duenioMascotaController = DuenioMascotaController.getInstancia();
+        duenioMascotaController.agregar(jorgeDuenio.toDTO());
+        duenioMascotaController.agregarMascota(jorgeDuenio.getId(), firulais);
+        duenioMascotaController.agregarMascota(jorgeDuenio.getId(), pelusa);
 
-        assertThat(jorge.getDuenio().getMascotas().size(), is(2));
+        assertThat(jorgeDuenio.getMascotas().size(), is(2));
     }
 
     @Test
@@ -46,7 +51,9 @@ public class TestAgregarMascota {
         ubicacion.setLatitud(-35.814884);
         ubicacion.setLongitud(58.66555);
 
-        DatosDePersona jorge = new DatosDePersona(1, "Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null );
+        DuenioMascota jorgeDuenio = new DuenioMascota();
+        DatosDePersona datosDePersona = new DatosDePersona(1,"Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null);
+        jorgeDuenio.setDatosDePersona(datosDePersona);
 
         CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada();
         CaracteristicaGeneral color = agregarCaracteristicaGeneral(caracteristicaController);
@@ -57,10 +64,12 @@ public class TestAgregarMascota {
         Mascota firulais = new Mascota("FIrulais","Firu",3);
         firulais.agregarCaracteristicaPersonalizada(caracteristicaPersonalizada);
 
-        jorge.getDuenio().agregarMascota(firulais);
+        DuenioMascotaController duenioMascotaController = DuenioMascotaController.getInstancia();
+        duenioMascotaController.agregar(jorgeDuenio.toDTO());
+        duenioMascotaController.agregarMascota(jorgeDuenio.getId(), firulais);
 
-        assertThat(jorge.getDuenio().getMascotas().get(0).getCaracteristicas().size(), is(1));
-        assertThat(jorge.getDuenio().getMascotas().get(0).getCaracteristicas().get(0).getValor(), is("marron"));
+        assertThat(jorgeDuenio.getMascotas().get(0).getCaracteristicas().size(), is(1));
+        assertThat(jorgeDuenio.getMascotas().get(0).getCaracteristicas().get(0).getValor(), is("marron"));
     }
 
     private CaracteristicaGeneral agregarCaracteristicaGeneral(CaracteristicaController controller) {

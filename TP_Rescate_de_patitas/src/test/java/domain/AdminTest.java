@@ -17,7 +17,6 @@ public class AdminTest {
         Usuario adminCarlos = new Usuario("admin_carlos", "passwordParaProbar123_");
         usuarioController.agregarUsuario(adminCarlos.toDTO());
         adminCarlos.agregarPermisos(Permisos.USUARIO_ADMIN);
-        adminCarlos.agregarPermisos(Permisos.ABM_CARACTERISTICAS);
 
 
         Usuario adminPepe = new Usuario("admin_pepe", "passwordParaProbar1234_");

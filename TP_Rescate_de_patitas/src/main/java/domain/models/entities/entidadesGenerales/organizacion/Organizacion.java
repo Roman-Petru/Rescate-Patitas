@@ -57,13 +57,17 @@ public class Organizacion extends Persistente {
         this.postulanteVoluntarios.add(postulanteVoluntario);
     }
 
-    public void agregarVoluntario (Usuario personaQueAcepta, Usuario voluntario) throws Exception {
+  /*  public void agregarVoluntario (Usuario personaQueAcepta, Usuario voluntario) throws Exception {
     //ver quien puede aceptar voluntarios ( admins y otros voluntarios?)
         if (!voluntarios.contains(voluntario))
             throw new Exception("La persona no es voluntaria en esta organizacion");
 
         postulanteVoluntarios.remove(voluntario);
         voluntarios.add(voluntario);
+    }*/
+
+    public void agregarVoluntario(Usuario voluntario){
+        this.voluntarios.add(voluntario);
     }
 
     public boolean esVoluntarioDeOrg(Usuario usuario) {

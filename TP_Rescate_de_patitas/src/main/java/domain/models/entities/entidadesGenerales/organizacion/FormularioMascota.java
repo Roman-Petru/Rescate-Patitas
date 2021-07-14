@@ -1,20 +1,22 @@
 package domain.models.entities.entidadesGenerales.organizacion;
 
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
+import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
+import domain.models.entities.entidadesGenerales.personas.Rescatista;
 import domain.models.entities.utils.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
 public class FormularioMascota {
-    private DatosDePersona personaQueRescato;
-    private DatosDePersona duenioMascota;
+    private Rescatista personaQueRescato;
+    private DuenioMascota duenioMascota;
     private String imagen;
     private String estadoMascota;
     private Ubicacion lugarEncontrado;
     private boolean tieneChapita;
 
-    public FormularioMascota(DatosDePersona personaQueRescato, String imagen, String estadoMascota, Ubicacion lugarEncontrado, boolean tieneChapita) {
+    public FormularioMascota(Rescatista personaQueRescato, String imagen, String estadoMascota, Ubicacion lugarEncontrado, boolean tieneChapita) {
         this.personaQueRescato = personaQueRescato;
         this.imagen = imagen;
         this.estadoMascota = estadoMascota;
@@ -23,7 +25,7 @@ public class FormularioMascota {
     }
     @Getter @Setter
     public class FormularioMascotaDTO {
-        private DatosDePersona personaQueRescato;
+        private Rescatista personaQueRescato;
         private String imagen;
         private String estadoMascota;
         private Ubicacion lugarEncontrado;

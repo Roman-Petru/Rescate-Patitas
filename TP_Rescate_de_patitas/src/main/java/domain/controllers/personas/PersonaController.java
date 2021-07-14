@@ -62,22 +62,7 @@ public class PersonaController {
         //TODO
     }
 
-    //public void contactarConDuenio(Integer idMascota) throws IOException {
-    //
-
-    //duenioMascotaController
-    public void notificarDuenioAlRescatista(PublicacionMascotaPerdida publicacion, DatosDePersona duenio) throws IOException {
-        ArmadorMensajeDuenioARescatista armadorMensajeDuenioARescatista = new ArmadorMensajeDuenioARescatista(duenio);
-        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeDuenioARescatista, publicacion.getFormulario().getPersonaQueRescato().getContactos());
-    }
-
-    //rescatistaController
-    public void notificarRescatistaADuenio(Mascota mascota, DatosDePersona rescatista) throws IOException {
-        ArmadorMensajeRescatistaADuenio armadorMensajeRescatistaADuenio = new ArmadorMensajeRescatistaADuenio(rescatista);
-        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeRescatistaADuenio, mascota.getContactos());
-    }
-
-
+    //Necesitariamos la clase adoptante ?
     public void notificarAdoptanteADuenio(PublicacionAdopcion publicacion, DatosDePersona adoptante) throws IOException {
         ArmadorMensajeAdoptanteADuenio armadorMensajeAdoptanteADuenio = new ArmadorMensajeAdoptanteADuenio(adoptante);
         NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeAdoptanteADuenio, publicacion.getMascota().getContactos());

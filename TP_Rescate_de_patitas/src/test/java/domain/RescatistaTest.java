@@ -1,7 +1,11 @@
 package domain;
 
+import domain.controllers.OrganizacionController;
+import domain.controllers.personas.DuenioMascotaController;
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Mascota;
+import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
+import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.utils.Ubicacion;
 import domain.models.entities.entidadesGenerales.hogares.BuscarHogar;
 import domain.models.entities.entidadesGenerales.hogares.DatosMascotaHogar;
@@ -46,7 +50,7 @@ public class RescatistaTest {
         rescatistaJuan.setRadioDeCercaniaEnKm(150);
 
         DatosDePersona datosPersona = new DatosDePersona(1,"Juan", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, null);
-        datosPersona.setRescatista(rescatistaJuan);
+        rescatistaJuan.setDatosDePersona(datosPersona);
 
         BuscarHogar busquedaDehogar = new BuscarHogar();
         List<HogarDeTransito> hogares = busquedaDehogar.obtenerHogaresDependiendoMascota(datosMascota,rescatistaJuan);
@@ -67,17 +71,27 @@ public class RescatistaTest {
 
         Contacto contacto = new Contacto("Carmen","Villalta", "123123", "ropetru@hotmail.com", estrategiasNotificacion);
 
-        DatosDePersona juanDuenio = new DatosDePersona(1, "Juan", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
+        DuenioMascota juanDuenio = new DuenioMascota();
+        DatosDePersona datosDePersona = new DatosDePersona(1, "Juan", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
+        juanDuenio.setDatosDePersona(datosDePersona);
         Mascota firulais = new Mascota("FIrulais","Firu",3);
         firulais.setId(1);
         firulais.setContactos(Arrays.asList(contacto));
-        juanDuenio.getDuenio().agregarMascota(firulais);
 
-        DatosDePersona juliRescatista = new DatosDePersona(2,"Juli", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
+
+        DuenioMascotaController duenioMascotaController = DuenioMascotaController.getInstancia();
+        duenioMascotaController.agregar(juanDuenio.toDTO());
+        duenioMascotaController.agregarMascota(juanDuenio.getId(), firulais);
+
+        Rescatista juliRescatista = new Rescatista();
+        DatosDePersona datosPersona = new DatosDePersona(2,"Juli", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
+        juliRescatista.setDatosDePersona(datosPersona);
 
         FormularioMascota formularioMascota = new FormularioMascota(juliRescatista, "path imagen", "asustada", ubicacion, true);
 
-        juliRescatista.getRescatista().setFormulario(formularioMascota);
+        juliRescatista.setFormulario(formularioMascota);
+
+
 
         //Empieza el flujo
         //juliRescatista.contactarConDuenio("1");

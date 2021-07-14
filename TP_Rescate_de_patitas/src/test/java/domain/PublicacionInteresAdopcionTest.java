@@ -28,10 +28,11 @@ public class PublicacionInteresAdopcionTest {
 
     @Test
     public void publicacionInteresAdopcionTest()  {
+        OrganizacionController organizacionController = OrganizacionController.getInstancia();
 
         //----------------------------------------------------TEST PREGUNTAS GENERALES-------------------------------------------------------------//
         Usuario adminMark = new Usuario("mark", "12dsASDf43##%#");
-        adminMark.agregarPermisos(PermisosDeAdmin.obtener().toArray(new Permisos[0]));
+        adminMark.agregarPermisos(Permisos.USUARIO_ADMIN);
 
         PreguntaAdopcion.PreguntaAdopcionDTO preg1 = new PreguntaAdopcion.PreguntaAdopcionDTO();
         preg1.setDescripcion("Raza");
@@ -53,7 +54,10 @@ public class PublicacionInteresAdopcionTest {
         dtoOrg.setUbicacion(ubicacion);
         OrganizacionController.getInstancia().agregar(dtoOrg);
 
-        OrganizacionController.getInstancia().agregarPreguntaAdopcionOrganizacion(1, preg2, adminMark);
+        Usuario voluntario1 = new Usuario("vol1","12dsASDf43##%#");
+        organizacionController.agregarVoluntarioALista(1,voluntario1);
+
+        organizacionController.agregarPreguntaAdopcionOrganizacion(2, preg2, voluntario1);
 
         PreguntaAdopcion pregun1 = new PreguntaAdopcion(preg1.getDescripcion());
         PreguntaAdopcion pregun2 = new PreguntaAdopcion(preg2.getDescripcion());
@@ -85,7 +89,7 @@ public class PublicacionInteresAdopcionTest {
         PublicacionInteresAdopcion.PublicacionInteresAdopcionDTO dtoPubli = new PublicacionInteresAdopcion.PublicacionInteresAdopcionDTO();
         dtoPubli.setPersona(persona1);
 
-        PublicacionInteresAdopcionController.getInstancia().agregar(dtoPubli, 1, Arrays.asList(resp1, resp2), Arrays.asList(cp1, cp2));
+        PublicacionInteresAdopcionController.getInstancia().agregar(dtoPubli, 2, Arrays.asList(resp1, resp2), Arrays.asList(cp1, cp2));
 
         assertThat(PublicacionInteresAdopcionController.getInstancia().listarTodos().size(), is(1));
     }

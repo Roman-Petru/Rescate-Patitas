@@ -120,4 +120,10 @@ public class OrganizacionController {
         organizacion.agregarPreguntaAdopcion(pregunta);
         repositorio.modificar(organizacion);
     }
+
+    public void agregarVoluntarioALista(Integer organizacionID,Usuario voluntario){
+        Organizacion organizacion = this.buscarOrganizacionPorID(organizacionID).get();
+        organizacion.agregarVoluntario(voluntario);
+        repositorio.modificar(organizacion);
+    }
 }

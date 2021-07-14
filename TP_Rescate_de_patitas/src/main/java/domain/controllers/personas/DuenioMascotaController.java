@@ -6,10 +6,15 @@ import domain.controllers.PublicacionAdopcionController;
 import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;
+import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeDuenioARescatista;
+import domain.models.entities.utils.NotificadorHelper;
 import domain.models.repositories.personas.RepositorioDuenioMascota;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,5 +76,11 @@ public class DuenioMascotaController {
     public void eliminar(String id) {
         //TODO
     }
+
+    public void notificarDuenioAlRescatista(PublicacionMascotaPerdida publicacion, DatosDePersona duenio) throws IOException {
+        ArmadorMensajeDuenioARescatista armadorMensajeDuenioARescatista = new ArmadorMensajeDuenioARescatista(duenio);
+        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeDuenioARescatista, publicacion.getFormulario().getPersonaQueRescato().getDatosDePersona().getContactos());
+    }
+
 
 }

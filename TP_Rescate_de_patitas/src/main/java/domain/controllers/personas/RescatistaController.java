@@ -1,8 +1,12 @@
 package domain.controllers.personas;
+import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;
+import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeRescatistaADuenio;
+import domain.models.entities.utils.NotificadorHelper;
 import domain.models.repositories.personas.RepositorioRescatista;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,5 +55,11 @@ public class RescatistaController {
 
     public void eliminar(String id) {
         //TODO
+    }
+
+    //rescatistaController
+    public void notificarRescatistaADuenio(Mascota mascota, DatosDePersona rescatista) throws IOException {
+        ArmadorMensajeRescatistaADuenio armadorMensajeRescatistaADuenio = new ArmadorMensajeRescatistaADuenio(rescatista);
+        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeRescatistaADuenio, mascota.getContactos());
     }
 }

@@ -18,7 +18,7 @@ public class CaracteristicaTest {
         UsuarioController usuarioController = UsuarioController.getInstancia();
         Usuario adminPepe = new Usuario("admin_pepe", "passwordParaProbar123_");
         usuarioController.agregarUsuario(adminPepe.toDTO());
-        adminPepe.agregarPermisos(Permisos.ABM_CARACTERISTICAS);
+        adminPepe.agregarPermisos(Permisos.USUARIO_ADMIN);
 
         CaracteristicaGeneral color = new CaracteristicaGeneral("color");
         CaracteristicaGeneral contextura = new CaracteristicaGeneral("contextura");

@@ -3,6 +3,7 @@ package domain;
 import domain.controllers.OrganizacionController;
 import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
+import domain.models.entities.entidadesGenerales.personas.Rescatista;
 import domain.models.entities.utils.Ubicacion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import org.junit.Test;
@@ -38,8 +39,10 @@ public class GenerarPublicacionMascotaPerdidaTest {
         organizacionController.agregar(organizacion1.toDTO());
         organizacionController.agregar(organizacion2.toDTO());
 
-        DatosDePersona jorge = new DatosDePersona(1, "Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null);
-        FormularioMascota formularioMascota = new FormularioMascota(jorge, "imagen path", "a pleno",ubicacion3, false);
+        Rescatista jorgeRescatista = new Rescatista();
+        DatosDePersona datosDePersona = new DatosDePersona(1, "Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null);
+        jorgeRescatista.setDatosDePersona(datosDePersona);
+        FormularioMascota formularioMascota = new FormularioMascota(jorgeRescatista, "imagen path", "a pleno",ubicacion3, false);
 
         organizacionController.crearFormularioMascotaPerdida(formularioMascota.toDTO());
 
