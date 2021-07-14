@@ -3,7 +3,6 @@ package domain;
 import domain.controllers.UsuarioController;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Permisos;
-import domain.models.repositories.RepositorioUsuarios;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -17,7 +16,7 @@ public class AdminTest {
 
         Usuario adminCarlos = new Usuario("admin_carlos", "passwordParaProbar123_");
         usuarioController.agregarUsuario(adminCarlos.toDTO());
-        adminCarlos.agregarPermisos(Permisos.GENERAR_ADMIN);
+        adminCarlos.agregarPermisos(Permisos.USUARIO_ADMIN);
         adminCarlos.agregarPermisos(Permisos.ABM_CARACTERISTICAS);
 
 

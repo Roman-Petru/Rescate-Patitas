@@ -1,14 +1,14 @@
 package domain.models.entities.utils.ArmadoresDeMensajes;
 import domain.models.entities.entidadesGenerales.Contacto;
-import domain.models.entities.entidadesGenerales.personas.Persona;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 public class ArmadorMensajeDuenioARescatista implements ArmadorDeMensaje {
-    Persona personaRemitente;
+    DatosDePersona personaRemitente;
 
-    public ArmadorMensajeDuenioARescatista(Persona personaRemitente){
+    public ArmadorMensajeDuenioARescatista(DatosDePersona personaRemitente){
         this.personaRemitente = personaRemitente;
     }
 
@@ -24,7 +24,7 @@ public class ArmadorMensajeDuenioARescatista implements ArmadorDeMensaje {
         return cuerpoMensaje;
     }
 
-    public String obtenerTelefonosContacto(Persona personaRemitente){
+    public String obtenerTelefonosContacto(DatosDePersona personaRemitente){
         List<Contacto> contactosPersona = personaRemitente.getContactos();
         List<String> telefonos = contactosPersona.stream().map(contacto -> contacto.getTelefono()).collect(Collectors.toList());
         String telefonosStr = telefonos.toString();

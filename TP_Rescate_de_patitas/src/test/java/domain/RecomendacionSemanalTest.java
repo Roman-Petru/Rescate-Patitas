@@ -1,6 +1,7 @@
 package domain;
 
 import domain.controllers.*;
+import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
@@ -12,7 +13,7 @@ import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcio
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.enums.Animal;
 import domain.models.entities.utils.Ubicacion;
-import domain.models.entities.entidadesGenerales.personas.Persona;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.modulos.notificador.estrategias.EnvioViaMail;
 import domain.models.modulos.notificador.estrategias.EnvioViaWhatsapp;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
@@ -58,8 +59,8 @@ public class RecomendacionSemanalTest {
         EnvioViaWhatsapp envioViaWhatsapp = EnvioViaWhatsapp.instancia();
         List<EstrategiaNotificacion> estrategiasNotificacion = Arrays.asList(envioViaWhatsapp, envioViaMail);
         Contacto contacto = new Contacto("Carmen","Villalta", "123123", "july.vr@hotmail.com", estrategiasNotificacion);
-        Persona persona1 = new Persona(2,"Julian", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
-        Persona persona2 = new Persona(3,"Martin", "Morales", "12312424", "325325235", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
+        DatosDePersona persona1 = new DatosDePersona(2,"Julian", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
+        DatosDePersona persona2 = new DatosDePersona(3,"Martin", "Morales", "12312424", "325325235", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
 
         //AGREGO PERSONAS A REPOSITORIO
         PersonaController personaController = PersonaController.getInstancia();

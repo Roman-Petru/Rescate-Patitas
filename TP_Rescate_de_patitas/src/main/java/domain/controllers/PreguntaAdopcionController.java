@@ -26,7 +26,7 @@ public class PreguntaAdopcionController {
     }
 
     public void agregarPreguntasObligatorias(PreguntaAdopcion.PreguntaAdopcionDTO dto, Usuario admin) {
-        if (admin.tienePermisoPara(Permisos.ADM_PREGUNTAS_ADOPCION)) {
+        if (admin.tienePermisoPara(Permisos.USUARIO_ADMIN)) { //ADM_PREGUNTAS_ADOPCION
             PreguntaAdopcion pregunta = new PreguntaAdopcion(dto.getDescripcion());
             repositorio.agregar(pregunta);}
     }

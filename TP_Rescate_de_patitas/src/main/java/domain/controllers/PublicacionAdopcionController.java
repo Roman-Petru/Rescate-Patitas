@@ -42,7 +42,7 @@ public class PublicacionAdopcionController {
         organizacion.agregarPublicacionAdopcion(publicacionAdopcion);
         Organizacion.OrganizacionDTO dtoOrg = organizacion.toDTO();
         OrganizacionController.getInstancia().modificar(organizacionID, dtoOrg);
-      }
+    }
 
     public PublicacionAdopcion.PublicacionAdopcionDTO ver(Integer id) {
         //TODO

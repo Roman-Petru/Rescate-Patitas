@@ -13,7 +13,7 @@ import java.util.List;
 public class Organizacion extends Persistente {
     private String nombre;
     private Ubicacion ubicacion;
-    private List<Usuario> voluntarios ;
+    private List<Usuario> voluntarios;
     private List<PublicacionMascotaPerdida> publicaciones;
     private List<FormularioMascota> formulariosPendientes;
     private List<Usuario> postulanteVoluntarios;

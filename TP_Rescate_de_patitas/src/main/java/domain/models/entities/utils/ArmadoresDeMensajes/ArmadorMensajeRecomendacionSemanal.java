@@ -2,13 +2,13 @@ package domain.models.entities.utils.ArmadoresDeMensajes;
 
 import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
-import domain.models.entities.entidadesGenerales.personas.Persona;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 
 public class ArmadorMensajeRecomendacionSemanal implements ArmadorDeMensaje {
-    Persona personaRemitente;
+    DatosDePersona personaRemitente;
     Mascota mascota;
 
-    public ArmadorMensajeRecomendacionSemanal(Persona personaRemitente, Mascota mascota){
+    public ArmadorMensajeRecomendacionSemanal(DatosDePersona personaRemitente, Mascota mascota){
         this.personaRemitente = personaRemitente;
         this.mascota = mascota;
     }
@@ -32,7 +32,7 @@ public class ArmadorMensajeRecomendacionSemanal implements ArmadorDeMensaje {
         return cuerpoMensaje;
     }
 
-    public String listadoDeCaracteristicasString(){
+    private String listadoDeCaracteristicasString(){
         StringBuilder stringBuilder = new StringBuilder();
         for(CaracteristicaPersonalizada c: mascota.getCaracteristicas()){
             stringBuilder.append("     -" + c.getCaracteristicaGeneral().getDescripcion() + ": " + c.getValor());
@@ -41,7 +41,7 @@ public class ArmadorMensajeRecomendacionSemanal implements ArmadorDeMensaje {
         return stringBuilder.toString();
     }
 
-    public String generoAnimal(){
+    private String generoAnimal(){
         if (mascota.getEsMacho()){
             return "Macho";
         }

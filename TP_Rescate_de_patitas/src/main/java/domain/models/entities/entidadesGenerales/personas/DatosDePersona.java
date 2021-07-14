@@ -2,6 +2,7 @@ package domain.models.entities.entidadesGenerales.personas;
 
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Persistente;
+import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.utils.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,25 +10,20 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter @Setter
-public class Persona extends Persistente {
+public class DatosDePersona extends Persistente {
     private String nombre;
     private String apellido;
     private String documento;
     private String numTramite;
     private Ubicacion ubicacion;
-
-    private DuenioMascota duenio;
-    private Rescatista rescatista;
-    private Voluntario voluntario;
-    private boolean recibirRecomendacionAdopcion;
-
     private List<Contacto> contactos;
+    private boolean recibirRecomendacionAdopcion;
+    private Usuario usuario;
 
     //agrego el mail para poder enviar las notificaciones a las personas interesadas
     private String email;
 
-
-    public Persona(Integer id, String nombre, String apellido, String documento, String numTramite, String email, Ubicacion ubicacion, List<Contacto> contactos) {
+    public DatosDePersona(Integer id, String nombre, String apellido, String documento, String numTramite, String email, Ubicacion ubicacion, List<Contacto> contactos) {
         this.setId(id);
         this.nombre = nombre;
         this.apellido = apellido;
@@ -39,27 +35,9 @@ public class Persona extends Persistente {
         this.recibirRecomendacionAdopcion = false;
     }
 
-    public DuenioMascota getDuenio() {
-        if (this.duenio == null) {
-            this.duenio = new DuenioMascota();
-            return this.duenio;
-        } else {
-            return this.duenio;
-        }
-    }
 
-
-    public Rescatista getRescatista() {
-        if (this.rescatista == null) {
-            this.rescatista = new Rescatista();
-            return this.rescatista;
-        } else {
-            return this.rescatista;
-        }
-    }
-
-    public Persona.PersonaDTO toDTO() {
-        Persona.PersonaDTO dto  = new Persona.PersonaDTO();
+    public DatosDePersonaDTO toDTO() {
+        DatosDePersonaDTO dto  = new DatosDePersonaDTO();
         dto.id = this.getId();
         dto.nombre = this.getNombre();
         dto.apellido = this.getApellido();
@@ -72,7 +50,7 @@ public class Persona extends Persistente {
         return dto;
     }
     @Getter @Setter
-    public static class PersonaDTO {
+    public static class DatosDePersonaDTO {
         private Integer id;
         private String nombre;
         private String apellido;
@@ -81,6 +59,5 @@ public class Persona extends Persistente {
         private String email;
         private Ubicacion ubicacion;
         private List<Contacto> contactos;
-        //falta duenio,rescatista y voluntario
     }
 }

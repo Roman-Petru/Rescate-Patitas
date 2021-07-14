@@ -2,15 +2,13 @@ package domain;
 
 import domain.controllers.*;
 import domain.models.entities.entidadesGenerales.Contacto;
-import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
-import domain.models.entities.entidadesGenerales.personas.Persona;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Permisos;
 import domain.models.entities.utils.PermisosDeAdmin;
@@ -69,7 +67,7 @@ public class PublicacionInteresAdopcionTest {
         EnvioViaWhatsapp envioViaWhatsapp = EnvioViaWhatsapp.instancia();
         List<EstrategiaNotificacion> estrategiasNotificacion = Arrays.asList(envioViaWhatsapp, envioViaMail);
         Contacto contacto = new Contacto("Carmen","Villalta", "123123", "ropetru@hotmail.com", estrategiasNotificacion);
-        Persona persona1 = new Persona(2,"Julian", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
+        DatosDePersona persona1 = new DatosDePersona(2,"Julian", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
 
         //Caracteristicas Personalizadas
 

@@ -2,11 +2,9 @@ package domain;
 
 import domain.controllers.CaracteristicaController;
 import domain.controllers.UsuarioController;
-import domain.models.entities.entidadesGenerales.usuarios.Admin;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Permisos;
-import domain.models.repositories.RepositorioCaracteristicas;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

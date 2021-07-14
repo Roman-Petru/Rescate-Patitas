@@ -6,7 +6,7 @@ import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
-import domain.models.entities.entidadesGenerales.personas.Persona;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.utils.DistanciaEntreDosPuntos;
 import domain.models.repositories.RepositorioOrganizaciones;
@@ -79,7 +79,7 @@ public class OrganizacionController {
         repositorio.modificar(organizacion);
     }
 
-    public void aprobarFormulario(Organizacion.OrganizacionDTO dto, Persona voluntario, FormularioMascota formularioPendiente) throws Exception {  //personaDTO, formuDTO?
+    public void aprobarFormulario(Organizacion.OrganizacionDTO dto, DatosDePersona voluntario, FormularioMascota formularioPendiente) throws Exception {  //personaDTO, formuDTO?
 
         Organizacion organizacion = this.buscarOrganizacionPorID(dto.getId()).get();
 

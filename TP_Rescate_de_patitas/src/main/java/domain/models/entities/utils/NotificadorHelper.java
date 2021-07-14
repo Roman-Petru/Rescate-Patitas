@@ -1,7 +1,6 @@
 package domain.models.entities.utils;
 
 import domain.models.entities.entidadesGenerales.Contacto;
-import domain.models.entities.entidadesGenerales.personas.Persona;
 import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorDeMensaje;
 import domain.models.modulos.notificador.Notificador;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;

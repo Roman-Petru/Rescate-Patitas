@@ -4,7 +4,7 @@ import domain.controllers.PublicacionInteresAdopcionController;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
-import domain.models.entities.entidadesGenerales.personas.Persona;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeRecomendacionSemanal;
 import domain.models.entities.utils.NotificadorHelper;
 import lombok.SneakyThrows;
@@ -32,7 +32,7 @@ public class TaskRecomendacion implements Runnable {
             List<InteresadosEnMascota> listadoPosiblesInteresadosEnMascotas = this.puedeEstarInteresadoEnAdoptar();
 
             for (InteresadosEnMascota interesados : listadoPosiblesInteresadosEnMascotas) {
-                for (Persona persona: interesados.getPersonas()){
+                for (DatosDePersona persona: interesados.getPersonas()){
 
                     ArmadorMensajeRecomendacionSemanal armadorMensajeSemanal = new ArmadorMensajeRecomendacionSemanal(persona, interesados.getMascota());
                     NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeSemanal, persona.getContactos());
@@ -68,7 +68,7 @@ public class TaskRecomendacion implements Runnable {
         for (PublicacionAdopcion adopcion : publicacionesParaAdoptar){
 
             InteresadosEnMascota interesado = new InteresadosEnMascota();
-            List<Persona> personasInteresadas = new ArrayList<>();
+            List<DatosDePersona> personasInteresadas = new ArrayList<>();
             for(PublicacionInteresAdopcion publi_int_adop : publicacionesInteresadosEnAdoptar){
 
                 if (this.encontrarPreferenciasIguales(publi_int_adop, adopcion)){

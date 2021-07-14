@@ -4,9 +4,7 @@ import domain.controllers.OrganizacionController;
 import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.utils.Ubicacion;
-import domain.models.entities.entidadesGenerales.personas.Persona;
-import domain.models.repositories.Repositorio;
-import domain.models.repositories.RepositorioOrganizaciones;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -40,7 +38,7 @@ public class GenerarPublicacionMascotaPerdidaTest {
         organizacionController.agregar(organizacion1.toDTO());
         organizacionController.agregar(organizacion2.toDTO());
 
-        Persona jorge = new Persona(1, "Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null);
+        DatosDePersona jorge = new DatosDePersona(1, "Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null);
         FormularioMascota formularioMascota = new FormularioMascota(jorge, "imagen path", "a pleno",ubicacion3, false);
 
         organizacionController.crearFormularioMascotaPerdida(formularioMascota.toDTO());

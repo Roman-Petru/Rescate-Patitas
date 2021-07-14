@@ -1,23 +1,21 @@
 package domain.models.entities.utils.ArmadoresDeMensajes;
 
 import domain.models.entities.entidadesGenerales.Contacto;
-import domain.models.entities.entidadesGenerales.personas.Persona;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArmadorMensajeRescatistaADuenio implements ArmadorDeMensaje {
-    Persona personaRemitente;
+    DatosDePersona personaRemitente;
 
-    public ArmadorMensajeRescatistaADuenio(Persona personaRemitente){
+    public ArmadorMensajeRescatistaADuenio(DatosDePersona personaRemitente){
         this.personaRemitente = personaRemitente;
     }
 
-    public String obtenerTelefonosContacto(Persona personaRemitente){
-        List<Contacto> contactosPersona = personaRemitente.getContactos();
-        List<String> telefonos = contactosPersona.stream().map(contacto -> contacto.getTelefono()).collect(Collectors.toList());
-        String telefonosStr = telefonos.toString();
-        return telefonosStr;
+    @Override
+    public String armarAsuntoMensaje() {
+        return "Rescate Patitas - Encontré a tu mascota!";
     }
 
     @Override
@@ -26,8 +24,10 @@ public class ArmadorMensajeRescatistaADuenio implements ArmadorDeMensaje {
         return cuerpoMensaje;
     }
 
-    @Override
-    public String armarAsuntoMensaje() {
-        return "Rescate Patitas - Encontré a tu mascota!";
+    public String obtenerTelefonosContacto(DatosDePersona personaRemitente){
+        List<Contacto> contactosPersona = personaRemitente.getContactos();
+        List<String> telefonos = contactosPersona.stream().map(contacto -> contacto.getTelefono()).collect(Collectors.toList());
+        String telefonosStr = telefonos.toString();
+        return telefonosStr;
     }
 }

@@ -1,11 +1,13 @@
 package domain.controllers;
 import com.twilio.exception.ApiException;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
-import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Permisos;
 import domain.models.entities.utils.PermisosDeAdmin;
 import domain.models.entities.validaciones.validacionesContrasenias.ValidadorDeContrasenia;
+import domain.models.modulos.resizer.NivelCalidad;
+import domain.models.modulos.resizer.Resizer;
+import domain.models.modulos.resizer.TamanioImagen;
 import domain.models.repositories.RepositorioUsuarios;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +34,7 @@ public class UsuarioController {
         repositorio.agregar(usuario);
     }
     public void agregarAdmin(Usuario adminGenerador, Usuario.UsuarioDTO dto) throws Exception {
-        if (!adminGenerador.tienePermisoPara(Permisos.GENERAR_ADMIN))
+        if (!adminGenerador.tienePermisoPara(Permisos.USUARIO_ADMIN))
             throw new Exception("El usuario no puede generar admin");
 
         Usuario admin = new Usuario(dto.getUsuario(), dto.getPassword());
@@ -42,11 +44,24 @@ public class UsuarioController {
     }
 
     public void agregarCaracteristicaGeneral(Usuario usuario, CaracteristicaGeneral caracteristicaGeneral) throws Exception {
-        if (!usuario.tienePermisoPara(Permisos.ABM_CARACTERISTICAS))
+        if (!usuario.tienePermisoPara(Permisos.USUARIO_ADMIN)) //ABM_CARACTERISTICAS
             throw new Exception("El usuario no puede agregar caracteristicas");
 
         CaracteristicaGeneral.CaracteristicaGeneralDTO dto = caracteristicaGeneral.toDTO();
         CaracteristicaController.getInstancia().agregar(dto);
+    }
+
+
+    public void modificarTamanioEstandarImagen(Usuario usuario, Resizer resizer, TamanioImagen tamanio) throws Exception {
+        if (!usuario.tienePermisoPara(Permisos.USUARIO_ADMIN))
+            throw new Exception("El usuario no puede modificar el tamaño estandar de la imagen");
+        resizer.setTamanio(tamanio);
+    }
+
+    public void modificarCalidadEstandarImagen(Usuario usuario, Resizer resizer, NivelCalidad calidad) throws Exception {
+        if (!usuario.tienePermisoPara(Permisos.USUARIO_ADMIN))
+            throw new Exception("El usuario no puede modificar la calidad estandar de la imagen");
+        resizer.setCalidad(calidad);
     }
 
 
@@ -60,7 +75,6 @@ public class UsuarioController {
     public Optional<Usuario> buscarUsuarioPorID(Integer id){
         return this.repositorio.buscar(id);
     }
-
 
 
     public void validarUsuario(String usuario, String password) {

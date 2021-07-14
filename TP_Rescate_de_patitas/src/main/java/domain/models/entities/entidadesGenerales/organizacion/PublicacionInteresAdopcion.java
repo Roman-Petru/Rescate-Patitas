@@ -3,7 +3,8 @@ package domain.models.entities.entidadesGenerales.organizacion;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
-import domain.models.entities.entidadesGenerales.personas.Persona;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
+import domain.models.entities.enums.Animal;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.ArrayList;
@@ -18,21 +19,24 @@ public class PublicacionInteresAdopcion extends Persistente {
     //Comodidades -> Respuestas para adopcion
 
     private Date fecha;
-    private Persona persona;
+    private DatosDePersona persona; //adoptante
     private List<CaracteristicaPersonalizada> preferencias;
     private List<RespuestaAdopcion> comodidades;
+    private boolean esMacho;
+    private Animal tipoAnimal;
 
-    public PublicacionInteresAdopcion(Persona persona) {
+    public PublicacionInteresAdopcion(DatosDePersona persona) {
         this.persona = persona;
         this.preferencias = new ArrayList<>();
         this.comodidades = new ArrayList<>();
         this.fecha = new Date();
+        //TODO agregar esMascho..
     }
 
     @Getter
     @Setter
     public static class PublicacionInteresAdopcionDTO {
-        private Persona persona;
+        private DatosDePersona persona;
         private List<CaracteristicaPersonalizada> preferencias;
         private Date fecha;
         private List<RespuestaAdopcion> comodidades ;
