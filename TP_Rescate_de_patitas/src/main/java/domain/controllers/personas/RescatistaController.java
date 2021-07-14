@@ -36,7 +36,7 @@ public class RescatistaController {
     }
 
     public void agregar(Rescatista.RescatistaDTO dto) {
-        Rescatista rescatista = new Rescatista();
+        Rescatista rescatista = new Rescatista(dto.getDatosDePersona());
         repositorio.agregar(rescatista);
     }
 

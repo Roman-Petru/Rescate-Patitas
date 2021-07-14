@@ -17,7 +17,8 @@ public class DuenioMascota extends Persistente {
     private DatosDePersona datosDePersona;
     private List<Mascota> mascotas;
 
-    public DuenioMascota(){
+    public DuenioMascota(DatosDePersona datosDePersona){
+        this.datosDePersona = datosDePersona;
         this.mascotas = new ArrayList<>();
     }
 

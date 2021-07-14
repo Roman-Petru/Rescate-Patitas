@@ -65,7 +65,7 @@ public class TestPublicacionDeAdopcion {
 
         PublicacionAdopcion.PublicacionAdopcionDTO dtoPubli = new PublicacionAdopcion.PublicacionAdopcionDTO();
         dtoPubli.setMascota(firulais);
-        PublicacionAdopcionController.getInstancia().agregar(dtoPubli, 1, resp1, resp2);
+        PublicacionAdopcionController.getInstancia().agregarPublicacionAdopcion(dtoPubli, 1, resp1, resp2);
 
         assertThat(PublicacionAdopcionController.getInstancia().listarTodos().size(), is(1));
 

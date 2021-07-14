@@ -30,12 +30,11 @@ public class PublicacionAdopcionController {
         return lista_adopcion;
     }
 
-    public void agregar(PublicacionAdopcion.PublicacionAdopcionDTO dto, Integer organizacionID, RespuestaAdopcion... respuestas) {
+    public void agregarPublicacionAdopcion(PublicacionAdopcion.PublicacionAdopcionDTO dto, Integer organizacionID, RespuestaAdopcion... respuestas) {
 
         PublicacionAdopcion publicacionAdopcion = new PublicacionAdopcion(dto.getMascota());
         publicacionAdopcion.agregarRespuestasAdopcion(respuestas);
         repositorio.agregar(publicacionAdopcion);
-
 
         OrganizacionController organizacionController = OrganizacionController.getInstancia();
         Organizacion organizacion = organizacionController.buscarOrganizacionPorID(organizacionID).get();

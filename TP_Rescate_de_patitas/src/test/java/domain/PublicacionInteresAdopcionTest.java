@@ -1,17 +1,19 @@
 package domain;
 
 import domain.controllers.*;
+import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.Contacto;
+import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
-import domain.models.entities.enums.Permisos;
-import domain.models.entities.utils.PermisosDeAdmin;
+import domain.models.entities.enums.Animal;
 import domain.models.entities.utils.Ubicacion;
 import domain.models.modulos.notificador.estrategias.EnvioViaMail;
 import domain.models.modulos.notificador.estrategias.EnvioViaWhatsapp;
@@ -28,69 +30,94 @@ public class PublicacionInteresAdopcionTest {
 
     @Test
     public void publicacionInteresAdopcionTest()  {
+
+        //------------------------AGREGAR ORGANIZACIONES----------------------------
+        Ubicacion ubicacion1 = new Ubicacion();
+        ubicacion1.setDireccion("Los hornos 4599, Buenos Aires");
+        ubicacion1.setLatitud(-35.814884);
+        ubicacion1.setLongitud(58.66555);
+
+        Ubicacion ubicacion2 = new Ubicacion();
+        ubicacion2.setDireccion("Los hornos 4599, Buenos Aires");
+        ubicacion2.setLatitud(-40.814884);
+        ubicacion2.setLongitud(58.66555);
+
         OrganizacionController organizacionController = OrganizacionController.getInstancia();
+        Organizacion organizacion1 = new Organizacion("org1", ubicacion1);
+        Organizacion organizacion2 = new Organizacion("org2", ubicacion2);
 
-        //----------------------------------------------------TEST PREGUNTAS GENERALES-------------------------------------------------------------//
-        Usuario adminMark = new Usuario("mark", "12dsASDf43##%#");
-        adminMark.agregarPermisos(Permisos.USUARIO_ADMIN);
+        organizacionController.agregar(organizacion1.toDTO());
+        organizacionController.agregar(organizacion2.toDTO());
 
-        PreguntaAdopcion.PreguntaAdopcionDTO preg1 = new PreguntaAdopcion.PreguntaAdopcionDTO();
-        preg1.setDescripcion("Raza");
-        PreguntaAdopcion.PreguntaAdopcionDTO preg2 = new PreguntaAdopcion.PreguntaAdopcionDTO();
-        preg2.setDescripcion("Rompe todo?");
+        //--------------------AGREGAR VOLUNTARIO A ORGANIZACION-----------
+        PreguntaAdopcion preg1 = new PreguntaAdopcion("Raza");
+        PreguntaAdopcion preg2 = new PreguntaAdopcion("Rompe todo?");
 
-        PreguntaAdopcionController.getInstancia().agregarPreguntasObligatorias(preg1, adminMark);
+        Usuario voluntario1 = new Usuario("vol1","12dsASDf43##%#");
+        organizacionController.agregarVoluntarioALista(1, voluntario1);
+        organizacionController.agregarPreguntaAdopcionOrganizacion(2, preg2.toDTO(), voluntario1);
 
-        assertThat(PreguntaAdopcionController.getInstancia().listarTodos().size(), is(1));
+        RespuestaAdopcion resp1 = new RespuestaAdopcion(preg1, "galgo");
+        RespuestaAdopcion resp2 = new RespuestaAdopcion(preg2, "si");
 
-        //----------------------------------------------------TEST PUBLI ADOPCION-------------------------------------------------------------//
+        //------------------------AGREGAR PERSONAS----------------------------
+
         Ubicacion ubicacion = new Ubicacion();
         ubicacion.setLatitud(-35.420619);
         ubicacion.setLongitud(-59.572705);
         ubicacion.setDireccion("Los Mimbres 100, B1648 DUB, Provincia de Buenos Aires");
 
-        Organizacion.OrganizacionDTO dtoOrg = new Organizacion.OrganizacionDTO();
-        dtoOrg.setNombre("Organigrama");
-        dtoOrg.setUbicacion(ubicacion);
-        OrganizacionController.getInstancia().agregar(dtoOrg);
-
-        Usuario voluntario1 = new Usuario("vol1","12dsASDf43##%#");
-        organizacionController.agregarVoluntarioALista(1,voluntario1);
-
-        organizacionController.agregarPreguntaAdopcionOrganizacion(2, preg2, voluntario1);
-
-        PreguntaAdopcion pregun1 = new PreguntaAdopcion(preg1.getDescripcion());
-        PreguntaAdopcion pregun2 = new PreguntaAdopcion(preg2.getDescripcion());
-
-        RespuestaAdopcion resp1 = new RespuestaAdopcion(pregun1, "galgo");
-        RespuestaAdopcion resp2 = new RespuestaAdopcion(pregun2, "si");
-
-
-        //------persona--------
         EnvioViaMail envioViaMail = EnvioViaMail.instancia();
         EnvioViaWhatsapp envioViaWhatsapp = EnvioViaWhatsapp.instancia();
         List<EstrategiaNotificacion> estrategiasNotificacion = Arrays.asList(envioViaWhatsapp, envioViaMail);
-        Contacto contacto = new Contacto("Carmen","Villalta", "123123", "ropetru@hotmail.com", estrategiasNotificacion);
+        Contacto contacto = new Contacto("Carmen","Villalta", "123123", "july.vr@hotmail.com", estrategiasNotificacion);
         DatosDePersona persona1 = new DatosDePersona(2,"Julian", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
+        DatosDePersona persona2 = new DatosDePersona(3,"Martin", "Morales", "12312424", "325325235", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
 
-        //Caracteristicas Personalizadas
+        //AGREGO PERSONAS A REPOSITORIO
+        PersonaController personaController = PersonaController.getInstancia();
+        personaController.agregar(persona1.toDTO());
+        personaController.agregar(persona2.toDTO());
 
-        CaracteristicaGeneral color = new CaracteristicaGeneral("color");
-        CaracteristicaGeneral contextura = new CaracteristicaGeneral("contextura");
 
-        CaracteristicaPersonalizada cp1 = new CaracteristicaPersonalizada();
-        cp1.setCaracteristicaGeneral(color);
-        cp1.setValor("marron");
+        //------------------------AGREGAR CARACTERISTICA MASCOTA----------------------------
+        CaracteristicaController caracteristicaController = CaracteristicaController.getInstancia();
+        caracteristicaController.agregar(new CaracteristicaGeneral("Color").toDTO());
+        caracteristicaController.agregar(new CaracteristicaGeneral("Come Mucho").toDTO());
 
-        CaracteristicaPersonalizada cp2 = new CaracteristicaPersonalizada();
-        cp2.setCaracteristicaGeneral(contextura);
-        cp2.setValor("grande");
+        CaracteristicaPersonalizada caracteristicaPersonalizada1 = new CaracteristicaPersonalizada();
+        CaracteristicaGeneral color = getCaracteristicaGeneral(caracteristicaController, "Color");
+        caracteristicaPersonalizada1.setCaracteristicaGeneral(color);
+        caracteristicaPersonalizada1.setValor("Marron");
 
-        PublicacionInteresAdopcion.PublicacionInteresAdopcionDTO dtoPubli = new PublicacionInteresAdopcion.PublicacionInteresAdopcionDTO();
-        dtoPubli.setPersona(persona1);
 
-        PublicacionInteresAdopcionController.getInstancia().agregar(dtoPubli, 2, Arrays.asList(resp1, resp2), Arrays.asList(cp1, cp2));
+        CaracteristicaPersonalizada caracteristicaPersonalizada2 = new CaracteristicaPersonalizada();
+        CaracteristicaGeneral comeMucho = getCaracteristicaGeneral(caracteristicaController, "Come mucho");
+        caracteristicaPersonalizada2.setCaracteristicaGeneral(comeMucho);
+        caracteristicaPersonalizada2.setValor("No");
+
+        Mascota firulais = new Mascota(1, Animal.PERRO, "Firulais","Firu",3, true,"MEDIANO");
+        firulais.agregarCaracteristicaPersonalizada(caracteristicaPersonalizada1);
+        firulais.agregarCaracteristicaPersonalizada(caracteristicaPersonalizada2);
+
+        //--------------------AGREGO A PUBLICACIONES EN ADOPCION------------------------
+
+        PreguntaAdopcion pregunta1 = new PreguntaAdopcion("Cuantos añis tiene?");
+        PreguntaAdopcion pregunta2 = new PreguntaAdopcion("Veces que mordió gente?");
+
+        PublicacionAdopcion enAdopcionFirulais = new PublicacionAdopcion(firulais);
+        PublicacionAdopcionController publicacionAdopcionController = PublicacionAdopcionController.getInstancia();
+        publicacionAdopcionController.agregarPublicacionAdopcion(enAdopcionFirulais.toDTO(),0, new RespuestaAdopcion(pregunta1,"10"), new RespuestaAdopcion(pregunta2, "NO"));
+
+        //----------------------------INTERESADOS EN ADOPCION--------------------------
+        PublicacionInteresAdopcion interesAdopcion = new PublicacionInteresAdopcion(persona1);
+        PublicacionInteresAdopcionController interesController = PublicacionInteresAdopcionController.getInstancia();
+        interesController.agregar(interesAdopcion.toDTO(),0, Arrays.asList(resp1,resp2), Arrays.asList(caracteristicaPersonalizada1,caracteristicaPersonalizada2));
 
         assertThat(PublicacionInteresAdopcionController.getInstancia().listarTodos().size(), is(1));
+    }
+
+    private CaracteristicaGeneral getCaracteristicaGeneral(CaracteristicaController controller, String descripcion) {
+        return controller.listarTodos().stream().filter(cg -> descripcion.equalsIgnoreCase(cg.getDescripcion())).findAny().get();
     }
 }

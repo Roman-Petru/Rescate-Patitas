@@ -11,6 +11,8 @@ import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.utils.Ubicacion;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -24,9 +26,8 @@ public class TestAgregarMascota {
         ubicacion.setLatitud(-35.814884);
         ubicacion.setLongitud(58.66555);
 
-        DuenioMascota jorgeDuenio = new DuenioMascota();
         DatosDePersona datosDePersona = new DatosDePersona(1,"Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null);
-        jorgeDuenio.setDatosDePersona(datosDePersona);
+        DuenioMascota jorgeDuenio = new DuenioMascota(datosDePersona);
 
         Mascota firulais = new Mascota("FIrulais","Firu",3);
         Mascota pelusa = new Mascota("Pelusa","Pelu",5);
@@ -42,7 +43,7 @@ public class TestAgregarMascota {
 
     @Test
     public void testAgregarMascota_agregarCaractisticasPersonalizadaColorMarron() {
-
+        DuenioMascotaController duenioMascotaController = DuenioMascotaController.getInstancia();
         CaracteristicaController caracteristicaController = CaracteristicaController.getInstancia();
         caracteristicaController.agregar(new CaracteristicaGeneral("color").toDTO());
 
@@ -51,9 +52,10 @@ public class TestAgregarMascota {
         ubicacion.setLatitud(-35.814884);
         ubicacion.setLongitud(58.66555);
 
-        DuenioMascota jorgeDuenio = new DuenioMascota();
         DatosDePersona datosDePersona = new DatosDePersona(1,"Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null);
-        jorgeDuenio.setDatosDePersona(datosDePersona);
+        DuenioMascota jorgeDuenio = new DuenioMascota(datosDePersona);
+        jorgeDuenio.setId(1);
+        duenioMascotaController.agregar(jorgeDuenio.toDTO());
 
         CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada();
         CaracteristicaGeneral color = agregarCaracteristicaGeneral(caracteristicaController);
@@ -63,10 +65,9 @@ public class TestAgregarMascota {
 
         Mascota firulais = new Mascota("FIrulais","Firu",3);
         firulais.agregarCaracteristicaPersonalizada(caracteristicaPersonalizada);
+        duenioMascotaController.agregarMascota(1, firulais);
 
-        DuenioMascotaController duenioMascotaController = DuenioMascotaController.getInstancia();
-        duenioMascotaController.agregar(jorgeDuenio.toDTO());
-        duenioMascotaController.agregarMascota(jorgeDuenio.getId(), firulais);
+        //TODO REVISAR LA RESPUESTA PORQUE LLEGA VACIO jorgeDuenio
 
         assertThat(jorgeDuenio.getMascotas().get(0).getCaracteristicas().size(), is(1));
         assertThat(jorgeDuenio.getMascotas().get(0).getCaracteristicas().get(0).getValor(), is("marron"));

@@ -43,14 +43,14 @@ public class RescatistaTest {
         ubicacion.setLongitud(-59.572705);
         ubicacion.setDireccion("Los Mimbres 100, B1648 DUB, Provincia de Buenos Aires");
 
-        Rescatista rescatistaJuan = new Rescatista();
+        DatosDePersona datosPersona = new DatosDePersona(1,"Juan", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, null);
+        Rescatista rescatistaJuan = new Rescatista(datosPersona);
+
         DatosMascotaHogar datosMascota = new DatosMascotaHogar(animal,tamanio,caracteristicasVistas);
         rescatistaJuan.setDatosMascota(datosMascota);
         rescatistaJuan.setUbicacion(ubicacion);
         rescatistaJuan.setRadioDeCercaniaEnKm(150);
 
-        DatosDePersona datosPersona = new DatosDePersona(1,"Juan", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, null);
-        rescatistaJuan.setDatosDePersona(datosPersona);
 
         BuscarHogar busquedaDehogar = new BuscarHogar();
         List<HogarDeTransito> hogares = busquedaDehogar.obtenerHogaresDependiendoMascota(datosMascota,rescatistaJuan);
@@ -60,6 +60,9 @@ public class RescatistaTest {
 
     @Test
     public void rescatistaTest_contactarConDuenioDeMascota_notificaViaMail() throws IOException {
+
+        DuenioMascotaController duenioMascotaController = DuenioMascotaController.getInstancia();
+
         Ubicacion ubicacion = new Ubicacion();
         ubicacion.setLatitud(-35.420619);
         ubicacion.setLongitud(-59.572705);
@@ -71,28 +74,24 @@ public class RescatistaTest {
 
         Contacto contacto = new Contacto("Carmen","Villalta", "123123", "ropetru@hotmail.com", estrategiasNotificacion);
 
-        DuenioMascota juanDuenio = new DuenioMascota();
         DatosDePersona datosDePersona = new DatosDePersona(1, "Juan", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
-        juanDuenio.setDatosDePersona(datosDePersona);
+        DuenioMascota juanDuenio = new DuenioMascota(datosDePersona);
+        juanDuenio.setId(1);
+        duenioMascotaController.agregar(juanDuenio.toDTO());
+
         Mascota firulais = new Mascota("FIrulais","Firu",3);
         firulais.setId(1);
         firulais.setContactos(Arrays.asList(contacto));
 
+        //TODO REVISAR LA ID QUE LE ESTAMOS DANDO
+        duenioMascotaController.agregarMascota(0, firulais);
 
-        DuenioMascotaController duenioMascotaController = DuenioMascotaController.getInstancia();
-        duenioMascotaController.agregar(juanDuenio.toDTO());
-        duenioMascotaController.agregarMascota(juanDuenio.getId(), firulais);
-
-        Rescatista juliRescatista = new Rescatista();
         DatosDePersona datosPersona = new DatosDePersona(2,"Juli", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
-        juliRescatista.setDatosDePersona(datosPersona);
+        Rescatista juliRescatista = new Rescatista(datosPersona);
 
         FormularioMascota formularioMascota = new FormularioMascota(juliRescatista, "path imagen", "asustada", ubicacion, true);
 
         juliRescatista.setFormulario(formularioMascota);
-
-
-
         //Empieza el flujo
         //juliRescatista.contactarConDuenio("1");
     }

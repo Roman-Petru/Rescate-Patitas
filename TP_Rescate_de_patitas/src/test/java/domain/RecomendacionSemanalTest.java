@@ -95,7 +95,7 @@ public class RecomendacionSemanalTest {
 
         PublicacionAdopcion enAdopcionFirulais = new PublicacionAdopcion(firulais);
         PublicacionAdopcionController publicacionAdopcionController = PublicacionAdopcionController.getInstancia();
-        publicacionAdopcionController.agregar(enAdopcionFirulais.toDTO(),1, new RespuestaAdopcion(pregunta1,"10"), new RespuestaAdopcion(pregunta2, "NO"));
+        publicacionAdopcionController.agregarPublicacionAdopcion(enAdopcionFirulais.toDTO(),1, new RespuestaAdopcion(pregunta1,"10"), new RespuestaAdopcion(pregunta2, "NO"));
 
         //----------------------------INTERESADOS EN ADOPCION--------------------------
         PublicacionInteresAdopcion interesAdopcion = new PublicacionInteresAdopcion(persona1);

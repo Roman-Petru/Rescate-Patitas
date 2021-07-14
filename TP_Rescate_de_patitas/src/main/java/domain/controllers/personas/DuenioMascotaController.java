@@ -1,7 +1,6 @@
 package domain.controllers.personas;
 
 
-import domain.controllers.MascotaController;
 import domain.controllers.PublicacionAdopcionController;
 import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
@@ -35,7 +34,7 @@ public class DuenioMascotaController {
     //1. Se debe permitir que una persona genere una publicación para dar en adopción a su mascota.
     public void generarPublicacionParaDarEnAdopcion(Mascota mascota, int organizacionID, RespuestaAdopcion... respuestasAdopcion){
         PublicacionAdopcion publicacionAdopcion = new PublicacionAdopcion(mascota);
-        PublicacionAdopcionController.getInstancia().agregar(publicacionAdopcion.toDTO(), organizacionID, respuestasAdopcion);
+        PublicacionAdopcionController.getInstancia().agregarPublicacionAdopcion(publicacionAdopcion.toDTO(), organizacionID, respuestasAdopcion);
     }
 
     public void agregarMascota(Integer duenioID, Mascota mascota){
@@ -56,7 +55,7 @@ public class DuenioMascotaController {
     }
 
     public void agregar(DuenioMascota.DuenioMascotaDTO dto) {
-        DuenioMascota duenioMascota = new DuenioMascota();
+        DuenioMascota duenioMascota = new DuenioMascota(dto.getDatosDePersona());
         repositorio.agregar(duenioMascota);
     }
 

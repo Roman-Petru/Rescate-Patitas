@@ -39,9 +39,8 @@ public class GenerarPublicacionMascotaPerdidaTest {
         organizacionController.agregar(organizacion1.toDTO());
         organizacionController.agregar(organizacion2.toDTO());
 
-        Rescatista jorgeRescatista = new Rescatista();
         DatosDePersona datosDePersona = new DatosDePersona(1, "Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null);
-        jorgeRescatista.setDatosDePersona(datosDePersona);
+        Rescatista jorgeRescatista = new Rescatista(datosDePersona);
         FormularioMascota formularioMascota = new FormularioMascota(jorgeRescatista, "imagen path", "a pleno",ubicacion3, false);
 
         organizacionController.crearFormularioMascotaPerdida(formularioMascota.toDTO());

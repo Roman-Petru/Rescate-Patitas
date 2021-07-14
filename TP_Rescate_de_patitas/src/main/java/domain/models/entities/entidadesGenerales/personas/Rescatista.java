@@ -23,7 +23,8 @@ public class Rescatista extends Persistente {
 
     private ServicioHogar servicioHogar;
 
-    public Rescatista(){
+    public Rescatista(DatosDePersona datosDePersona){
+         this.datosDePersona = datosDePersona;
          this.servicioHogar = ServicioHogar.getInstancia();
     }
 
