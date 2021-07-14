@@ -110,7 +110,7 @@ public class PublicacionInteresAdopcionTest {
         publicacionAdopcionController.agregarPublicacionAdopcion(enAdopcionFirulais.toDTO(),0, new RespuestaAdopcion(pregunta1,"10"), new RespuestaAdopcion(pregunta2, "NO"));
 
         //----------------------------INTERESADOS EN ADOPCION--------------------------
-        PublicacionInteresAdopcion interesAdopcion = new PublicacionInteresAdopcion(persona1);
+        PublicacionInteresAdopcion interesAdopcion = new PublicacionInteresAdopcion(persona1, true, Animal.PERRO);
         PublicacionInteresAdopcionController interesController = PublicacionInteresAdopcionController.getInstancia();
         interesController.agregar(interesAdopcion.toDTO(),0, Arrays.asList(resp1,resp2), Arrays.asList(caracteristicaPersonalizada1,caracteristicaPersonalizada2));
 

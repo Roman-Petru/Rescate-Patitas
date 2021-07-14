@@ -34,7 +34,7 @@ public class PublicacionInteresAdopcionController {
 
     public void agregar(PublicacionInteresAdopcion.PublicacionInteresAdopcionDTO dto, Integer organizacionID, List<RespuestaAdopcion> comodidades, List<CaracteristicaPersonalizada> preferencias) {
 
-        PublicacionInteresAdopcion publicacionAdopcion = new PublicacionInteresAdopcion(dto.getPersona());
+        PublicacionInteresAdopcion publicacionAdopcion = new PublicacionInteresAdopcion(dto.getPersona(), dto.isEsMacho(), dto.getTipoAnimal());
         publicacionAdopcion.setComodidades(comodidades);
         publicacionAdopcion.setPreferencias(preferencias);
 

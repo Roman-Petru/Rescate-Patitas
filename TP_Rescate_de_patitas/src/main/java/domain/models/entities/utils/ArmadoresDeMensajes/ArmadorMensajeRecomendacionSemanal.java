@@ -24,8 +24,8 @@ public class ArmadorMensajeRecomendacionSemanal implements ArmadorDeMensaje {
         String cuerpoMensaje = "Dejamos información sobre la mascota: " + mascota.getNombre() + " que según sus preferencias de adopción, " +
                 "podría estar interesado: " + System.lineSeparator() + System.lineSeparator() +
                 " •Apodo: " + mascota.getApodo() + System.lineSeparator() +
-                " •Edad: " + mascota.getEdadAproximada() + System.lineSeparator() +
-                " •Caracteristicas: " + System.lineSeparator() + this.listadoDeCaracteristicasString() + System.lineSeparator() +
+                " •Edad aproximada: " + mascota.getEdadAproximada() + " años" + System.lineSeparator() +
+                " •Caracteristicas: " + System.lineSeparator() + this.listadoDeCaracteristicasString() +
                 " •Genero: " + this.generoAnimal() + System.lineSeparator() + System.lineSeparator() +
                 "Muchas gracias!";
 
@@ -35,7 +35,7 @@ public class ArmadorMensajeRecomendacionSemanal implements ArmadorDeMensaje {
     private String listadoDeCaracteristicasString(){
         StringBuilder stringBuilder = new StringBuilder();
         for(CaracteristicaPersonalizada c: mascota.getCaracteristicas()){
-            stringBuilder.append("     -" + c.getCaracteristicaGeneral().getDescripcion() + ": " + c.getValor());
+            stringBuilder.append("      -" + c.getCaracteristicaGeneral().getDescripcion() + ": " + c.getValor());
             stringBuilder.append(System.lineSeparator());
         }
         return stringBuilder.toString();

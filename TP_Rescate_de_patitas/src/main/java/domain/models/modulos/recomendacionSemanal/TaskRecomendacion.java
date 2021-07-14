@@ -2,11 +2,16 @@ package domain.models.modulos.recomendacionSemanal;
 import domain.controllers.PublicacionAdopcionController;
 import domain.controllers.PublicacionInteresAdopcionController;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
+import domain.models.entities.entidadesGenerales.hogares.DatosMascotaHogar;
+import domain.models.entities.entidadesGenerales.hogares.HogarDeTransito;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
+import domain.models.entities.entidadesGenerales.personas.Rescatista;
 import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeRecomendacionSemanal;
 import domain.models.entities.utils.NotificadorHelper;
+import domain.models.entities.validaciones.validacionesHogarDeTransito.ValidadorHogarDeTransito;
+import domain.models.entities.validaciones.validacionesRecomendacionSemanal.ValidadorRecomendacionSemanal;
 import lombok.SneakyThrows;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -65,18 +70,18 @@ public class TaskRecomendacion implements Runnable {
         //Mascota mascota;
         //List<Persona> personas;
 
-        for (PublicacionAdopcion adopcion : publicacionesParaAdoptar){
+        for (PublicacionAdopcion publiAdopcion : publicacionesParaAdoptar){
 
             InteresadosEnMascota interesado = new InteresadosEnMascota();
             List<DatosDePersona> personasInteresadas = new ArrayList<>();
-            for(PublicacionInteresAdopcion publi_int_adop : publicacionesInteresadosEnAdoptar){
+            for(PublicacionInteresAdopcion interesAdopcion : publicacionesInteresadosEnAdoptar){
 
-                if (this.encontrarPreferenciasIguales(publi_int_adop, adopcion)){
-                    personasInteresadas.add(publi_int_adop.getPersona());
+                if (this.cumpleCondicionesParaEnviarRecomendacion(interesAdopcion, publiAdopcion)){
+                    personasInteresadas.add(interesAdopcion.getPersona());
                 }
             }
 
-            interesado.setMascota(adopcion.getMascota());
+            interesado.setMascota(publiAdopcion.getMascota());
             interesado.setPersonas(personasInteresadas);
             interesados.add(interesado);
         }
@@ -84,24 +89,9 @@ public class TaskRecomendacion implements Runnable {
         return interesados;
     }
 
-    private boolean encontrarPreferenciasIguales(PublicacionInteresAdopcion publi_int_adop, PublicacionAdopcion adopcion) {
 
-        boolean encontrado = false;
-
-        for (CaracteristicaPersonalizada p: publi_int_adop.getPreferencias()){
-
-            //BUSCO SI TIENEN EL MISMA DESCRIPCION
-            if(p.getCaracteristicaGeneral().getDescripcion()
-                    .equals(adopcion.getMascota().getCaracteristicas().stream().findAny().get().getCaracteristicaGeneral().getDescripcion())){
-
-                //BUSCO SI TIENEN EL MISMO VALOR DENTRO DE LA DESCRIPCION
-                if (p.getValor().equals(adopcion.getMascota().getCaracteristicas().stream().findAny().get().getValor())){
-                    encontrado = true;
-                    break;
-                }
-            }
-        }
-
-        return encontrado;
+    public Boolean cumpleCondicionesParaEnviarRecomendacion(PublicacionInteresAdopcion interesAdopcion, PublicacionAdopcion publiAdopcion){
+        ValidadorRecomendacionSemanal validadorRecomendacionSemanal = new ValidadorRecomendacionSemanal();
+        return validadorRecomendacionSemanal.validarRecomendacion(interesAdopcion, publiAdopcion);
     }
 }
