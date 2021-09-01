@@ -1,15 +1,8 @@
 package domain.controllers.personas;
 
-import domain.controllers.MascotaController;
-import domain.controllers.PublicacionAdopcionController;
-import domain.models.entities.entidadesGenerales.Mascota;
-import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeAdoptanteADuenio;
-import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeDuenioARescatista;
-import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeRescatistaADuenio;
 import domain.models.entities.utils.NotificadorHelper;
 import domain.models.repositories.personas.RepositorioPersonas;
 
@@ -63,7 +56,7 @@ public class PersonaController {
     }
 
     //Necesitariamos la clase adoptante ?
-    public void notificarAdoptanteADuenio(PublicacionAdopcion publicacion, DatosDePersona adoptante) throws IOException {
+    public void notificarAdoptanteADuenio(PublicacionDarAdopcion publicacion, DatosDePersona adoptante) throws IOException {
         ArmadorMensajeAdoptanteADuenio armadorMensajeAdoptanteADuenio = new ArmadorMensajeAdoptanteADuenio(adoptante);
         NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeAdoptanteADuenio, publicacion.getMascota().getContactos());
     }

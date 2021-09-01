@@ -1,12 +1,12 @@
 package domain.models.entities.validaciones.validacionesRecomendacionSemanal;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 
 public class ValidacionCumpleAlgunaPreferencia implements ValidacionRecomendacion {
 
     @Override
-    public boolean validarRecomendacion(PublicacionInteresAdopcion interesAdopcion, PublicacionAdopcion publiAdopcion) {
+    public boolean validarRecomendacion(PublicacionInteresAdopcion interesAdopcion, PublicacionDarAdopcion publiAdopcion) {
 
         boolean encontrado = false;
 

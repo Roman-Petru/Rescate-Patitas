@@ -3,7 +3,7 @@ package domain.controllers;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.repositories.RepositorioPublicacionInteresAdopcion;
 
@@ -48,16 +48,16 @@ public class PublicacionInteresAdopcionController {
         OrganizacionController.getInstancia().modificar(organizacionID, dtoOrg);
     }
 
-    public PublicacionAdopcion.PublicacionAdopcionDTO ver(Integer id) {
+    public PublicacionDarAdopcion.PublicacionAdopcionDTO ver(Integer id) {
         //TODO
         return null;
     }
 
-    public void crear(PublicacionAdopcion.PublicacionAdopcionDTO dto) {
+    public void crear(PublicacionDarAdopcion.PublicacionAdopcionDTO dto) {
         //TODO
     }
 
-    public void modificar(Integer id, PublicacionAdopcion.PublicacionAdopcionDTO dto) {
+    public void modificar(Integer id, PublicacionDarAdopcion.PublicacionAdopcionDTO dto) {
         //TODO
     }
 

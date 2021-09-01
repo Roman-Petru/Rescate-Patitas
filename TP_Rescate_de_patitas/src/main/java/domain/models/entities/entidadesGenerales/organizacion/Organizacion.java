@@ -18,7 +18,7 @@ public class Organizacion extends Persistente {
     private List<FormularioMascota> formulariosPendientes;
     private List<Usuario> postulanteVoluntarios;
     private List<PreguntaAdopcion> preguntasAdopcion;
-    private List<PublicacionAdopcion> publicacionesAdopcion;
+    private List<PublicacionDarAdopcion> publicacionesAdopcion;
     private List<PublicacionInteresAdopcion> publicacionInteresAdopcion;
 
 
@@ -41,7 +41,7 @@ public class Organizacion extends Persistente {
         this.publicaciones.add(publicacion);
     }
 
-    public void agregarPublicacionAdopcion(PublicacionAdopcion publicacion) {
+    public void agregarPublicacionAdopcion(PublicacionDarAdopcion publicacion) {
         this.publicacionesAdopcion.add(publicacion);
     }
 
@@ -85,7 +85,7 @@ public class Organizacion extends Persistente {
         private List<FormularioMascota> formulariosPendientes;
         private List<Usuario> postulanteVoluntarios ;
         private List<PreguntaAdopcion> preguntasAdopcion ;
-        private List<PublicacionAdopcion> publicacionesAdopcion ;
+        private List<PublicacionDarAdopcion> publicacionesAdopcion ;
         private List<PublicacionInteresAdopcion> publicacionInteresAdopcion;
 
         public OrganizacionDTO() {

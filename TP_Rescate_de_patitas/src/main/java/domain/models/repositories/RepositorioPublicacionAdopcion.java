@@ -1,6 +1,6 @@
 package domain.models.repositories;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 
-public class RepositorioPublicacionAdopcion extends RepositorioGenerico<PublicacionAdopcion>{
+public class RepositorioPublicacionAdopcion extends RepositorioGenerico<PublicacionDarAdopcion>{
 
 }

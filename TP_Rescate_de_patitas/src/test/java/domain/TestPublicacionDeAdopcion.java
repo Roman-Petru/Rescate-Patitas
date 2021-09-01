@@ -5,7 +5,7 @@ import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Permisos;
 import domain.models.entities.utils.PermisosDeAdmin;
@@ -55,15 +55,15 @@ public class TestPublicacionDeAdopcion {
 
         OrganizacionController.getInstancia().agregarPreguntaAdopcionOrganizacion(1, preg2, adminMark);
 
-        PreguntaAdopcion pregun1 = new PreguntaAdopcion(preg1.getDescripcion());
-        PreguntaAdopcion pregun2 = new PreguntaAdopcion(preg2.getDescripcion());
+        PreguntaAdopcion pregun1 = new PreguntaAdopcion(preg1.getDescripcion()); //revisar esto
+        PreguntaAdopcion pregun2 = new PreguntaAdopcion(preg2.getDescripcion()); //revisar esto
 
         RespuestaAdopcion resp1 = new RespuestaAdopcion(pregun1, "galgo");
         RespuestaAdopcion resp2 = new RespuestaAdopcion(pregun2, "si");
 
         Mascota firulais = new Mascota("FIrulais","Firu",3);
 
-        PublicacionAdopcion.PublicacionAdopcionDTO dtoPubli = new PublicacionAdopcion.PublicacionAdopcionDTO();
+        PublicacionDarAdopcion.PublicacionAdopcionDTO dtoPubli = new PublicacionDarAdopcion.PublicacionAdopcionDTO();
         dtoPubli.setMascota(firulais);
         PublicacionAdopcionController.getInstancia().agregarPublicacionAdopcion(dtoPubli, 1, resp1, resp2);
 

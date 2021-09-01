@@ -3,7 +3,7 @@ package domain.controllers;
 import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
@@ -12,7 +12,6 @@ import domain.models.entities.utils.DistanciaEntreDosPuntos;
 import domain.models.repositories.RepositorioOrganizaciones;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,8 +86,7 @@ public class OrganizacionController {
             throw new Exception("La persona no es voluntaria en esta organizacion");
 
         organizacion.getFormulariosPendientes().remove(formularioPendiente);
-        PublicacionMascotaPerdida nuevaPublicacion = new PublicacionMascotaPerdida(formularioPendiente, false, new Date());
-        nuevaPublicacion.setEsVisible(true);
+        PublicacionMascotaPerdida nuevaPublicacion = new PublicacionMascotaPerdida(formularioPendiente, false);
         organizacion.agregarPublicacion(nuevaPublicacion);
         //UPDATE en la base de datos cuando se haga
         repositorio.modificar(organizacion);
@@ -104,7 +102,7 @@ public class OrganizacionController {
         return lista_publicaciones;
     }
 
-    public List<PublicacionAdopcion> buscarPublicacionAdopcionDeOrganizacion(Integer organizacionID) {
+    public List<PublicacionDarAdopcion> buscarPublicacionAdopcionDeOrganizacion(Integer organizacionID) {
         return this.buscarOrganizacionPorID(organizacionID).get().getPublicacionesAdopcion();
     }
 

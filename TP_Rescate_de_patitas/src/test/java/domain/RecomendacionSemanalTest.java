@@ -9,7 +9,7 @@ import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaP
 import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.enums.Animal;
 import domain.models.entities.utils.Ubicacion;
@@ -93,7 +93,7 @@ public class RecomendacionSemanalTest {
         PreguntaAdopcion pregunta1 = new PreguntaAdopcion("Cuantos añis tiene?");
         PreguntaAdopcion pregunta2 = new PreguntaAdopcion("Veces que mordió gente?");
 
-        PublicacionAdopcion enAdopcionFirulais = new PublicacionAdopcion(firulais);
+        PublicacionDarAdopcion enAdopcionFirulais = new PublicacionDarAdopcion(firulais);
         PublicacionAdopcionController publicacionAdopcionController = PublicacionAdopcionController.getInstancia();
         publicacionAdopcionController.agregarPublicacionAdopcion(enAdopcionFirulais.toDTO(),1, new RespuestaAdopcion(pregunta1,"10"), new RespuestaAdopcion(pregunta2, "NO"));
 

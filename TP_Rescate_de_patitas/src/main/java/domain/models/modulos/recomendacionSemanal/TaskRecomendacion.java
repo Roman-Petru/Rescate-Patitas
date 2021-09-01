@@ -1,16 +1,11 @@
 package domain.models.modulos.recomendacionSemanal;
 import domain.controllers.PublicacionAdopcionController;
 import domain.controllers.PublicacionInteresAdopcionController;
-import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
-import domain.models.entities.entidadesGenerales.hogares.DatosMascotaHogar;
-import domain.models.entities.entidadesGenerales.hogares.HogarDeTransito;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
-import domain.models.entities.entidadesGenerales.personas.Rescatista;
 import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeRecomendacionSemanal;
 import domain.models.entities.utils.NotificadorHelper;
-import domain.models.entities.validaciones.validacionesHogarDeTransito.ValidadorHogarDeTransito;
 import domain.models.entities.validaciones.validacionesRecomendacionSemanal.ValidadorRecomendacionSemanal;
 import lombok.SneakyThrows;
 import java.time.LocalDateTime;
@@ -61,7 +56,7 @@ public class TaskRecomendacion implements Runnable {
 
 
     public List<InteresadosEnMascota> puedeEstarInteresadoEnAdoptar(){
-        List<PublicacionAdopcion> publicacionesParaAdoptar = adopcionController.listarTodos();
+        List<PublicacionDarAdopcion> publicacionesParaAdoptar = adopcionController.listarTodos();
         List<PublicacionInteresAdopcion> publicacionesInteresadosEnAdoptar = interesAdopcionController.listarTodos();
 
         List<InteresadosEnMascota> interesados = new ArrayList<>();
@@ -70,7 +65,7 @@ public class TaskRecomendacion implements Runnable {
         //Mascota mascota;
         //List<Persona> personas;
 
-        for (PublicacionAdopcion publiAdopcion : publicacionesParaAdoptar){
+        for (PublicacionDarAdopcion publiAdopcion : publicacionesParaAdoptar){
 
             InteresadosEnMascota interesado = new InteresadosEnMascota();
             List<DatosDePersona> personasInteresadas = new ArrayList<>();
@@ -90,7 +85,7 @@ public class TaskRecomendacion implements Runnable {
     }
 
 
-    public Boolean cumpleCondicionesParaEnviarRecomendacion(PublicacionInteresAdopcion interesAdopcion, PublicacionAdopcion publiAdopcion){
+    public Boolean cumpleCondicionesParaEnviarRecomendacion(PublicacionInteresAdopcion interesAdopcion, PublicacionDarAdopcion publiAdopcion){
         ValidadorRecomendacionSemanal validadorRecomendacionSemanal = new ValidadorRecomendacionSemanal();
         return validadorRecomendacionSemanal.validarRecomendacion(interesAdopcion, publiAdopcion);
     }

@@ -2,7 +2,7 @@ package domain.controllers;
 
 import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.repositories.RepositorioPublicacionAdopcion;
 
 import java.util.ArrayList;
@@ -22,37 +22,37 @@ public class PublicacionAdopcionController {
         return instancia;
     }
 
-    public List<PublicacionAdopcion> listarTodos(){
-        List<PublicacionAdopcion> lista_adopcion = new ArrayList<>();
+    public List<PublicacionDarAdopcion> listarTodos(){
+        List<PublicacionDarAdopcion> lista_adopcion = new ArrayList<>();
         for (Organizacion organizacion : OrganizacionController.getInstancia().listarTodos())
             lista_adopcion.addAll(OrganizacionController.getInstancia().buscarPublicacionAdopcionDeOrganizacion(organizacion.getId()));
 
         return lista_adopcion;
     }
 
-    public void agregarPublicacionAdopcion(PublicacionAdopcion.PublicacionAdopcionDTO dto, Integer organizacionID, RespuestaAdopcion... respuestas) {
+    public void agregarPublicacionAdopcion(PublicacionDarAdopcion.PublicacionAdopcionDTO dto, Integer organizacionID, RespuestaAdopcion... respuestas) {
 
-        PublicacionAdopcion publicacionAdopcion = new PublicacionAdopcion(dto.getMascota());
-        publicacionAdopcion.agregarRespuestasAdopcion(respuestas);
-        repositorio.agregar(publicacionAdopcion);
+        PublicacionDarAdopcion publicacionDarAdopcion = new PublicacionDarAdopcion(dto.getMascota());
+        publicacionDarAdopcion.agregarRespuestasAdopcion(respuestas);
+        repositorio.agregar(publicacionDarAdopcion);
 
         OrganizacionController organizacionController = OrganizacionController.getInstancia();
         Organizacion organizacion = organizacionController.buscarOrganizacionPorID(organizacionID).get();
-        organizacion.agregarPublicacionAdopcion(publicacionAdopcion);
+        organizacion.agregarPublicacionAdopcion(publicacionDarAdopcion);
         Organizacion.OrganizacionDTO dtoOrg = organizacion.toDTO();
         OrganizacionController.getInstancia().modificar(organizacionID, dtoOrg);
     }
 
-    public PublicacionAdopcion.PublicacionAdopcionDTO ver(Integer id) {
+    public PublicacionDarAdopcion.PublicacionAdopcionDTO ver(Integer id) {
         //TODO
         return null;
     }
 
-    public void crear(PublicacionAdopcion.PublicacionAdopcionDTO dto) {
+    public void crear(PublicacionDarAdopcion.PublicacionAdopcionDTO dto) {
         //TODO
     }
 
-    public void modificar(Integer id, PublicacionAdopcion.PublicacionAdopcionDTO dto) {
+    public void modificar(Integer id, PublicacionDarAdopcion.PublicacionAdopcionDTO dto) {
         //TODO
     }
 

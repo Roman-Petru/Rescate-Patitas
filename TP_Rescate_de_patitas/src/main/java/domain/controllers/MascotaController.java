@@ -1,8 +1,6 @@
 package domain.controllers;
 
 import domain.models.entities.entidadesGenerales.Mascota;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionAdopcion;
-import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.repositories.RepositorioMascotas;
 
 import java.util.List;
