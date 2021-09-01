@@ -1,26 +1,43 @@
 package domain.models.entities.entidadesGenerales.usuarios;
 
-import com.twilio.exception.ApiException;
-import domain.models.entities.entidadesGenerales.Contacto;
-import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.Persistente;
-import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
-import domain.models.entities.enums.Animal;
 import domain.models.entities.enums.Permisos;
-import domain.models.entities.validaciones.validacionesContrasenias.ValidadorDeContrasenia;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Entity
+@Table(name = "usuario")
 @Getter @Setter
 public class Usuario extends Persistente {
+
+    @Column
     private String usuario;
+
+    @Column
     private String password;
+
+    @Column
     private Integer intentosFallidos;
+
+
+    @ElementCollection(targetClass = Permisos.class)
+    @Column(name = "permiso", nullable = false)
+    @Enumerated(EnumType.STRING)
     private List<Permisos> lista_permisos;
 
     public Usuario(String usuario, String password) {
