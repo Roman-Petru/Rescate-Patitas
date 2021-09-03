@@ -4,23 +4,52 @@ import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.utils.Ubicacion;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
+@Entity
+@Table(name = "datosDePersona")
 @Getter @Setter
 public class DatosDePersona extends Persistente {
+
+    @Column
     private String nombre;
+
+    @Column
     private String apellido;
+
+    @Column
     private String documento;
+
+    @Column
     private String numTramite;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="ubicacion_id")
     private Ubicacion ubicacion;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Contacto> contactos;
+
+    @Column
     private boolean recibirRecomendacionAdopcion;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="usuario_id")
     private Usuario usuario;
 
     //agrego el mail para poder enviar las notificaciones a las personas interesadas
+    @Column
     private String email;
 
     public DatosDePersona(Integer id, String nombre, String apellido, String documento, String numTramite, String email, Ubicacion ubicacion, List<Contacto> contactos) {

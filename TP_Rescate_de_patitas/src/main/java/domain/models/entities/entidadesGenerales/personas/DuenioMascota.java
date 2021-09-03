@@ -8,13 +8,26 @@ import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.hogares.DatosMascotaHogar;
 import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.utils.Ubicacion;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
+@Table(name = "duenioMascota")
 @Getter @Setter
 public class DuenioMascota extends Persistente {
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="datosDePersona_id")
     private DatosDePersona datosDePersona;
+
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Mascota> mascotas;
 
     public DuenioMascota(DatosDePersona datosDePersona){
