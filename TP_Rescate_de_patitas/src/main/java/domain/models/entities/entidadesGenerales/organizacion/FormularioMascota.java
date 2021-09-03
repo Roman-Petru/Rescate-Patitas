@@ -1,19 +1,44 @@
 package domain.models.entities.entidadesGenerales.organizacion;
 
+import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;
+import domain.models.entities.enums.Permisos;
 import domain.models.entities.utils.Ubicacion;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
+@Table(name = "formularioMascota")
 @Getter @Setter
-public class FormularioMascota {
+public class FormularioMascota extends Persistente {
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="rescatista_id")
     private Rescatista personaQueRescato;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="duenioMascota_id")
     private DuenioMascota duenioMascota;
+
+    @Column
     private String imagen;
+
+    @Column
     private String estadoMascota;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="ubicacion_id")
     private Ubicacion lugarEncontrado;
+
+    @Column
     private boolean tieneChapita;
 
     public FormularioMascota(Rescatista personaQueRescato, String imagen, String estadoMascota, Ubicacion lugarEncontrado, boolean tieneChapita) {

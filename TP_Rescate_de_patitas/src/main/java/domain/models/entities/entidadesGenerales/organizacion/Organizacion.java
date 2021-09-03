@@ -3,22 +3,54 @@ import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.utils.Ubicacion;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "organizacion")
 @Getter @Setter
 public class Organizacion extends Persistente {
+
+    @Column
     private String nombre;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="ubicacion_id")
     private Ubicacion ubicacion;
+
+    //TODO revisar en la base como se estan guardando
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Usuario> voluntarios;
-    private List<PublicacionMascotaPerdida> publicaciones;
-    private List<FormularioMascota> formulariosPendientes;
+
+    //TODO revisar en la base como se estan guardando
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Usuario> postulanteVoluntarios;
+
+    @Transient
+    private List<FormularioMascota> formulariosPendientes;
+
+    @Transient
     private List<PreguntaAdopcion> preguntasAdopcion;
+
+    @Transient
+    private List<PublicacionMascotaPerdida> publicaciones;
+
+    @Transient
     private List<PublicacionDarAdopcion> publicacionesAdopcion;
+
+    @Transient
     private List<PublicacionInteresAdopcion> publicacionInteresAdopcion;
 
 
