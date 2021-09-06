@@ -71,7 +71,7 @@ public class OrganizacionController {
                 return DistanciaEntreDosPuntos.calcular(organizacion.getUbicacion().getLatitud(), organizacion.getUbicacion().getLongitud(), formulario.getLugarEncontrado().getLatitud(), formulario.getLugarEncontrado().getLongitud());
             }
         }
-        FormularioMascota formulario = new FormularioMascota(dto.getPersonaQueRescato(), dto.getImagen(), dto.getEstadoMascota(), dto.getLugarEncontrado(), dto.isTieneChapita());
+        FormularioMascota formulario = new FormularioMascota(dto.getPersonaQueRescato(), dto.getImagen(), dto.getEstadoMascota(), dto.getLugarEncontrado(), dto.isTieneChapita(), dto.getRadioDeCercaniaEnKm());
         Organizacion organizacion = new BuscarOrganizacion().encontrarOrganizacionMasCercana(formulario);
         organizacion.agregarFormulario(formulario);
         //UPDATE en la base de datos cuando se haga

@@ -43,16 +43,20 @@ public class FormularioMascota extends Persistente {
     @Column
     private boolean tieneChapita;
 
+    @Column
+    private Integer radioDeCercaniaEnKm;
+
     @ManyToOne
     @JoinColumn(name="organizacion_id" , referencedColumnName = "id")
     private Organizacion organizacion;
 
-    public FormularioMascota(Rescatista personaQueRescato, String imagen, String estadoMascota, Ubicacion lugarEncontrado, boolean tieneChapita) {
+    public FormularioMascota(Rescatista personaQueRescato, String imagen, String estadoMascota, Ubicacion lugarEncontrado, boolean tieneChapita, Integer radioDeCercaniaEnKm) {
         this.personaQueRescato = personaQueRescato;
         this.imagen = imagen;
         this.estadoMascota = estadoMascota;
         this.lugarEncontrado = lugarEncontrado;
         this.tieneChapita = tieneChapita;
+        this.radioDeCercaniaEnKm = radioDeCercaniaEnKm;
     }
     @Getter @Setter
     public class FormularioMascotaDTO {
@@ -61,6 +65,7 @@ public class FormularioMascota extends Persistente {
         private String estadoMascota;
         private Ubicacion lugarEncontrado;
         private boolean tieneChapita;
+        private Integer radioDeCercaniaEnKm;
     }
 
     public FormularioMascota.FormularioMascotaDTO toDTO() {
@@ -70,6 +75,7 @@ public class FormularioMascota extends Persistente {
         dto.estadoMascota= this.getEstadoMascota();
         dto.lugarEncontrado= this.getLugarEncontrado();
         dto.tieneChapita= this.isTieneChapita();
+        dto.radioDeCercaniaEnKm = this.getRadioDeCercaniaEnKm();
         return dto;
     }
 }

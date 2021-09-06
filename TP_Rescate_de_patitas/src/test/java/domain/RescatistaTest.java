@@ -46,12 +46,11 @@ public class RescatistaTest {
 
         DatosMascotaParaHogar datosMascota = new DatosMascotaParaHogar(animal,tamanio,caracteristicasVistas);
         rescatistaJuan.setDatosMascota(datosMascota);
-        rescatistaJuan.setUbicacion(ubicacion);
-        rescatistaJuan.setRadioDeCercaniaEnKm(150);
 
+        FormularioMascota formularioMascota = new FormularioMascota(rescatistaJuan, "imagen path", "a pleno", ubicacion, false, 150);
 
         BuscarHogar busquedaDehogar = new BuscarHogar();
-        List<HogarDeTransito> hogares = busquedaDehogar.obtenerHogaresDependiendoMascota(datosMascota,rescatistaJuan);
+        List<HogarDeTransito> hogares = busquedaDehogar.obtenerHogaresDependiendoMascota(datosMascota,formularioMascota);
 
         Assert.assertTrue(hogares.size() > 0);
     }
@@ -87,9 +86,9 @@ public class RescatistaTest {
         DatosDePersona datosPersona = new DatosDePersona(2,"Juli", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
         Rescatista juliRescatista = new Rescatista(datosPersona);
 
-        FormularioMascota formularioMascota = new FormularioMascota(juliRescatista, "path imagen", "asustada", ubicacion, true);
+        FormularioMascota formularioMascota = new FormularioMascota(juliRescatista, "path imagen", "asustada", ubicacion, true, 150);
 
-        juliRescatista.setFormulario(formularioMascota);
+        //juliRescatista.setFormulario(formularioMascota);
         //Empieza el flujo
         //juliRescatista.contactarConDuenio("1");
     }

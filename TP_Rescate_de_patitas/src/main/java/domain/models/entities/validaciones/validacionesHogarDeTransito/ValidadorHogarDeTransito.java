@@ -1,6 +1,7 @@
 package domain.models.entities.validaciones.validacionesHogarDeTransito;
 import domain.models.entities.entidadesGenerales.hogares.DatosMascotaParaHogar;
 import domain.models.entities.entidadesGenerales.hogares.HogarDeTransito;
+import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class ValidadorHogarDeTransito {
         this.validaciones.add(new ValidacionTamanioDependiendoPatio());
     }
 
-    public boolean validarHogar(HogarDeTransito hogar, DatosMascotaParaHogar datosMascota, Rescatista rescatista) {
-        return this.validaciones.stream().allMatch(validacion -> validacion.validarHogar(hogar,datosMascota,rescatista));
+    public boolean validarHogar(HogarDeTransito hogar, DatosMascotaParaHogar datosMascota, FormularioMascota formulario) {
+        return this.validaciones.stream().allMatch(validacion -> validacion.validarHogar(hogar,datosMascota,formulario));
     }
 }

@@ -1,5 +1,6 @@
 package domain.models.entities.entidadesGenerales.hogares;
 
+import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;
 import domain.models.entities.validaciones.validacionesHogarDeTransito.ValidadorHogarDeTransito;
 import domain.models.repositories.RepositorioHogares;
@@ -18,12 +19,12 @@ public class BuscarHogar {
         this.servicioHogar = ServicioHogar.getInstancia();
     }
 
-    public List<HogarDeTransito> obtenerHogaresDependiendoMascota(DatosMascotaParaHogar datosMascota, Rescatista rescatista) throws IOException {
+    public List<HogarDeTransito> obtenerHogaresDependiendoMascota(DatosMascotaParaHogar datosMascota, FormularioMascota formulario) throws IOException {
 
         List<HogarDeTransito> listaHogares = this.obtenerTodosLosHogaresDisponibles();
 
         return  listaHogares.stream()
-                .filter(h -> cumpleCondicionesParaHogar(h, datosMascota, rescatista))
+                .filter(h -> cumpleCondicionesParaHogar(h, datosMascota, formulario))
                 .collect(Collectors.toList());
     }
 
@@ -44,8 +45,8 @@ public class BuscarHogar {
         return listaHogares;
     }
 
-    public Boolean cumpleCondicionesParaHogar(HogarDeTransito hogar, DatosMascotaParaHogar datosMascota, Rescatista rescatista){
+    public Boolean cumpleCondicionesParaHogar(HogarDeTransito hogar, DatosMascotaParaHogar datosMascota, FormularioMascota formulario){
         ValidadorHogarDeTransito validadorHogarDeTransito = new ValidadorHogarDeTransito();
-        return validadorHogarDeTransito.validarHogar(hogar, datosMascota, rescatista);
+        return validadorHogarDeTransito.validarHogar(hogar, datosMascota, formulario);
     }
 }
