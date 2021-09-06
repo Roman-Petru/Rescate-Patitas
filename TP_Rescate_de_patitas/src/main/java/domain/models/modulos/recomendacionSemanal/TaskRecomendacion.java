@@ -72,7 +72,7 @@ public class TaskRecomendacion implements Runnable {
             for(PublicacionInteresAdopcion interesAdopcion : publicacionesInteresadosEnAdoptar){
 
                 if (this.cumpleCondicionesParaEnviarRecomendacion(interesAdopcion, publiAdopcion)){
-                    personasInteresadas.add(interesAdopcion.getPersona());
+                    personasInteresadas.add(interesAdopcion.getAdoptante());
                 }
             }
 

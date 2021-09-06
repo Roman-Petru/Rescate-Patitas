@@ -34,17 +34,17 @@ public class DatosDePersona extends Persistente {
     @Column
     private String numTramite;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     @JoinColumn(name="ubicacion_id")
     private Ubicacion ubicacion;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "datosDePersona", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<Contacto> contactos;
 
     @Column
     private boolean recibirRecomendacionAdopcion;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="usuario_id")
     private Usuario usuario;
 

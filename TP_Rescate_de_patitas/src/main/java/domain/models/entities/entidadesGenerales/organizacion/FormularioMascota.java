@@ -9,7 +9,9 @@ import domain.models.entities.utils.Ubicacion;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -20,11 +22,11 @@ import lombok.Setter;
 @Getter @Setter
 public class FormularioMascota extends Persistente {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="rescatista_id")
     private Rescatista personaQueRescato;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="duenioMascota_id")
     private DuenioMascota duenioMascota;
 
@@ -34,12 +36,16 @@ public class FormularioMascota extends Persistente {
     @Column
     private String estadoMascota;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="ubicacion_id")
     private Ubicacion lugarEncontrado;
 
     @Column
     private boolean tieneChapita;
+
+    @ManyToOne
+    @JoinColumn(name="organizacion_id" , referencedColumnName = "id")
+    private Organizacion organizacion;
 
     public FormularioMascota(Rescatista personaQueRescato, String imagen, String estadoMascota, Ubicacion lugarEncontrado, boolean tieneChapita) {
         this.personaQueRescato = personaQueRescato;

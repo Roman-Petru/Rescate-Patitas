@@ -26,31 +26,31 @@ public class Organizacion extends Persistente {
     @Column
     private String nombre;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="ubicacion_id")
     private Ubicacion ubicacion;
 
-    //TODO revisar en la base como se estan guardando
+    @Column(name = "voluntario")
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Usuario> voluntarios;
 
-    //TODO revisar en la base como se estan guardando
+    @Column(name = "postulanteVoluntario")
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Usuario> postulanteVoluntarios;
 
-    @Transient
+    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<FormularioMascota> formulariosPendientes;
 
     @Transient
     private List<PreguntaAdopcion> preguntasAdopcion;
 
-    @Transient
+    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<PublicacionMascotaPerdida> publicaciones;
 
-    @Transient
+    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<PublicacionDarAdopcion> publicacionesAdopcion;
 
-    @Transient
+    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<PublicacionInteresAdopcion> publicacionInteresAdopcion;
 
 

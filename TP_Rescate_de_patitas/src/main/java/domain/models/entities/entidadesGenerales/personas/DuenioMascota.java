@@ -23,11 +23,11 @@ import lombok.Setter;
 @Getter @Setter
 public class DuenioMascota extends Persistente {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     @JoinColumn(name="datosDePersona_id")
     private DatosDePersona datosDePersona;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "duenioMascota", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Mascota> mascotas;
 
     public DuenioMascota(DatosDePersona datosDePersona){

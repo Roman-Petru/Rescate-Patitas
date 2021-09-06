@@ -6,19 +6,44 @@ import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.enums.PosibleEstadoPublicacion;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Entity
+@Table(name = "publicacionDarAdopcion")
 @Getter @Setter
 public class PublicacionDarAdopcion extends Persistente {
 
+    @Transient
     private List<RespuestaAdopcion> respuestasAdopcion;
+
+    //@OneToOne(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    //@JoinColumn(name="mascota id")
+    @ManyToOne
+    @JoinColumn(name="mascota_id" , referencedColumnName = "id")
     private Mascota mascota;
+
+    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<EstadoPublicacion> estadosPublicacion;
+
+    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<InteresadoEnAdopcion> interesadosEnAdoptar;
+
+    @ManyToOne
+    @JoinColumn(name="organizacion_id" , referencedColumnName = "id")
+    private Organizacion organizacion;
 
     public PublicacionDarAdopcion(Mascota mascota) {
         this.mascota = mascota;

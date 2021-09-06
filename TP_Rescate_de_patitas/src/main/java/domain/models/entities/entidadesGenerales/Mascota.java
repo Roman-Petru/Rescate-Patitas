@@ -1,5 +1,6 @@
 package domain.models.entities.entidadesGenerales;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
+import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.enums.Animal;
 import domain.models.entities.enums.Permisos;
 import domain.models.entities.utils.NotificadorHelper;
@@ -16,6 +17,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -45,11 +48,15 @@ public class Mascota extends Persistente {
     @Column
     private String descripcionFisica;
 
+    @ManyToOne
+    @JoinColumn(name="duenioMascota_id" , referencedColumnName = "id")
+    private DuenioMascota duenioMascota;
+
     @ElementCollection
     @Column(name = "foto", nullable = false)
     private List<String> fotos;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<Contacto> contactos;
 
     @Transient

@@ -9,6 +9,7 @@ import domain.servicios.hogares.ServicioHogar;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -23,7 +24,7 @@ import java.util.List;
 @Getter @Setter
 public class Rescatista extends Persistente {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="datosDePersona_id")
     private DatosDePersona datosDePersona;
 
@@ -33,14 +34,14 @@ public class Rescatista extends Persistente {
     @Transient
     private DatosMascotaHogar datosMascota;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="formulario_id")
     private FormularioMascota formulario;
 
     @Column
     private Boolean encontroConChapita;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="ubicacion_id")
     private Ubicacion ubicacion;
 
