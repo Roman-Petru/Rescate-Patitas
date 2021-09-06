@@ -59,7 +59,7 @@ public class Mascota extends Persistente {
     @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<Contacto> contactos;
 
-    @Transient
+    @OneToMany(mappedBy = "mascota", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<CaracteristicaPersonalizada> caracteristicas;
 
     public Mascota(Integer id, Animal tipo, String nombre, String apodo, Integer edadAproximada, Boolean esMacho, String descripcionFisica) {

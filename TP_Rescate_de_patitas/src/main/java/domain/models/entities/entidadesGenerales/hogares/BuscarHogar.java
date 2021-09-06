@@ -18,7 +18,7 @@ public class BuscarHogar {
         this.servicioHogar = ServicioHogar.getInstancia();
     }
 
-    public List<HogarDeTransito> obtenerHogaresDependiendoMascota(DatosMascotaHogar datosMascota, Rescatista rescatista) throws IOException {
+    public List<HogarDeTransito> obtenerHogaresDependiendoMascota(DatosMascotaParaHogar datosMascota, Rescatista rescatista) throws IOException {
 
         List<HogarDeTransito> listaHogares = this.obtenerTodosLosHogaresDisponibles();
 
@@ -44,7 +44,7 @@ public class BuscarHogar {
         return listaHogares;
     }
 
-    public Boolean cumpleCondicionesParaHogar(HogarDeTransito hogar, DatosMascotaHogar datosMascota, Rescatista rescatista){
+    public Boolean cumpleCondicionesParaHogar(HogarDeTransito hogar, DatosMascotaParaHogar datosMascota, Rescatista rescatista){
         ValidadorHogarDeTransito validadorHogarDeTransito = new ValidadorHogarDeTransito();
         return validadorHogarDeTransito.validarHogar(hogar, datosMascota, rescatista);
     }

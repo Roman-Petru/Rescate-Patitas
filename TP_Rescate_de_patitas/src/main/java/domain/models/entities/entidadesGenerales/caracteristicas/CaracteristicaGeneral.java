@@ -3,13 +3,20 @@ import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.enums.Animal;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
+@Entity
+@Table(name = "caracteristicaGeneral")
 @Getter @Setter
 public class CaracteristicaGeneral extends Persistente {
+
+    @Column
     private String descripcion;
 
     public CaracteristicaGeneral(String descripcion) {

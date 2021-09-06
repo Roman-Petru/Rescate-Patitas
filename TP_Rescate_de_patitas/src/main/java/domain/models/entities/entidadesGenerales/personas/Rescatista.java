@@ -1,9 +1,8 @@
 package domain.models.entities.entidadesGenerales.personas;
 
-import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.utils.Ubicacion;
-import domain.models.entities.entidadesGenerales.hogares.DatosMascotaHogar;
+import domain.models.entities.entidadesGenerales.hogares.DatosMascotaParaHogar;
 import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.servicios.hogares.ServicioHogar;
 import javax.persistence.CascadeType;
@@ -17,8 +16,6 @@ import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
 @Table(name = "rescatista")
 @Getter @Setter
@@ -31,8 +28,9 @@ public class Rescatista extends Persistente {
     @Column
     private Integer radioDeCercaniaEnKm;
 
-    @Transient
-    private DatosMascotaHogar datosMascota;
+    @OneToOne(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @JoinColumn(name="datosMascotaParaHogar_id")
+    private DatosMascotaParaHogar datosMascota;
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="formulario_id")
@@ -47,6 +45,9 @@ public class Rescatista extends Persistente {
 
     @Transient
     private ServicioHogar servicioHogar;
+
+    @Column
+    private String nombreHogarParaMascota;
 
     public Rescatista(DatosDePersona datosDePersona){
          this.datosDePersona = datosDePersona;
@@ -77,7 +78,7 @@ public class Rescatista extends Persistente {
         private Integer id;
         private DatosDePersona datosDePersona;
         private Integer radioDeCercaniaEnKm;
-        private DatosMascotaHogar datosMascota;
+        private DatosMascotaParaHogar datosMascota;
         private FormularioMascota formulario;
         private Boolean encontroConChapita;
         private Ubicacion ubicacion;

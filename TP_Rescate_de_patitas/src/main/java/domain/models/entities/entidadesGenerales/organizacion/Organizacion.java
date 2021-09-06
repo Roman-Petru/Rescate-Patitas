@@ -25,6 +25,7 @@ public class Organizacion extends Persistente {
 
     @Column
     private String nombre;
+    
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="ubicacion_id")

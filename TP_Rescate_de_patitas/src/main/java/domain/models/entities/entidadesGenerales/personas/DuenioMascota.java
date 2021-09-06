@@ -5,9 +5,6 @@ import java.util.List;
 
 import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.Persistente;
-import domain.models.entities.entidadesGenerales.hogares.DatosMascotaHogar;
-import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
-import domain.models.entities.utils.Ubicacion;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

@@ -1,14 +1,12 @@
 package domain;
 
-import domain.controllers.OrganizacionController;
 import domain.controllers.personas.DuenioMascotaController;
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Mascota;
-import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.utils.Ubicacion;
 import domain.models.entities.entidadesGenerales.hogares.BuscarHogar;
-import domain.models.entities.entidadesGenerales.hogares.DatosMascotaHogar;
+import domain.models.entities.entidadesGenerales.hogares.DatosMascotaParaHogar;
 import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.hogares.HogarDeTransito;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
@@ -46,7 +44,7 @@ public class RescatistaTest {
         DatosDePersona datosPersona = new DatosDePersona(1,"Juan", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, null);
         Rescatista rescatistaJuan = new Rescatista(datosPersona);
 
-        DatosMascotaHogar datosMascota = new DatosMascotaHogar(animal,tamanio,caracteristicasVistas);
+        DatosMascotaParaHogar datosMascota = new DatosMascotaParaHogar(animal,tamanio,caracteristicasVistas);
         rescatistaJuan.setDatosMascota(datosMascota);
         rescatistaJuan.setUbicacion(ubicacion);
         rescatistaJuan.setRadioDeCercaniaEnKm(150);
