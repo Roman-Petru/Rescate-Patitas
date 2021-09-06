@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -31,12 +32,24 @@ public class Organizacion extends Persistente {
     @JoinColumn(name="ubicacion_id")
     private Ubicacion ubicacion;
 
-    @Column(name = "voluntario")
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    //@Column(name = "voluntario")
+    //@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "voluntario",
+        joinColumns = @JoinColumn(name = "organizacion_id"),
+        inverseJoinColumns = @JoinColumn(name = "usuario_id")
+    )
     private List<Usuario> voluntarios;
 
-    @Column(name = "postulanteVoluntario")
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    //@Column(name = "postulanteVoluntario")
+    //@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "postulante",
+        joinColumns = @JoinColumn(name = "organizacion_id"),
+        inverseJoinColumns = @JoinColumn(name = "usuario_id")
+    )
     private List<Usuario> postulanteVoluntarios;
 
     @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)

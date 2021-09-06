@@ -44,7 +44,7 @@ public class DatosDePersona extends Persistente {
     @Column
     private boolean recibirRecomendacionAdopcion;
 
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     @JoinColumn(name="usuario_id")
     private Usuario usuario;
 
