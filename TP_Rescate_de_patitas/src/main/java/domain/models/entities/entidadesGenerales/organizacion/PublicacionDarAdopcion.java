@@ -3,7 +3,7 @@ package domain.models.entities.entidadesGenerales.organizacion;
 
 import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.Persistente;
-import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
+import domain.models.entities.entidadesGenerales.cuestionarios.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.enums.PosibleEstadoPublicacion;
 import javax.persistence.CascadeType;
@@ -12,7 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.Getter;

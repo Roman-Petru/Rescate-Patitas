@@ -1,6 +1,7 @@
 package domain.models.entities.entidadesGenerales.organizacion;
 import domain.models.entities.entidadesGenerales.Persistente;
-import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
+import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
+import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.utils.Ubicacion;
 import javax.persistence.CascadeType;
@@ -26,14 +27,11 @@ public class Organizacion extends Persistente {
 
     @Column
     private String nombre;
-    
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="ubicacion_id")
     private Ubicacion ubicacion;
 
-    //@Column(name = "voluntario")
-    //@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "voluntario",
@@ -42,8 +40,6 @@ public class Organizacion extends Persistente {
     )
     private List<Usuario> voluntarios;
 
-    //@Column(name = "postulanteVoluntario")
-    //@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "postulante",
@@ -55,8 +51,8 @@ public class Organizacion extends Persistente {
     @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<FormularioMascota> formulariosPendientes;
 
-    @Transient
-    private List<PreguntaAdopcion> preguntasAdopcion;
+    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    private List<Cuestionario> cuestionarios;
 
     @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<PublicacionMascotaPerdida> publicaciones;
@@ -76,7 +72,7 @@ public class Organizacion extends Persistente {
         this.formulariosPendientes = new ArrayList<>();
         this.postulanteVoluntarios = new ArrayList<>();
         this.publicacionesAdopcion = new ArrayList<>();
-        this.preguntasAdopcion = new ArrayList<>();
+        this.cuestionarios = new ArrayList<>();
         this.publicacionInteresAdopcion = new ArrayList<>();
     }
 
@@ -95,8 +91,8 @@ public class Organizacion extends Persistente {
         this.publicacionInteresAdopcion.add(publicacion);
     }
 
-    public void agregarPreguntaAdopcion(PreguntaAdopcion pregunta) {
-        this.preguntasAdopcion.add(pregunta);
+    public void agregarCuestionario(Cuestionario cuestionario) {
+        this.cuestionarios.add(cuestionario);
     }
 
     public void postularseVoluntario (Usuario postulanteVoluntario){
@@ -130,7 +126,7 @@ public class Organizacion extends Persistente {
         private List<PublicacionMascotaPerdida> publicaciones;
         private List<FormularioMascota> formulariosPendientes;
         private List<Usuario> postulanteVoluntarios ;
-        private List<PreguntaAdopcion> preguntasAdopcion ;
+        private List<Cuestionario> cuestionarios ;
         private List<PublicacionDarAdopcion> publicacionesAdopcion ;
         private List<PublicacionInteresAdopcion> publicacionInteresAdopcion;
 
@@ -148,7 +144,7 @@ public class Organizacion extends Persistente {
         dto.publicaciones = this.getPublicaciones();
         dto.formulariosPendientes = this.getFormulariosPendientes();
         dto.postulanteVoluntarios = this.getPostulanteVoluntarios();
-        dto.preguntasAdopcion = this.getPreguntasAdopcion();
+        dto.cuestionarios = this.getCuestionarios();
         dto.publicacionesAdopcion = this.getPublicacionesAdopcion();
         dto.publicacionInteresAdopcion = this.getPublicacionInteresAdopcion();
         return dto;

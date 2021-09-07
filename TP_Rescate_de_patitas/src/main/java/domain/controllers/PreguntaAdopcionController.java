@@ -1,6 +1,6 @@
 package domain.controllers;
 
-import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
+import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Permisos;
 import domain.models.repositories.RepositorioPreguntasAdopcion;
@@ -45,7 +45,8 @@ public class PreguntaAdopcionController {
 
     public List<PreguntaAdopcion> listarTodosYOrganizacion(Integer organizacionID) {
         List<PreguntaAdopcion> preguntas = this.listarTodos();
-        preguntas.addAll(OrganizacionController.getInstancia().buscarOrganizacionPorID(organizacionID).get().getPreguntasAdopcion());
+        //TODO REVISAR
+        //preguntas.addAll(OrganizacionController.getInstancia().buscarOrganizacionPorID(organizacionID).get().getPreguntasAdopcion());
         return preguntas;
     }
 }

@@ -3,7 +3,7 @@ package domain.controllers.personas;
 
 import domain.controllers.PublicacionAdopcionController;
 import domain.models.entities.entidadesGenerales.Mascota;
-import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
+import domain.models.entities.entidadesGenerales.cuestionarios.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;

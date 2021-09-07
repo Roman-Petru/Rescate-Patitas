@@ -1,6 +1,6 @@
 package domain.controllers;
 
-import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
+import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
@@ -115,7 +115,8 @@ public class OrganizacionController {
         if (!organizacion.esVoluntarioDeOrg(voluntario))
             return;  //TODO throw exception
         PreguntaAdopcion pregunta = new PreguntaAdopcion(dto.getDescripcion());
-        organizacion.agregarPreguntaAdopcion(pregunta);
+        //TODO REVISAR
+        //organizacion.agregarPreguntaAdopcion(pregunta);
         repositorio.modificar(organizacion);
     }
 

@@ -2,8 +2,8 @@ package domain;
 
 import domain.controllers.*;
 import domain.models.entities.entidadesGenerales.Mascota;
-import domain.models.entities.entidadesGenerales.caracteristicas.PreguntaAdopcion;
-import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
+import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
+import domain.models.entities.entidadesGenerales.cuestionarios.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;

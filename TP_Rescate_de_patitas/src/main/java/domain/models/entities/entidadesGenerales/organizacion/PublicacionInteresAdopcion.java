@@ -2,7 +2,7 @@ package domain.models.entities.entidadesGenerales.organizacion;
 
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
-import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
+import domain.models.entities.entidadesGenerales.cuestionarios.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.enums.Animal;
 import domain.models.entities.enums.PosibleEstadoPublicacion;

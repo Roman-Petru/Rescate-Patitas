@@ -1,7 +1,7 @@
 package domain.controllers;
 
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
-import domain.models.entities.entidadesGenerales.caracteristicas.RespuestaAdopcion;
+import domain.models.entities.entidadesGenerales.cuestionarios.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
