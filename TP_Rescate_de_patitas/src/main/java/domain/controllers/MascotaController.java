@@ -30,7 +30,7 @@ public class MascotaController {
     }
 
     public void agregar(Mascota.MascotaDTO dto) {
-        Mascota mascota = new Mascota(dto.getId(), dto.getTipo(), dto.getNombre(), dto.getApodo(), dto.getEdadAproximada(),dto.getEsMacho(), dto.getDescripcionFisica());
+        Mascota mascota = new Mascota(dto.getTipo(), dto.getNombre(), dto.getApodo(), dto.getEdadAproximada(),dto.getEsMacho(), dto.getDescripcionFisica());
         repositorio.agregar(mascota);
     }
 

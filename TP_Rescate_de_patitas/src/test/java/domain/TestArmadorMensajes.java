@@ -28,7 +28,7 @@ public class TestArmadorMensajes {
         List<Contacto> contactos = new ArrayList();
         contactos.add(contacto1);
         contactos.add(contacto2);
-        DatosDePersona persona = new DatosDePersona(1,"Juan","Gomez",null,null,null,null,contactos);
+        DatosDePersona persona = new DatosDePersona("Juan","Gomez",null,null,null,null,contactos);
         ArmadorDeMensaje armadorDeMensaje = new ArmadorMensajeDuenioARescatista(persona);
         String mensaje = armadorDeMensaje.armarCuerpoMensaje();
 

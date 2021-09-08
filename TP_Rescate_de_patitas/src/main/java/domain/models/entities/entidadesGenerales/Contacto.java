@@ -2,12 +2,17 @@ package domain.models.entities.entidadesGenerales;
 
 import domain.models.converters.EstrategiaDeNotificacionConverter;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
+import domain.models.entities.enums.Permisos;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import javax.persistence.Column;
 import javax.persistence.Convert;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.Getter;
@@ -36,7 +41,8 @@ public class Contacto extends Persistente {
     @JoinColumn(name="datosDePersona_id" , referencedColumnName = "id")
     private DatosDePersona datosDePersona;
 
-    @Convert(converter = EstrategiaDeNotificacionConverter.class)
+    //@Convert(converter = EstrategiaDeNotificacionConverter.class)
+    @ElementCollection(targetClass = EstrategiaNotificacion.class)
     private List<EstrategiaNotificacion> notificadores;
 
     public Contacto(String nombre, String apellido, String telefono, String email, List<EstrategiaNotificacion> notificadores) {

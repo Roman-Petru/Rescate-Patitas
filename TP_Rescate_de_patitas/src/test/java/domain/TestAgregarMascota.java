@@ -26,7 +26,7 @@ public class TestAgregarMascota {
         ubicacion.setLatitud(-35.814884);
         ubicacion.setLongitud(58.66555);
 
-        DatosDePersona datosDePersona = new DatosDePersona(1,"Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null);
+        DatosDePersona datosDePersona = new DatosDePersona("Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null);
         DuenioMascota jorgeDuenio = new DuenioMascota(datosDePersona);
 
         Mascota firulais = new Mascota("FIrulais","Firu",3);
@@ -52,7 +52,7 @@ public class TestAgregarMascota {
         ubicacion.setLatitud(-35.814884);
         ubicacion.setLongitud(58.66555);
 
-        DatosDePersona datosDePersona = new DatosDePersona(1,"Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null);
+        DatosDePersona datosDePersona = new DatosDePersona("Jorge","Pe", "3535","53535", "july.vr@hotmail.com", ubicacion, null);
         DuenioMascota jorgeDuenio = new DuenioMascota(datosDePersona);
         jorgeDuenio.setId(1);
         duenioMascotaController.agregar(jorgeDuenio.toDTO());

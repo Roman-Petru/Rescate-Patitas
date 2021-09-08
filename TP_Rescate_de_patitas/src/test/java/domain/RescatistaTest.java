@@ -41,7 +41,7 @@ public class RescatistaTest {
         ubicacion.setLongitud(-59.572705);
         ubicacion.setDireccion("Los Mimbres 100, B1648 DUB, Provincia de Buenos Aires");
 
-        DatosDePersona datosPersona = new DatosDePersona(1,"Juan", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, null);
+        DatosDePersona datosPersona = new DatosDePersona("Juan", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, null);
         Rescatista rescatistaJuan = new Rescatista(datosPersona);
 
         DatosMascotaParaHogar datosMascota = new DatosMascotaParaHogar(animal,tamanio,caracteristicasVistas);
@@ -71,7 +71,7 @@ public class RescatistaTest {
 
         Contacto contacto = new Contacto("Carmen","Villalta", "123123", "ropetru@hotmail.com", estrategiasNotificacion);
 
-        DatosDePersona datosDePersona = new DatosDePersona(1, "Juan", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
+        DatosDePersona datosDePersona = new DatosDePersona( "Juan", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
         DuenioMascota juanDuenio = new DuenioMascota(datosDePersona);
         juanDuenio.setId(1);
         duenioMascotaController.agregar(juanDuenio.toDTO());
@@ -83,7 +83,7 @@ public class RescatistaTest {
         //TODO REVISAR LA ID QUE LE ESTAMOS DANDO
         duenioMascotaController.agregarMascota(0, firulais);
 
-        DatosDePersona datosPersona = new DatosDePersona(2,"Juli", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
+        DatosDePersona datosPersona = new DatosDePersona("Juli", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
         Rescatista juliRescatista = new Rescatista(datosPersona);
 
         FormularioMascota formularioMascota = new FormularioMascota(juliRescatista, "path imagen", "asustada", ubicacion, true, 150);

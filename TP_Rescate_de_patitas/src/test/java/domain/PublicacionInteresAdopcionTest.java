@@ -71,8 +71,8 @@ public class PublicacionInteresAdopcionTest {
         EnvioViaWhatsapp envioViaWhatsapp = EnvioViaWhatsapp.instancia();
         List<EstrategiaNotificacion> estrategiasNotificacion = Arrays.asList(envioViaWhatsapp, envioViaMail);
         Contacto contacto = new Contacto("Carmen","Villalta", "123123", "july.vr@hotmail.com", estrategiasNotificacion);
-        DatosDePersona persona1 = new DatosDePersona(2,"Julian", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
-        DatosDePersona persona2 = new DatosDePersona(3,"Martin", "Morales", "12312424", "325325235", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
+        DatosDePersona persona1 = new DatosDePersona("Julian", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
+        DatosDePersona persona2 = new DatosDePersona("Martin", "Morales", "12312424", "325325235", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
 
         //AGREGO PERSONAS A REPOSITORIO
         PersonaController personaController = PersonaController.getInstancia();
@@ -96,7 +96,7 @@ public class PublicacionInteresAdopcionTest {
         caracteristicaPersonalizada2.setCaracteristicaGeneral(comeMucho);
         caracteristicaPersonalizada2.setValor("No");
 
-        Mascota firulais = new Mascota(1, Animal.PERRO, "Firulais","Firu",3, true,"MEDIANO");
+        Mascota firulais = new Mascota(Animal.PERRO, "Firulais","Firu",3, true,"MEDIANO");
         firulais.agregarCaracteristicaPersonalizada(caracteristicaPersonalizada1);
         firulais.agregarCaracteristicaPersonalizada(caracteristicaPersonalizada2);
 

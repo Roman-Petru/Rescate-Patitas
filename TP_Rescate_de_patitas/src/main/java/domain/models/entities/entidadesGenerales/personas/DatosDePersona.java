@@ -52,8 +52,7 @@ public class DatosDePersona extends Persistente {
     @Column
     private String email;
 
-    public DatosDePersona(Integer id, String nombre, String apellido, String documento, String numTramite, String email, Ubicacion ubicacion, List<Contacto> contactos) {
-        this.setId(id);
+    public DatosDePersona(String nombre, String apellido, String documento, String numTramite, String email, Ubicacion ubicacion, List<Contacto> contactos) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.documento = documento;
@@ -75,7 +74,6 @@ public class DatosDePersona extends Persistente {
         dto.email = this.getEmail();
         dto.ubicacion = this.getUbicacion();
         dto.contactos = this.getContactos();
-
         return dto;
     }
     @Getter @Setter
