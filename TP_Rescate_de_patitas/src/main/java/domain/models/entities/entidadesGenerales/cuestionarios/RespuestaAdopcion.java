@@ -3,14 +3,8 @@ package domain.models.entities.entidadesGenerales.cuestionarios;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,8 +13,7 @@ import lombok.Setter;
 @Getter @Setter
 public class RespuestaAdopcion extends Persistente {
 
-    @OneToOne
-    @JoinColumn(name="preguntaAdopcion_id")
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private PreguntaAdopcion pregunta;
 
     @Column
