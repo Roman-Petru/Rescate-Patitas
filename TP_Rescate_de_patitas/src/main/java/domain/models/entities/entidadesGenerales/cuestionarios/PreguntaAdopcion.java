@@ -4,14 +4,8 @@ import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.enums.TipoPregunta;
 import java.time.LocalDate;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,7 +20,8 @@ public class PreguntaAdopcion extends Persistente {
     @Column(columnDefinition = "DATE")
     private LocalDate fecha;
 
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @JoinColumn(name="preguntaAdopcion_id" , referencedColumnName = "id")
     private List<Opcion> opciones;
 
     @Enumerated(EnumType.STRING)

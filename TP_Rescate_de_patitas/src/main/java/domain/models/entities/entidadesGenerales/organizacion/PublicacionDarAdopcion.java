@@ -25,11 +25,10 @@ import java.util.List;
 @Getter @Setter
 public class PublicacionDarAdopcion extends Persistente {
 
-    @Transient
+    @OneToMany
+    @JoinColumn(name="publicacionDarAdopcion" , referencedColumnName = "id")
     private List<RespuestaAdopcion> respuestasAdopcion;
 
-    //@OneToOne(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
-    //@JoinColumn(name="mascota id")
     @ManyToOne
     @JoinColumn(name="mascota_id" , referencedColumnName = "id")
     private Mascota mascota;

@@ -48,7 +48,9 @@ public class PersonaController {
     }
 
     public void modificar(Integer id, DatosDePersona.DatosDePersonaDTO dto) {
-        //TODO
+        DatosDePersona persona = new DatosDePersona(dto.getNombre(), dto.getApellido(), dto.getDocumento(),dto.getNumTramite(), dto.getEmail(), dto.getUbicacion(), dto.getContactos());
+        persona.setId(id);
+        repositorio.modificar(persona);
     }
 
     public void eliminar(Integer id) {

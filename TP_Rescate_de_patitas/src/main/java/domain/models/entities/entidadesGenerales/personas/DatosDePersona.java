@@ -52,6 +52,10 @@ public class DatosDePersona extends Persistente {
     @Column
     private String email;
 
+    public DatosDePersona(){
+        super();
+    }
+
     public DatosDePersona(String nombre, String apellido, String documento, String numTramite, String email, Ubicacion ubicacion, List<Contacto> contactos) {
         this.nombre = nombre;
         this.apellido = apellido;

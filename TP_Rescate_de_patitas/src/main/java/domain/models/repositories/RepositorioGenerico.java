@@ -2,11 +2,17 @@ package domain.models.repositories;
 
 import domain.models.entities.entidadesGenerales.Persistente;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public abstract class RepositorioGenerico <T extends Persistente> {
+
+    private static EntityManager manager;
+    private static EntityManagerFactory emf;
 
     private static Integer generadorIDS = 0;
 
@@ -14,6 +20,8 @@ public abstract class RepositorioGenerico <T extends Persistente> {
 
     protected RepositorioGenerico() {
         this.coleccionDeElementos = new ArrayList<>();
+        emf = Persistence.createEntityManagerFactory("db");
+        manager = emf.createEntityManager();
     }
 
     public List<T> buscarTodos() {
@@ -22,6 +30,10 @@ public abstract class RepositorioGenerico <T extends Persistente> {
 
     public Optional<T> buscar(Integer id) {
         //SELECT
+
+        //TODO como sacar clase de T generico
+        //T elemento = manager.find((T.class), id);
+
         return this.coleccionDeElementos
                 .stream()
                 .filter(e -> e.getId().equals(id))
@@ -30,21 +42,24 @@ public abstract class RepositorioGenerico <T extends Persistente> {
 
     public void agregar(T elemento) {
         //INSERT
-        elemento.setId(generadorIDS);
-        generadorIDS++;  //TODO hacer bien las IDS
-        this.coleccionDeElementos.add(elemento);
+        manager.getTransaction().begin();
+        manager.persist(elemento);
+        manager.getTransaction().commit();
     }
 
     public void modificar(T elemento) {
         //UPDATE
-        this.eliminar(this.buscar(elemento.getId()).get());
-        this.agregar(elemento);
+        manager.getTransaction().begin();
+        manager.merge(elemento);
+        manager.getTransaction().commit();
         //TODO
     }
 
     public void eliminar(T unElemento) {
         //DELETE
-        this.coleccionDeElementos.remove(unElemento);
+        manager.getTransaction().begin();
+        manager.remove(unElemento);
+        manager.getTransaction().commit();
     }
 }
 

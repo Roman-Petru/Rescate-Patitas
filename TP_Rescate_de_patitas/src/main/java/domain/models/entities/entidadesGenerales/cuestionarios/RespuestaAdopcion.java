@@ -16,7 +16,7 @@ public class RespuestaAdopcion extends Persistente {
     @ManyToOne(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private PreguntaAdopcion pregunta;
 
-    @Column
+    @Column(columnDefinition="TEXT")
     private String respuestaLibre;
 
     @ManyToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
