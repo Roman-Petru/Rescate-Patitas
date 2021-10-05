@@ -1,4 +1,4 @@
-package domain;
+package domain.testPersistencia;
 
 import domain.controllers.CaracteristicaController;
 import domain.controllers.PublicacionAdopcionController;

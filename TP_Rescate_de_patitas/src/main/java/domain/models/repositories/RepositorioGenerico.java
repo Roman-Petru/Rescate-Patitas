@@ -24,21 +24,16 @@ public abstract class RepositorioGenerico <T extends Persistente> {
         manager = emf.createEntityManager();
     }
 
-    public List<T> buscarTodos() {
-        return this.coleccionDeElementos;
+    protected static EntityManager get_manager() {
+        return manager;
     }
 
-    public Optional<T> buscar(Integer id) {
+    // public List<T> buscarTodos()
+
+   // public Optional<T> buscar(Integer id) {
         //SELECT
-
-        //TODO como sacar clase de T generico
         //T elemento = manager.find((T.class), id);
-
-        return this.coleccionDeElementos
-                .stream()
-                .filter(e -> e.getId().equals(id))
-                .findFirst();
-    }
+    //}
 
     public void agregar(T elemento) {
         //INSERT

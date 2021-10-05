@@ -1,4 +1,4 @@
-package domain;
+package domain.testPersistencia;
 
 import org.junit.Assert;
 import org.junit.Test;

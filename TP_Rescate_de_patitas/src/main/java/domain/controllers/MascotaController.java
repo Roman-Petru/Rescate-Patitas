@@ -25,7 +25,7 @@ public class MascotaController {
         return this.repositorio.buscarTodos();
     }
 
-    public Optional<Mascota> buscarMascotaPorID(Integer id){
+    public Mascota buscarMascotaPorID(Integer id){
          return this.repositorio.buscar(id);
     }
 

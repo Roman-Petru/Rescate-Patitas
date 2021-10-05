@@ -1,10 +1,15 @@
-package domain;
+package domain.testPersistencia;
 
 
 import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.utils.Ubicacion;
 import org.junit.Test;
+
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 
 public class RepositoriosConDB {
@@ -43,4 +48,17 @@ public class RepositoriosConDB {
         //assert
     }
 
+    @Test
+    public void testFindOne() {
+
+        DatosDePersona persona = PersonaController.getInstancia().buscarPersonaporID(1);
+        assertThat(persona.getNombre(), is("Ramita"));
+    }
+
+    @Test
+    public void testFindAll() {
+
+        List<DatosDePersona> personas = PersonaController.getInstancia().listarTodos();
+        assertThat(personas.size(), is(2));
+    }
 }

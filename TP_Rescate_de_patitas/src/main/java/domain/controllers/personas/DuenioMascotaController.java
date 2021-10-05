@@ -38,7 +38,7 @@ public class DuenioMascotaController {
     }
 
     public void agregarMascota(Integer duenioID, Mascota mascota){
-          DuenioMascota duenioMascota = this.buscarDuenioMascotaPorID(duenioID).get();
+          DuenioMascota duenioMascota = this.buscarDuenioMascotaPorID(duenioID);
           duenioMascota.agregarMascotaALista(mascota);
           repositorio.modificar(duenioMascota);
     }
@@ -50,7 +50,7 @@ public class DuenioMascotaController {
         return this.repositorio.buscarTodos();
     }
 
-    public Optional<DuenioMascota> buscarDuenioMascotaPorID(Integer id){
+    public DuenioMascota buscarDuenioMascotaPorID(Integer id){
         return this.repositorio.buscar(id);
     }
 

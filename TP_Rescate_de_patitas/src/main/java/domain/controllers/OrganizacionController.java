@@ -33,7 +33,7 @@ public class OrganizacionController {
         return this.repositorio.buscarTodos();
     }
 
-    public Optional<Organizacion> buscarOrganizacionPorID(Integer id){
+    public Organizacion buscarOrganizacionPorID(Integer id){
         return this.repositorio.buscar(id);
     }
 
@@ -80,7 +80,7 @@ public class OrganizacionController {
 
     public void aprobarFormulario(Organizacion.OrganizacionDTO dto, DatosDePersona voluntario, FormularioMascota formularioPendiente) throws Exception {  //personaDTO, formuDTO?
 
-        Organizacion organizacion = this.buscarOrganizacionPorID(dto.getId()).get();
+        Organizacion organizacion = this.buscarOrganizacionPorID(dto.getId());
 
         if (!organizacion.getVoluntarios().contains(voluntario))
             throw new Exception("La persona no es voluntaria en esta organizacion");
@@ -103,15 +103,15 @@ public class OrganizacionController {
     }
 
     public List<PublicacionDarAdopcion> buscarPublicacionAdopcionDeOrganizacion(Integer organizacionID) {
-        return this.buscarOrganizacionPorID(organizacionID).get().getPublicacionesAdopcion();
+        return this.buscarOrganizacionPorID(organizacionID).getPublicacionesAdopcion();
     }
 
     public List<PublicacionInteresAdopcion> buscarPublicacionesInteresAdopcionDeOrganizacion(Integer organizacionID) {
-        return this.buscarOrganizacionPorID(organizacionID).get().getPublicacionInteresAdopcion();
+        return this.buscarOrganizacionPorID(organizacionID).getPublicacionInteresAdopcion();
     }
 
     public void agregarPreguntaAdopcionOrganizacion(Integer organizacionID, PreguntaAdopcion.PreguntaAdopcionDTO dto, Usuario voluntario){
-        Organizacion organizacion = this.buscarOrganizacionPorID(organizacionID).get();
+        Organizacion organizacion = this.buscarOrganizacionPorID(organizacionID);
         if (!organizacion.esVoluntarioDeOrg(voluntario))
             return;  //TODO throw exception
         PreguntaAdopcion pregunta = new PreguntaAdopcion(dto.getDescripcion());
@@ -121,7 +121,7 @@ public class OrganizacionController {
     }
 
     public void agregarVoluntarioALista(Integer organizacionID,Usuario voluntario){
-        Organizacion organizacion = this.buscarOrganizacionPorID(organizacionID).get();
+        Organizacion organizacion = this.buscarOrganizacionPorID(organizacionID);
         organizacion.agregarVoluntario(voluntario);
         repositorio.modificar(organizacion);
     }

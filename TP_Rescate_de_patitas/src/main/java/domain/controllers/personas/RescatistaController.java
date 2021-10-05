@@ -31,7 +31,7 @@ public class RescatistaController {
         return this.repositorio.buscarTodos();
     }
 
-    public Optional<Rescatista> buscarRescatistaPorID(Integer id){
+    public Rescatista buscarRescatistaPorID(Integer id){
         return this.repositorio.buscar(id);
     }
 

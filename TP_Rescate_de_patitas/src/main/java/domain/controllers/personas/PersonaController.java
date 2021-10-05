@@ -8,7 +8,6 @@ import domain.models.repositories.personas.RepositorioPersonas;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 public class PersonaController {
 
@@ -28,7 +27,7 @@ public class PersonaController {
         return this.repositorio.buscarTodos();
     }
 
-    public Optional<DatosDePersona> buscarPersonaporID(Integer id){
+    public DatosDePersona buscarPersonaporID(Integer id){
         return this.repositorio.buscar(id);
     }
 

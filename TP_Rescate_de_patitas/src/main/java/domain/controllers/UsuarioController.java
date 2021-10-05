@@ -72,7 +72,7 @@ public class UsuarioController {
         return this.repositorio.buscarTodos();
     }
 
-    public Optional<Usuario> buscarUsuarioPorID(Integer id){
+    public Usuario buscarUsuarioPorID(Integer id){
         return this.repositorio.buscar(id);
     }
 

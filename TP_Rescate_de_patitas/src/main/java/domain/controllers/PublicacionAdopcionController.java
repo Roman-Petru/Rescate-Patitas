@@ -37,7 +37,7 @@ public class PublicacionAdopcionController {
         repositorio.agregar(publicacionDarAdopcion);
 
         OrganizacionController organizacionController = OrganizacionController.getInstancia();
-        Organizacion organizacion = organizacionController.buscarOrganizacionPorID(organizacionID).get();
+        Organizacion organizacion = organizacionController.buscarOrganizacionPorID(organizacionID);
         organizacion.agregarPublicacionAdopcion(publicacionDarAdopcion);
         Organizacion.OrganizacionDTO dtoOrg = organizacion.toDTO();
         OrganizacionController.getInstancia().modificar(organizacionID, dtoOrg);
