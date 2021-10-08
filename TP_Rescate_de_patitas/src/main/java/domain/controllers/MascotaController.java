@@ -39,10 +39,6 @@ public class MascotaController {
         return null;
     }
 
-    public void crear(Mascota.MascotaDTO dto) {
-        //TODO
-    }
-
     public void modificar(Integer id, Mascota.MascotaDTO dto) {
         //TODO
     }

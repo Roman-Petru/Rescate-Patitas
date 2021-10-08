@@ -4,17 +4,9 @@ import domain.models.converters.EstrategiaDeNotificacionConverter;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.enums.Permisos;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -54,5 +46,28 @@ public class Contacto extends Persistente {
         this.telefono = telefono;
         this.email = email;
         this.notificadores = notificadores;
+    }
+
+    public Contacto.ContactoDTO toDTO() {
+        Contacto.ContactoDTO dto = new Contacto.ContactoDTO();
+        dto.id = this.getId();
+        dto.nombre = this.getNombre();
+        dto.apellido = this.getApellido();
+        dto.telefono = this.getTelefono();
+        dto.email = this.getEmail();
+        dto.datosDePersona = this.getDatosDePersona();
+        dto.notificadores = this.getNotificadores();
+        return dto;
+    }
+
+    @Getter @Setter
+    public class ContactoDTO {
+        private Integer id;
+        private String nombre;
+        private String apellido;
+        private String telefono;
+        private String email;
+        private DatosDePersona datosDePersona;
+        private List<EstrategiaNotificacion> notificadores;
     }
 }
