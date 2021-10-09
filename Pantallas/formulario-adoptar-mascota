@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Rescate de Patitas</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#home">Home</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Organizacion <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Quiero ser voluntario</a></li>
+                    <li><a href="#">Quiero adoptar</a></li>
+                    <li><a href="#"></a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Animalitos <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#registroMascota">Registrar mascota</a></li>
+                    <li><a href="#">Buscar hogar de transito</a></li>
+                    <li><a href="#">Quiero dar en adopcion</a></li>
+                    <li><a href="#"></a></li>
+                </ul>
+            </li>
+            <li><a href="#">Mis mascotas</a></li>
+            <li><a href="#">Animalitos</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Quiero registrarme</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Ingresar</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="home">
+        <div class="container">
+
+            <h1>Gracias por querer adoptar una mascota :) </h1>
+            <h3>Estos datos seran publicados en nuestro foro para agilizar el proceso de adopcion </h3>
+            <br>
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="apellido">Apellido</label>
+                        <input type="password" class="form-control" id="apellido">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control is-invalid" id="inputEmail4"
+                           placeholder="Email" required>
+                    <div class="invalid-feedback">
+                        Por favor ingresa el email donde te llegará las sugerencias de mascotas y desde aqui tambien podras cancelar tu publicacion de adpcion
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">¿Que mascota te gustaria adoptar?</label>
+                    <div>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Seleccioná</option>
+                            <option value="1">Perro </option>
+                            <option value="2">Gato</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">¿Que tamaño de mascota aproximado preferis?</label>
+                    <div>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Seleccioná</option>
+                            <option value="1">Perro </option>
+                            <option value="2">Gato</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">¿Que sexo de mascota preferis?</label>
+                    <div>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Seleccioná</option>
+                            <option value="1">Macho </option>
+                            <option value="2">Hembra</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">¿Que edad aproximada que preferis?</label>
+                    <div>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Seleccioná</option>
+                            <option value="1">0-3 </option>
+                            <option value="2">4-6</option>
+                            <option value="2">7-9</option>
+                            <option value="2">Mayor a 9</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">¿Ya tenes mascotas?</label>
+                    <div>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Seleccioná</option>
+                            <option value="1">SI </option>
+                            <option value="2">NO</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail4">Si ya tenes mascotas... ¿Cuantas tenes?</label>
+                    <div>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Seleccioná</option>
+                            <option value="1">0 </option>
+                            <option value="2">1</option>
+                            <option value="2">2</option>
+                            <option value="2">Mayor a 3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">¿Tenes patio en tu casa?</label>
+                    <div>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Seleccioná</option>
+                            <option value="1">SI </option>
+                            <option value="2">NO</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-primary">Publicar</button>
+                <br>
+                <br>
+                <br>
+            </form>
+
+
+        </div>
+
+    </div>
+    <div role="tabpanel" class="tab-pane" id="registroMascota">
+
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="references">ccc</div>
+</div>
+
+</body>
+</html>
