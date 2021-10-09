@@ -1,5 +1,6 @@
 package domain.server;
 
+import domain.controllers.LoginController;
 import domain.spark.utils.BooleanHelper;
 import domain.spark.utils.HandlebarsTemplateEngineBuilder;
 import spark.Spark;
@@ -23,6 +24,6 @@ public class Router {
     }
 
     private static void configure(){
-        Spark.get("/", (req, res) -> "hello world");
+        Spark.get("/", LoginController.getInstancia()::inicio, Router.engine);
     }
 }

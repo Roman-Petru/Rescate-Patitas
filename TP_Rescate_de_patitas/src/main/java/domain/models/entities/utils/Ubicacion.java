@@ -18,10 +18,8 @@ public class Ubicacion extends Persistente {
     @Column
     private String direccion;
 
-    public Ubicacion(Double latitud, Double longitud, String direccion) {
-        this.latitud = latitud;
-        this.longitud = longitud;
-        this.direccion = direccion;
+    public Ubicacion() {
+        super();
     }
 
     public UbicacionDTO toDTO(){

@@ -32,7 +32,10 @@ public class UbicacionController {
 
 
     public void agregar(Ubicacion.UbicacionDTO dto) {
-        Ubicacion ubicacion = new Ubicacion(dto.getLatitud(), dto.getLongitud(), dto.getDireccion());
+        Ubicacion ubicacion = new Ubicacion();
+        ubicacion.setDireccion(dto.getDireccion());
+        ubicacion.setLatitud(dto.getLatitud());
+        ubicacion.setLongitud(dto.getLongitud());
         repositorio.agregar(ubicacion);
     }
 
@@ -42,7 +45,10 @@ public class UbicacionController {
     }
 
     public void modificar(Integer id, Ubicacion.UbicacionDTO dto) {
-        Ubicacion ubicacion = new Ubicacion(dto.getLatitud(), dto.getLongitud(), dto.getDireccion());
+        Ubicacion ubicacion = new Ubicacion();
+        ubicacion.setDireccion(dto.getDireccion());
+        ubicacion.setLatitud(dto.getLatitud());
+        ubicacion.setLongitud(dto.getLongitud());
         ubicacion.setId(id);
         repositorio.modificar(ubicacion);
     }

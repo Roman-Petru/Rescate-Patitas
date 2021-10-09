@@ -6,7 +6,7 @@ import domain.servicios.hogares.entities.Hogar_Molde;
 import domain.servicios.hogares.entities.ListadoDeHogares;
 import java.io.IOException;
 import java.util.Scanner;
-/*
+
 public class EjemploDeUsoApiHogares {
     public static void main(String[] args) throws IOException {
         String bearer_token = "";
@@ -36,4 +36,3 @@ public class EjemploDeUsoApiHogares {
         }
     }
 }
-*/
