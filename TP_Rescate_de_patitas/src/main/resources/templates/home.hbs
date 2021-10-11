@@ -41,7 +41,8 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             {{#if usuario}}
-                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> ¡Hola {{usuario.usuario}}, bienvenido a Rescate de Patitas!</a> </li>>
+                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> ¡Hola {{usuario.usuario}}!</a> </li>>
+                 <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span>Cerrar sesión</a></li>
             {{else}}
                 <li><a href="registrarUsuario"><span class="glyphicon glyphicon-user"></span> Quiero registrarme</a></li>
                 <li><a href="login"><span class="glyphicon glyphicon-log-in"></span>Ingresar</a></li>

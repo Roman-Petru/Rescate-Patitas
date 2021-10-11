@@ -2,6 +2,7 @@ package domain.controllers;
 import com.twilio.exception.ApiException;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
+import domain.models.entities.enums.DescripcionPermiso;
 import domain.models.entities.enums.Permiso;
 import domain.models.entities.utils.PermisosDeAdmin;
 import domain.models.entities.validaciones.validacionesContrasenias.ValidadorDeContrasenia;
@@ -9,9 +10,8 @@ import domain.models.modulos.resizer.NivelCalidad;
 import domain.models.modulos.resizer.Resizer;
 import domain.models.modulos.resizer.TamanioImagen;
 import domain.models.repositories.RepositorioUsuarios;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -107,6 +107,7 @@ public class UsuarioController {
         Usuario usuario = new Usuario(dto.getUsuario(), dto.getPassword());
         usuario.setIntentosFallidos(dto.getIntentosFallidos());
         usuario.setPermiso(dto.getPermiso());
+        usuario.setId(id);
         repositorio.modificar(usuario);
     }
 
@@ -149,17 +150,46 @@ public class UsuarioController {
         }
     }
 
-    public ModelAndView pantallaUsuarios(Request request, Response response) {
-        Map<String, Object> parametros = new HashMap<>();
+    public Boolean EsAdminLogeado(Request request){
         if(!request.session().isNew() && request.session().attribute("id") != null){
             Usuario usuario = this.buscarUsuarioPorID(request.session().attribute("id"));
-            if (usuario.EsAdmin()) {
+            if (usuario.EsAdmin()) return true;}
+        return false;
+    }
+
+    public ModelAndView pantallaUsuarios(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        if (this.EsAdminLogeado(request)){
                 List<Usuario> usuarios = this.listarTodos();
                 parametros.put("usuarios", usuarios);
                 asignarUsuarioSiEstaLogueado(request, parametros);
                 return new ModelAndView(parametros,"usuarios.hbs");
             }
-        }
         return new ModelAndView(parametros,"home.hbs");
     }
+
+    public ModelAndView pantallaModificar(Request request, Response response) {
+        Usuario usuario = this.buscarUsuarioPorID(new Integer(request.params("id")));
+        List<DescripcionPermiso> permisos = new ArrayList<>();
+        Integer i = 0;
+        for (Permiso permiso : Permiso.values()) {
+            permisos.add(new DescripcionPermiso(i, permiso.descripcionPermiso(permiso)));
+            i++;
+          }
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("usuario", usuario);
+        parametros.put("roles", permisos);
+        return new ModelAndView(parametros, "usuario.hbs");
+    }
+
+    public Response modificarUsuario(Request request, Response response) {
+        Usuario usuario = this.buscarUsuarioPorID(new Integer(request.params("id")));
+        usuario.setUsuario(request.queryParams("usuario"));
+        usuario.setPassword(request.queryParams("password"));
+        usuario.setPermiso(DescripcionPermiso.getPermisoConInteger(new Integer(request.queryParams("permiso"))));
+        this.modificar(usuario.getId(), usuario.toDTO());
+        response.redirect("/usuarios");
+        return response;
+    }
 }
+

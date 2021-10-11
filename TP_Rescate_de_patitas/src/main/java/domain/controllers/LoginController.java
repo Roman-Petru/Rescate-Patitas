@@ -49,6 +49,7 @@ public class LoginController {
         }
         catch (Exception e){
             //Funcionalidad disponible solo con persistencia en Base de Datos
+            System.out.println("Error al logear usuario: " + e);
             response.redirect("/");
         }
         finally {
