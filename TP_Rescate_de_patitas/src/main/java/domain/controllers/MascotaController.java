@@ -1,6 +1,8 @@
 package domain.controllers;
 
+import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.Mascota;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.repositories.RepositorioMascotas;
 import spark.ModelAndView;
 import spark.Request;
@@ -53,34 +55,20 @@ public class MascotaController {
 
     public ModelAndView registrarMascota(Request request, Response response){
         String dniPersona = request.params("dni");
-        if(!dniPersona.isEmpty()) {
-            obtenerDatosPersona(dniPersona);
-        }
-        
         Map<String, Object> parametros = new HashMap<>();
+        if(!dniPersona.isEmpty() && dniPersona != null) {
+            DatosDePersona persona =PersonaController.getInstancia().buscarPersonaporDNI(dniPersona);
+            parametros.put("persona", persona);
+        }
         return new ModelAndView(parametros,"registrarMascota.hbs");
     }
 
-    private void obtenerDatosPersona(String dniPersona) {
-
-    }
-
     public Response validarPersona(Request request, Response response){
-        try{
             String dniPersona = request.queryParams("dni");
-
             response.redirect("/registrarMascota/" + dniPersona);
-        }
-        catch (Exception e){
-            //todo cambiar a pantalla de error
-            System.out.println("Error al registrar usuario: " + e);
-
-            response.redirect("/");
-        }
-        finally {
             return response;
         }
-    }
+
     public ModelAndView preRegistrarMascota(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
         return new ModelAndView(parametros,"preRegistrarMascota.hbs");
