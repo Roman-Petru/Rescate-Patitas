@@ -8,6 +8,7 @@ import domain.controllers.UsuarioController;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.spark.utils.BooleanHelper;
 import domain.spark.utils.HandlebarsTemplateEngineBuilder;
+import spark.ResponseTransformer;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -33,7 +34,9 @@ public class Router {
         Spark.get("/login", LoginController.getInstancia()::ingresoLogin, Router.engine);
         Spark.post("/login", LoginController.getInstancia()::login);
         Spark.get("/logout", LoginController.getInstancia()::logout);
-        Spark.get("/registrarMascota", MascotaController.getInstancia()::registrarMascota, Router.engine);
+        Spark.get("/preRegistrarMascota", MascotaController.getInstancia()::preRegistrarMascota, Router.engine);
+        Spark.get("/registrarMascota/:dni", MascotaController.getInstancia()::registrarMascota, Router.engine);
+        Spark.post("/validarPersona", MascotaController.getInstancia()::validarPersona);
         Spark.get("/adoptarMascota", PublicacionInteresAdopcionController.getInstancia()::adoptarMascota, Router.engine);
         Spark.get("/usuarios", UsuarioController.getInstancia()::pantallaUsuarios, Router.engine);
         Spark.get("/registrarUsuario", UsuarioController.getInstancia()::registrarUsuario, Router.engine);
