@@ -4,7 +4,7 @@ import domain.controllers.CaracteristicaController;
 import domain.controllers.UsuarioController;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
-import domain.models.entities.enums.Permisos;
+import domain.models.entities.enums.Permiso;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -18,7 +18,7 @@ public class CaracteristicaTest {
         UsuarioController usuarioController = UsuarioController.getInstancia();
         Usuario adminPepe = new Usuario("admin_pepe", "passwordParaProbar123_");
         usuarioController.agregarUsuario(adminPepe.toDTO());
-        adminPepe.agregarPermisos(Permisos.USUARIO_ADMIN);
+        adminPepe.setPermiso(Permiso.USUARIO_ADMIN);
 
         CaracteristicaGeneral color = new CaracteristicaGeneral("color");
         CaracteristicaGeneral contextura = new CaracteristicaGeneral("contextura");

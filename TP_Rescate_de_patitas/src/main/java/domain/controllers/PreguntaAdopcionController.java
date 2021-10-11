@@ -2,7 +2,7 @@ package domain.controllers;
 
 import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
-import domain.models.entities.enums.Permisos;
+import domain.models.entities.enums.Permiso;
 import domain.models.repositories.RepositorioPreguntasAdopcion;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class PreguntaAdopcionController {
     }
 
     public void agregarPreguntasObligatorias(PreguntaAdopcion.PreguntaAdopcionDTO dto, Usuario admin) {
-        if (admin.tienePermisoPara(Permisos.USUARIO_ADMIN)) { //ADM_PREGUNTAS_ADOPCION
+        if (admin.tienePermisoPara(Permiso.USUARIO_ADMIN)) { //ADM_PREGUNTAS_ADOPCION
             PreguntaAdopcion pregunta = new PreguntaAdopcion(dto.getDescripcion());
             repositorio.agregar(pregunta);}
     }

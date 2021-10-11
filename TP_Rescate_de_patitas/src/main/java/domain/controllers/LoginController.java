@@ -21,6 +21,7 @@ public class LoginController {
 
     public ModelAndView inicio(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
+        UsuarioController.getInstancia().asignarUsuarioSiEstaLogueado(request, parametros);
         return new ModelAndView(parametros,"home.hbs");
     }
 

@@ -2,7 +2,7 @@ package domain.controllers;
 import com.twilio.exception.ApiException;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
-import domain.models.entities.enums.Permisos;
+import domain.models.entities.enums.Permiso;
 import domain.models.entities.utils.PermisosDeAdmin;
 import domain.models.entities.validaciones.validacionesContrasenias.ValidadorDeContrasenia;
 import domain.models.modulos.resizer.NivelCalidad;
@@ -12,7 +12,9 @@ import domain.models.repositories.RepositorioUsuarios;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -39,17 +41,17 @@ public class UsuarioController {
         repositorio.agregar(usuario);
     }
     public void agregarAdmin(Usuario adminGenerador, Usuario.UsuarioDTO dto) throws Exception {
-        if (!adminGenerador.tienePermisoPara(Permisos.USUARIO_ADMIN))
+        if (!adminGenerador.tienePermisoPara(Permiso.USUARIO_ADMIN))
             throw new Exception("El usuario no puede generar admin");
 
         Usuario admin = new Usuario(dto.getUsuario(), dto.getPassword());
         this.validarUsuario(admin.getUsuario(), admin.getPassword());
-        admin.agregarPermisos(PermisosDeAdmin.obtener().toArray(new Permisos[0]));
+        admin.setPermiso(Permiso.USUARIO_ADMIN);
         repositorio.agregar(admin);
     }
 
     public void agregarCaracteristicaGeneral(Usuario usuario, CaracteristicaGeneral caracteristicaGeneral) throws Exception {
-        if (!usuario.tienePermisoPara(Permisos.USUARIO_ADMIN)) //ABM_CARACTERISTICAS
+        if (!usuario.tienePermisoPara(Permiso.USUARIO_ADMIN)) //ABM_CARACTERISTICAS
             throw new Exception("El usuario no puede agregar caracteristicas");
 
         CaracteristicaGeneral.CaracteristicaGeneralDTO dto = caracteristicaGeneral.toDTO();
@@ -58,13 +60,13 @@ public class UsuarioController {
 
 
     public void modificarTamanioEstandarImagen(Usuario usuario, Resizer resizer, TamanioImagen tamanio) throws Exception {
-        if (!usuario.tienePermisoPara(Permisos.USUARIO_ADMIN))
+        if (!usuario.tienePermisoPara(Permiso.USUARIO_ADMIN))
             throw new Exception("El usuario no puede modificar el tamaño estandar de la imagen");
         resizer.setTamanio(tamanio);
     }
 
     public void modificarCalidadEstandarImagen(Usuario usuario, Resizer resizer, NivelCalidad calidad) throws Exception {
-        if (!usuario.tienePermisoPara(Permisos.USUARIO_ADMIN))
+        if (!usuario.tienePermisoPara(Permiso.USUARIO_ADMIN))
             throw new Exception("El usuario no puede modificar la calidad estandar de la imagen");
         resizer.setCalidad(calidad);
     }
@@ -104,7 +106,7 @@ public class UsuarioController {
         //TODO
         Usuario usuario = new Usuario(dto.getUsuario(), dto.getPassword());
         usuario.setIntentosFallidos(dto.getIntentosFallidos());
-        usuario.setLista_permisos(dto.getLista_permisos());
+        usuario.setPermiso(dto.getPermiso());
         repositorio.modificar(usuario);
     }
 
@@ -130,10 +132,34 @@ public class UsuarioController {
         }
         catch (Exception e){
             //todo cambiar a pantalla de error
+            System.out.println("Error al registrar usuario: " + e);
+
             response.redirect("/");
         }
         finally {
             return response;
         }
+    }
+
+    public void asignarUsuarioSiEstaLogueado(Request request, Map<String, Object> parametros){
+        if(!request.session().isNew() && request.session().attribute("id") != null){
+            Usuario usuario = this.buscarUsuarioPorID(request.session().attribute("id"));
+            parametros.put("usuario", usuario);
+            parametros.put("admin", usuario.EsAdmin());
+        }
+    }
+
+    public ModelAndView pantallaUsuarios(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        if(!request.session().isNew() && request.session().attribute("id") != null){
+            Usuario usuario = this.buscarUsuarioPorID(request.session().attribute("id"));
+            if (usuario.EsAdmin()) {
+                List<Usuario> usuarios = this.listarTodos();
+                parametros.put("usuarios", usuarios);
+                asignarUsuarioSiEstaLogueado(request, parametros);
+                return new ModelAndView(parametros,"usuarios.hbs");
+            }
+        }
+        return new ModelAndView(parametros,"home.hbs");
     }
 }

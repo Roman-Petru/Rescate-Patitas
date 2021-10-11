@@ -34,10 +34,19 @@
             </li>
             <li><a href="#">Mis mascotas</a></li>
             <li><a href="#">Animalitos</a></li>
+            {{#if admin}}
+                <li><a href="usuarios">Usuarios</a></li>
+            {{/if}}
+
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="registrarUsuario"><span class="glyphicon glyphicon-user"></span> Quiero registrarme</a></li>
-            <li><a href="login"><span class="glyphicon glyphicon-log-in"></span>Ingresar</a></li>
+            {{#if usuario}}
+                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> ¡Hola {{usuario.usuario}}, bienvenido a Rescate de Patitas!</a> </li>>
+            {{else}}
+                <li><a href="registrarUsuario"><span class="glyphicon glyphicon-user"></span> Quiero registrarme</a></li>
+                <li><a href="login"><span class="glyphicon glyphicon-log-in"></span>Ingresar</a></li>
+            {{/if}}
+
         </ul>
     </div>
 </nav>
@@ -46,7 +55,6 @@
     <div role="tabpanel" class="tab-pane fade in active" id="home">
         <style>
                 body {
-                  background-image: url('home_image_2.png');
                   background-repeat: no-repeat;
                   background-attachment: fixed;
                   background-position: center;

@@ -1,15 +1,12 @@
 package domain.models.entities.entidadesGenerales.organizacion;
 
 import domain.models.entities.entidadesGenerales.Persistente;
-import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;
-import domain.models.entities.enums.Permisos;
 import domain.models.entities.utils.Ubicacion;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;

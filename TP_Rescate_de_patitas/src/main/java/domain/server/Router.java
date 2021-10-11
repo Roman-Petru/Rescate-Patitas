@@ -1,5 +1,6 @@
 package domain.server;
 
+import com.github.jknack.handlebars.Handlebars;
 import domain.controllers.LoginController;
 import domain.controllers.MascotaController;
 import domain.controllers.PublicacionInteresAdopcionController;
@@ -33,6 +34,7 @@ public class Router {
         Spark.post("/login", LoginController.getInstancia()::login);
         Spark.get("/registrarMascota", MascotaController.getInstancia()::registrarMascota, Router.engine);
         Spark.get("/adoptarMascota", PublicacionInteresAdopcionController.getInstancia()::adoptarMascota, Router.engine);
+        Spark.get("/usuarios", UsuarioController.getInstancia()::pantallaUsuarios, Router.engine);
         Spark.get("/registrarUsuario", UsuarioController.getInstancia()::registrarUsuario, Router.engine);
         Spark.post("/registrar", UsuarioController.getInstancia()::registrar);
     }

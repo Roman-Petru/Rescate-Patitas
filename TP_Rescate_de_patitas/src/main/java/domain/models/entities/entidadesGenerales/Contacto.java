@@ -1,8 +1,6 @@
 package domain.models.entities.entidadesGenerales;
 
-import domain.models.converters.EstrategiaDeNotificacionConverter;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
-import domain.models.entities.enums.Permisos;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 
 import javax.persistence.*;

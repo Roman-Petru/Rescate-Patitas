@@ -1,8 +1,8 @@
 package domain.models.entities.entidadesGenerales.usuarios;
 
 import domain.models.entities.entidadesGenerales.Persistente;
-import domain.models.entities.enums.Permisos;
-import javax.persistence.CascadeType;
+import domain.models.entities.enums.Permiso;
+
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -11,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hsqldb.Constraint;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +22,7 @@ import java.util.List;
 @Getter @Setter
 public class Usuario extends Persistente {
 
-    @Column
+    @Column(unique = true)
     private String usuario;
 
     @Column
@@ -29,17 +31,21 @@ public class Usuario extends Persistente {
     @Column
     private Integer intentosFallidos;
 
-
-    @ElementCollection(targetClass = Permisos.class)
     @Column(name = "permiso", nullable = false)
     @Enumerated(EnumType.STRING)
-    private List<Permisos> lista_permisos;
+    private Permiso permiso;
+
+    public Usuario(){ }
 
     public Usuario(String usuario, String password) {
         this.usuario = usuario;
         this.password = password;
         this.intentosFallidos = 0;
-        this.lista_permisos = new ArrayList<>();
+        this.permiso = Permiso.USUARIO_COMUN;
+    }
+
+    public Boolean EsAdmin(){
+        return this.permiso == Permiso.USUARIO_ADMIN;
     }
 
     public Usuario.UsuarioDTO toDTO() {
@@ -48,7 +54,7 @@ public class Usuario extends Persistente {
         dto.usuario = this.getUsuario();
         dto.password = this.getPassword();
         dto.intentosFallidos = this.getIntentosFallidos();
-        dto.lista_permisos = this.getLista_permisos();
+        dto.permiso = this.getPermiso();
         return dto;
 }
 
@@ -58,14 +64,12 @@ public class Usuario extends Persistente {
         private String usuario;
         private String password;
         private Integer intentosFallidos;
-        private List<Permisos> lista_permisos;
+        private Permiso permiso;
     }
 
-    public boolean tienePermisoPara(Permisos permiso) {
-         return this.lista_permisos.contains(permiso);
+    public boolean tienePermisoPara(Permiso permiso) {
+         return this.permiso == permiso;
     }
 
-    public void agregarPermisos(Permisos... permisos){
-        this.lista_permisos.addAll(Arrays.asList(permisos));
-    }
+
 }

@@ -1,26 +1,16 @@
 package domain.testPersistencia;
 
-import domain.controllers.CaracteristicaController;
-import domain.controllers.PublicacionAdopcionController;
-import domain.controllers.PublicacionInteresAdopcionController;
-import domain.controllers.personas.PersonaController;
 import domain.models.db.EntityManagerHelper;
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Mascota;
-import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
-import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
-import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
-import domain.models.entities.entidadesGenerales.cuestionarios.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
-import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Animal;
-import domain.models.entities.enums.Permisos;
+import domain.models.entities.enums.Permiso;
 import domain.models.entities.utils.Ubicacion;
 import domain.models.modulos.notificador.estrategias.EnvioViaMail;
 import domain.models.modulos.notificador.estrategias.EnvioViaSMS;
@@ -29,7 +19,7 @@ import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import kotlin.jvm.Volatile;
+
 import org.junit.Test;
 
 public class ContextInsertSQLWorkbenchTest {
@@ -39,9 +29,9 @@ public class ContextInsertSQLWorkbenchTest {
       Usuario usuario = new Usuario("admin", "passwordParaProbar1234_");
 
       usuario.setIntentosFallidos(3);
-      List<Permisos> list_permisos = new ArrayList<>();
-      list_permisos.add(Permisos.USUARIO_ADMIN);
-      usuario.setLista_permisos(list_permisos);
+      List<Permiso> list_permisos = new ArrayList<>();
+      list_permisos.add(Permiso.USUARIO_ADMIN);
+      usuario.setPermiso(Permiso.USUARIO_ADMIN);
 
       EntityManagerHelper.beginTransaction();
       EntityManagerHelper.getEntityManager().persist(usuario);
@@ -53,9 +43,9 @@ public class ContextInsertSQLWorkbenchTest {
 
       Usuario usuario = new Usuario("datospersona", "passwordParaProbar1234_");
       usuario.setIntentosFallidos(3);
-      List<Permisos> list_permisos = new ArrayList<>();
-      list_permisos.add(Permisos.USUARIO_COMUN);
-      usuario.setLista_permisos(list_permisos);
+      List<Permiso> list_permisos = new ArrayList<>();
+      list_permisos.add(Permiso.USUARIO_COMUN);
+      usuario.setPermiso(Permiso.USUARIO_ADMIN);
 
       Ubicacion ubicacion = new Ubicacion();
       ubicacion.setDireccion("Los hornos 4599, Buenos Aires");
@@ -84,9 +74,9 @@ public class ContextInsertSQLWorkbenchTest {
 
       Usuario usuario = new Usuario("duenio", "passwordParaProbar1234_");
       usuario.setIntentosFallidos(3);
-      List<Permisos> list_permisos = new ArrayList<>();
-      list_permisos.add(Permisos.USUARIO_COMUN);
-      usuario.setLista_permisos(list_permisos);
+      List<Permiso> list_permisos = new ArrayList<>();
+      list_permisos.add(Permiso.USUARIO_COMUN);
+      usuario.setPermiso(Permiso.USUARIO_COMUN);
 
       Ubicacion ubicacion = new Ubicacion();
       ubicacion.setDireccion("Marcos Sastre 5515, CABA");
@@ -126,9 +116,9 @@ public class ContextInsertSQLWorkbenchTest {
 
       Usuario usuario = new Usuario("rescatista", "passwordParaProbar1234_");
       usuario.setIntentosFallidos(3);
-      List<Permisos> list_permisos = new ArrayList<>();
-      list_permisos.add(Permisos.USUARIO_COMUN);
-      usuario.setLista_permisos(list_permisos);
+      List<Permiso> list_permisos = new ArrayList<>();
+      list_permisos.add(Permiso.USUARIO_COMUN);
+      usuario.setPermiso(Permiso.USUARIO_COMUN);
 
       Ubicacion ubicacion = new Ubicacion();
       ubicacion.setDireccion("Coronel Diaz 841, CABA");
@@ -193,9 +183,9 @@ public class ContextInsertSQLWorkbenchTest {
 
       Usuario usuario = new Usuario("voluntario", "passwordParaProbar1234_");
       usuario.setIntentosFallidos(3);
-      List<Permisos> list_permisos = new ArrayList<>();
-      list_permisos.add(Permisos.USUARIO_COMUN);
-      usuario.setLista_permisos(list_permisos);
+      List<Permiso> list_permisos = new ArrayList<>();
+      list_permisos.add(Permiso.USUARIO_COMUN);
+      usuario.setPermiso(Permiso.USUARIO_COMUN);
 
       Ubicacion ubicacionVoluntario = new Ubicacion();
       ubicacionVoluntario.setDireccion("Irigoyen 8852, CABA");

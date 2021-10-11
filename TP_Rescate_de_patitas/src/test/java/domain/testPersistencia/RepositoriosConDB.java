@@ -59,6 +59,6 @@ public class RepositoriosConDB {
     public void testFindAll() {
 
         List<DatosDePersona> personas = PersonaController.getInstancia().listarTodos();
-        assertThat(personas.size(), is(3));
+        assertThat(personas.size(), is(2));
     }
 }

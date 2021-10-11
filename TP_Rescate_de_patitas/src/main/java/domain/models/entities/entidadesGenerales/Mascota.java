@@ -2,15 +2,12 @@ package domain.models.entities.entidadesGenerales;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.enums.Animal;
-import domain.models.entities.enums.Permisos;
-import domain.models.entities.utils.NotificadorHelper;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -21,7 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
 import lombok.Getter;
 import lombok.Setter;
 
