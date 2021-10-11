@@ -8,11 +8,15 @@ import java.util.List;
 public class RepositorioUsuarios extends RepositorioGenerico<Usuario>{
 
     public Usuario buscar(Integer id) {
-        //SELECT
         return RepositorioGenerico.get_manager().find((Usuario.class), id);
     }
 
+    public Usuario buscarPorNombreDeUsuario(String nombreUsuario) {
+        Usuario usuario = RepositorioGenerico.get_manager().createQuery("SELECT u FROM usuario u WHERE u.usuario = '" + nombreUsuario + "'", Usuario.class).getSingleResult();
+        return usuario;
+    }
+
     public List<Usuario> buscarTodos() {
-        return RepositorioGenerico.get_manager().createQuery("SELECT a from Usuario a", Usuario.class).getResultList();
+        return RepositorioGenerico.get_manager().createQuery("SELECT * FROM usuario u", Usuario.class).getResultList();
     }
 }

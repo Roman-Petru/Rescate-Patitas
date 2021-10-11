@@ -3,8 +3,13 @@ package domain.controllers;
 import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.repositories.RepositorioMascotas;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
 
 
 public class MascotaController {
@@ -45,5 +50,10 @@ public class MascotaController {
 
     public void eliminar(Integer id) {
         //TODO
+    }
+
+    public ModelAndView registrarMascota(Request request, Response response){
+        Map<String, Object> parametros = new HashMap<>();
+        return new ModelAndView(parametros,"registrarMascota.hbs");
     }
 }

@@ -8,7 +8,12 @@ import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteres
 import domain.models.repositories.RepositorioPublicacionInteresAdopcion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
 
 public class PublicacionInteresAdopcionController {
 
@@ -63,5 +68,10 @@ public class PublicacionInteresAdopcionController {
 
     public void eliminar(Integer id) {
         //TODO
+    }
+
+    public ModelAndView adoptarMascota(Request request, Response response){
+        Map<String, Object> parametros = new HashMap<>();
+        return new ModelAndView(parametros,"adoptarMascota.hbs");
     }
 }

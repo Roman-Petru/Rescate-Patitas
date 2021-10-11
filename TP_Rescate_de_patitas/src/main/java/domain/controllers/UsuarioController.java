@@ -9,8 +9,13 @@ import domain.models.modulos.resizer.NivelCalidad;
 import domain.models.modulos.resizer.Resizer;
 import domain.models.modulos.resizer.TamanioImagen;
 import domain.models.repositories.RepositorioUsuarios;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
 
 public class UsuarioController {
 
@@ -76,6 +81,7 @@ public class UsuarioController {
         return this.repositorio.buscar(id);
     }
 
+    public Usuario buscarUsuarioPorNombre(String usuario) {return this.repositorio.buscarPorNombreDeUsuario(usuario);}
 
     public void validarUsuario(String usuario, String password) {
         ValidadorDeContrasenia validadorDeContrasenia = new ValidadorDeContrasenia();
@@ -104,5 +110,30 @@ public class UsuarioController {
 
     public void eliminar(Integer id) {
         //TODO
+    }
+
+    public ModelAndView registrarUsuario(Request request, Response response){
+        Map<String, Object> parametros = new HashMap<>();
+        return new ModelAndView(parametros,"registrarUsuario.hbs");
+    }
+
+    public Response registrar(Request request, Response response){
+        try{
+            String nombreDeUsuario = request.queryParams("nombreDeUsuario");
+            String contrasenia= request.queryParams("contrasenia");
+
+            validarUsuario(nombreDeUsuario, contrasenia);
+            Usuario usuario = new Usuario(nombreDeUsuario, contrasenia);
+
+            this.agregarUsuario(usuario.toDTO());
+            response.redirect("/");
+        }
+        catch (Exception e){
+            //todo cambiar a pantalla de error
+            response.redirect("/");
+        }
+        finally {
+            return response;
+        }
     }
 }

@@ -2,9 +2,7 @@ package domain.models.repositories.personas;
 
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.repositories.RepositorioGenerico;
-
 import java.util.List;
-
 
 public class RepositorioPersonas extends RepositorioGenerico<DatosDePersona> {
     public DatosDePersona buscar(Integer id) {
