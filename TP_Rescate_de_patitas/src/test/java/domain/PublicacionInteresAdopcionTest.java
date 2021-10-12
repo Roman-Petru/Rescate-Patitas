@@ -12,6 +12,7 @@ import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
+import domain.models.entities.entidadesGenerales.usuarios.BuilderUsuario;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Animal;
 import domain.models.entities.utils.Ubicacion;
@@ -53,7 +54,12 @@ public class PublicacionInteresAdopcionTest {
         PreguntaAdopcion preg1 = new PreguntaAdopcion("Raza");
         PreguntaAdopcion preg2 = new PreguntaAdopcion("Rompe todo?");
 
-        Usuario voluntario1 = new Usuario("vol1","12dsASDf43##%#");
+        BuilderUsuario builderUsuario = new BuilderUsuario();
+        builderUsuario.setUsername("vol1");
+        builderUsuario.setPassword("12dsASDf43##%#");
+
+        Usuario voluntario1 = builderUsuario.crearUsuario();;
+
         organizacionController.agregarVoluntarioALista(1, voluntario1);
         organizacionController.agregarPreguntaAdopcionOrganizacion(2, preg2.toDTO(), voluntario1);
 

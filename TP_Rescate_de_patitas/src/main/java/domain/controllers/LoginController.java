@@ -2,6 +2,7 @@ package domain.controllers;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
+import domain.models.entities.entidadesGenerales.usuarios.Hasher;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import java.io.IOException;
 import spark.ModelAndView;
@@ -39,8 +40,11 @@ public class LoginController {
             String contrasenia= request.queryParams("contrasenia");
 
             Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorNombre(nombreDeUsuario);
+            String[] passConSalt = new String[2];
+            passConSalt[0] = usuario.getHashedPasswordActual();
+            passConSalt[1] = usuario.getSaltActual();
 
-            if(usuario.getPassword().equals(contrasenia)){
+            if(Hasher.sonCorrespondientes(contrasenia,passConSalt)){
                 request.session(true);
                 request.session().attribute("id", usuario.getId());
                 response.redirect("/");

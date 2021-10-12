@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+
+import domain.models.entities.validaciones.validacionesContrasenias.ValidadorDeContrasenia;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hsqldb.Constraint;
@@ -25,8 +28,13 @@ public class Usuario extends Persistente {
     @Column(unique = true)
     private String usuario;
 
-    @Column
-    private String password;
+    @Setter(value= AccessLevel.NONE)
+    @Column(name = "password")
+    private String hashedPasswordActual;
+
+    @Setter(value=AccessLevel.NONE)
+    @Column(name = "salt")
+    private String saltActual;
 
     @Column
     private Integer intentosFallidos;
@@ -37,12 +45,22 @@ public class Usuario extends Persistente {
 
     public Usuario(){ }
 
-    public Usuario(String usuario, String password) {
+    public Usuario(String usuario, String hashedPassword, String salt) {
         this.usuario = usuario;
-        this.password = password;
+        this.hashedPasswordActual= hashedPassword;
+        this.saltActual = salt;
         this.intentosFallidos = 0;
         this.permiso = Permiso.USUARIO_COMUN;
     }
+
+    public void cambiarContrasenia(String password)
+    {
+        ValidadorDeContrasenia validadorDeContrasenia = new ValidadorDeContrasenia();
+        validadorDeContrasenia.validar(password);
+        this.saltActual  = Hasher.generarSalt();
+        this.hashedPasswordActual  = Hasher.hashSHA512(password, this.saltActual );
+    }
+
 
     public Boolean EsAdmin(){
         return this.permiso == Permiso.USUARIO_ADMIN;
@@ -52,7 +70,8 @@ public class Usuario extends Persistente {
         Usuario.UsuarioDTO dto = new Usuario.UsuarioDTO();
         dto.id = this.getId();
         dto.usuario = this.getUsuario();
-        dto.password = this.getPassword();
+        dto.hashedPasswordActual = this.getHashedPasswordActual();
+        dto.saltActual = this.getSaltActual();
         dto.intentosFallidos = this.getIntentosFallidos();
         dto.permiso = this.getPermiso();
         return dto;
@@ -62,7 +81,8 @@ public class Usuario extends Persistente {
     public static class UsuarioDTO {
         private Integer id;
         private String usuario;
-        private String password;
+        private String hashedPasswordActual;
+        private String saltActual;
         private Integer intentosFallidos;
         private Permiso permiso;
     }

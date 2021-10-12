@@ -8,6 +8,7 @@ import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;
+import domain.models.entities.entidadesGenerales.usuarios.BuilderUsuario;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Animal;
 import domain.models.entities.enums.Permiso;
@@ -26,7 +27,11 @@ public class ContextInsertSQLWorkbenchTest {
 
     @Test
     public void persistir_UsuarioAdmin(){
-      Usuario usuario = new Usuario("admin", "passwordParaProbar1234_");
+      BuilderUsuario builderUsuario = new BuilderUsuario();
+      builderUsuario.setUsername("admin");
+      builderUsuario.setPassword("passwordParaProbar1234_");
+
+      Usuario usuario = builderUsuario.crearUsuario();;
 
       usuario.setIntentosFallidos(3);
       List<Permiso> list_permisos = new ArrayList<>();
@@ -40,8 +45,12 @@ public class ContextInsertSQLWorkbenchTest {
 
     @Test
     public void persistir_Usuario_DatosPersona(){
+      BuilderUsuario builderUsuario = new BuilderUsuario();
+      builderUsuario.setUsername("datospersona");
+      builderUsuario.setPassword("passwordParaProbar1234_");
 
-      Usuario usuario = new Usuario("datospersona", "passwordParaProbar1234_");
+      Usuario usuario = builderUsuario.crearUsuario();;
+
       usuario.setIntentosFallidos(3);
       List<Permiso> list_permisos = new ArrayList<>();
       list_permisos.add(Permiso.USUARIO_COMUN);
@@ -71,8 +80,12 @@ public class ContextInsertSQLWorkbenchTest {
 
     @Test
     public void persistir_Usuario_DatosPersona_DuenioMascota(){
+      BuilderUsuario builderUsuario = new BuilderUsuario();
+      builderUsuario.setUsername("duenio");
+      builderUsuario.setPassword("passwordParaProbar1234_");
 
-      Usuario usuario = new Usuario("duenio", "passwordParaProbar1234_");
+      Usuario usuario = builderUsuario.crearUsuario();;
+
       usuario.setIntentosFallidos(3);
       List<Permiso> list_permisos = new ArrayList<>();
       list_permisos.add(Permiso.USUARIO_COMUN);
@@ -113,8 +126,12 @@ public class ContextInsertSQLWorkbenchTest {
 
     @Test
     public void persistir_Usuario_DatosPersona_Rescatista(){
+      BuilderUsuario builderUsuario = new BuilderUsuario();
+      builderUsuario.setUsername("rescatista");
+      builderUsuario.setPassword("passwordParaProbar1234_");
 
-      Usuario usuario = new Usuario("rescatista", "passwordParaProbar1234_");
+      Usuario usuario = builderUsuario.crearUsuario();;
+
       usuario.setIntentosFallidos(3);
       List<Permiso> list_permisos = new ArrayList<>();
       list_permisos.add(Permiso.USUARIO_COMUN);
@@ -181,7 +198,12 @@ public class ContextInsertSQLWorkbenchTest {
 
       Organizacion organizacion = new Organizacion("patitas", ubicacionOrganizacion);
 
-      Usuario usuario = new Usuario("voluntario", "passwordParaProbar1234_");
+      BuilderUsuario builderUsuario = new BuilderUsuario();
+      builderUsuario.setUsername("voluntario");
+      builderUsuario.setPassword("passwordParaProbar1234_");
+
+      Usuario usuario = builderUsuario.crearUsuario();;
+
       usuario.setIntentosFallidos(3);
       List<Permiso> list_permisos = new ArrayList<>();
       list_permisos.add(Permiso.USUARIO_COMUN);

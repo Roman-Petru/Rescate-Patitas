@@ -6,6 +6,7 @@ import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.cuestionarios.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
+import domain.models.entities.entidadesGenerales.usuarios.BuilderUsuario;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Permiso;
 import domain.models.entities.utils.PermisosDeAdmin;
@@ -26,7 +27,11 @@ public class TestPublicacionDeAdopcion {
         UsuarioController.getInstancia().agregarUsuario(dtoMark);*/
 
         //----------------------------------------------------TEST PREGUNTAS GENERALES-------------------------------------------------------------//
-        Usuario adminMark = new Usuario("mark", "12dsASDf43##%#");
+        BuilderUsuario builderUsuario = new BuilderUsuario();
+        builderUsuario.setUsername("mark");
+        builderUsuario.setPassword("12dsASDf43##%#");
+
+        Usuario adminMark = builderUsuario.crearUsuario();;
         adminMark.setPermiso(Permiso.USUARIO_ADMIN);
 
         PreguntaAdopcion.PreguntaAdopcionDTO preg1 = new PreguntaAdopcion.PreguntaAdopcionDTO();

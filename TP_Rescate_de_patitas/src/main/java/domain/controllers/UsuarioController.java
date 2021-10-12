@@ -1,6 +1,7 @@
 package domain.controllers;
 import com.twilio.exception.ApiException;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
+import domain.models.entities.entidadesGenerales.usuarios.BuilderUsuario;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.DescripcionPermiso;
 import domain.models.entities.enums.Permiso;
@@ -36,16 +37,16 @@ public class UsuarioController {
     }
 
     public void agregarUsuario(Usuario.UsuarioDTO dto) {
-        Usuario usuario = new Usuario(dto.getUsuario(), dto.getPassword());
-        this.validarUsuario(usuario.getUsuario(), usuario.getPassword());
+        Usuario usuario = new Usuario(dto.getUsuario(), dto.getHashedPasswordActual(),dto.getSaltActual());
+        this.validarUsuario(usuario.getUsuario());
         repositorio.agregar(usuario);
     }
     public void agregarAdmin(Usuario adminGenerador, Usuario.UsuarioDTO dto) throws Exception {
         if (!adminGenerador.tienePermisoPara(Permiso.USUARIO_ADMIN))
             throw new Exception("El usuario no puede generar admin");
 
-        Usuario admin = new Usuario(dto.getUsuario(), dto.getPassword());
-        this.validarUsuario(admin.getUsuario(), admin.getPassword());
+        Usuario admin = new Usuario(dto.getUsuario(), dto.getHashedPasswordActual(),dto.getSaltActual());
+        this.validarUsuario(admin.getUsuario());
         admin.setPermiso(Permiso.USUARIO_ADMIN);
         repositorio.agregar(admin);
     }
@@ -85,12 +86,10 @@ public class UsuarioController {
 
     public Usuario buscarUsuarioPorNombre(String usuario) {return this.repositorio.buscarPorNombreDeUsuario(usuario);}
 
-    public void validarUsuario(String usuario, String password) {
-        ValidadorDeContrasenia validadorDeContrasenia = new ValidadorDeContrasenia();
+    public void validarUsuario(String usuario) {
         if(usuario== null) {
             throw new ApiException("Debe ingresar un usuario");
         }
-        validadorDeContrasenia.validar(password);
     }
 
     public Usuario.UsuarioDTO ver(Integer id) {
@@ -104,7 +103,7 @@ public class UsuarioController {
 
     public void modificar(Integer id, Usuario.UsuarioDTO dto) {
         //TODO
-        Usuario usuario = new Usuario(dto.getUsuario(), dto.getPassword());
+        Usuario usuario = new Usuario(dto.getUsuario(), dto.getHashedPasswordActual(),dto.getSaltActual());
         usuario.setIntentosFallidos(dto.getIntentosFallidos());
         usuario.setPermiso(dto.getPermiso());
         usuario.setId(id);
@@ -126,8 +125,12 @@ public class UsuarioController {
             String nombreDeUsuario = request.queryParams("nombreDeUsuario");
             String contrasenia= request.queryParams("contrasenia");
 
-            validarUsuario(nombreDeUsuario, contrasenia);
-            Usuario usuario = new Usuario(nombreDeUsuario, contrasenia);
+            validarUsuario(nombreDeUsuario);
+            BuilderUsuario builderUsuario = new BuilderUsuario();
+            builderUsuario.setUsername(nombreDeUsuario);
+            builderUsuario.setPassword(contrasenia);
+
+            Usuario usuario = builderUsuario.crearUsuario();;
 
             this.agregarUsuario(usuario.toDTO());
             response.redirect("/");
@@ -186,7 +189,7 @@ public class UsuarioController {
     public Response modificarUsuario(Request request, Response response) {
         Usuario usuario = this.buscarUsuarioPorID(new Integer(request.params("id")));
         usuario.setUsuario(request.queryParams("usuario"));
-        usuario.setPassword(request.queryParams("password"));
+        usuario.cambiarContrasenia(request.queryParams("password"));
         usuario.setPermiso(DescripcionPermiso.getPermisoConInteger(new Integer(request.queryParams("permiso"))));
         this.modificar(usuario.getId(), usuario.toDTO());
         response.redirect("/usuarios");

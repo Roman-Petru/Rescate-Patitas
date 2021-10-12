@@ -3,6 +3,7 @@ package domain;
 import domain.controllers.CaracteristicaController;
 import domain.controllers.UsuarioController;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
+import domain.models.entities.entidadesGenerales.usuarios.BuilderUsuario;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Permiso;
 import org.junit.Test;
@@ -16,7 +17,11 @@ public class CaracteristicaTest {
     public void agregarCaracteristicaGeneral_adminAgregaDosCaracteristicasGenerales() throws Exception {
 
         UsuarioController usuarioController = UsuarioController.getInstancia();
-        Usuario adminPepe = new Usuario("admin_pepe", "passwordParaProbar123_");
+        BuilderUsuario builderUsuario = new BuilderUsuario();
+        builderUsuario.setUsername("admin_pepe");
+        builderUsuario.setPassword("passwordParaProbar123_");
+
+        Usuario adminPepe = builderUsuario.crearUsuario();;
         usuarioController.agregarUsuario(adminPepe.toDTO());
         adminPepe.setPermiso(Permiso.USUARIO_ADMIN);
 
