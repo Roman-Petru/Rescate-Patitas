@@ -133,8 +133,6 @@ public class OrganizacionController {
 
 
     public ModelAndView pantallaOrganizaciones(Request request, Response response) {
-
-
         Map<String, Object> parametros = new HashMap<>();
         List<Usuario> usuarios = UsuarioController.getInstancia().listarTodos();
         parametros.put("usuarios", usuarios);
