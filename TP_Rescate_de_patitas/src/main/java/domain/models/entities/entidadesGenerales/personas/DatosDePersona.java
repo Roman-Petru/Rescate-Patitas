@@ -67,6 +67,10 @@ public class DatosDePersona extends Persistente {
         this.recibirRecomendacionAdopcion = false;
     }
 
+    public void agregarContacto(Contacto contacto){
+        contactos.add(contacto);
+    }
+
 
     public DatosDePersonaDTO toDTO() {
         DatosDePersonaDTO dto  = new DatosDePersonaDTO();

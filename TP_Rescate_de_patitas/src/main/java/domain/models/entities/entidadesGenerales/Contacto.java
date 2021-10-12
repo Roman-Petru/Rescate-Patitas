@@ -35,6 +35,8 @@ public class Contacto extends Persistente {
     @ElementCollection(targetClass = EstrategiaNotificacion.class)
     private List<EstrategiaNotificacion> notificadores;
 
+    public Contacto(){  }
+
     public Contacto(String nombre, String apellido, String telefono, String email, List<EstrategiaNotificacion> notificadores) {
         if (notificadores.isEmpty()) {
             this.notificadores = new ArrayList<>();
@@ -45,6 +47,8 @@ public class Contacto extends Persistente {
         this.email = email;
         this.notificadores = notificadores;
     }
+
+
 
     public Contacto.ContactoDTO toDTO() {
         Contacto.ContactoDTO dto = new Contacto.ContactoDTO();

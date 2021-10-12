@@ -2,12 +2,18 @@ package domain.controllers.personas;
 
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
+import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeAdoptanteADuenio;
 import domain.models.entities.utils.NotificadorHelper;
 import domain.models.repositories.personas.RepositorioPersonas;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PersonaController {
 
@@ -66,6 +72,35 @@ public class PersonaController {
         NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeAdoptanteADuenio, publicacion.getMascota().getContactos());
     }
 
+    public ModelAndView registrarPersonaPantalla(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        return new ModelAndView(parametros,"registrarPersona.hbs");
+    }
+
+    public Response registrarPersona(Request request, Response response){
+        try{
+            String nombre = request.queryParams("nombre");
+            String apellido= request.queryParams("apellido");
+            String dni= request.queryParams("dni");
+
+            DatosDePersona persona = new DatosDePersona();
+            persona.setNombre(nombre);
+            persona.setApellido(apellido);
+            persona.setDocumento(dni);
+
+            this.agregar(persona.toDTO());
+            response.redirect("/");
+        }
+        catch (Exception e){
+            //todo cambiar a pantalla de error
+            System.out.println("Error al registrar persona: " + e);
+
+            response.redirect("/");
+        }
+        finally {
+            return response;
+        }
+    }
 }
 
 
