@@ -1,9 +1,12 @@
 package domain.controllers;
 
+import domain.controllers.personas.DuenioMascotaController;
 import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
+import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
+import domain.models.entities.enums.Animal;
 import domain.models.entities.utils.NotificadorHelper;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.models.repositories.RepositorioMascotas;
@@ -87,6 +90,23 @@ public class MascotaController {
         persona.agregarContacto(contacto);
         PersonaController.getInstancia().modificar(persona.getId(), persona.toDTO());
         //TODO duplica el contacto al hacer merge
+
+        //DuenioMascota duenioMascota = DuenioMascotaController.getInstancia().obtenerDuenioDesdePersona(persona);
+
+        Mascota mascota = new Mascota();
+        mascota.setNombre(request.queryParams("nombreMascota"));
+        mascota.setApodo(request.queryParams("apodo"));
+        mascota.setEdadAproximada(new Integer(request.queryParams("edad")));
+        mascota.setDescripcionFisica(request.queryParams("descripcion"));
+
+        mascota.setTipo(Animal.getAnimalConInteger(new Integer(request.queryParams("tipo"))));
+        mascota.setEsMacho(request.queryParams("sexo").equals("1"));
+        ArrayList<Contacto> contactosMascota = new ArrayList<Contacto>();
+        contactosMascota.add(contacto);
+        mascota.setContactos(contactosMascota);
+
+        DuenioMascotaController.getInstancia().agregarMascota(persona, mascota);
+
         response.redirect("/");
         return response;
     }

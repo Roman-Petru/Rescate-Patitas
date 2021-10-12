@@ -27,6 +27,11 @@ public class DuenioMascota extends Persistente {
     @OneToMany(mappedBy = "duenioMascota", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Mascota> mascotas;
 
+
+    public DuenioMascota(){
+        this.mascotas = new ArrayList<>();
+    }
+
     public DuenioMascota(DatosDePersona datosDePersona){
         this.datosDePersona = datosDePersona;
         this.mascotas = new ArrayList<>();

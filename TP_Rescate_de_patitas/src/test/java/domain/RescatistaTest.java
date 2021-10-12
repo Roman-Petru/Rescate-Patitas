@@ -81,7 +81,7 @@ public class RescatistaTest {
         firulais.setContactos(Arrays.asList(contacto));
 
         //TODO REVISAR LA ID QUE LE ESTAMOS DANDO
-        duenioMascotaController.agregarMascota(0, firulais);
+        duenioMascotaController.agregarMascota(datosDePersona, firulais);
 
         DatosDePersona datosPersona = new DatosDePersona("Juli", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
         Rescatista juliRescatista = new Rescatista(datosPersona);
