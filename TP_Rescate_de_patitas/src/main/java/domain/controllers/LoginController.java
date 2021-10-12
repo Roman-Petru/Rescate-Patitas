@@ -1,6 +1,9 @@
 package domain.controllers;
 
+import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Template;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
+import java.io.IOException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -21,11 +24,11 @@ public class LoginController {
 
     public ModelAndView inicio(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
-        UsuarioController.getInstancia().asignarUsuarioSiEstaLogueado(request, parametros);
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
         return new ModelAndView(parametros,"home.hbs");
     }
 
-    public ModelAndView ingresoLogin(Request request, Response response){
+    public ModelAndView ingresoLogin(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         return new ModelAndView(parametros,"login.hbs");
     }

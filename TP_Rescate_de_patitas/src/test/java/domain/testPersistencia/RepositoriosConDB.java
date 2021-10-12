@@ -21,11 +21,8 @@ public class RepositoriosConDB {
         ubicacion.setDireccion("Los hornos 4599, Buenos Aires");
         ubicacion.setLatitud(-35.814884);
         ubicacion.setLongitud(58.66555);
-
-
         DatosDePersona datosDePersona = new DatosDePersona("Chicle", "Pavo", "3535", "53535", "asddfsdf@hotmail.com", ubicacion, null);
         DatosDePersona.DatosDePersonaDTO dto = datosDePersona.toDTO();
-
         PersonaController.getInstancia().agregar(dto);
 
         //assert
@@ -50,15 +47,14 @@ public class RepositoriosConDB {
 
     @Test
     public void testFindOne() {
-
         DatosDePersona persona = PersonaController.getInstancia().buscarPersonaporID(1);
-        assertThat(persona.getNombre(), is("Ramita"));
+        assertThat(persona.getNombre(), is("Carlos"));
     }
 
     @Test
     public void testFindAll() {
 
         List<DatosDePersona> personas = PersonaController.getInstancia().listarTodos();
-        assertThat(personas.size(), is(2));
+        assertThat(personas.size(), is(3));
     }
 }

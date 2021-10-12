@@ -117,6 +117,7 @@ public class UsuarioController {
 
     public ModelAndView registrarUsuario(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
         return new ModelAndView(parametros,"registrarUsuario.hbs");
     }
 
@@ -142,13 +143,13 @@ public class UsuarioController {
         }
     }
 
-    public void asignarUsuarioSiEstaLogueado(Request request, Map<String, Object> parametros){
-        if(!request.session().isNew() && request.session().attribute("id") != null){
-            Usuario usuario = this.buscarUsuarioPorID(request.session().attribute("id"));
-            parametros.put("usuario", usuario);
-            parametros.put("admin", usuario.EsAdmin());
-        }
-    }
+//    public void asignarUsuarioSiEstaLogueado(Request request, Map<String, Object> parametros){
+//        if(!request.session().isNew() && request.session().attribute("id") != null){
+//            Usuario usuario = this.buscarUsuarioPorID(request.session().attribute("id"));
+//            parametros.put("usuario", usuario);
+//            parametros.put("admin", usuario.EsAdmin());
+//        }
+//    }
 
     public Boolean EsAdminLogeado(Request request){
         if(!request.session().isNew() && request.session().attribute("id") != null){
@@ -160,11 +161,11 @@ public class UsuarioController {
     public ModelAndView pantallaUsuarios(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         if (this.EsAdminLogeado(request)){
-                List<Usuario> usuarios = this.listarTodos();
-                parametros.put("usuarios", usuarios);
-                asignarUsuarioSiEstaLogueado(request, parametros);
-                return new ModelAndView(parametros,"usuarios.hbs");
-            }
+            List<Usuario> usuarios = this.listarTodos();
+            parametros.put("usuarios", usuarios);
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+            return new ModelAndView(parametros,"usuarios.hbs");
+        }
         return new ModelAndView(parametros,"home.hbs");
     }
 

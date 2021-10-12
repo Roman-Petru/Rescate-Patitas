@@ -9,48 +9,52 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Rescate de Patitas</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#home">Home</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Organización <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Publicaciones</a></li>
-                    <li><a href="#">Quiero ser voluntario</a></li>
-                    <li><a href="adoptarMascota">Adoptar Mascota</a></li>
-                    <li><a href="#"></a></li>
-                </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Mis Animales <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="registrarMascota">Registrar Mascota</a></li>
-                    <li><a href="#">Buscar Hogar</a></li>
-                    <li><a href="#">Dar en adopción</a></li>
-                    <li><a href="#"></a></li>
-                </ul>
-            </li>
-            <li><a href="#">Mis mascotas</a></li>
-            <li><a href="#">Animalitos</a></li>
-            {{#if admin}}
-                <li><a href="usuarios">Usuarios</a></li>
-            {{/if}}
 
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            {{#if usuario}}
-                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> ¡Hola {{usuario.usuario}}!</a> </li>>
-                 <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span>Cerrar sesión</a></li>
-            {{else}}
-                <li><a href="registrarUsuario"><span class="glyphicon glyphicon-user"></span> Quiero registrarme</a></li>
-                <li><a href="login"><span class="glyphicon glyphicon-log-in"></span>Ingresar</a></li>
-            {{/if}}
+{{> nav.hbs}}
 
-        </ul>
-    </div>
-</nav>
+<!--<nav class="navbar navbar-inverse" style="border-radius: 0px !important;">-->
+<!--    <div class="container-fluid">-->
+<!--        <div class="navbar-header">-->
+<!--            <a class="navbar-brand" href="">Rescate de Patitas</a>-->
+<!--        </div>-->
+<!--        <ul class="nav navbar-nav">-->
+
+<!--            {{#if esAdmin}}-->
+<!--                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Administración <span class="caret"></span></a>-->
+<!--                    <ul class="dropdown-menu">-->
+<!--                        <li><a href="usuarios">Usuarios</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--            {{/if}}-->
+<!--            <li><a href="organzaciones">Organizaciones</a></li>-->
+<!--&lt;!&ndash;            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Organización <span class="caret"></span></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                <ul class="dropdown-menu">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li><a href="#">Listado</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li><a href="#">Publicaciones</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li><a href="#">Quiero ser voluntario</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li><a href="adoptarMascota">Adoptar Mascota</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Mascotas<span class="caret"></span></a>-->
+<!--                <ul class="dropdown-menu">-->
+<!--                    <li><a href="registrarMascota">Registrar Mascota</a></li>-->
+<!--                    <li><a href="#">Buscar Hogar</a></li>-->
+<!--                    <li><a href="#">Dar en adopción</a></li>-->
+<!--                </ul>-->
+<!--            </li>-->
+<!--            <li><a href="adoptarMascota">Adoptar Mascota</a></li>-->
+<!--        </ul>-->
+<!--        <ul class="nav navbar-nav navbar-right">-->
+<!--            {{#if usuarioLogueado}}-->
+<!--                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> ¡Hola {{usuarioLogueado.usuario}}!</a> </li>>-->
+<!--                 <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Salir</a></li>-->
+<!--            {{else}}-->
+<!--                <li><a href="registrarUsuario"><span class="glyphicon glyphicon-user"></span> Registrarse</a></li>-->
+<!--                <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Ingresar</a></li>-->
+<!--            {{/if}}-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</nav>-->
 
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="home">

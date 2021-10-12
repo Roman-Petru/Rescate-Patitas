@@ -12,8 +12,13 @@ import domain.models.entities.utils.DistanciaEntreDosPuntos;
 import domain.models.repositories.RepositorioOrganizaciones;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
 
 public class OrganizacionController {
 
@@ -124,5 +129,17 @@ public class OrganizacionController {
         Organizacion organizacion = this.buscarOrganizacionPorID(organizacionID);
         organizacion.agregarVoluntario(voluntario);
         repositorio.modificar(organizacion);
+    }
+
+
+    public ModelAndView pantallaOrganizaciones(Request request, Response response) {
+
+
+        Map<String, Object> parametros = new HashMap<>();
+        List<Usuario> usuarios = UsuarioController.getInstancia().listarTodos();
+        parametros.put("usuarios", usuarios);
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+
+        return new ModelAndView(parametros,"organizaciones.hbs");
     }
 }

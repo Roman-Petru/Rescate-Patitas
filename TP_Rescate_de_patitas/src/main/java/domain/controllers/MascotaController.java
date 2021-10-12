@@ -56,8 +56,9 @@ public class MascotaController {
         if(!dniPersona.isEmpty()) {
             obtenerDatosPersona(dniPersona);
         }
-        
+
         Map<String, Object> parametros = new HashMap<>();
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
         return new ModelAndView(parametros,"registrarMascota.hbs");
     }
 
@@ -83,6 +84,7 @@ public class MascotaController {
     }
     public ModelAndView preRegistrarMascota(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
         return new ModelAndView(parametros,"preRegistrarMascota.hbs");
     }
 }

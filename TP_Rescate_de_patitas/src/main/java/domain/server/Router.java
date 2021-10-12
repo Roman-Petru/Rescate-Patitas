@@ -3,6 +3,7 @@ package domain.server;
 import com.github.jknack.handlebars.Handlebars;
 import domain.controllers.LoginController;
 import domain.controllers.MascotaController;
+import domain.controllers.OrganizacionController;
 import domain.controllers.PublicacionInteresAdopcionController;
 import domain.controllers.UsuarioController;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
@@ -38,10 +39,13 @@ public class Router {
         Spark.get("/registrarMascota/:dni", MascotaController.getInstancia()::registrarMascota, Router.engine);
         Spark.post("/validarPersona", MascotaController.getInstancia()::validarPersona);
         Spark.get("/adoptarMascota", PublicacionInteresAdopcionController.getInstancia()::adoptarMascota, Router.engine);
+
         Spark.get("/usuarios", UsuarioController.getInstancia()::pantallaUsuarios, Router.engine);
         Spark.get("/registrarUsuario", UsuarioController.getInstancia()::registrarUsuario, Router.engine);
         Spark.get("/usuario/:id",UsuarioController.getInstancia()::pantallaModificar, Router.engine);
         Spark.post("/usuario/:id", UsuarioController.getInstancia()::modificarUsuario);
         Spark.post("/registrar", UsuarioController.getInstancia()::registrar);
+
+        Spark.get("/organizaciones", OrganizacionController.getInstancia()::pantallaOrganizaciones, Router.engine);
     }
 }

@@ -13,6 +13,6 @@ public class RepositorioOrganizaciones extends RepositorioGenerico<Organizacion>
     }
 
     public List<Organizacion> buscarTodos() {
-        return RepositorioGenerico.get_manager().createQuery("SELECT a from Organizacion a", Organizacion.class).getResultList();
+        return RepositorioGenerico.get_manager().createQuery("SELECT o.id, o.nombre, u.direccion from Organizacion o inner join ubicacion u ON o.ubicacion_id = u.id", Organizacion.class).getResultList();
     }
 }
