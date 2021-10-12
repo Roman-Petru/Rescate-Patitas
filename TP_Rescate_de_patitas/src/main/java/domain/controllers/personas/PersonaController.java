@@ -31,6 +31,10 @@ public class PersonaController {
         return this.repositorio.buscar(id);
     }
 
+    public DatosDePersona buscarPersonaporDNI(String dni){
+        return this.repositorio.buscarPorDNI(dni);
+    }
+
 
     public void agregar(DatosDePersona.DatosDePersonaDTO dto) {
         DatosDePersona persona = new DatosDePersona(dto.getNombre(), dto.getApellido(), dto.getDocumento(),dto.getNumTramite(), dto.getEmail(), dto.getUbicacion(), dto.getContactos());

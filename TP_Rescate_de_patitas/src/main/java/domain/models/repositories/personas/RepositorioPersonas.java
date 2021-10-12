@@ -1,6 +1,7 @@
 package domain.models.repositories.personas;
 
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
+import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.repositories.RepositorioGenerico;
 import java.util.List;
 
@@ -12,5 +13,10 @@ public class RepositorioPersonas extends RepositorioGenerico<DatosDePersona> {
 
     public List<DatosDePersona> buscarTodos() {
         return RepositorioGenerico.get_manager().createQuery("SELECT a from DatosDePersona a", DatosDePersona.class).getResultList();
+    }
+
+    public DatosDePersona buscarPorDNI(String dni){
+        DatosDePersona persona = RepositorioGenerico.get_manager().createQuery("SELECT u FROM DatosDePersona u WHERE u.documento = '" + dni + "'", DatosDePersona.class).getSingleResult();
+        return persona;
     }
 }
