@@ -37,12 +37,22 @@ public class DuenioMascotaController {
         PublicacionAdopcionController.getInstancia().agregarPublicacionAdopcion(publicacionDarAdopcion.toDTO(), organizacionID, respuestasAdopcion);
     }
 
-    public void agregarMascota(Integer duenioID, Mascota mascota){
-          DuenioMascota duenioMascota = this.buscarDuenioMascotaPorID(duenioID);
+    public void agregarMascota(DatosDePersona persona, Mascota mascota){
+          DuenioMascota duenioMascota = this.obtenerDuenioDesdePersona(persona);
           duenioMascota.agregarMascotaALista(mascota);
           repositorio.modificar(duenioMascota);
     }
 
+
+    public DuenioMascota obtenerDuenioDesdePersona(DatosDePersona persona){
+        return this.listarTodos().stream().filter(duenioMascota -> duenioMascota.getDatosDePersona().getId() == persona.getId()).findFirst().orElse(new DuenioMascota(persona));
+    }
+
+    private DuenioMascota crearYDevolverDuenio(DatosDePersona persona){
+        DuenioMascota nuevoDuenio = new DuenioMascota(persona);
+        repositorio.agregar(nuevoDuenio);
+        return nuevoDuenio;
+    }
 
     //-----------------------------------METODOS BASE-----------------------------------------
 
@@ -68,7 +78,7 @@ public class DuenioMascotaController {
         //TODO
     }
 
-    public void modificar(String id, Rescatista.RescatistaDTO dto) {
+    public void modificar(String id, DuenioMascota.DuenioMascotaDTO dto) {
         //TODO
     }
 

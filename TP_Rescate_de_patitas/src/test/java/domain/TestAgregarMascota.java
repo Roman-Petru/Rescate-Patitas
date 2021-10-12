@@ -35,8 +35,8 @@ public class TestAgregarMascota {
 
         DuenioMascotaController duenioMascotaController = DuenioMascotaController.getInstancia();
         duenioMascotaController.agregar(jorgeDuenio.toDTO());
-        duenioMascotaController.agregarMascota(jorgeDuenio.getId(), firulais);
-        duenioMascotaController.agregarMascota(jorgeDuenio.getId(), pelusa);
+        duenioMascotaController.agregarMascota(datosDePersona, firulais);
+        duenioMascotaController.agregarMascota(datosDePersona, pelusa);
 
         assertThat(jorgeDuenio.getMascotas().size(), is(2));
     }
@@ -65,7 +65,7 @@ public class TestAgregarMascota {
 
         Mascota firulais = new Mascota("FIrulais","Firu",3);
         firulais.agregarCaracteristicaPersonalizada(caracteristicaPersonalizada);
-        duenioMascotaController.agregarMascota(1, firulais);
+        duenioMascotaController.agregarMascota(datosDePersona, firulais);
 
         //TODO REVISAR LA RESPUESTA PORQUE LLEGA VACIO jorgeDuenio
 
