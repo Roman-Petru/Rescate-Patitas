@@ -1,6 +1,7 @@
 package domain.controllers;
 
 import domain.controllers.personas.PersonaController;
+import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
@@ -66,6 +67,32 @@ public class MascotaController {
         }
         return new ModelAndView(parametros,"registrarMascota.hbs");
     }
+
+
+    public Response registrarMascotayContacto(Request request, Response response){
+        Integer personaId = new Integer(request.params("id"));
+        DatosDePersona persona = PersonaController.getInstancia().buscarPersonaporID(personaId);
+
+        Contacto contacto = new Contacto();
+        contacto.setNombre(request.queryParams("nombre"));
+        contacto.setApellido(request.queryParams("apellido"));
+        contacto.setTelefono(request.queryParams("telefono"));
+        contacto.setEmail(request.queryParams("email"));
+        contacto.setDatosDePersona(persona);
+
+        Integer notificacionID = new Integer(request.queryParams("notificacion"));
+        List<EstrategiaNotificacion> lista = new ArrayList<>();
+        lista.add(NotificadorHelper.devolverNotificadoresConID(notificacionID));
+        contacto.setNotificadores(lista);
+
+        persona.agregarContacto(contacto);
+        PersonaController.getInstancia().modificar(persona.getId(), persona.toDTO());
+        //TODO duplica el contacto al hacer merge
+        response.redirect("/");
+        return response;
+    }
+
+
 
     public Response validarPersona(Request request, Response response){
             String dniPersona = request.queryParams("dni");

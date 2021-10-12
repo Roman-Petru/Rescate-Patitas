@@ -1,6 +1,10 @@
 package domain.server;
 
-import domain.controllers.*;
+import domain.controllers.LoginController;
+import domain.controllers.MascotaController;
+import domain.controllers.PublicacionInteresAdopcionController;
+import domain.controllers.UsuarioController;
+import domain.controllers.personas.PersonaController;
 import domain.spark.utils.BooleanHelper;
 import domain.spark.utils.HandlebarsTemplateEngineBuilder;
 import spark.Spark;
@@ -33,6 +37,7 @@ public class Router {
         //=============================================MASCOTA=================================================================================//
         Spark.get("/preRegistrarMascota", MascotaController.getInstancia()::preRegistrarMascota, Router.engine);
         Spark.get("/registrarMascota/:dni", MascotaController.getInstancia()::registrarMascota, Router.engine);
+        Spark.post("/registrarMascota/registrarMascota/:id", MascotaController.getInstancia()::registrarMascotayContacto);
         Spark.post("/validarPersona", MascotaController.getInstancia()::validarPersona);
         Spark.get("/adoptarMascota", PublicacionInteresAdopcionController.getInstancia()::adoptarMascota, Router.engine);
         Spark.get("/mascota/:id",MascotaController.getInstancia()::pantallaModificar, Router.engine);
@@ -45,6 +50,10 @@ public class Router {
         Spark.get("/usuario/:id",UsuarioController.getInstancia()::pantallaModificar, Router.engine);
         Spark.post("/usuario/:id", UsuarioController.getInstancia()::modificarUsuario);
         Spark.post("/registrar", UsuarioController.getInstancia()::registrar);
+
+
+        Spark.get("/registrarPersona", PersonaController.getInstancia()::registrarPersonaPantalla, Router.engine);
+        Spark.post("/registrarPersona", PersonaController.getInstancia()::registrarPersona);
         Spark.get("/voluntarios/:id", UsuarioController.getInstancia()::pantallaVoluntariosDeOrganizacion, Router.engine);
 
         //=============================================ORGANIZACION=================================================================================//
