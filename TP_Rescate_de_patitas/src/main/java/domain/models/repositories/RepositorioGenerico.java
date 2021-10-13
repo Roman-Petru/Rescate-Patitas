@@ -42,13 +42,14 @@ public abstract class RepositorioGenerico <T extends Persistente> {
         manager.getTransaction().commit();
     }
 
-    public void modificar(T elemento) {
+    public T modificar(T elemento) {
         //UPDATE
         manager.getTransaction().begin();
         //manager.remove(elemento);
         //manager.persist(elemento);
-        manager.merge(elemento);
+        elemento = manager.merge(elemento);
         manager.getTransaction().commit();
+        return elemento;
     }
 
     public void eliminar(T unElemento) {

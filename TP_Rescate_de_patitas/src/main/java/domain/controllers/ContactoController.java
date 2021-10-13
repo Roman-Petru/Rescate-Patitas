@@ -33,8 +33,9 @@ public class ContactoController {
 
 
     public void agregar(Contacto.ContactoDTO dto) {
-        Contacto Contacto = new Contacto(dto.getNombre(), dto.getApellido(), dto.getTelefono(), dto.getEmail(), dto.getNotificadores());
-        repositorio.agregar(Contacto);
+        Contacto contacto = new Contacto(dto.getNombre(), dto.getApellido(), dto.getTelefono(), dto.getEmail(), dto.getNotificadores());
+        contacto.setNotificacionEnString(dto.getNotificacionEnString());
+        repositorio.agregar(contacto);
     }
 
     public Contacto.ContactoDTO ver(Integer id) {
