@@ -49,8 +49,8 @@ public class NotificadorHelper {
             return envioViaMail;
         }
         if (id == 2) {
-            EnvioViaWhatsapp envioViaWhatts = EnvioViaWhatsapp.instancia();
-            return envioViaWhatts;
+            EnvioViaWhatsapp envioViaWhats = EnvioViaWhatsapp.instancia();
+            return envioViaWhats;
         }
         EnvioViaSMS envioViaSMS = EnvioViaSMS.instancia();
         return envioViaSMS;

@@ -37,10 +37,11 @@ public class DuenioMascotaController {
         PublicacionAdopcionController.getInstancia().agregarPublicacionAdopcion(publicacionDarAdopcion.toDTO(), organizacionID, respuestasAdopcion);
     }
 
-    public void agregarMascota(DatosDePersona persona, Mascota mascota){
+    public Integer agregarMascota(DatosDePersona persona, Mascota mascota){
           DuenioMascota duenioMascota = this.obtenerDuenioDesdePersona(persona);
           duenioMascota.agregarMascotaALista(mascota);
-          repositorio.modificar(duenioMascota);
+          duenioMascota = repositorio.modificar(duenioMascota);
+          return duenioMascota.getMascotas().get(duenioMascota.getMascotas().size() - 1).getId();
     }
 
 

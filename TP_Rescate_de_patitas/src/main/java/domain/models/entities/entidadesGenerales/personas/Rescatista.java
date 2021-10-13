@@ -46,6 +46,10 @@ public class Rescatista extends Persistente {
     @Column
     private String nombreHogarParaMascota;
 
+    public Rescatista(){
+        this.servicioHogar = ServicioHogar.getInstancia();
+    }
+
     public Rescatista(DatosDePersona datosDePersona){
          this.datosDePersona = datosDePersona;
          this.servicioHogar = ServicioHogar.getInstancia();

@@ -14,10 +14,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class MascotaController {
@@ -88,17 +85,16 @@ public class MascotaController {
         contacto.setTelefono(request.queryParams("telefono"));
         contacto.setEmail(request.queryParams("email"));
         contacto.setDatosDePersona(persona);
+        contacto.setNotificacionEnString(request.queryParams("notificacion"));  //mientras no ande la persistencia de estrategias de notificacion
 
         Integer notificacionID = new Integer(request.queryParams("notificacion"));
         List<EstrategiaNotificacion> lista = new ArrayList<>();
         lista.add(NotificadorHelper.devolverNotificadoresConID(notificacionID));
+
         contacto.setNotificadores(lista);
 
-        persona.agregarContacto(contacto);
-        PersonaController.getInstancia().modificar(persona.getId(), persona.toDTO());
-        //TODO duplica el contacto al hacer merge
 
-        //DuenioMascota duenioMascota = DuenioMascotaController.getInstancia().obtenerDuenioDesdePersona(persona);
+        persona.agregarContacto(contacto);
 
         Mascota mascota = new Mascota();
         mascota.setNombre(request.queryParams("nombreMascota"));
@@ -108,11 +104,12 @@ public class MascotaController {
 
         mascota.setTipo(Animal.getAnimalConInteger(new Integer(request.queryParams("tipo"))));
         mascota.setEsMacho(request.queryParams("sexo").equals("1"));
-        ArrayList<Contacto> contactosMascota = new ArrayList<Contacto>();
-        contactosMascota.add(contacto);
-        mascota.setContactos(contactosMascota);
 
-        DuenioMascotaController.getInstancia().agregarMascota(persona, mascota);
+        mascota.setContactos(Arrays.asList(contacto));
+
+            //PersonaController.getInstancia().modificar(persona.getId(), persona.toDTO());
+            //TODO duplica el contacto al hacer merge
+        Integer idMascotaNueva = DuenioMascotaController.getInstancia().agregarMascota(persona, mascota);
 
         response.redirect("/mensaje/Se ha registrado a su mascota y a su contacto!");}
 

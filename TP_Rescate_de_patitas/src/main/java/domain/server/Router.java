@@ -5,6 +5,7 @@ import domain.controllers.MascotaController;
 import domain.controllers.PublicacionInteresAdopcionController;
 import domain.controllers.UsuarioController;
 import domain.controllers.personas.PersonaController;
+import domain.controllers.personas.RescatistaController;
 import domain.spark.utils.BooleanHelper;
 import domain.spark.utils.HandlebarsTemplateEngineBuilder;
 import spark.Spark;
@@ -49,7 +50,11 @@ public class Router {
         Spark.post("/usuario/:id", UsuarioController.getInstancia()::modificarUsuario);
         Spark.post("/registrar", UsuarioController.getInstancia()::registrar);
 
+        //=============================================RESCATISTA=================================================================================//
+        Spark.get("/rescateConChapita/:id", RescatistaController.getInstancia()::pantallaRescateConChapita, Router.engine);
+        Spark.post("/rescateConChapita/notificarDuenio/:id", RescatistaController.getInstancia()::notificarDuenio);
 
+        //=============================================PERSONA=================================================================================//
         Spark.get("/registrarPersona", PersonaController.getInstancia()::registrarPersonaPantalla, Router.engine);
         Spark.post("/registrarPersona", PersonaController.getInstancia()::registrarPersona);
     }

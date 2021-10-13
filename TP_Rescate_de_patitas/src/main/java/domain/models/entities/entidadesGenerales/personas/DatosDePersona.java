@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -53,7 +54,7 @@ public class DatosDePersona extends Persistente {
     private String email;
 
     public DatosDePersona(){
-        super();
+        this.contactos = new ArrayList<>();
     }
 
     public DatosDePersona(String nombre, String apellido, String documento, String numTramite, String email, Ubicacion ubicacion, List<Contacto> contactos) {
