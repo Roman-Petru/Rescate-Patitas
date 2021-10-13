@@ -120,4 +120,12 @@ public class RescatistaController {
             return response;
         }
     }
+
+    public ModelAndView mostrarQR(Request request, Response response) {
+         Map<String, Object> parametros = new HashMap<>();
+        parametros.put("numeroCodigo", request.params("id"));
+        return new ModelAndView(parametros, "mostrarQR.hbs");
+
+    }
+
 }

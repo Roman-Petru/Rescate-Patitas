@@ -8,6 +8,7 @@ import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.enums.Animal;
 import domain.models.entities.utils.NotificadorHelper;
+import domain.models.modulos.generadorQR.GeneradorQR;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.models.repositories.RepositorioMascotas;
 import spark.ModelAndView;
@@ -110,8 +111,8 @@ public class MascotaController {
             //PersonaController.getInstancia().modificar(persona.getId(), persona.toDTO());
             //TODO duplica el contacto al hacer merge
         Integer idMascotaNueva = DuenioMascotaController.getInstancia().agregarMascota(persona, mascota);
-
-        response.redirect("/mensaje/Se ha registrado a su mascota y a su contacto!");}
+        GeneradorQR.generar(idMascotaNueva);
+        response.redirect("/mostrarQR/" + idMascotaNueva);}
 
         catch (Exception e){
         response.redirect("/mensaje/Error al registrar mascota: " + e);
