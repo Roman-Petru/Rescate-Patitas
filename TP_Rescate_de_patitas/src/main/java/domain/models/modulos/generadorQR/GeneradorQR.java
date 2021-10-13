@@ -9,7 +9,7 @@ import com.google.zxing.common.BitMatrix;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-public class generadorQR {
+public class GeneradorQR {
 
     public static void generar(Integer mascotaID) {
         BitMatrix matrix;
@@ -17,7 +17,7 @@ public class generadorQR {
         {
             try {
                 String data = "http://localhost:9000/rescateConChapita/" + mascotaID;
-                String path = "./codigoQR" + mascotaID + ".jpg";
+                String path = "./src/main/resources/public/mostrarQR/codigoQR" + mascotaID + ".jpg";
 
                 matrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, 500, 500);
                 MatrixToImageWriter.writeToPath(matrix, "jpg", Paths.get(path));

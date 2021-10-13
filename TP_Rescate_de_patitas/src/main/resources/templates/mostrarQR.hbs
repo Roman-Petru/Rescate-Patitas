@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Rescate de Patitas</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#home">Home</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Organización <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Publicaciones</a></li>
+                    <li><a href="#">Quiero ser voluntario</a></li>
+                    <li><a href="adoptarMascota">Adoptar Mascota</a></li>
+                    <li><a href="#"></a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Mis Animales <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="preRegistrarMascota">Registrar Mascota</a></li>
+                    <li><a href="#">Buscar Hogar</a></li>
+                    <li><a href="#">Dar en adopción</a></li>
+                    <li><a href="#"></a></li>
+                </ul>
+            </li>
+            <li><a href="#">Mis mascotas</a></li>
+            <li><a href="#">Animalitos</a></li>
+            {{#if admin}}
+                <li><a href="usuarios">Usuarios</a></li>
+            {{/if}}
+
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {{#if usuario}}
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> ¡Hola {{usuario.usuario}}!</a> </li>>
+                <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span>Cerrar sesión</a></li>
+            {{else}}
+                <li><a href="registrarUsuario"><span class="glyphicon glyphicon-user"></span> Quiero registrarme</a></li>
+                <li><a href="login"><span class="glyphicon glyphicon-log-in"></span>Ingresar</a></li>
+            {{/if}}
+
+        </ul>
+    </div>
+</nav>
+<main class="px-3">
+
+    <br><br><br>
+    <h1></h1>
+    <p class="lead">Guardar el QR generado para ser notificado por rescatista en caso de pérdida!</p>
+    <br><br><br>
+    <img src="codigoQR{{numeroCodigo}}.jpg" alt="codigo QR {{numeroCodigo}}">
+    <p class="lead">
+        <a href="/" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Volver al home</a>
+    </p>
+</main>
