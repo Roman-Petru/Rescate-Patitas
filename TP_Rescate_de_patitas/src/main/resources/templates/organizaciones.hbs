@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/27517fada0.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="/js/generales.js"></script>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/usuarios.estilos.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
     <title>Organizaciones</title>
 </head>
 <body id="body">
@@ -22,7 +22,9 @@
 <div class="main_container">
     <h1 class="encabezado"><i class="fas fa-users"></i> Organizaciones</h1>
     <input type="text" name="" value="" placeholder="Buscar" id="inputUsuario">
-    <a href="/registrarVoluntario" class="btn-border-blue fuente"><i class="fas fa-user-plus" style="margin-bottom:25px;"></i> Quiero ser Voluntario</a>
+    <a href="/registrarVoluntario" class="btn-border-blue fuente"><i class="fas fa-user-plus"
+                                                                     style="margin-bottom:25px;"></i> Registrar
+        voluntario</a>
     <table class="tabla" id="tabla">
         <thead>
         <th><i class="fas fa-user"></i> Nombre</th>
@@ -30,18 +32,27 @@
         <th><i class="fas fa-tools"></i> Acciones</th>
         </thead>
         <tbody>
-
         {{#each organizaciones}}
             <tr>
                 <td>{{nombre}}</td>
-                <td>{{direccion}}</td>
+                <td>{{ubicacion.direccion}}</td>
                 <td>
-                    &lt;!&ndash;<a href="/usuario/{{id}}" name="button" style="margin:0px;" class="btn btn-border btn-border-blue" ><i class="far fa-eye"></i></a>&ndash;&gt;
-                    &lt;!&ndash;<a href="/organizacion/{{id}}" name="button" class=" btn btn-edit"><i class="fas fa-user-edit"></i></a>&ndash;&gt;
-                    <button type="button" name="button" class="btn" onclick="publicaciones('{{id}}')">Publicaciones</button>
-                    <button type="button" name="button" class="btn" onclick="voluntarios('{{id}}')">Voluntarios</button>
-                    <button type="button" name="button" class="btn" onclick="personas('{{id}}')">Personas</button>
-                    <button type="button" name="button" class="btn" onclick="confirmarEliminacion('{{id}}')"><i class="fas fa-trash"></i></button>
+                    <a href="/usuario/{{id}}" name="btn" style="margin:0px;"
+                       class="btn btn-border btn-border-blue"><i class="far fa-eye"></i></a>
+                    <a href="/organizacion/{{id}}" name="btn" class="btn btn-edit"><i
+                            class="fas fa-user-edit"></i></a>
+                    <button type="button" name="button" class="btn" style="width:115px;"
+                            onclick="publicaciones('{{id}}')">Publicaciones
+                    </button>
+                    <button type="button" name="button" class="btn" style="width:100px;"
+                            onclick="voluntarios('{{id}}')">Voluntarios
+                    </button>
+                    <button type="button" name="button" class="btn" style="width:90px;" onclick="personas('{{id}}')">
+                        Personas
+                    </button>
+                    <button type="button" name="button" class="btn" style="width:40px;"
+                            onclick="confirmarEliminacion('{{id}}')"><i
+                            class="fas fa-trash"></i></button>
                 </td>
             </tr>
         {{/each}}
@@ -56,7 +67,8 @@
     <div class="modalContent">
         <input id="userId" type="hidden" value="">
         <p>¿Desea eliminar el usuario?</p>
-        <button type="button" name="button" class="btn-close-modal" onclick="cerrarModal()" ><i class="fas fa-times-circle"></i></button>
+        <button type="button" name="button" class="btn-close-modal" onclick="cerrarModal()"><i
+                class="fas fa-times-circle"></i></button>
         <br>
         <div class="">
             <button type="button" name="button" class="btn-rojo" onclick="eliminarUsuario()">Eliminar</button>

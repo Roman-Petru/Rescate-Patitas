@@ -1,9 +1,10 @@
 package domain.models.entities.entidadesGenerales.organizacion;
+
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
-import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.utils.Ubicacion;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,47 +23,50 @@ import java.util.List;
 
 @Entity
 @Table(name = "organizacion")
-@Getter @Setter
+@Getter
+@Setter
 public class Organizacion extends Persistente {
 
     @Column
     private String nombre;
 
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name="ubicacion_id")
+    @JoinColumn(name = "ubicacion_id")
     private Ubicacion ubicacion;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
-        name = "voluntario",
-        joinColumns = @JoinColumn(name = "organizacion_id"),
-        inverseJoinColumns = @JoinColumn(name = "usuario_id")
+            name = "voluntario",
+            joinColumns = @JoinColumn(name = "organizacion_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
     private List<Usuario> voluntarios;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
-        name = "postulante",
-        joinColumns = @JoinColumn(name = "organizacion_id"),
-        inverseJoinColumns = @JoinColumn(name = "usuario_id")
+            name = "postulante",
+            joinColumns = @JoinColumn(name = "organizacion_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
     private List<Usuario> postulanteVoluntarios;
 
-    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<FormularioMascota> formulariosPendientes;
 
-    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Cuestionario> cuestionarios;
 
-    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<PublicacionMascotaPerdida> publicaciones;
 
-    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<PublicacionDarAdopcion> publicacionesAdopcion;
 
-    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<PublicacionInteresAdopcion> publicacionInteresAdopcion;
 
+    public Organizacion() {
+    }
 
     public Organizacion(String nombre, Ubicacion ubicacion) {
         this.nombre = nombre;
@@ -79,6 +83,7 @@ public class Organizacion extends Persistente {
     public void agregarFormulario(FormularioMascota formularioMascota) {
         this.formulariosPendientes.add(formularioMascota);
     }
+
     public void agregarPublicacion(PublicacionMascotaPerdida publicacion) {
         this.publicaciones.add(publicacion);
     }
@@ -95,7 +100,7 @@ public class Organizacion extends Persistente {
         this.cuestionarios.add(cuestionario);
     }
 
-    public void postularseVoluntario (Usuario postulanteVoluntario){
+    public void postularseVoluntario(Usuario postulanteVoluntario) {
         this.postulanteVoluntarios.add(postulanteVoluntario);
     }
 
@@ -108,31 +113,12 @@ public class Organizacion extends Persistente {
         voluntarios.add(voluntario);
     }*/
 
-    public void agregarVoluntario(Usuario voluntario){
+    public void agregarVoluntario(Usuario voluntario) {
         this.voluntarios.add(voluntario);
     }
 
     public boolean esVoluntarioDeOrg(Usuario usuario) {
         return this.voluntarios.contains(usuario);
-    }
-
-
-    @Getter @Setter
-    public static class OrganizacionDTO {
-        private Integer id;
-        private String nombre;
-        private Ubicacion ubicacion;
-        private List<Usuario> voluntarios ;
-        private List<PublicacionMascotaPerdida> publicaciones;
-        private List<FormularioMascota> formulariosPendientes;
-        private List<Usuario> postulanteVoluntarios ;
-        private List<Cuestionario> cuestionarios ;
-        private List<PublicacionDarAdopcion> publicacionesAdopcion ;
-        private List<PublicacionInteresAdopcion> publicacionInteresAdopcion;
-
-        public OrganizacionDTO() {
-
-        }
     }
 
     public Organizacion.OrganizacionDTO toDTO() {
@@ -148,6 +134,25 @@ public class Organizacion extends Persistente {
         dto.publicacionesAdopcion = this.getPublicacionesAdopcion();
         dto.publicacionInteresAdopcion = this.getPublicacionInteresAdopcion();
         return dto;
+    }
+
+    @Getter
+    @Setter
+    public static class OrganizacionDTO {
+        private Integer id;
+        private String nombre;
+        private Ubicacion ubicacion;
+        private List<Usuario> voluntarios;
+        private List<PublicacionMascotaPerdida> publicaciones;
+        private List<FormularioMascota> formulariosPendientes;
+        private List<Usuario> postulanteVoluntarios;
+        private List<Cuestionario> cuestionarios;
+        private List<PublicacionDarAdopcion> publicacionesAdopcion;
+        private List<PublicacionInteresAdopcion> publicacionInteresAdopcion;
+
+        public OrganizacionDTO() {
+
+        }
     }
 
 }

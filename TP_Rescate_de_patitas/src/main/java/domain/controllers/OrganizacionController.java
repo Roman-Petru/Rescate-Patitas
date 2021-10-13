@@ -134,8 +134,8 @@ public class OrganizacionController {
 
     public ModelAndView pantallaOrganizaciones(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        List<Usuario> usuarios = UsuarioController.getInstancia().listarTodos();
-        parametros.put("usuarios", usuarios);
+        List<Organizacion> organizaciones = OrganizacionController.getInstancia().listarTodos();
+        parametros.put("organizaciones", organizaciones);
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
 
         return new ModelAndView(parametros,"organizaciones.hbs");
