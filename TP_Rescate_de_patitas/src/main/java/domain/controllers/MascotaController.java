@@ -61,17 +61,24 @@ public class MascotaController {
     }
 
     public ModelAndView registrarMascota(Request request, Response response){
+        try {
         String dniPersona = request.params("dni");
         Map<String, Object> parametros = new HashMap<>();
         if(!dniPersona.isEmpty() && dniPersona != null && !dniPersona.equals("0")) {
             DatosDePersona persona =PersonaController.getInstancia().buscarPersonaporDNI(dniPersona);
             parametros.put("persona", persona);
         }
-        return new ModelAndView(parametros,"registrarMascota.hbs");
+        return new ModelAndView(parametros,"registrarMascota.hbs");}
+
+        catch  (Exception e) {
+            Map<String, Object> parametros = new HashMap<>();
+            return new ModelAndView(parametros, "/mensaje/Error: " + e);
+        }
     }
 
 
     public Response registrarMascotayContacto(Request request, Response response){
+        try {
         Integer personaId = new Integer(request.params("id"));
         DatosDePersona persona = PersonaController.getInstancia().buscarPersonaporID(personaId);
 
@@ -107,8 +114,14 @@ public class MascotaController {
 
         DuenioMascotaController.getInstancia().agregarMascota(persona, mascota);
 
-        response.redirect("/");
-        return response;
+        response.redirect("/mensaje/Se ha registrado a su mascota y a su contacto!");}
+
+        catch (Exception e){
+        response.redirect("/mensaje/Error al registrar mascota: " + e);
+        }
+        finally {
+            return response;
+        }
     }
 
 

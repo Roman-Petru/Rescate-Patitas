@@ -92,10 +92,7 @@ public class PersonaController {
             response.redirect("/");
         }
         catch (Exception e){
-            //todo cambiar a pantalla de error
-            System.out.println("Error al registrar persona: " + e);
-
-            response.redirect("/");
+            response.redirect("/mensaje/Error al registrar persona: " + e);
         }
         finally {
             return response;
