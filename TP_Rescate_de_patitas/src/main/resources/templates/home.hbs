@@ -12,69 +12,13 @@
 
 {{> nav.hbs}}
 
-<div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade in active" id="home">
-        <style>
-            body {
-                background-image: url('images/home.png');
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: 100% 80%;
-            }
-        </style>
+{{#if usuarioLogueado}}
+    <div class="col-sm-12">
+        <h1 class="text-center text-black" style="margin-top: 25px; margin-bottom: 25px;">Bienvenido al Sistema!</h1>
     </div>
-    <div role="tabpanel" class="tab-pane" id="registroMascota">
-        <form>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inputEmail4">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="inputPassword4">Password</label>
-                    <input type="password" class="form-control" id="inputPassword4">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputAddress">Address</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-            </div>
-            <div class="form-group">
-                <label for="inputAddress2">Address 2</label>
-                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inputCity">City</label>
-                    <input type="text" class="form-control" id="inputCity">
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="inputState">State</label>
-                    <select id="inputState" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>...</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputZip">Zip</label>
-                    <input type="text" class="form-control" id="inputZip">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
-                        Check me out
-                    </label>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Sign in</button>
-        </form>
-    </div>
-    <div role="tabpanel" class="tab-pane fade" id="references">ccc</div>
-</div>
-
+    <img src="images/login.png" class="img-responsive center-block" style="width: 70%" />
+{{else}}
+    <img src="images/home.png" class="img-responsive center-block" style="width: 65%" />
+{{/if}}
 </body>
 </html>

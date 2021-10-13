@@ -14,20 +14,12 @@
                 </li>
             {{/if}}
             <li><a href="organizaciones">Organizaciones</a></li>
-            <!--            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Organización <span class="caret"></span></a>-->
-            <!--                <ul class="dropdown-menu">-->
-            <!--                    <li><a href="#">Listado</a></li>-->
-            <!--                    <li><a href="#">Publicaciones</a></li>-->
-            <!--                    <li><a href="#">Quiero ser voluntario</a></li>-->
-            <!--                    <li><a href="adoptarMascota">Adoptar Mascota</a></li>-->
-            <!--                </ul>-->
-            <!--            </li>-->
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Mascotas<span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="registrarMascota">Registrar Mascota</a></li>
-                    <li><a href="#">Buscar Hogar</a></li>
-                    <li><a href="#">Dar en adopción</a></li>
+                <!--<li><a href="registrarMascota">Registrar Mascota</a></li>-->
+                    <li><a href="buscarHogar">Buscar Hogar</a></li>
+                    <li><a href="darEnAdopcion">Dar en adopción</a></li>
                 </ul>
             </li>
             <li><a href="adoptarMascota">Adoptar Mascota</a></li>
@@ -36,7 +28,6 @@
             {{#if usuarioLogueado}}
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> ¡Hola {{usuarioLogueado.usuario}}!</a>
                 </li>
-                >
                 <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Salir</a></li>
             {{else}}
                 <li><a href="registrarUsuario"><span class="glyphicon glyphicon-user"></span> Registrarse</a></li>
