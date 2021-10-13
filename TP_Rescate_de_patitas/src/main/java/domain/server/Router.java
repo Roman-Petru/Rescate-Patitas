@@ -44,7 +44,7 @@ public class Router {
         Spark.get("/usuario/:id",UsuarioController.getInstancia()::pantallaModificar, Router.engine);
         Spark.post("/usuario/:id", UsuarioController.getInstancia()::modificarUsuario);
         Spark.post("/registrar", UsuarioController.getInstancia()::registrar);
-        Spark.get("/voluntarios/:id", UsuarioController.getInstancia()::pantallaVoluntarios, Router.engine);
+        Spark.get("/voluntarios/:id", UsuarioController.getInstancia()::pantallaVoluntariosDeOrganizacion, Router.engine);
 
         //=============================================ORGANIZACION=================================================================================//
         Spark.get("/organizaciones", OrganizacionController.getInstancia()::pantallaOrganizaciones, Router.engine);

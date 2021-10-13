@@ -42,7 +42,7 @@ public class RepositorioUsuarios extends RepositorioGenerico<Usuario>{
         return RepositorioGenerico.get_manager().createQuery("SELECT u FROM Usuario u", Usuario.class).getResultList();
     }
 
-    public List<Usuario> buscarTodosVoluntarios() {
-        return RepositorioGenerico.get_manager().createQuery("SELECT u FROM Usuario u WHERE u.permiso LIKE '%VOL%'", Usuario.class).getResultList();
+    public List<Usuario> buscarTodosVoluntariosDeOrganizacion(Integer organizacionId) {
+        return RepositorioGenerico.get_manager().createQuery("SELECT o.voluntarios FROM Organizacion o WHERE o.id = '" + organizacionId + "'", Usuario.class).getResultList();
     }
 }

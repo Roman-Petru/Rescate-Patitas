@@ -75,8 +75,8 @@ public class UsuarioController {
         return repositorio.buscarTodos();
     }
 
-    public List<Usuario> listarTodosVoluntarios() {
-        return repositorio.buscarTodosVoluntarios();
+    public List<Usuario> listarTodosVoluntariosDeOrganizacion(Integer organizacionId) {
+        return repositorio.buscarTodosVoluntariosDeOrganizacion(organizacionId);
     }
 
     public Usuario buscarUsuarioPorID(Integer id) {
@@ -172,10 +172,10 @@ public class UsuarioController {
         return new ModelAndView(parametros, "home.hbs");
     }
 
-    public ModelAndView pantallaVoluntarios(Request request, Response response) {
+    public ModelAndView pantallaVoluntariosDeOrganizacion(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         if (this.esAdminLogeado(request)) {
-            List<Usuario> voluntarios = this.listarTodosVoluntarios();
+            List<Usuario> voluntarios = this.listarTodosVoluntariosDeOrganizacion(Integer.valueOf(request.params("id")));
             parametros.put("voluntarios", voluntarios);
             Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
             return new ModelAndView(parametros, "voluntarios.hbs");
