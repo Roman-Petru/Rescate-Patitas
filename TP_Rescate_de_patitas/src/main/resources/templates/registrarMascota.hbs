@@ -125,9 +125,21 @@
                     <br>
                     <div class="form-row">
                         <label for="exampleFormControlTextarea1">Descripcion</label>
-                        <textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea class="form-control" name="descripcionFisica" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                     <br>
+
+                {{#each caracteristicas}}
+
+                       <br>
+                        <div class="form-row">
+                            <label for="nombreMascota">{{descripcion}}</label>
+                            <input type="text" class="form-control" name="{{descripcion}}" id="{{descripcion}}">
+                        </div>
+
+                {{/each}}
+                <br>
+
                     <div>
                         <div class="custom-file">
                             <label class="custom-file-label" for="customFile">Subir imagen</label>

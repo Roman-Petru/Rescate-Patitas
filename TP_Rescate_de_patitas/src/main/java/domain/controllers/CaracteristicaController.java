@@ -1,8 +1,18 @@
 package domain.controllers;
 
+import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
+import domain.models.entities.entidadesGenerales.usuarios.Usuario;
+import domain.models.entities.enums.DescripcionPermiso;
 import domain.models.repositories.RepositorioCaracteristicas;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class CaracteristicaController {
@@ -42,4 +52,18 @@ public class CaracteristicaController {
     }
 
 
-}
+    public ModelAndView agregarCaracteristicaPantalla(Request request, Response response) {
+
+        Map<String, Object> parametros = new HashMap<>();
+        return new ModelAndView(parametros, "agregarCaracteristica.hbs");
+
+    }
+
+    public Response agregarCaracteristicaPost(Request request, Response response) {
+        CaracteristicaGeneral caracteristicaGeneral = new CaracteristicaGeneral(request.queryParams("caracteristica"));
+        this.agregar(caracteristicaGeneral.toDTO());
+        response.redirect("/mensaje/Caracteristica agregada con exito");
+        return response;
+    }
+
+    }
