@@ -129,13 +129,11 @@ public class UsuarioController {
             Usuario usuario = new Usuario(nombreDeUsuario, contrasenia);
 
             this.agregarUsuario(usuario.toDTO());
-            response.redirect("/");
+            response.redirect("/mensaje/Se registro usuario correctamente");
         }
         catch (Exception e){
             //todo cambiar a pantalla de error
-            System.out.println("Error al registrar usuario: " + e);
-
-            response.redirect("/");
+            response.redirect("/mensaje/Error al registrar usuario: " + e);
         }
         finally {
             return response;

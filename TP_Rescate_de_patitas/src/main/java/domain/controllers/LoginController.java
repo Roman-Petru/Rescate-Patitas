@@ -25,6 +25,15 @@ public class LoginController {
         return new ModelAndView(parametros,"home.hbs");
     }
 
+
+    public ModelAndView mensaje(Request request, Response response){
+        Map<String, Object> parametros = new HashMap<>();
+        UsuarioController.getInstancia().asignarUsuarioSiEstaLogueado(request, parametros);
+        String mensaje = request.params("mensaje");
+        parametros.put("mensaje", mensaje);
+        return new ModelAndView(parametros,"mensaje.hbs");
+    }
+
     public ModelAndView ingresoLogin(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
         return new ModelAndView(parametros,"login.hbs");
@@ -43,14 +52,11 @@ public class LoginController {
                 response.redirect("/");
             }
             else{
-                //todo cambiar a una pantalla de error
-                response.redirect("/");
+                response.redirect("/mensaje/Password incorrecto");
             }
         }
         catch (Exception e){
-            //Funcionalidad disponible solo con persistencia en Base de Datos
-            System.out.println("Error al logear usuario: " + e);
-            response.redirect("/");
+            response.redirect("/mensaje/Error al loguar usuario: " + e);
         }
         finally {
             return response;

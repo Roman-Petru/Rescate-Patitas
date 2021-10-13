@@ -33,6 +33,7 @@ public class Router {
         Spark.get("/login", LoginController.getInstancia()::ingresoLogin, Router.engine);
         Spark.post("/login", LoginController.getInstancia()::login);
         Spark.get("/logout", LoginController.getInstancia()::logout);
+        Spark.get("/mensaje/:mensaje", LoginController.getInstancia()::mensaje, Router.engine);
 
         //=============================================MASCOTA=================================================================================//
         Spark.get("/preRegistrarMascota", MascotaController.getInstancia()::preRegistrarMascota, Router.engine);
