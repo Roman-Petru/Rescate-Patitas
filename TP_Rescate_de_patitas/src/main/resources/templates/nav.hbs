@@ -1,12 +1,13 @@
 <nav class="navbar navbar-inverse" style="border-radius: 0px !important;">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="">Rescate de Patitas</a>
+            <a class="navbar-brand" href="/">Rescate de Patitas</a>
         </div>
         <ul class="nav navbar-nav">
 
             {{#if esAdmin}}
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Administración <span class="caret"></span></a>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Administración <span
+                        class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="usuarios">Usuarios</a></li>
                     </ul>
@@ -21,7 +22,8 @@
             <!--                    <li><a href="adoptarMascota">Adoptar Mascota</a></li>-->
             <!--                </ul>-->
             <!--            </li>-->
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Mascotas<span class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Mascotas<span
+                    class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="registrarMascota">Registrar Mascota</a></li>
                     <li><a href="#">Buscar Hogar</a></li>
@@ -32,7 +34,9 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             {{#if usuarioLogueado}}
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> ¡Hola {{usuarioLogueado.usuario}}!</a> </li>>
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> ¡Hola {{usuarioLogueado.usuario}}!</a>
+                </li>
+                >
                 <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Salir</a></li>
             {{else}}
                 <li><a href="registrarUsuario"><span class="glyphicon glyphicon-user"></span> Registrarse</a></li>

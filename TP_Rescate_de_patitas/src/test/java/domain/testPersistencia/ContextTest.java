@@ -8,10 +8,13 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 public class ContextTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
     @Test
-    public void contextUp(){Assert.assertNotNull(entityManager());}
+    public void contextUp() {
+        Assert.assertNotNull(entityManager());
+    }
 
     @Test
-    public void contextUpWithTransaction() throws Exception{
-        withTransaction(()->{});
+    public void contextUpWithTransaction() throws Exception {
+        withTransaction(() -> {
+        });
     }
 }
