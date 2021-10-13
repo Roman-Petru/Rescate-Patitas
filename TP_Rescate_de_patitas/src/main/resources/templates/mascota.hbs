@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/generales.js"></script>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/usuarios.estilos.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Mascota</title>
+</head>
+<body>
+
+{{> nav.hbs}}
+
+<div class="main_container">
+
+    <div class="contenedor-carta-usuario">
+        <div class="carta-usuario">
+            <form class="" action="/mascota/{{id}}" method="post" style="">
+
+                <div class="form-cargar-usuario">
+
+                    <div class="" style="margin:40px;">
+
+                        <label><i class="fas fa-user"></i> Mascota</label>
+                        <br>
+                        <br>
+                        <label><i class="fas fa-file-signature"></i> Apodo</label>
+                        <br>
+                        <input type="text" name="apodo" class="input-datos" placeholder="Apodo" value="{{mascota.nombre}}">
+                        <br>
+                        <br>
+                        <label><i class="fas fa-file-signature"></i> Edad aproximada</label>
+                        <br>
+                        <input type="text" name="edadAproximada" class="input-datos" placeholder="Edad aproximada" value="{{mascota.edadAproximada}}">
+                        <br>
+                        <br>
+                        <label><i class="fas fa-file-signature"></i> Descripcion física</label>
+                        <br>
+                        <input type="text" name="descripcionFisica" class="input-datos" placeholder="Descripcion física" value="{{mascota.descripcionFisica}}">
+                        <br>
+
+                    </div>
+                </div>
+                <input type="submit" name="" class="btn-verde" style="float:right;" value="Guardar cambios">
+                <a href="/organizaciones" class="btn-border-blue" style="">Volver</a>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

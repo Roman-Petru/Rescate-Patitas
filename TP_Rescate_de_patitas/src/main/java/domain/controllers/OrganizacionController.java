@@ -8,6 +8,8 @@ import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteres
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
+import domain.models.entities.enums.DescripcionPermiso;
+import domain.models.entities.enums.Permiso;
 import domain.models.entities.utils.DistanciaEntreDosPuntos;
 import domain.models.repositories.RepositorioOrganizaciones;
 
@@ -139,5 +141,13 @@ public class OrganizacionController {
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
 
         return new ModelAndView(parametros,"organizaciones.hbs");
+    }
+
+    public ModelAndView pantallaModificar(Request request, Response response) {
+        Organizacion organizacion = this.buscarOrganizacionPorID(Integer.valueOf(request.params("id")));
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("organizacion", organizacion);
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        return new ModelAndView(parametros, "organizacion.hbs");
     }
 }

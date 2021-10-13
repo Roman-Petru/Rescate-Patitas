@@ -13,43 +13,27 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>Organizaciones</title>
+    <title>Voluntarios</title>
 </head>
 <body id="body">
 
 {{> nav.hbs}}
 
 <div class="main_container">
-    <h1 class="encabezado"><i class="fas fa-users"></i> Organizaciones</h1>
+    <h1 class="encabezado"><i class="fas fa-users"></i> Voluntarios</h1>
     <input type="text" name="" value="" placeholder="Buscar" id="inputUsuario">
-    <a href="/registrarVoluntario" class="btn-border-blue fuente">
-        <i class="fas fa-user-plus" style="margin-bottom:25px;"></i> Registrar voluntario
-    </a>
+    <a href="#" class="btn-border-blue fuente"><i class="fas fa-user-plus"
+                                                  style="margin-bottom:25px;"></i> Registrar voluntario</a>
     <table class="tabla" id="tabla">
         <thead>
-        <th>Nombre</th>
-        <th>Dirección</th>
-        <th><i class="fas fa-tools"></i> Acciones</th>
+        <th><i class="fas fa-user"></i> Nombre</th>
+        <th><i class="fas fa-user-cog"></i> Permiso</th>
         </thead>
         <tbody>
-        {{#each organizaciones}}
+        {{#each voluntarios}}
             <tr>
-                <td>{{nombre}}</td>
-                <td>{{ubicacion.direccion}}</td>
-                <td>
-                    <a href="/usuario/{{id}}" name="btn" style="margin:0px;"
-                       class="btn btn-border btn-border-blue"><i class="far fa-eye"></i></a>
-                    <a href="/organizacion/{{id}}" name="btn" class="btn btn-edit"><i
-                            class="fas fa-user-edit"></i></a>
-                    <a href="/publicaciones/{{id}}" name="button" class="btn" style="width:115px;">Publicaciones</a>
-                    <a href="/voluntarios/{{id}}" name="button" class="btn" style="width:100px;">Voluntarios</a>
-                    <button type="button" name="button" class="btn" style="width:90px;" onclick="personas('{{id}}')">
-                        Personas
-                    </button>
-                    <button type="button" name="button" class="btn" style="width:40px;"
-                            onclick="confirmarEliminacion('{{id}}')"><i
-                            class="fas fa-trash"></i></button>
-                </td>
+                <td>{{usuario}}</td>
+                <td>{{permiso}}</td>
             </tr>
         {{/each}}
         </tbody>

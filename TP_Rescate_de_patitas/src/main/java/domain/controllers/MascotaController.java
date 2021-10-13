@@ -3,11 +3,15 @@ package domain.controllers;
 import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
+import domain.models.entities.entidadesGenerales.usuarios.Usuario;
+import domain.models.entities.enums.DescripcionPermiso;
+import domain.models.entities.enums.Permiso;
 import domain.models.repositories.RepositorioMascotas;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,5 +77,24 @@ public class MascotaController {
         Map<String, Object> parametros = new HashMap<>();
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
         return new ModelAndView(parametros,"preRegistrarMascota.hbs");
+    }
+
+    public ModelAndView pantallaModificar(Request request, Response response) {
+        Mascota mascota = this.buscarMascotaPorID(Integer.valueOf(request.params("id")));
+        List<DescripcionPermiso> permisos = new ArrayList<>();
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("mascota", mascota);
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        return new ModelAndView(parametros, "mascota.hbs");
+    }
+
+    public Response modificarMascota(Request request, Response response) {
+        Mascota mascota = this.buscarMascotaPorID(Integer.valueOf(request.params("id")));
+        mascota.setApodo(request.queryParams("apodo"));
+        mascota.setEdadAproximada(Integer.valueOf(request.queryParams("edadAproximada")));
+        mascota.setDescripcionFisica(request.queryParams("descripcionFisica"));
+        this.modificar(mascota.getId(), mascota.toDTO());
+        response.redirect("/mascotas");
+        return response;
     }
 }

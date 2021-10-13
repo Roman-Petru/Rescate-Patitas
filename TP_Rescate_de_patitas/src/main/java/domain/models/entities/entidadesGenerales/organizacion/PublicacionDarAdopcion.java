@@ -43,6 +43,9 @@ public class PublicacionDarAdopcion extends Persistente {
     @JoinColumn(name="organizacion_id" , referencedColumnName = "id")
     private Organizacion organizacion;
 
+    public PublicacionDarAdopcion() {
+    }
+
     public PublicacionDarAdopcion(Mascota mascota) {
         this.mascota = mascota;
         this.respuestasAdopcion = new ArrayList<>();

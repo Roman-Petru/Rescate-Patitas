@@ -75,6 +75,10 @@ public class UsuarioController {
         return repositorio.buscarTodos();
     }
 
+    public List<Usuario> listarTodosVoluntarios() {
+        return repositorio.buscarTodosVoluntarios();
+    }
+
     public Usuario buscarUsuarioPorID(Integer id) {
         return repositorio.buscar(id);
     }
@@ -149,7 +153,7 @@ public class UsuarioController {
 //        }
 //    }
 
-    public Boolean EsAdminLogeado(Request request) {
+    public Boolean esAdminLogeado(Request request) {
         if (!request.session().isNew() && request.session().attribute("id") != null) {
             Usuario usuario = this.buscarUsuarioPorID(request.session().attribute("id"));
             return usuario.EsAdmin();
@@ -159,11 +163,22 @@ public class UsuarioController {
 
     public ModelAndView pantallaUsuarios(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        if (this.EsAdminLogeado(request)) {
+        if (this.esAdminLogeado(request)) {
             List<Usuario> usuarios = this.listarTodos();
             parametros.put("usuarios", usuarios);
             Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
             return new ModelAndView(parametros, "usuarios.hbs");
+        }
+        return new ModelAndView(parametros, "home.hbs");
+    }
+
+    public ModelAndView pantallaVoluntarios(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        if (this.esAdminLogeado(request)) {
+            List<Usuario> voluntarios = this.listarTodosVoluntarios();
+            parametros.put("voluntarios", voluntarios);
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+            return new ModelAndView(parametros, "voluntarios.hbs");
         }
         return new ModelAndView(parametros, "home.hbs");
     }

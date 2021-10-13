@@ -1,10 +1,6 @@
 package domain.server;
 
-import domain.controllers.LoginController;
-import domain.controllers.MascotaController;
-import domain.controllers.OrganizacionController;
-import domain.controllers.PublicacionInteresAdopcionController;
-import domain.controllers.UsuarioController;
+import domain.controllers.*;
 import domain.spark.utils.BooleanHelper;
 import domain.spark.utils.HandlebarsTemplateEngineBuilder;
 import spark.Spark;
@@ -39,6 +35,8 @@ public class Router {
         Spark.get("/registrarMascota/:dni", MascotaController.getInstancia()::registrarMascota, Router.engine);
         Spark.post("/validarPersona", MascotaController.getInstancia()::validarPersona);
         Spark.get("/adoptarMascota", PublicacionInteresAdopcionController.getInstancia()::adoptarMascota, Router.engine);
+        Spark.get("/mascota/:id",MascotaController.getInstancia()::pantallaModificar, Router.engine);
+        Spark.post("/mascota/:id", MascotaController.getInstancia()::modificarMascota);
 
         //=============================================USUARIOS=================================================================================//
         Spark.get("/usuarios", UsuarioController.getInstancia()::pantallaUsuarios, Router.engine);
@@ -46,8 +44,14 @@ public class Router {
         Spark.get("/usuario/:id",UsuarioController.getInstancia()::pantallaModificar, Router.engine);
         Spark.post("/usuario/:id", UsuarioController.getInstancia()::modificarUsuario);
         Spark.post("/registrar", UsuarioController.getInstancia()::registrar);
+        Spark.get("/voluntarios/:id", UsuarioController.getInstancia()::pantallaVoluntarios, Router.engine);
 
         //=============================================ORGANIZACION=================================================================================//
         Spark.get("/organizaciones", OrganizacionController.getInstancia()::pantallaOrganizaciones, Router.engine);
+        Spark.get("/organizacion/:id", OrganizacionController.getInstancia()::pantallaModificar, Router.engine);
+
+        //=============================================PUBLICACION=================================================================================//
+        Spark.get("/publicaciones/:id", PublicacionAdopcionController.getInstancia()::pantallaPublicacionesDeOrganizacion, Router.engine);
+
     }
 }

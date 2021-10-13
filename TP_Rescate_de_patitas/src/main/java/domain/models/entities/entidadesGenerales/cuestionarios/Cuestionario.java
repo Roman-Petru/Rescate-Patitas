@@ -1,6 +1,5 @@
 package domain.models.entities.entidadesGenerales.cuestionarios;
 
-import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import java.util.List;
@@ -17,7 +16,7 @@ public class Cuestionario extends Persistente {
     @Column
     private String descripcion;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @OneToMany(fetch= FetchType.LAZY)
     @JoinColumn(name="cuestionario_id" , referencedColumnName = "id")
     private List<PreguntaAdopcion> preguntas;
 

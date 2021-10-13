@@ -4,9 +4,14 @@ import domain.models.entities.entidadesGenerales.cuestionarios.RespuestaAdopcion
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.repositories.RepositorioPublicacionAdopcion;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class PublicacionAdopcionController {
@@ -28,6 +33,10 @@ public class PublicacionAdopcionController {
             lista_adopcion.addAll(OrganizacionController.getInstancia().buscarPublicacionAdopcionDeOrganizacion(organizacion.getId()));
 
         return lista_adopcion;
+    }
+
+    public List<PublicacionDarAdopcion> listarTodosDeOrganizacion(Integer organizacionId){
+        return OrganizacionController.getInstancia().buscarPublicacionAdopcionDeOrganizacion(organizacionId);
     }
 
     public void agregarPublicacionAdopcion(PublicacionDarAdopcion.PublicacionAdopcionDTO dto, Integer organizacionID, RespuestaAdopcion... respuestas) {
@@ -58,5 +67,14 @@ public class PublicacionAdopcionController {
 
     public void eliminar(Integer id) {
         //TODO
+    }
+
+    public ModelAndView pantallaPublicacionesDeOrganizacion(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        List<PublicacionDarAdopcion> publicaciones = PublicacionAdopcionController.getInstancia().listarTodosDeOrganizacion(Integer.valueOf(request.params("id")));
+        parametros.put("publicaciones", publicaciones);
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+
+        return new ModelAndView(parametros,"publicaciones.hbs");
     }
 }

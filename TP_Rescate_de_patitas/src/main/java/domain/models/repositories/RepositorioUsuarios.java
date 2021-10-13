@@ -41,4 +41,8 @@ public class RepositorioUsuarios extends RepositorioGenerico<Usuario>{
     public List<Usuario> buscarTodos() {
         return RepositorioGenerico.get_manager().createQuery("SELECT u FROM Usuario u", Usuario.class).getResultList();
     }
+
+    public List<Usuario> buscarTodosVoluntarios() {
+        return RepositorioGenerico.get_manager().createQuery("SELECT u FROM Usuario u WHERE u.permiso LIKE '%VOL%'", Usuario.class).getResultList();
+    }
 }
