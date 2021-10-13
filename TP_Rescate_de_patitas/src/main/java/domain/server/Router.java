@@ -1,9 +1,6 @@
 package domain.server;
 
-import domain.controllers.LoginController;
-import domain.controllers.MascotaController;
-import domain.controllers.PublicacionInteresAdopcionController;
-import domain.controllers.UsuarioController;
+import domain.controllers.*;
 import domain.controllers.personas.PersonaController;
 import domain.controllers.personas.RescatistaController;
 import domain.spark.utils.BooleanHelper;
@@ -42,6 +39,9 @@ public class Router {
         Spark.post("/registrarMascota/registrarMascota/:id", MascotaController.getInstancia()::registrarMascotayContacto);
         Spark.post("/validarPersona", MascotaController.getInstancia()::validarPersona);
         Spark.get("/adoptarMascota", PublicacionInteresAdopcionController.getInstancia()::adoptarMascota, Router.engine);
+        Spark.get("/agregarCaracteristica", CaracteristicaController.getInstancia()::agregarCaracteristicaPantalla, Router.engine);
+        Spark.post("/agregarCaracteristica", CaracteristicaController.getInstancia()::agregarCaracteristicaPost);
+
         Spark.get("/mascota/:id",MascotaController.getInstancia()::pantallaModificar, Router.engine);
         Spark.post("/mascota/:id", MascotaController.getInstancia()::modificarMascota);
 

@@ -4,6 +4,8 @@ import domain.controllers.personas.DuenioMascotaController;
 import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Mascota;
+import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
+import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.enums.Animal;
@@ -66,6 +68,7 @@ public class MascotaController {
             DatosDePersona persona =PersonaController.getInstancia().buscarPersonaporDNI(dniPersona);
             parametros.put("persona", persona);
         }
+        parametros.put("caracteristicas", CaracteristicaController.getInstancia().listarTodos());
         return new ModelAndView(parametros,"registrarMascota.hbs");}
 
         catch  (Exception e) {
@@ -101,7 +104,12 @@ public class MascotaController {
         mascota.setNombre(request.queryParams("nombreMascota"));
         mascota.setApodo(request.queryParams("apodo"));
         mascota.setEdadAproximada(new Integer(request.queryParams("edad")));
-        mascota.setDescripcionFisica(request.queryParams("descripcion"));
+        mascota.setDescripcionFisica(request.queryParams("descripcionFisica"));
+
+        for (CaracteristicaGeneral caracteristicaGeneral:CaracteristicaController.getInstancia().listarTodos()) {
+            CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada(caracteristicaGeneral, request.queryParams(caracteristicaGeneral.getDescripcion()));
+            mascota.agregarCaracteristicaPersonalizada(caracteristicaPersonalizada);
+        }
 
         mascota.setTipo(Animal.getAnimalConInteger(new Integer(request.queryParams("tipo"))));
         mascota.setEsMacho(request.queryParams("sexo").equals("1"));
@@ -112,6 +120,8 @@ public class MascotaController {
             //TODO duplica el contacto al hacer merge
         Integer idMascotaNueva = DuenioMascotaController.getInstancia().agregarMascota(persona, mascota);
         GeneradorQR.generar(idMascotaNueva);
+
+
         response.redirect("/mostrarQR/" + idMascotaNueva);}
 
         catch (Exception e){

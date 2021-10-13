@@ -19,6 +19,8 @@ public class CaracteristicaGeneral extends Persistente {
     @Column
     private String descripcion;
 
+    public CaracteristicaGeneral() {}
+
     public CaracteristicaGeneral(String descripcion) {
         this.descripcion = descripcion;
     }
