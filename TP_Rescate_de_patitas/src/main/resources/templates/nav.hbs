@@ -23,6 +23,12 @@
                 </ul>
             </li>
             <li><a href="../adoptarMascota">Adoptar Mascota</a></li>
+            {{#if usuarioLogueado}}
+                <li><a href="../registrarMascota">Registrar Mascota</a></li>
+            {{else}}
+                <li><a href="../preRegistrarMascota">Registrar Mascota</a></li>
+            {{/if}}
+
         </ul>
         <ul class="nav navbar-nav navbar-right">
             {{#if usuarioLogueado}}

@@ -172,6 +172,11 @@ public class UsuarioController {
         return new ModelAndView(parametros, "home.hbs");
     }
 
+    public ModelAndView pantallaPersona(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        return new ModelAndView(parametros, "datosPersona.hbs");
+    }
+
     public ModelAndView pantallaVoluntariosDeOrganizacion(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         if (this.esAdminLogeado(request)) {
