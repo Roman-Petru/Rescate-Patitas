@@ -1,9 +1,12 @@
 package domain.testPersistencia;
 
 
+import domain.controllers.ContactoController;
 import domain.controllers.personas.PersonaController;
+import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.utils.Ubicacion;
+import domain.models.modulos.notificador.estrategias.EnvioViaMail;
 import org.junit.Test;
 
 import java.util.List;
@@ -57,4 +60,28 @@ public class RepositoriosConDB {
         List<DatosDePersona> personas = PersonaController.getInstancia().listarTodos();
         assertThat(personas.size(), is(3));
     }
+
+    @Test
+    public void testInsertContacto() {
+
+        Contacto contacto = new Contacto();
+        contacto.setNombre("asdasd");
+        contacto.setNotificacionEnString("1");
+
+
+        ContactoController.getInstancia().agregar(contacto.toDTO());
+
+        //assert
+    }
+
+
+    @Test
+    public void testRecuperarEstrategy() {
+
+        Contacto contacto = ContactoController.getInstancia().buscarContactoPorID(16);
+        System.out.printf(contacto.getNombre());
+        assertThat(contacto.getId(), is(16));
+    }
+
+
 }

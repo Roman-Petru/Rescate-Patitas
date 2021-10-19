@@ -1,6 +1,9 @@
 package domain.models.entities.entidadesGenerales;
 
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
+import domain.models.modulos.notificador.estrategias.EnvioViaMail;
+import domain.models.modulos.notificador.estrategias.EnvioViaSMS;
+import domain.models.modulos.notificador.estrategias.EnvioViaWhatsapp;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 
 import javax.persistence.*;
@@ -35,6 +38,13 @@ public class Contacto extends Persistente {
     @ElementCollection(targetClass = EstrategiaNotificacion.class)
     private List<EstrategiaNotificacion> notificadores;
 
+    @Column
+    private String notificacionEnString;
+
+    public Contacto(){
+        this.notificadores = new ArrayList<>();
+    }
+
     public Contacto(String nombre, String apellido, String telefono, String email, List<EstrategiaNotificacion> notificadores) {
         if (notificadores.isEmpty()) {
             this.notificadores = new ArrayList<>();
@@ -46,6 +56,15 @@ public class Contacto extends Persistente {
         this.notificadores = notificadores;
     }
 
+    public void agregarNotificadorConString(String nombre){
+        if (nombre.equals("1"))
+           notificadores.add(EnvioViaMail.instancia());
+        if (nombre.equals("2"))
+            notificadores.add(EnvioViaWhatsapp.instancia());
+        if (nombre.equals("3"))
+            notificadores.add(EnvioViaSMS.instancia());
+    }
+
     public Contacto.ContactoDTO toDTO() {
         Contacto.ContactoDTO dto = new Contacto.ContactoDTO();
         dto.id = this.getId();
@@ -55,6 +74,7 @@ public class Contacto extends Persistente {
         dto.email = this.getEmail();
         dto.datosDePersona = this.getDatosDePersona();
         dto.notificadores = this.getNotificadores();
+        dto.notificacionEnString = this.getNotificacionEnString();
         return dto;
     }
 
@@ -67,5 +87,6 @@ public class Contacto extends Persistente {
         private String email;
         private DatosDePersona datosDePersona;
         private List<EstrategiaNotificacion> notificadores;
+        private String notificacionEnString;
     }
 }

@@ -6,12 +6,16 @@ import domain.models.entities.entidadesGenerales.usuarios.BuilderUsuario;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.DescripcionPermiso;
 import domain.models.entities.enums.Permiso;
+import domain.models.entities.utils.PermisosDeAdmin;
+import domain.models.entities.validaciones.validacionesContrasenias.ValidadorDeContrasenia;
 import domain.models.modulos.resizer.NivelCalidad;
 import domain.models.modulos.resizer.Resizer;
 import domain.models.modulos.resizer.TamanioImagen;
 import domain.models.repositories.RepositorioUsuarios;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -57,6 +61,7 @@ public class UsuarioController {
         CaracteristicaController.getInstancia().agregar(dto);
     }
 
+
     public void modificarTamanioEstandarImagen(Usuario usuario, Resizer resizer, TamanioImagen tamanio) throws Exception {
         if (!usuario.tienePermisoPara(Permiso.USUARIO_ADMIN))
             throw new Exception("El usuario no puede modificar el tamaño estandar de la imagen");
@@ -68,6 +73,7 @@ public class UsuarioController {
             throw new Exception("El usuario no puede modificar la calidad estandar de la imagen");
         resizer.setCalidad(calidad);
     }
+
 
     //-----------------------------------METODOS BASE-----------------------------------------
 
@@ -91,6 +97,7 @@ public class UsuarioController {
         if (usuario == null) {
             throw new ApiException("Debe ingresar un usuario");
         }
+        validadorDeContrasenia.validar(password);
     }
 
     public Usuario.UsuarioDTO ver(Integer id) {
@@ -213,3 +220,4 @@ public class UsuarioController {
         return response;
     }
 }
+

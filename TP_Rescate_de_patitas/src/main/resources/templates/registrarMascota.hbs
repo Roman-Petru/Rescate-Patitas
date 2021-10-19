@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Registración Mascota</title>
+    <title>Bootstrap Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -17,71 +17,49 @@
         <div class="container">
             <h1>Registro de mascota</h1>
             <br>
-            <form>
-                <h2>Ingrese sus datos</h2>
+            <form action="registrarMascota/{{persona.id}}" method="post">
+
+                <h3>Ingrese datos de contacto</h3>
                 <br>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Nombre</label>
-                        <input type="email" class="form-control" id="inputEmfail4" placeholder=""
-                               {{if persona}}value="{{persona.nombre}}">
+                        <input type="text" class="form-control" name="nombre" id="inputEdfmail4">
                     </div>
-                    <div class="form-group col-md-6">
+                <div class="form-group col-md-6">
                         <label for="inputPassword4">Apellido</label>
-                        <input type="password" class="form-control" id="inputPassword4">
-                    </div>
+                        <input type="text" class="form-control" name="apellido" id="inputPasdsword4">
                 </div>
+                </div>
+
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputEmail4">Fecha de nacimiento</label>
-                        <input type="date" class="form-control" id="inputEfmail4">
+                        <label for="inputEmail4">Email</label>
+                        <input type="email" class="form-control"name="email" id="inputEdmail4">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputPassword4">DNI</label>
-                        <input type="password" class="form-control" id="inputPafssword4">
+                        <label for="inputPassword4">Telefono</label>
+                        <input type="text" class="form-control"name="telefono" id="inputPassdword4">
                     </div>
-                    <br><br>
-                    <h3>Ingrese datos de contacto</h3>
-                    <br>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="inputEmail4">Nombre</label>
-                            <input type="email" class="form-control" id="inputEdfmail4">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputPassword4">Apellido</label>
-                            <input type="password" class="form-control" id="inputPasdsword4">
-                        </div>
-                    </div>
+                </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="inputEmail4">Email</label>
-                            <input type="email" class="form-control" id="inputEdmail4">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputPassword4">Telefono</label>
-                            <input type="password" class="form-control" id="inputPassdword4">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label for="inputEmail4">Formas de notificacion</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">Email</option>
-                            <option value="2">Whatssap</option>
-                            <option value="3">SMS</option>
-                        </select>
-                    </div>
-                    <br>
-                    <h2>Ingrese los datos de la mascota</h2>
-                    <br>
-                    <!--            Datos mascota               -->
+                <div>
+                    <label for="inputEmail4">Formas de notificacion</label>
+                    <select class="form-select" name="notificacion" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">Email</option>
+                        <option value="2">Whatssap</option>
+                        <option value="3">SMS</option>
+                    </select>
+                </div>
+                <br>
+                <h2>Ingrese los datos de la mascota</h2>
+                <br>
+<!--            Datos mascota               -->
 
                     <div>
                         <label for="inputEmail4">Mi mascota es: </label>
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-select" name="tipo" aria-label="Default select example">
                             <option selected>Open this select menu</option>
                             <option value="1">Perro</option>
                             <option value="2">Gato</option>
@@ -90,46 +68,57 @@
                     <BR>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="inputEmail4">Nombre</label>
-                            <input type="email" class="form-control" id="inputEmdail4">
+                            <label for="nombreMascota">Nombre</label>
+                            <input type="text" class="form-control" name="nombreMascota" id="nombreMascota">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="inputPassword4">Apodo</label>
-                            <input type="password" class="form-control" id="inputPasswdord4">
+                            <label for="apodo">Apodo</label>
+                            <input type="text" class="form-control" name="apodo" id="apodo">
                         </div>
                     </div>
                     <br>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="edad">Edad Aproximada</label>
+                                <input type="text" class="form-control"  name="edad"  id="edad">
+                            </div>
+                            <div>
+                                <label>Sexo</label>
+                                <select class="form-select" name="sexo" aria-label="Default select example">
+                                    <option selected>Open this select menu</option>
+                                    <option value="1">Macho</option>
+                                    <option value="2">Hembra</option>
+                                </select>
+                            </div>
+                        </div>
+                    <br>
+                    <br>
+                    <br>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="inputEmail4">Edad Aproximada</label>
-                            <input type="email" class="form-control" id="inputEmail4">
-                        </div>
-                        <div>
-                            <label>Sexo</label>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Open this select menu</option>
-                                <option value="1">Macho</option>
-                                <option value="2">Hembra</option>
-                            </select>
-                        </div>
+                        <label for="exampleFormControlTextarea1">Descripcion</label>
+                        <textarea class="form-control" name="descripcionFisica" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
-                </div>
-                <br>
-                <br>
-                <br>
-                <div class="form-row">
-                    <label for="exampleFormControlTextarea1">Descripcion</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                <br>
-                <div>
-                    <div class="custom-file">
-                        <label class="custom-file-label" for="customFile">Subir imagen</label>
-                        <input type="file" class="custom-file-input" id="customFile">
+                    <br>
 
-                    </div>
-                </div>
+                {{#each caracteristicas}}
+
+                       <br>
+                        <div class="form-row">
+                            <label for="nombreMascota">{{descripcion}}</label>
+                            <input type="text" class="form-control" name="{{descripcion}}" id="{{descripcion}}">
+                        </div>
+
+                {{/each}}
                 <br>
+
+                    <div>
+                        <div class="custom-file">
+                            <label class="custom-file-label" for="customFile">Subir imagen</label>
+                            <input type="file" class="custom-file-input" id="customFile">
+
+                        </div>
+                    </div>
+                    <br>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
         </div>

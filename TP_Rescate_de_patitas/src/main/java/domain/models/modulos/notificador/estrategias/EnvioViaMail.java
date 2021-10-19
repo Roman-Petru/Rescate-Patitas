@@ -18,7 +18,7 @@ public class EnvioViaMail implements EstrategiaNotificacion {
         return instancia;
     }
 
-    private EnvioViaMail() {
+    public EnvioViaMail() {
         this.adapter = new JavaGMailAdapter();
     }
 
