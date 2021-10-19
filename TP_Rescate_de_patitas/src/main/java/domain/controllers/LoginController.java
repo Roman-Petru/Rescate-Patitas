@@ -1,5 +1,6 @@
 package domain.controllers;
 
+import domain.models.entities.entidadesGenerales.usuarios.Hasher;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import spark.ModelAndView;
 import spark.Request;
@@ -28,7 +29,7 @@ public class LoginController {
 
     public ModelAndView mensaje(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
-        UsuarioController.getInstancia().asignarUsuarioSiEstaLogueado(request, parametros);
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
         String mensaje = request.params("mensaje");
         parametros.put("mensaje", mensaje);
         return new ModelAndView(parametros,"mensaje.hbs");

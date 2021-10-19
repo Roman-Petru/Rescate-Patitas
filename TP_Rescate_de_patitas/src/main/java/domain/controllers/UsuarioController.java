@@ -97,7 +97,6 @@ public class UsuarioController {
         if (usuario == null) {
             throw new ApiException("Debe ingresar un usuario");
         }
-        validadorDeContrasenia.validar(password);
     }
 
     public Usuario.UsuarioDTO ver(Integer id) {

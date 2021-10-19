@@ -9,6 +9,7 @@ import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaP
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.enums.Animal;
+import domain.models.entities.enums.DescripcionPermiso;
 import domain.models.entities.utils.NotificadorHelper;
 import domain.models.modulos.generadorQR.GeneradorQR;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
