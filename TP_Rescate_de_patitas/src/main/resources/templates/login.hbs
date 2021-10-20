@@ -4,7 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/login.estilos.css">
+    <link rel="stylesheet" href="/css/site.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/generales.js"></script>
+    <script src="/js/site.js"></script>
+    <script src="/js/login.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Ingreso</title>
@@ -13,23 +20,40 @@
 
 {{> nav.hbs}}
 
-<div class="wrapper">
-    <div class="col-sm-12">
-        <h3 class="text-center text-black" style="margin-top: 25px; margin-bottom: 25px;">LOGIN</h3>
-    </div>
+<!--Notificaciones-->
+<div class="w-100 mt-3 errMessage errMessageLogin centrar" style="display:none;">
+    <a id="errorLogin" style="font-size: medium !important; font-weight: bold !important; color: black !important;"></a>
+</div>
+<div class="w-100 mt-3 okMessage okMessageLogin" style="display:none;">
+    <a id="msgLogin" style="font-size: medium !important; font-weight: bold !important; color: white !important;"></a>
+</div>
 
-    <div id="formContent">
-        <!-- Icon -->
+<!--Login-->
+<div class="wrapper">
+<div class="col-sm-12">
+<h3 class="text-center text-black" style="margin-top: 25px; margin-bottom: 25px;">LOGIN</h3>
+</div>
+
+<div id="formContent">
         <div class="fadeIn first">
             <img src="images/login.png" id="icon" alt="User Icon" style="width: 100%" />
         </div>
-        <!-- Login Form -->
+        <!-- Login Form
         <form action="/login" method="post">
             <input id="usuario" type="text" class="fadeIn second" name="nombreDeUsuario" placeholder="Ingrese Usuario">
             <input id="password" type="password" class="fadeIn third" name="contrasenia" placeholder="Ingrese Contraseña">
             <input type="submit" class="fadeIn fourth" value="Ingresar">
         </form>
+        -->
+        <form action="" method="post">
+            <input id="usuario" type="text" class="fadeIn second" name="nombreDeUsuario" placeholder="Ingrese Usuario">
+            <input id="password" type="password" class="fadeIn third" name="contrasenia" placeholder="Ingrese Contraseña">
+            <input id="btnLogin" type="button" class="fadeIn fourth" value="Ingresar">
+        </form>
     </div>
 </div>
+
+
+{{> loading.hbs}}
 </body>
 </html>

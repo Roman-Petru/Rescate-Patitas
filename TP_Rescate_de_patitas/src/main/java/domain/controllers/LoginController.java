@@ -1,5 +1,7 @@
 package domain.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
 import domain.models.entities.entidadesGenerales.usuarios.Hasher;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import spark.ModelAndView;
@@ -40,32 +42,62 @@ public class LoginController {
         return new ModelAndView(parametros, "login.hbs");
     }
 
+//    public Response login(Request request, Response response) {
+//        try {
+//            String nombreDeUsuario = request.queryParams("nombreDeUsuario");
+//            String contrasenia = request.queryParams("contrasenia");
+//
+//            Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorNombre(nombreDeUsuario);
+//            String[] passConSalt = new String[2];
+//            passConSalt[0] = usuario.getHashedPasswordActual();
+//            passConSalt[1] = usuario.getSaltActual();
+//
+//            if (Hasher.sonCorrespondientes(contrasenia, passConSalt)) {
+//                request.session(true);
+//                request.session().attribute("id", usuario.getId());
+//                response.redirect("/");
+//            } else {
+//                //todo cambiar a una pantalla de error
+//                response.redirect("/");
+//            }
+//        } catch (Exception e) {
+//            //Funcionalidad disponible solo con persistencia en Base de Datos
+//            System.out.println("Error al logear usuario: " + e);
+//            response.redirect("/");
+//        } finally {
+//            return response;
+//        }
+//    }
+
+
     public Response login(Request request, Response response) {
         try {
-            String nombreDeUsuario = request.queryParams("nombreDeUsuario");
-            String contrasenia = request.queryParams("contrasenia");
 
-            Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorNombre(nombreDeUsuario);
+            ObjectMapper mapper = new ObjectMapper();
+            Usuario user = mapper.readValue(request.body(), Usuario.class);
+
+            Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorNombre(user.getUsuario());
             String[] passConSalt = new String[2];
             passConSalt[0] = usuario.getHashedPasswordActual();
             passConSalt[1] = usuario.getSaltActual();
 
-            if (Hasher.sonCorrespondientes(contrasenia, passConSalt)) {
+            if (Hasher.sonCorrespondientes(user.getPassword(), passConSalt)) {
                 request.session(true);
                 request.session().attribute("id", usuario.getId());
-                response.redirect("/");
+                response.status(200);
             } else {
-                //todo cambiar a una pantalla de error
-                response.redirect("/");
+                response.status(401);
             }
+
         } catch (Exception e) {
             //Funcionalidad disponible solo con persistencia en Base de Datos
             System.out.println("Error al logear usuario: " + e);
-            response.redirect("/");
+            response.status(404);
         } finally {
             return response;
         }
     }
+
 
     public Response logout(Request request, Response response) {
         request.session().invalidate();

@@ -32,6 +32,8 @@ public class Usuario extends Persistente {
     @Column(name = "password")
     private String hashedPasswordActual;
 
+    private String password;
+
     @Setter(value=AccessLevel.NONE)
     @Column(name = "salt")
     private String saltActual;
