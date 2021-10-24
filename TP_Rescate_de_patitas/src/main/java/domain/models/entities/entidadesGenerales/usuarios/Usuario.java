@@ -3,12 +3,7 @@ package domain.models.entities.entidadesGenerales.usuarios;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.enums.Permiso;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import domain.models.entities.validaciones.validacionesContrasenias.ValidadorDeContrasenia;
 import lombok.AccessLevel;
@@ -32,6 +27,7 @@ public class Usuario extends Persistente {
     @Column(name = "password")
     private String hashedPasswordActual;
 
+    @Transient
     private String password;
 
     @Setter(value=AccessLevel.NONE)
