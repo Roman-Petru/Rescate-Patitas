@@ -17,7 +17,7 @@ public class GeneradorQR {
         {
             try {
                 String data = "http://localhost:9000/rescateConChapita/" + mascotaID;
-                String path = "./src/main/resources/public/mostrarQR/codigoQR" + mascotaID + ".jpg";
+                String path = "C:\\QR/codigoQR" + mascotaID + ".jpg";
 
                 matrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, 500, 500);
                 MatrixToImageWriter.writeToPath(matrix, "jpg", Paths.get(path));

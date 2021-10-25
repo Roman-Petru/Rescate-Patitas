@@ -22,10 +22,6 @@ public class CaracteristicaPersonalizada extends Persistente {
     @Column
     private String valor;
 
-    @ManyToOne
-    @JoinColumn(name="mascota_id" , referencedColumnName = "id")
-    private Mascota mascota;
-
     public CaracteristicaPersonalizada(){}
 
     public CaracteristicaPersonalizada(CaracteristicaGeneral caracteristicaGeneral, String valor){

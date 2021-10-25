@@ -26,7 +26,7 @@ import java.util.List;
 public class PublicacionDarAdopcion extends Persistente {
 
     @OneToMany
-    @JoinColumn(name="publicacionDarAdopcion" , referencedColumnName = "id")
+    @JoinColumn(name="publicacionDarAdopcion_id" , referencedColumnName = "id")
     private List<RespuestaAdopcion> respuestasAdopcion;
 
     @ManyToOne

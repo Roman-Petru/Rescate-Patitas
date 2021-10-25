@@ -1,47 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-    <title>Bootstrap Example</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/generales.js"></script>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/usuarios.estilos.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Rescate con chapita</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Rescate de Patitas</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#home">Home</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Organizacion <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Quiero ser voluntario</a></li>
-                    <li><a href="#">Quiero adoptar</a></li>
-                    <li><a href="#"></a></li>
-                </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Animalitos <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#registroMascota">Registrar mascota</a></li>
-                    <li><a href="#">Buscar hogar de transito</a></li>
-                    <li><a href="#">Quiero dar en adopcion</a></li>
-                    <li><a href="#"></a></li>
-                </ul>
-            </li>
-            <li><a href="#">Mis mascotas</a></li>
-            <li><a href="#">Animalitos</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Quiero registrarme</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Ingresar</a></li>
-        </ul>
-    </div>
-</nav>
 
-
+{{> nav.hbs}}
 
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="home">
@@ -49,7 +25,6 @@
             <h1>Registro de mascota perdida</h1>
             <br>
             <form action="notificarDuenio/{{mascota.id}}" method="post">
-
                 <h2>Ingrese sus datos</h2>
                 <br>
                 <div class="form-row">
@@ -72,6 +47,7 @@
                         <input type="text" class="form-control" name="dni" id="inputPafssword4">
                     </div>
                     <br>
+                </div>
                     <h3>Ingrese datos de contacto</h3>
                     <br>
                     <div class="form-row">
@@ -99,15 +75,13 @@
                 <h2>Ingrese los datos de la mascota</h2>
                 <br>
                 <!--            Datos mascota rescatada              -->
-
-
                 <BR>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="nombreMascota">Direccion donde se encontro</label>
                         <input type="text" class="form-control" name="direccion" id="direccion">
                     </div>
-
+                </div>
         <br>
         <br>
         <br>
@@ -120,18 +94,14 @@
             <div class="custom-file">
                 <label class="custom-file-label" for="customFile">Subir foto de mascota rescatada</label>
                 <input type="file" class="custom-file-input" name="foto" id="customFile">
-
             </div>
         </div>
         <br>
-                </div>
         <button type="submit" class="btn btn-primary">Enviar y notificar dueño</button>
         </form>
     </div>
-
 </div>
 <div role="tabpanel" class="tab-pane fade" id="references">ccc</div>
 </div>
-
 </body>
 </html>

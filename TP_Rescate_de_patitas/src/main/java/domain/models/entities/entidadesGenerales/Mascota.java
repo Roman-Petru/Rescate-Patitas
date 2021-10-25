@@ -56,7 +56,8 @@ public class Mascota extends Persistente {
     @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<Contacto> contactos;
 
-    @OneToMany(mappedBy = "mascota", cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @JoinColumn(name="mascota_id" , referencedColumnName = "id")
     private List<CaracteristicaPersonalizada> caracteristicas;
 
     public Mascota(){
