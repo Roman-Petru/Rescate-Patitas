@@ -1,5 +1,6 @@
 package domain.controllers.personas;
 import domain.controllers.MascotaController;
+import domain.controllers.Utilidades;
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
@@ -9,6 +10,7 @@ import domain.models.entities.enums.DescripcionPermiso;
 import domain.models.entities.enums.Permiso;
 import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeRescatistaADuenio;
 import domain.models.entities.utils.NotificadorHelper;
+import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.models.repositories.personas.RepositorioRescatista;
 import spark.ModelAndView;
 import spark.Request;
@@ -56,8 +58,8 @@ public class RescatistaController {
         //TODO
     }
 
-    public void modificar(String id, Rescatista.RescatistaDTO dto) {
-        //TODO
+    public void modificar(Rescatista rescatista) {
+        repositorio.modificar(rescatista);
     }
 
     public void eliminar(String id) {
@@ -67,16 +69,24 @@ public class RescatistaController {
     //rescatistaController
     public void notificarRescatistaADuenio(Mascota mascota, DatosDePersona rescatista) throws IOException {
         ArmadorMensajeRescatistaADuenio armadorMensajeRescatistaADuenio = new ArmadorMensajeRescatistaADuenio(rescatista);
-        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeRescatistaADuenio, mascota.getContactos());
+        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeRescatistaADuenio, mascota.getDuenioMascota().getDatosDePersona().getContactos());
     }
 
 
     public ModelAndView pantallaRescateConChapita(Request request, Response response) {
         Mascota mascota = MascotaController.getInstancia().buscarMascotaPorID(new Integer(request.params("id")));
         Map<String, Object> parametros = new HashMap<>();
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
         parametros.put("mascota", mascota);
         return new ModelAndView(parametros, "rescateConChapita.hbs");
     }
+
+    public ModelAndView pantallaRescateSinChapita(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        return new ModelAndView(parametros, "rescateSinChapita.hbs");
+    }
+
 
     public Response notificarDuenio(Request request, Response response){
         try{
@@ -100,7 +110,7 @@ public class RescatistaController {
             persona.setNombre(nombre);
             persona.setApellido(apellido);
             persona.setDocumento(dni);
-            contacto.setDatosDePersona(persona); //sirve que sea bidireccional? es lo que hace que rompa al persistir?
+            contacto.setDatosDePersona(persona);
             persona.agregarContacto(contacto);
 
             Rescatista rescatista = new Rescatista();
@@ -128,4 +138,47 @@ public class RescatistaController {
 
     }
 
+    public Response crearFormulario(Request request, Response response) {
+        try{
+            Contacto contacto = new Contacto();
+            contacto.setNombre(request.queryParams("nombreContacto"));
+            contacto.setApellido(request.queryParams("apellidoContacto"));
+            contacto.setTelefono(request.queryParams("telefono"));
+            contacto.setEmail(request.queryParams("email"));
+            contacto.setNotificacionEnString(request.queryParams("notificacion"));  //mientras no ande la persistencia de estrategias de notificacion
+
+            Integer notificacionID = new Integer(request.queryParams("notificacion"));
+            List<EstrategiaNotificacion> lista = new ArrayList<>();
+            lista.add(NotificadorHelper.devolverNotificadoresConID(notificacionID));
+
+            contacto.setNotificadores(lista);
+
+            DatosDePersona persona = new DatosDePersona();
+            String nombre = request.queryParams("nombre");
+            String apellido= request.queryParams("apellido");
+            String dni= request.queryParams("dni");
+
+
+            persona.setNombre(nombre);
+            persona.setApellido(apellido);
+            persona.setDocumento(dni);
+            contacto.setDatosDePersona(persona);
+            persona.agregarContacto(contacto);
+
+            Rescatista rescatista = new Rescatista();
+            rescatista.setEncontroConChapita(false);
+            rescatista.setDatosDePersona(persona);
+
+            this.modificar(rescatista);
+
+
+            response.redirect("/mensaje/Se creo el formulario para la publicacion de mascota perdida!");
+        }
+        catch (Exception e){
+            response.redirect("/mensaje/Error al crear formulario: " + e);
+        }
+        finally {
+            return response;
+        }
+    }
 }

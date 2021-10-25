@@ -115,8 +115,6 @@ public class MascotaController {
         mascota.setTipo(Animal.getAnimalConInteger(new Integer(request.queryParams("tipo"))));
         mascota.setEsMacho(request.queryParams("sexo").equals("1"));
 
-        mascota.setContactos(Arrays.asList(contacto));
-
             //PersonaController.getInstancia().modificar(persona.getId(), persona.toDTO());
             //TODO duplica el contacto al hacer merge
         Integer idMascotaNueva = DuenioMascotaController.getInstancia().agregarMascota(persona, mascota);

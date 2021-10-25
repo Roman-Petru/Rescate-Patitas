@@ -1,5 +1,6 @@
 package domain.controllers.personas;
 
+import domain.controllers.Utilidades;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
@@ -62,6 +63,10 @@ public class PersonaController {
         repositorio.modificar(persona);
     }
 
+    public void modificar(DatosDePersona persona) {
+        repositorio.modificar(persona);
+    }
+
     public void eliminar(Integer id) {
         //TODO
     }
@@ -69,11 +74,12 @@ public class PersonaController {
     //Necesitariamos la clase adoptante ?
     public void notificarAdoptanteADuenio(PublicacionDarAdopcion publicacion, DatosDePersona adoptante) throws IOException {
         ArmadorMensajeAdoptanteADuenio armadorMensajeAdoptanteADuenio = new ArmadorMensajeAdoptanteADuenio(adoptante);
-        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeAdoptanteADuenio, publicacion.getMascota().getContactos());
+        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeAdoptanteADuenio, publicacion.getMascota().getDuenioMascota().getDatosDePersona().getContactos());
     }
 
     public ModelAndView registrarPersonaPantalla(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
         return new ModelAndView(parametros,"registrarPersona.hbs");
     }
 

@@ -54,5 +54,6 @@ public class DuenioMascota extends Persistente {
 
     public void agregarMascotaALista(Mascota mascota){
         mascotas.add(mascota);
+        mascota.setDuenioMascota(this);
     }
 }

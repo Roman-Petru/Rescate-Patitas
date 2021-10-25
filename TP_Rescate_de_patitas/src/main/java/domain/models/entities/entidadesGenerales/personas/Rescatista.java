@@ -54,18 +54,12 @@ public class Rescatista extends Persistente {
          this.servicioHogar = ServicioHogar.getInstancia();
     }
 
-    public Rescatista(FormularioMascota formulario){
-        this.servicioHogar = ServicioHogar.getInstancia();
-        //this.formulario = formulario;
-    }
-
 
     public Rescatista.RescatistaDTO toDTO() {
         Rescatista.RescatistaDTO dto  = new Rescatista.RescatistaDTO();
         dto.id = this.getId();
         dto.datosDePersona = this.getDatosDePersona();
         dto.datosMascota = this.getDatosMascota();
-        //dto.formulario = this.getFormulario();
         dto.encontroConChapita = this.getEncontroConChapita();
         //dto.ubicacion = this.getUbicacion();
         return dto;
@@ -78,7 +72,6 @@ public class Rescatista extends Persistente {
         private DatosDePersona datosDePersona;
         private Integer radioDeCercaniaEnKm;
         private DatosMascotaParaHogar datosMascota;
-        private FormularioMascota formulario;
         private Boolean encontroConChapita;
         private Ubicacion ubicacion;
     }

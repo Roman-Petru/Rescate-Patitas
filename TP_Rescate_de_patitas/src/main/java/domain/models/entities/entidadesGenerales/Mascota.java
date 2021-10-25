@@ -53,15 +53,15 @@ public class Mascota extends Persistente {
     @Column(name = "foto", nullable = false)
     private List<String> fotos;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
-    private List<Contacto> contactos;
+   // @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+  //  private List<Contacto> contactos;
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     @JoinColumn(name="mascota_id" , referencedColumnName = "id")
     private List<CaracteristicaPersonalizada> caracteristicas;
 
     public Mascota(){
-        this.contactos = new ArrayList<>();
+       // this.contactos = new ArrayList<>();
         this.fotos = new ArrayList<>();
         this.caracteristicas = new ArrayList<>();;
     }
@@ -73,7 +73,7 @@ public class Mascota extends Persistente {
         this.edadAproximada = edadAproximada;
         this.esMacho = esMacho;
         this.descripcionFisica = descripcionFisica;
-        this.contactos = new ArrayList<>();
+        //this.contactos = new ArrayList<>();
         this.fotos = new ArrayList<>();
         this.caracteristicas = new ArrayList<>();;
     }
@@ -82,7 +82,7 @@ public class Mascota extends Persistente {
         this.nombre = nombre;
         this.apodo = apodo;
         this.edadAproximada = edadAproximada;
-        this.contactos = new ArrayList<>();
+        //this.contactos = new ArrayList<>();
         this.caracteristicas = new ArrayList<>();
         this.fotos = new ArrayList<>();
     }
@@ -102,7 +102,7 @@ public class Mascota extends Persistente {
         dto.esMacho = this.getEsMacho();
         dto.descripcionFisica = this.getDescripcionFisica();
         dto.fotos = this.getFotos();
-        dto.contactos = this.getContactos();
+        //dto.contactos = this.getContactos();
         dto.caracteristicas = this.getCaracteristicas();
         return dto;
     }
@@ -116,9 +116,7 @@ public class Mascota extends Persistente {
         private Boolean esMacho;
         private String descripcionFisica;
         private List<String> fotos;
-        private List<Contacto> contactos;
+       // private List<Contacto> contactos;
         private List<CaracteristicaPersonalizada> caracteristicas;
     }
-
-
 }

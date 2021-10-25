@@ -57,7 +57,8 @@ public class Router {
         Spark.get("/rescateConChapita/:id", RescatistaController.getInstancia()::pantallaRescateConChapita, Router.engine);
         Spark.post("/rescateConChapita/notificarDuenio/:id", RescatistaController.getInstancia()::notificarDuenio);
         Spark.get("/mostrarQR/:id", RescatistaController.getInstancia()::mostrarQR, Router.engine);
-
+        Spark.get("/rescateSinChapita", RescatistaController.getInstancia()::pantallaRescateSinChapita, Router.engine);
+        Spark.post("/crearFormulario", RescatistaController.getInstancia()::crearFormulario);
 
         //=============================================PERSONA=================================================================================//
         Spark.get("/registrarPersona", PersonaController.getInstancia()::registrarPersonaPantalla, Router.engine);
