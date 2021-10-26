@@ -34,6 +34,11 @@ public class PersonaController {
         return this.repositorio.buscarTodos();
     }
 
+    public DatosDePersona traerPersonaPorDNIONueva(String dni) {
+        List<DatosDePersona> personas = this.listarTodos();
+        return personas.stream().filter(persona -> persona.getDocumento().equals(dni)).findFirst().orElse(new DatosDePersona());
+    }
+
     public DatosDePersona buscarPersonaporID(Integer id){
         return this.repositorio.buscar(id);
     }
@@ -77,6 +82,21 @@ public class PersonaController {
         NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeAdoptanteADuenio, publicacion.getMascota().getDuenioMascota().getDatosDePersona().getContactos());
     }
 
+    public void asignarAtributosA(DatosDePersona persona, Request request) {
+        if(request.queryParams("nombrePersona") != null){
+            persona.setNombre(request.queryParams("nombrePersona"));
+        }
+
+        if(request.queryParams("apellidoPersona") != null){
+            persona.setApellido(request.queryParams("apellidoPersona"));
+        }
+
+        if(request.queryParams("dni") != null){
+            persona.setDocumento(request.queryParams("dni"));
+        }
+
+    }
+
     public ModelAndView registrarPersonaPantalla(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
@@ -104,6 +124,8 @@ public class PersonaController {
             return response;
         }
     }
+
+
 }
 
 

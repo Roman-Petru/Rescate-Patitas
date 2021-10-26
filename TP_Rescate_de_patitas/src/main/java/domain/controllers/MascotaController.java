@@ -63,15 +63,10 @@ public class MascotaController {
 
     public ModelAndView registrarMascota(Request request, Response response){
         try {
-        String dniPersona = request.params("dni");
         Map<String, Object> parametros = new HashMap<>();
-        if(!dniPersona.isEmpty() && dniPersona != null && !dniPersona.equals("0")) {
-            DatosDePersona persona =PersonaController.getInstancia().buscarPersonaporDNI(dniPersona);
-            parametros.put("persona", persona);
-        }
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
         parametros.put("caracteristicas", CaracteristicaController.getInstancia().listarTodos());
         return new ModelAndView(parametros,"registrarMascota.hbs");}
-
         catch  (Exception e) {
             Map<String, Object> parametros = new HashMap<>();
             return new ModelAndView(parametros, "/mensaje/Error: " + e);
@@ -80,46 +75,37 @@ public class MascotaController {
 
 
     public Response registrarMascotayContacto(Request request, Response response){
-        try {
-        Integer personaId = new Integer(request.params("id"));
-        DatosDePersona persona = PersonaController.getInstancia().buscarPersonaporID(personaId);
 
-        Contacto contacto = new Contacto();
-        contacto.setNombre(request.queryParams("nombre"));
-        contacto.setApellido(request.queryParams("apellido"));
-        contacto.setTelefono(request.queryParams("telefono"));
-        contacto.setEmail(request.queryParams("email"));
-        contacto.setDatosDePersona(persona);
-        contacto.setNotificacionEnString(request.queryParams("notificacion"));  //mientras no ande la persistencia de estrategias de notificacion
-
-        Integer notificacionID = new Integer(request.queryParams("notificacion"));
-        List<EstrategiaNotificacion> lista = new ArrayList<>();
-        lista.add(NotificadorHelper.devolverNotificadoresConID(notificacionID));
-
-        contacto.setNotificadores(lista);
-
-
-        persona.agregarContacto(contacto);
-
-        Mascota mascota = new Mascota();
-        mascota.setNombre(request.queryParams("nombreMascota"));
-        mascota.setApodo(request.queryParams("apodo"));
-        mascota.setEdadAproximada(new Integer(request.queryParams("edad")));
-        mascota.setDescripcionFisica(request.queryParams("descripcionFisica"));
-
-        for (CaracteristicaGeneral caracteristicaGeneral:CaracteristicaController.getInstancia().listarTodos()) {
-            CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada(caracteristicaGeneral, request.queryParams(caracteristicaGeneral.getDescripcion()));
-            mascota.agregarCaracteristicaPersonalizada(caracteristicaPersonalizada);
+    try {
+        if(request.queryParams("dni") == null){
+            response.redirect("/mensaje/Error al registrar mascota, favor ingresar DNI");
+            return response;
         }
 
-        mascota.setTipo(Animal.getAnimalConInteger(new Integer(request.queryParams("tipo"))));
-        mascota.setEsMacho(request.queryParams("sexo").equals("1"));
+        String dni= request.queryParams("dni");
 
-            //PersonaController.getInstancia().modificar(persona.getId(), persona.toDTO());
-            //TODO duplica el contacto al hacer merge
+        DatosDePersona persona = PersonaController.getInstancia().traerPersonaPorDNIONueva(dni);
+        persona.setDocumento(dni);
+
+        PersonaController.getInstancia().asignarAtributosA(persona, request);
+
+
+        Contacto contacto = new Contacto();
+        if (!ContactoController.getInstancia().asignarAtributosA(contacto, request)) {
+            if (persona.getContactos().size() == 0){
+                response.redirect("/mensaje/Error al registrar mascota, no tiene suficientes datos de contacto");
+                return response;
+                }
+            } else {
+            contacto.setDatosDePersona(persona);
+            persona.agregarContacto(contacto);
+            }
+
+        Mascota mascota = new Mascota();
+        this.asignarAtributosA(mascota, request);
+
         Integer idMascotaNueva = DuenioMascotaController.getInstancia().agregarMascota(persona, mascota);
         GeneradorQR.generar(idMascotaNueva);
-
 
         response.redirect("/mostrarQR/" + idMascotaNueva);}
 
@@ -131,7 +117,34 @@ public class MascotaController {
         }
     }
 
+    public void asignarAtributosA(Mascota mascota, Request request) {
+        if (request.queryParams("nombreMascota") != null) {
+            mascota.setNombre(request.queryParams("nombreMascota"));
+        }
 
+        if (request.queryParams("apodo") != null) {
+            mascota.setApodo(request.queryParams("apodo"));
+        }
+
+        if (request.queryParams("edad") != null) {
+            mascota.setEdadAproximada(new Integer(request.queryParams("edad")));
+        }
+
+        if (request.queryParams("descripcionFisica") != null) {
+            mascota.setDescripcionFisica(request.queryParams("descripcionFisica"));
+        }
+
+        for (CaracteristicaGeneral caracteristicaGeneral:CaracteristicaController.getInstancia().listarTodos()) {
+            CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada(caracteristicaGeneral, request.queryParams(caracteristicaGeneral.getDescripcion()));
+            mascota.agregarCaracteristicaPersonalizada(caracteristicaPersonalizada);
+        }
+        if (request.queryParams("tipo") != null) {
+            mascota.setTipo(Animal.getAnimalConInteger(new Integer(request.queryParams("tipo"))));
+        }
+        if (request.queryParams("sexo") != null) {
+            mascota.setEsMacho(request.queryParams("sexo").equals("1"));
+        }
+    }
 
     public Response validarPersona(Request request, Response response){
             String dniPersona = request.queryParams("dni");

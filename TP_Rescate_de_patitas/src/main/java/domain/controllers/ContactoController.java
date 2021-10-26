@@ -2,8 +2,13 @@ package domain.controllers;
 
 
 import domain.models.entities.entidadesGenerales.Contacto;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
+import domain.models.entities.utils.NotificadorHelper;
+import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.models.repositories.RepositorioContactos;
+import spark.Request;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactoController {
@@ -51,5 +56,40 @@ public class ContactoController {
 
     public void eliminar(Integer id) {
         //TODO
+    }
+
+    public Boolean asignarAtributosA(Contacto contacto, Request request) {
+        int i = 0; //verifica que esten todos los atributos
+
+        if(request.queryParams("nombre") != null){
+            contacto.setNombre(request.queryParams("nombre"));
+            i++;
+        }
+
+        if(request.queryParams("apellido") != null){
+            contacto.setApellido(request.queryParams("apellido"));
+            i++;
+        }
+
+        if(request.queryParams("telefono") != null){
+            contacto.setTelefono(request.queryParams("telefono"));
+            i++;
+        }
+
+        if(request.queryParams("email") != null){
+            contacto.setEmail(request.queryParams("email"));
+            i++;
+        }
+
+        if(request.queryParams("notificacion") != null){
+            contacto.setNotificacionEnString(request.queryParams("notificacion"));
+
+            Integer notificacionID = new Integer(request.queryParams("notificacion"));
+            List<EstrategiaNotificacion> lista = new ArrayList<>();
+            lista.add(NotificadorHelper.devolverNotificadoresConID(notificacionID));
+            contacto.setNotificadores(lista);
+            i++;
+        }
+       return i==5;
     }
 }
