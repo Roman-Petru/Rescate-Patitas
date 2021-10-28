@@ -1,21 +1,21 @@
 package domain.controllers;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.exception.ApiException;
+import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.usuarios.BuilderUsuario;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.DescripcionPermiso;
 import domain.models.entities.enums.Permiso;
-import domain.models.entities.utils.PermisosDeAdmin;
-import domain.models.entities.validaciones.validacionesContrasenias.ValidadorDeContrasenia;
 import domain.models.modulos.resizer.NivelCalidad;
 import domain.models.modulos.resizer.Resizer;
 import domain.models.modulos.resizer.TamanioImagen;
 import domain.models.repositories.RepositorioUsuarios;
 
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -127,20 +127,94 @@ public class UsuarioController {
         return new ModelAndView(parametros, "registrarUsuario.hbs");
     }
 
+//    public Response registrar(Request request, Response response) {
+//        try {
+//            String nombreDeUsuario = request.queryParams("nombreDeUsuario");
+//            String contrasenia = request.queryParams("contrasenia");
+//
+//            validarUsuario(nombreDeUsuario);
+//            BuilderUsuario builderUsuario = new BuilderUsuario();
+//            builderUsuario.setUsername(nombreDeUsuario);
+//            builderUsuario.setPassword(contrasenia);
+//
+//            Usuario usuario = builderUsuario.crearUsuario();
+//
+//            this.agregarUsuario(usuario.toDTO());
+//            response.redirect("/");
+//        } catch (Exception e) {
+//            //todo cambiar a pantalla de error
+//            System.out.println("Error al registrar usuario: " + e);
+//
+//            response.redirect("/");
+//        } finally {
+//            return response;
+//        }
+//    }
+
+
     public Response registrar(Request request, Response response) {
         try {
-            String nombreDeUsuario = request.queryParams("nombreDeUsuario");
-            String contrasenia = request.queryParams("contrasenia");
+            PersonaController personaController = PersonaController.getInstancia();
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-            validarUsuario(nombreDeUsuario);
-            BuilderUsuario builderUsuario = new BuilderUsuario();
-            builderUsuario.setUsername(nombreDeUsuario);
-            builderUsuario.setPassword(contrasenia);
+            Usuario.UsuarioDTO usuarioDTO = mapper.readValue(request.body(), Usuario.UsuarioDTO.class);
+            DatosDePersona.DatosDePersonaDTO personaDTO = mapper.readValue(request.body(), DatosDePersona.DatosDePersonaDTO.class);
 
-            Usuario usuario = builderUsuario.crearUsuario();
+            DatosDePersona persona = personaController.buscarPersonaPorDNI(personaDTO.getDocumento());
 
-            this.agregarUsuario(usuario.toDTO());
-            response.redirect("/");
+            if (persona != null){
+
+                Usuario laPersonaTieneUsuario = persona.getUsuario();
+
+                if (laPersonaTieneUsuario == null){
+
+                    //USUARIO: creo usuario
+                    BuilderUsuario builderUsuario = new BuilderUsuario();
+                    builderUsuario.setUsername(usuarioDTO.getUsuario());
+                    builderUsuario.setPassword(usuarioDTO.getPassword());
+                    Usuario usuario = builderUsuario.crearUsuario();
+                    this.agregarUsuario(usuario.toDTO());
+
+                    Usuario nuevoUsuarioCreado = this.buscarUsuarioPorNombre(usuario.getUsuario());
+
+                    //PERSONA: A la persona le actualizo el id de creacion de usuario
+                    persona.setUsuario(nuevoUsuarioCreado);
+                    PersonaController.getInstancia().modificar(persona);
+
+                    request.session(true);
+                    request.session().attribute("id", usuario.getId());
+                    response.status(200);
+
+                } else {
+                    //no corresponde agregar un nuevo usuario porque ya existe un usuario registrado con ese dni
+                    response.status(401);
+                }
+
+            } else{
+
+                //USUARIO
+                BuilderUsuario builderUsuario = new BuilderUsuario();
+                builderUsuario.setUsername(usuarioDTO.getUsuario());
+                builderUsuario.setPassword(usuarioDTO.getPassword());
+                Usuario usuario = builderUsuario.crearUsuario();
+                this.agregarUsuario(usuario.toDTO());
+
+                Usuario nuevoUsuarioCreado = this.buscarUsuarioPorNombre(usuario.getUsuario());
+
+                //PERSONA
+                DatosDePersona personaAGuardar = new DatosDePersona();
+                personaAGuardar.setNombre(personaDTO.getNombre());
+                personaAGuardar.setApellido(personaDTO.getApellido());
+                personaAGuardar.setDocumento(personaDTO.getDocumento());
+                personaAGuardar.setUsuario(nuevoUsuarioCreado);
+                personaController.agregar(personaAGuardar.toDTO());
+
+                request.session(true);
+                request.session().attribute("id", usuario.getId());
+                response.status(200);
+            }
+
         } catch (Exception e) {
             //todo cambiar a pantalla de error
             System.out.println("Error al registrar usuario: " + e);

@@ -4,14 +4,29 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/login.estilos.css">
+    <link rel="stylesheet" href="/css/site.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/generales.js"></script>
+    <script src="/js/site.js"></script>
+    <script src="/js/registrarUsuario.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>Registro Usuario</title>
+    <title>Registrar Usuario</title>
 </head>
 <body>
 
 {{> nav.hbs}}
+
+<!--Notificaciones-->
+<div class="w-100 mt-3 errMessage errMessageRegistroUsuario centrar" style="display:none;">
+    <a id="errorRegistroUsuario" style="font-size: medium !important; font-weight: bold !important; color: black !important;"></a>
+</div>
+<div class="w-100 mt-3 okMessage okMessageRegistroUsuario" style="display:none;">
+    <a id="msgRegistroUsuario" style="font-size: medium !important; font-weight: bold !important; color: white !important;"></a>
+</div>
 
 <div class="wrapper">
     <div class="col-sm-12">
@@ -19,13 +34,39 @@
     </div>
 
     <div id="formContent">
-        <!-- Login Form -->
-        <form action="/registrar" method="post">
-            <input id="usuario" type="text" class="fadeIn second" name="nombreDeUsuario" placeholder="Ingrese Usuario" style="margin-top: 40px;">
-            <input id="password" type="password" class="fadeIn third" name="contrasenia" placeholder="Ingrese Contraseña">
-            <input type="submit" class="fadeIn fourth" value="Registrar">
+        <!-- Registro Form -->
+        <form action="" method="post">
+            <div class="row">
+                <div class="col-sm-6" style="padding-left: 33px;padding-right: 0px;margin-top: 40px;">
+                    <input id="nombre" type="text" class="fadeIn second" name="nombrePersona" placeholder="Ingrese Nombre" maxlength="255">
+                </div>
+                <div class="col-sm-6" style="padding-right: 33px;padding-left: 0px;margin-top: 40px;">
+                    <input id="apellido" type="text" class="fadeIn second" name="apellidoPersona" placeholder="Ingrese Apellido" maxlength="255">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6" style="padding-left: 33px;padding-right: 0px;">
+                    <input id="dni" type="text" class="fadeIn second" name="dniPersona" placeholder="Ingrese DNI" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+                </div>
+                <div class="col-sm-6" style="padding-right: 33px;padding-left: 0px;">
+                    <input id="usuario" type="text" class="fadeIn second validarUsuario" name="nombreDeUsuario" placeholder="Ingrese Usuario" maxlength="255">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <input id="password" type="password" class="fadeIn third" name="contrasenia" placeholder="Ingrese Contraseña">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <input id="btnRegistrarUsuario" type="button" class="fadeIn fourth" value="Registrar Usuario">
+                </div>
+            </div>
         </form>
     </div>
 </div>
+
+{{> loading.hbs}}
+
 </body>
 </html>

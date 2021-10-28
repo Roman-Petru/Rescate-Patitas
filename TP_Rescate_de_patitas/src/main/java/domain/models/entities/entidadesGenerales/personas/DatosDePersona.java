@@ -1,5 +1,6 @@
 package domain.models.entities.entidadesGenerales.personas;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
@@ -30,7 +31,7 @@ public class DatosDePersona extends Persistente {
     private String apellido;
 
     @Column
-    private String documento;
+    private Integer documento;
 
     @Column
     private String numTramite;
@@ -57,7 +58,7 @@ public class DatosDePersona extends Persistente {
         this.contactos = new ArrayList<>();
     }
 
-    public DatosDePersona(String nombre, String apellido, String documento, String numTramite, String email, Ubicacion ubicacion, List<Contacto> contactos) {
+    public DatosDePersona(String nombre, String apellido, Integer documento, String numTramite, String email, Ubicacion ubicacion, List<Contacto> contactos, Usuario usuario) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.documento = documento;
@@ -65,6 +66,7 @@ public class DatosDePersona extends Persistente {
         this.email = email;
         this.ubicacion = ubicacion;
         this.contactos = contactos;
+        this.usuario = usuario;
         this.recibirRecomendacionAdopcion = false;
     }
 
@@ -85,12 +87,13 @@ public class DatosDePersona extends Persistente {
         dto.contactos = this.getContactos();
         return dto;
     }
+
     @Getter @Setter
     public static class DatosDePersonaDTO {
         private Integer id;
         private String nombre;
         private String apellido;
-        private String documento;
+        private Integer documento;
         private String numTramite;
         private String email;
         private Ubicacion ubicacion;

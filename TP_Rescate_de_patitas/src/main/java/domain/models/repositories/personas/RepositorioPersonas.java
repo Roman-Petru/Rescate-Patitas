@@ -15,8 +15,16 @@ public class RepositorioPersonas extends RepositorioGenerico<DatosDePersona> {
         return RepositorioGenerico.get_manager().createQuery("SELECT a from DatosDePersona a", DatosDePersona.class).getResultList();
     }
 
-    public DatosDePersona buscarPorDNI(String dni){
-        DatosDePersona persona = RepositorioGenerico.get_manager().createQuery("SELECT u FROM DatosDePersona u WHERE u.documento = '" + dni + "'", DatosDePersona.class).getSingleResult();
-        return persona;
+    public DatosDePersona buscarPorDNI(Integer dni){
+        DatosDePersona datosDePersona = null;
+
+        List results = RepositorioGenerico.get_manager().createQuery("SELECT u FROM DatosDePersona u WHERE u.documento = '" + dni + "'", DatosDePersona.class).getResultList();
+
+        if (!results.isEmpty())
+            datosDePersona = (DatosDePersona) results.get(0);
+        else
+            return null;
+
+        return datosDePersona;
     }
 }

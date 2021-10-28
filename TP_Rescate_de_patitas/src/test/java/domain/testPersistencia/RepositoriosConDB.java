@@ -6,7 +6,6 @@ import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.utils.Ubicacion;
-import domain.models.modulos.notificador.estrategias.EnvioViaMail;
 import org.junit.Test;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class RepositoriosConDB {
         ubicacion.setDireccion("Los hornos 4599, Buenos Aires");
         ubicacion.setLatitud(-35.814884);
         ubicacion.setLongitud(58.66555);
-        DatosDePersona datosDePersona = new DatosDePersona("Chicle", "Pavo", "3535", "53535", "asddfsdf@hotmail.com", ubicacion, null);
+        DatosDePersona datosDePersona = new DatosDePersona("Chicle", "Pavo", 3535, "53535", "asddfsdf@hotmail.com", ubicacion, null, null);
         DatosDePersona.DatosDePersonaDTO dto = datosDePersona.toDTO();
         PersonaController.getInstancia().agregar(dto);
 
@@ -39,7 +38,7 @@ public class RepositoriosConDB {
         ubicacion.setLatitud(-35.814884);
         ubicacion.setLongitud(58.66555);
 
-        DatosDePersona datosDePersona = new DatosDePersona("Ramita", "Gonzalez", "3535", "53535", "asddfsdf@hotmail.com", ubicacion, null);
+        DatosDePersona datosDePersona = new DatosDePersona("Ramita", "Gonzalez", 3535, "53535", "asddfsdf@hotmail.com", ubicacion, null, null);
         DatosDePersona.DatosDePersonaDTO dto = datosDePersona.toDTO();
 
         //TODO crea ubicacion nuevamente
@@ -50,8 +49,8 @@ public class RepositoriosConDB {
 
     @Test
     public void testFindOne() {
-        DatosDePersona persona = PersonaController.getInstancia().buscarPersonaporID(1);
-        assertThat(persona.getNombre(), is("Carlos"));
+        DatosDePersona persona = PersonaController.getInstancia().buscarPersonaPorDNI(3535);
+        assertThat(persona.getNombre(), is("Juan"));
     }
 
     @Test

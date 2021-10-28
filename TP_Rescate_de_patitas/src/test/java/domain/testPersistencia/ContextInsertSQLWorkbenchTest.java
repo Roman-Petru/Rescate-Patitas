@@ -68,7 +68,7 @@ public class ContextInsertSQLWorkbenchTest {
         Contacto contacto = new Contacto("Susana", "Marconi", "6841515", "susana@test.com", estrategiasNotificacion);
         List<Contacto> contactos = Arrays.asList(contacto);
 
-        DatosDePersona datosDePersona = new DatosDePersona("Pedro", "Martinez", "445456", "9584845", "pedro@test.com", ubicacion, contactos);
+        DatosDePersona datosDePersona = new DatosDePersona("Pedro", "Martinez", 445456, "9584845", "pedro@test.com", ubicacion, contactos, usuario);
         datosDePersona.setUsuario(usuario);
         datosDePersona.setRecibirRecomendacionAdopcion(false);
         contacto.setDatosDePersona(datosDePersona);
@@ -103,7 +103,7 @@ public class ContextInsertSQLWorkbenchTest {
 
         Contacto contacto = new Contacto("Maria", "Perez", "123123", "maria@test.com", estrategiasNotificacion);
 
-        DatosDePersona datosDePersona = new DatosDePersona("Juan", "Perez", "12312412", "9584845", "juan@test.com", ubicacion, Arrays.asList(contacto));
+        DatosDePersona datosDePersona = new DatosDePersona("Juan", "Perez", 12312412, "9584845", "juan@test.com", ubicacion, Arrays.asList(contacto), usuario);
         datosDePersona.setUsuario(usuario);
         datosDePersona.setRecibirRecomendacionAdopcion(true);
         contacto.setDatosDePersona(datosDePersona);
@@ -147,7 +147,7 @@ public class ContextInsertSQLWorkbenchTest {
 
         Contacto contacto = new Contacto("Martin", "Gonzales", "32432432", "martin@test.com", estrategiasNotificacion);
 
-        DatosDePersona datosDePersona = new DatosDePersona("Carlos", "Quintana", "234223423", "234326562", "carlos@test.com", ubicacion, Arrays.asList(contacto));
+        DatosDePersona datosDePersona = new DatosDePersona("Carlos", "Quintana", 234223423, "234326562", "carlos@test.com", ubicacion, Arrays.asList(contacto), usuario);
         datosDePersona.setUsuario(usuario);
         datosDePersona.setRecibirRecomendacionAdopcion(true);
         contacto.setDatosDePersona(datosDePersona);
@@ -218,7 +218,7 @@ public class ContextInsertSQLWorkbenchTest {
 
         Contacto contacto = new Contacto("Nahuel", "Condarte", "32432432", "nahuel@test.com", estrategiasNotificacion);
 
-        DatosDePersona datosDePersona = new DatosDePersona("Francisco", "Flores", "234223423", "234326562", "fran@test.com", ubicacionVoluntario, Arrays.asList(contacto));
+        DatosDePersona datosDePersona = new DatosDePersona("Francisco", "Flores", 234223423, "234326562", "fran@test.com", ubicacionVoluntario, Arrays.asList(contacto), usuario);
         datosDePersona.setUsuario(usuario);
         datosDePersona.setRecibirRecomendacionAdopcion(true);
         contacto.setDatosDePersona(datosDePersona);

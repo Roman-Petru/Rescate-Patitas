@@ -43,13 +43,13 @@ public class PersonaController {
         return this.repositorio.buscar(id);
     }
 
-    public DatosDePersona buscarPersonaporDNI(String dni){
+    public DatosDePersona buscarPersonaPorDNI(Integer dni){
         return this.repositorio.buscarPorDNI(dni);
     }
 
 
     public void agregar(DatosDePersona.DatosDePersonaDTO dto) {
-        DatosDePersona persona = new DatosDePersona(dto.getNombre(), dto.getApellido(), dto.getDocumento(),dto.getNumTramite(), dto.getEmail(), dto.getUbicacion(), dto.getContactos());
+        DatosDePersona persona = new DatosDePersona(dto.getNombre(), dto.getApellido(), dto.getDocumento(),dto.getNumTramite(), dto.getEmail(), dto.getUbicacion(), dto.getContactos(), null);
         repositorio.agregar(persona);
     }
 
@@ -63,7 +63,7 @@ public class PersonaController {
     }
 
     public void modificar(Integer id, DatosDePersona.DatosDePersonaDTO dto) {
-        DatosDePersona persona = new DatosDePersona(dto.getNombre(), dto.getApellido(), dto.getDocumento(),dto.getNumTramite(), dto.getEmail(), dto.getUbicacion(), dto.getContactos());
+        DatosDePersona persona = new DatosDePersona(dto.getNombre(), dto.getApellido(), dto.getDocumento(),dto.getNumTramite(), dto.getEmail(), dto.getUbicacion(), dto.getContactos(), null);
         persona.setId(id);
         repositorio.modificar(persona);
     }
@@ -92,7 +92,7 @@ public class PersonaController {
         }
 
         if(request.queryParams("dni") != null){
-            persona.setDocumento(request.queryParams("dni"));
+            persona.setDocumento(Integer.parseInt(request.queryParams("dni")));
         }
 
     }
@@ -106,13 +106,13 @@ public class PersonaController {
     public Response registrarPersona(Request request, Response response){
         try{
             String nombre = request.queryParams("nombre");
-            String apellido= request.queryParams("apellido");
-            String dni= request.queryParams("dni");
+            String apellido = request.queryParams("apellido");
+            String dni = request.queryParams("dni");
 
             DatosDePersona persona = new DatosDePersona();
             persona.setNombre(nombre);
             persona.setApellido(apellido);
-            persona.setDocumento(dni);
+            persona.setDocumento(Integer.parseInt(dni));
 
             this.agregar(persona.toDTO());
             response.redirect("/");

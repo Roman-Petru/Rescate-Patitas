@@ -109,7 +109,7 @@ public class RescatistaController {
 
             persona.setNombre(nombre);
             persona.setApellido(apellido);
-            persona.setDocumento(dni);
+            persona.setDocumento(Integer.parseInt(dni));
             contacto.setDatosDePersona(persona);
             persona.agregarContacto(contacto);
 
@@ -161,7 +161,7 @@ public class RescatistaController {
 
             persona.setNombre(nombre);
             persona.setApellido(apellido);
-            persona.setDocumento(dni);
+            persona.setDocumento(Integer.parseInt(dni));
             contacto.setDatosDePersona(persona);
             persona.agregarContacto(contacto);
 

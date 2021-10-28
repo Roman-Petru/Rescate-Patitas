@@ -26,24 +26,29 @@ var btnListener = () => {
                 "complete": function (resp) {
                     if (resp.status == 200) {
                         hideLoadingDiv();
-                        showMessageExtra("Credenciales correctas", "Login", 500);
+                        //showMessageExtra("Credenciales correctas", "Login", 500);
                         window.location.replace("/")
                     }
                     else if (resp.status == 401) {
                         hideLoadingDiv();
-                        showMessage("Las credenciales ingresadas no son validas", "Login");
+                        showMessage("La contraseña ingresada es incorrecta", "Login");
                         $("#password").val("");
                     }
                     else if (resp.status == 404) {
                         hideLoadingDiv();
-                        showMessage("Ha ocurrido un error", "Login");
+                        showMessage("Usuario ingresado no encontrado", "Login");
+                        $("#password").val("");
+                    }
+                    else if (resp.status == 500) {
+                        hideLoadingDiv();
+                        showMessage("Ha ocurrido un error inesperado. Por favor contactar al administrador del sistema", "Login");
                         $("#password").val("");
                     }
                 }
             });
         }
         else {
-            showMessage("Debe ingresar el usuario y contraseña", "Login");
+            showMessage("Debe completar el usuario y contraseña", "Login");
         }
     });
 }

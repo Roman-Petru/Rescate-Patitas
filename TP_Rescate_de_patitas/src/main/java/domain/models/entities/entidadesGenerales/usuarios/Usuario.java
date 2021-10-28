@@ -1,5 +1,6 @@
 package domain.models.entities.entidadesGenerales.usuarios;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.enums.Permiso;
 
@@ -18,6 +19,7 @@ import java.util.List;
 @Entity
 @Table(name = "usuario")
 @Getter @Setter
+@JsonIgnoreProperties
 public class Usuario extends Persistente {
 
     @Column(unique = true)
@@ -26,9 +28,6 @@ public class Usuario extends Persistente {
     @Setter(value= AccessLevel.NONE)
     @Column(name = "password")
     private String hashedPasswordActual;
-
-    @Transient
-    private String password;
 
     @Setter(value=AccessLevel.NONE)
     @Column(name = "salt")
@@ -75,10 +74,12 @@ public class Usuario extends Persistente {
         return dto;
 }
 
+    @JsonIgnoreProperties
     @Getter @Setter
     public static class UsuarioDTO {
         private Integer id;
         private String usuario;
+        private String password;
         private String hashedPasswordActual;
         private String saltActual;
         private Integer intentosFallidos;

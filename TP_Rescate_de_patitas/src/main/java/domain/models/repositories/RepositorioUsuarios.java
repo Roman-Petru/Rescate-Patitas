@@ -16,6 +16,7 @@ public class RepositorioUsuarios extends RepositorioGenerico<Usuario>{
     }
 
     public Usuario buscarPorNombreDeUsuario(String nombreUsuario) {
+        Usuario usuario = null;
 
         CriteriaBuilder criteriaBuilder = RepositorioGenerico.get_manager().getCriteriaBuilder();
         CriteriaQuery<Usuario> usuarioQuery = criteriaBuilder.createQuery(Usuario.class);
@@ -27,9 +28,13 @@ public class RepositorioUsuarios extends RepositorioGenerico<Usuario>{
 
         usuarioQuery.where(condicionExisteUsuario);
 
-        //Usuario usuario = RepositorioGenerico.get_manager().createQuery(usuarioQuery).getSingleResult();
-        Usuario usuario = RepositorioGenerico.get_manager().createQuery("SELECT u FROM Usuario u WHERE u.usuario = '" + nombreUsuario + "'", Usuario.class).getSingleResult();
+        List results = RepositorioGenerico.get_manager().createQuery(usuarioQuery).getResultList();
+        //Usuario usuario = RepositorioGenerico.get_manager().createQuery("SELECT u FROM Usuario u WHERE u.usuario = '" + nombreUsuario + "'", Usuario.class).getSingleResult();
 
+        if (!results.isEmpty())
+            usuario = (Usuario) results.get(0);
+        else
+            return null;
 
         return usuario;
 

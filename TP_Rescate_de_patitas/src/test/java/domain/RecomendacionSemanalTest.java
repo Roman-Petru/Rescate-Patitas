@@ -59,8 +59,8 @@ public class RecomendacionSemanalTest {
         EnvioViaWhatsapp envioViaWhatsapp = EnvioViaWhatsapp.instancia();
         List<EstrategiaNotificacion> estrategiasNotificacion = Arrays.asList(envioViaWhatsapp, envioViaMail);
         Contacto contacto = new Contacto("Carmen","Villalta", "123123", "july.vr@hotmail.com", estrategiasNotificacion);
-        DatosDePersona persona1 = new DatosDePersona("Julian", "Perez", "35845454", "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
-        DatosDePersona persona2 = new DatosDePersona("Martin", "Morales", "12312424", "325325235", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto));
+        DatosDePersona persona1 = new DatosDePersona("Julian", "Perez", 35845454, "996558874", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto), null);
+        DatosDePersona persona2 = new DatosDePersona("Martin", "Morales", 12312424, "325325235", "july.vr@hotmail.com", ubicacion, Arrays.asList(contacto), null);
 
         //AGREGO PERSONAS A REPOSITORIO
         PersonaController personaController = PersonaController.getInstancia();

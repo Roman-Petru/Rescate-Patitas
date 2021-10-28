@@ -85,7 +85,7 @@ public class MascotaController {
         String dni= request.queryParams("dni");
 
         DatosDePersona persona = PersonaController.getInstancia().traerPersonaPorDNIONueva(dni);
-        persona.setDocumento(dni);
+        persona.setDocumento(Integer.parseInt(dni));
 
         PersonaController.getInstancia().asignarAtributosA(persona, request);
 

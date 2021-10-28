@@ -74,25 +74,30 @@ public class LoginController {
         try {
 
             ObjectMapper mapper = new ObjectMapper();
-            Usuario user = mapper.readValue(request.body(), Usuario.class);
+            Usuario.UsuarioDTO userDTO = mapper.readValue(request.body(), Usuario.UsuarioDTO.class);
 
-            Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorNombre(user.getUsuario());
-            String[] passConSalt = new String[2];
-            passConSalt[0] = usuario.getHashedPasswordActual();
-            passConSalt[1] = usuario.getSaltActual();
+            Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorNombre(userDTO.getUsuario());
+            if (usuario != null){
+                String[] passConSalt = new String[2];
+                passConSalt[0] = usuario.getHashedPasswordActual();
+                passConSalt[1] = usuario.getSaltActual();
 
-            if (Hasher.sonCorrespondientes(user.getPassword(), passConSalt)) {
-                request.session(true);
-                request.session().attribute("id", usuario.getId());
-                response.status(200);
-            } else {
-                response.status(401);
+                if (Hasher.sonCorrespondientes(userDTO.getPassword(), passConSalt)) {
+                    request.session(true);
+                    request.session().attribute("id", usuario.getId());
+                    response.status(200);
+                } else {
+                    response.status(401);
+                }
+            }
+            else{
+                response.status(404);
             }
 
         } catch (Exception e) {
             //Funcionalidad disponible solo con persistencia en Base de Datos
-            System.out.println("Error al logear usuario: " + e);
-            response.status(404);
+            System.out.println("Error en el servidor: " + e);
+            response.status(500);
         } finally {
             return response;
         }

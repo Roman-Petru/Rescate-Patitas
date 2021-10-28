@@ -17,7 +17,7 @@ public class AdminTest {
 
         BuilderUsuario builderUsuario = new BuilderUsuario();
         builderUsuario.setUsername("admin_carlos");
-        builderUsuario.setPassword("passwordParaProbar123_");
+        builderUsuario.setPassword("passwordParaProbar1234_");
 
         Usuario adminCarlos = builderUsuario.crearUsuario();;
 
