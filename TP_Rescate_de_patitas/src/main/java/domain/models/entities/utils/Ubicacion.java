@@ -22,6 +22,14 @@ public class Ubicacion extends Persistente {
         super();
     }
 
+    public static Ubicacion crearUbicacionDefault(){
+        Ubicacion ubicacionDefault = new Ubicacion();
+        ubicacionDefault.latitud = 0.0;
+        ubicacionDefault.longitud = 0.0;
+        ubicacionDefault.direccion = "Calle siempre viva 123";
+        return ubicacionDefault;
+    }
+
     public UbicacionDTO toDTO(){
         Ubicacion.UbicacionDTO dto = new Ubicacion.UbicacionDTO();
         dto.id = this.getId();

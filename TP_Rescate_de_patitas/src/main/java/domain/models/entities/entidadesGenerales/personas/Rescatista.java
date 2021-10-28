@@ -73,7 +73,7 @@ public class Rescatista extends Persistente {
         private Integer radioDeCercaniaEnKm;
         private DatosMascotaParaHogar datosMascota;
         private Boolean encontroConChapita;
-        private Ubicacion ubicacion;
+        //private Ubicacion ubicacion;
     }
 
 }

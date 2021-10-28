@@ -1,6 +1,7 @@
 package domain;
 
 import domain.controllers.OrganizacionController;
+import domain.controllers.PublicacionMascotaPerdidaController;
 import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;
@@ -43,7 +44,7 @@ public class GenerarPublicacionMascotaPerdidaTest {
         Rescatista jorgeRescatista = new Rescatista(datosDePersona);
         FormularioMascota formularioMascota = new FormularioMascota(jorgeRescatista, "imagen path", "a pleno",ubicacion3, false, 150);
 
-        organizacionController.crearFormularioMascotaPerdida(formularioMascota.toDTO());
+        PublicacionMascotaPerdidaController.getInstancia().crearFormularioMascotaPerdida(formularioMascota.toDTO());
 
         assertThat(organizacionController.listarTodos().get(0).getFormulariosPendientes().size(), is(0));
         assertThat(organizacionController.listarTodos().get(1).getFormulariosPendientes().size(), is(1));

@@ -47,6 +47,10 @@ public class FormularioMascota extends Persistente {
     @JoinColumn(name="organizacion_id" , referencedColumnName = "id")
     private Organizacion organizacion;
 
+    public FormularioMascota(){
+
+    }
+
     public FormularioMascota(Rescatista personaQueRescato, String imagen, String estadoMascota, Ubicacion lugarEncontrado, boolean tieneChapita, Integer radioDeCercaniaEnKm) {
         this.personaQueRescato = personaQueRescato;
         this.imagen = imagen;

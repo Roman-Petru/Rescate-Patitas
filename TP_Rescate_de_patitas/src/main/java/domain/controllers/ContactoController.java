@@ -61,13 +61,13 @@ public class ContactoController {
     public Boolean asignarAtributosA(Contacto contacto, Request request) {
         int i = 0; //verifica que esten todos los atributos
 
-        if(request.queryParams("nombre") != null){
-            contacto.setNombre(request.queryParams("nombre"));
+        if(request.queryParams("nombreContacto") != null){
+            contacto.setNombre(request.queryParams("nombreContacto"));
             i++;
         }
 
-        if(request.queryParams("apellido") != null){
-            contacto.setApellido(request.queryParams("apellido"));
+        if(request.queryParams("apellidoContacto") != null){
+            contacto.setApellido(request.queryParams("apellidoContacto"));
             i++;
         }
 

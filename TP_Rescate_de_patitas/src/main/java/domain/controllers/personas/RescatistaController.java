@@ -1,8 +1,11 @@
 package domain.controllers.personas;
+import domain.controllers.ContactoController;
 import domain.controllers.MascotaController;
+import domain.controllers.PublicacionMascotaPerdidaController;
 import domain.controllers.Utilidades;
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Mascota;
+import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
@@ -90,36 +93,45 @@ public class RescatistaController {
 
     public Response notificarDuenio(Request request, Response response){
         try{
+
             Mascota mascota = MascotaController.getInstancia().buscarMascotaPorID(new Integer(request.params("id")));
-     /*       for (Contacto contacto: mascota.getContactos()) {
-                contacto.agregarNotificadorConString(contacto.getNotificacionEnString());
-            }*/
 
-            Contacto contacto = new Contacto();
-            contacto.setNombre(request.queryParams("nombreContacto"));
-            contacto.setApellido(request.queryParams("apellidoContacto"));
-            contacto.setTelefono(request.queryParams("telefono"));
-            contacto.setEmail(request.queryParams("email"));
+            if(request.queryParams("dni") == null){
+                response.redirect("/mensaje/Error al registrar rescate, favor ingresar DNI");
+                return response;
+            }
 
-            DatosDePersona persona = new DatosDePersona();
-            String nombre = request.queryParams("nombre");
-            String apellido= request.queryParams("apellido");
             String dni= request.queryParams("dni");
 
-
-            persona.setNombre(nombre);
-            persona.setApellido(apellido);
+            DatosDePersona persona = PersonaController.getInstancia().traerPersonaPorDNIONueva(dni);
             persona.setDocumento(Integer.parseInt(dni));
-            contacto.setDatosDePersona(persona);
-            persona.agregarContacto(contacto);
+
+            PersonaController.getInstancia().asignarAtributosA(persona, request);
+
+            Contacto contacto = new Contacto();
+            if (!ContactoController.getInstancia().asignarAtributosA(contacto, request)) {
+                if (persona.getContactos().size() == 0){
+                    response.redirect("/mensaje/Error al registrar rescate, no tiene suficientes datos de contacto");
+                    return response;
+                }
+            } else {
+                contacto.setDatosDePersona(persona);
+                persona.agregarContacto(contacto);
+            }
+
 
             Rescatista rescatista = new Rescatista();
             rescatista.setEncontroConChapita(true);
             rescatista.setDatosDePersona(persona);
+
             this.notificarRescatistaADuenio(mascota, persona);
 
-            //PersonaController.getInstancia().agregar(persona.toDTO());
+            FormularioMascota formularioMascota = new FormularioMascota();
+            formularioMascota.setTieneChapita(true);
+            PublicacionMascotaPerdidaController.getInstancia().asignarAtributosA(formularioMascota, request);
+            formularioMascota.setPersonaQueRescato(rescatista);
 
+            PublicacionMascotaPerdidaController.getInstancia().crearFormularioMascotaPerdida(formularioMascota.toDTO());
 
             response.redirect("/mensaje/Mensaje mandado correctamente al duenio de la mascota!");
         }
@@ -140,37 +152,39 @@ public class RescatistaController {
 
     public Response crearFormulario(Request request, Response response) {
         try{
-            Contacto contacto = new Contacto();
-            contacto.setNombre(request.queryParams("nombreContacto"));
-            contacto.setApellido(request.queryParams("apellidoContacto"));
-            contacto.setTelefono(request.queryParams("telefono"));
-            contacto.setEmail(request.queryParams("email"));
-            contacto.setNotificacionEnString(request.queryParams("notificacion"));  //mientras no ande la persistencia de estrategias de notificacion
+            if(request.queryParams("dni") == null){
+                response.redirect("/mensaje/Error al registrar rescate, favor ingresar DNI");
+                return response;
+            }
 
-            Integer notificacionID = new Integer(request.queryParams("notificacion"));
-            List<EstrategiaNotificacion> lista = new ArrayList<>();
-            lista.add(NotificadorHelper.devolverNotificadoresConID(notificacionID));
-
-            contacto.setNotificadores(lista);
-
-            DatosDePersona persona = new DatosDePersona();
-            String nombre = request.queryParams("nombre");
-            String apellido= request.queryParams("apellido");
             String dni= request.queryParams("dni");
 
-
-            persona.setNombre(nombre);
-            persona.setApellido(apellido);
+            DatosDePersona persona = PersonaController.getInstancia().traerPersonaPorDNIONueva(dni);
             persona.setDocumento(Integer.parseInt(dni));
-            contacto.setDatosDePersona(persona);
-            persona.agregarContacto(contacto);
+
+            PersonaController.getInstancia().asignarAtributosA(persona, request);
+
+            Contacto contacto = new Contacto();
+            if (!ContactoController.getInstancia().asignarAtributosA(contacto, request)) {
+                if (persona.getContactos().size() == 0){
+                    response.redirect("/mensaje/Error al registrar rescate, no tiene suficientes datos de contacto");
+                    return response;
+                }
+            } else {
+                contacto.setDatosDePersona(persona);
+                persona.agregarContacto(contacto);
+            }
 
             Rescatista rescatista = new Rescatista();
             rescatista.setEncontroConChapita(false);
             rescatista.setDatosDePersona(persona);
 
-            this.modificar(rescatista);
+            FormularioMascota formularioMascota = new FormularioMascota();
+            formularioMascota.setTieneChapita(false);
+            PublicacionMascotaPerdidaController.getInstancia().asignarAtributosA(formularioMascota, request);
+            formularioMascota.setPersonaQueRescato(rescatista);
 
+            PublicacionMascotaPerdidaController.getInstancia().crearFormularioMascotaPerdida(formularioMascota.toDTO());
 
             response.redirect("/mensaje/Se creo el formulario para la publicacion de mascota perdida!");
         }

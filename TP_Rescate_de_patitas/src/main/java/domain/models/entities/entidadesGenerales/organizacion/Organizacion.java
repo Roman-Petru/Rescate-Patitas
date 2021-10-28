@@ -1,5 +1,6 @@
 package domain.models.entities.entidadesGenerales.organizacion;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
@@ -66,6 +67,13 @@ public class Organizacion extends Persistente {
     private List<PublicacionInteresAdopcion> publicacionInteresAdopcion;
 
     public Organizacion() {
+        this.voluntarios = new ArrayList<>();
+        this.publicaciones = new ArrayList<>();
+        this.formulariosPendientes = new ArrayList<>();
+        this.postulanteVoluntarios = new ArrayList<>();
+        this.publicacionesAdopcion = new ArrayList<>();
+        this.cuestionarios = new ArrayList<>();
+        this.publicacionInteresAdopcion = new ArrayList<>();
     }
 
     public Organizacion(String nombre, Ubicacion ubicacion) {
@@ -102,6 +110,13 @@ public class Organizacion extends Persistente {
 
     public void postularseVoluntario(Usuario postulanteVoluntario) {
         this.postulanteVoluntarios.add(postulanteVoluntario);
+    }
+
+    public static Organizacion getDefault(){
+        Organizacion organizacion = new Organizacion();
+        organizacion.setNombre("Default");
+        organizacion.setUbicacion(Ubicacion.crearUbicacionDefault());
+        return organizacion;
     }
 
   /*  public void agregarVoluntario (Usuario personaQueAcepta, Usuario voluntario) throws Exception {

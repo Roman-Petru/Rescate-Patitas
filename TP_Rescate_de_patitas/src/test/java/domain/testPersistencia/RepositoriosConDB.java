@@ -2,8 +2,10 @@ package domain.testPersistencia;
 
 
 import domain.controllers.ContactoController;
+import domain.controllers.OrganizacionController;
 import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.Contacto;
+import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.utils.Ubicacion;
 import org.junit.Test;
@@ -27,6 +29,10 @@ public class RepositoriosConDB {
         DatosDePersona.DatosDePersonaDTO dto = datosDePersona.toDTO();
         PersonaController.getInstancia().agregar(dto);
 
+        Organizacion organizacion = new Organizacion();
+        organizacion.setNombre("Prueba");
+        organizacion.setUbicacion(ubicacion);
+        OrganizacionController.getInstancia().modificar(organizacion);
         //assert
     }
 

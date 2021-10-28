@@ -48,8 +48,7 @@ public class PublicacionAdopcionController {
         OrganizacionController organizacionController = OrganizacionController.getInstancia();
         Organizacion organizacion = organizacionController.buscarOrganizacionPorID(organizacionID);
         organizacion.agregarPublicacionAdopcion(publicacionDarAdopcion);
-        Organizacion.OrganizacionDTO dtoOrg = organizacion.toDTO();
-        OrganizacionController.getInstancia().modificar(organizacionID, dtoOrg);
+        OrganizacionController.getInstancia().modificar(organizacion);
     }
 
     public PublicacionDarAdopcion.PublicacionAdopcionDTO ver(Integer id) {

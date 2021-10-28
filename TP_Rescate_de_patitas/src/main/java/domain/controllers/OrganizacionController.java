@@ -58,31 +58,12 @@ public class OrganizacionController {
         //TODO
     }
 
-    public void modificar(Integer id, Organizacion.OrganizacionDTO dto) {
-        //TODO
-
+    public void modificar(Organizacion org) {
+        repositorio.modificar(org);
     }
 
     public void eliminar(Integer id) {
         //TODO
-    }
-
-    public void crearFormularioMascotaPerdida(FormularioMascota.FormularioMascotaDTO dto) {
-
-        class BuscarOrganizacion {
-            Organizacion encontrarOrganizacionMasCercana(FormularioMascota formulario) {
-                return repositorio.buscarTodos().stream().min((org1, org2) -> (int) (DistanciaAOrg(org1, formulario) - DistanciaAOrg(org2, formulario))).get();
-            }
-
-            double DistanciaAOrg(Organizacion organizacion, FormularioMascota formulario) {
-                return DistanciaEntreDosPuntos.calcular(organizacion.getUbicacion().getLatitud(), organizacion.getUbicacion().getLongitud(), formulario.getLugarEncontrado().getLatitud(), formulario.getLugarEncontrado().getLongitud());
-            }
-        }
-        FormularioMascota formulario = new FormularioMascota(dto.getPersonaQueRescato(), dto.getImagen(), dto.getEstadoMascota(), dto.getLugarEncontrado(), dto.isTieneChapita(), dto.getRadioDeCercaniaEnKm());
-        Organizacion organizacion = new BuscarOrganizacion().encontrarOrganizacionMasCercana(formulario);
-        organizacion.agregarFormulario(formulario);
-        //UPDATE en la base de datos cuando se haga
-        repositorio.modificar(organizacion);
     }
 
     public void aprobarFormulario(Organizacion.OrganizacionDTO dto, DatosDePersona voluntario, FormularioMascota formularioPendiente) throws Exception {  //personaDTO, formuDTO?
@@ -95,19 +76,9 @@ public class OrganizacionController {
         organizacion.getFormulariosPendientes().remove(formularioPendiente);
         PublicacionMascotaPerdida nuevaPublicacion = new PublicacionMascotaPerdida(formularioPendiente, false);
         organizacion.agregarPublicacion(nuevaPublicacion);
-        //UPDATE en la base de datos cuando se haga
         repositorio.modificar(organizacion);
     }
 
-    public List<PublicacionMascotaPerdida> buscarTodasPublicacionesDeMascotasPerdidas() {
-        List<Organizacion> organizaciones = repositorio.buscarTodos();
-        List<PublicacionMascotaPerdida> lista_publicaciones = new ArrayList<>();
-
-        for (Organizacion organizacion : organizaciones)
-            lista_publicaciones.addAll(organizacion.getPublicaciones());
-
-        return lista_publicaciones;
-    }
 
     public List<PublicacionDarAdopcion> buscarPublicacionAdopcionDeOrganizacion(Integer organizacionID) {
         return this.buscarOrganizacionPorID(organizacionID).getPublicacionesAdopcion();
