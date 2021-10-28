@@ -34,7 +34,7 @@ public class PersonaController {
         return this.repositorio.buscarTodos();
     }
 
-    public DatosDePersona traerPersonaPorDNIONueva(String dni) {
+    public DatosDePersona traerPersonaPorDNIONueva(Integer dni) {
         List<DatosDePersona> personas = this.listarTodos();
         return personas.stream().filter(persona -> persona.getDocumento().equals(dni)).findFirst().orElse(new DatosDePersona());
     }

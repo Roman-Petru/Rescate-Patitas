@@ -101,10 +101,10 @@ public class RescatistaController {
                 return response;
             }
 
-            String dni= request.queryParams("dni");
+            Integer dni = new Integer(request.queryParams("dni"));
 
             DatosDePersona persona = PersonaController.getInstancia().traerPersonaPorDNIONueva(dni);
-            persona.setDocumento(Integer.parseInt(dni));
+            persona.setDocumento(dni);
 
             PersonaController.getInstancia().asignarAtributosA(persona, request);
 
@@ -157,10 +157,10 @@ public class RescatistaController {
                 return response;
             }
 
-            String dni= request.queryParams("dni");
+            Integer dni = new Integer(request.queryParams("dni"));
 
             DatosDePersona persona = PersonaController.getInstancia().traerPersonaPorDNIONueva(dni);
-            persona.setDocumento(Integer.parseInt(dni));
+            persona.setDocumento(dni);
 
             PersonaController.getInstancia().asignarAtributosA(persona, request);
 
