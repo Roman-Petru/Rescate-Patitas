@@ -11,6 +11,8 @@ import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.enums.Animal;
 import domain.models.entities.enums.DescripcionPermiso;
 import domain.models.entities.utils.NotificadorHelper;
+import domain.models.entities.utils.excepciones.FaltaDniException;
+import domain.models.entities.utils.excepciones.FaltanDatosContactoException;
 import domain.models.modulos.generadorQR.GeneradorQR;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.models.repositories.RepositorioMascotas;
@@ -74,13 +76,13 @@ public class MascotaController {
     }
 
 
-    public Response registrarMascotayContacto(Request request, Response response){
+    public ModelAndView registrarMascotayContacto(Request request, Response response){
+
+        Map<String, Object> parametros = new HashMap<>();
 
     try {
-        if(request.queryParams("dni") == null){
-            response.redirect("/mensaje/Error al registrar mascota, favor ingresar DNI");
-            return response;
-        }
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        if ((request.queryParams("dni") == null) || (request.queryParams("dni").equals(""))) throw new FaltaDniException();
 
         Integer dni = new Integer(request.queryParams("dni"));
 
@@ -92,28 +94,25 @@ public class MascotaController {
 
         Contacto contacto = new Contacto();
         if (!ContactoController.getInstancia().asignarAtributosA(contacto, request)) {
-            if (persona.getContactos().size() == 0){
-                response.redirect("/mensaje/Error al registrar mascota, no tiene suficientes datos de contacto");
-                return response;
-                }
-            } else {
+            if (persona.getContactos().size() == 0) throw new FaltanDatosContactoException();
+        } else {
             contacto.setDatosDePersona(persona);
             persona.agregarContacto(contacto);
-            }
+        }
 
         Mascota mascota = new Mascota();
         this.asignarAtributosA(mascota, request);
 
         Integer idMascotaNueva = DuenioMascotaController.getInstancia().agregarMascota(persona, mascota);
-        GeneradorQR.generar(idMascotaNueva);
-
-        response.redirect("/mostrarQR/" + idMascotaNueva);}
-
+        parametros.put("CodigoQR", GeneradorQR.generar(idMascotaNueva));
+        parametros.put("numeroCodigo", idMascotaNueva);
+        //response.redirect("/mostrarQR/" + idMascotaNueva);}
+        return new ModelAndView(parametros, "mostrarQR.hbs");
+         }
         catch (Exception e){
-        response.redirect("/mensaje/Error al registrar mascota: " + e);
-        }
-        finally {
-            return response;
+            //response.redirect("/mensaje/Error al registrar mascota: " + e);
+            parametros.put("mensaje", "Error al registrar mascota: " + e.getMessage());
+            return new ModelAndView(parametros,"mensaje.hbs");
         }
     }
 

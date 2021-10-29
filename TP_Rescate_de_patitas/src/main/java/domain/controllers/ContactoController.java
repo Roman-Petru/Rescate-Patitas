@@ -61,22 +61,22 @@ public class ContactoController {
     public Boolean asignarAtributosA(Contacto contacto, Request request) {
         int i = 0; //verifica que esten todos los atributos
 
-        if(request.queryParams("nombreContacto") != null){
+        if ((request.queryParams("nombreContacto") != null ) && (!request.queryParams("nombreContacto").equals(""))) {
             contacto.setNombre(request.queryParams("nombreContacto"));
             i++;
         }
 
-        if(request.queryParams("apellidoContacto") != null){
+        if ((request.queryParams("apellidoContacto") != null ) && (!request.queryParams("apellidoContacto").equals(""))) {
             contacto.setApellido(request.queryParams("apellidoContacto"));
             i++;
         }
 
-        if(request.queryParams("telefono") != null){
+        if ((request.queryParams("telefono") != null ) && (!request.queryParams("telefono").equals(""))) {
             contacto.setTelefono(request.queryParams("telefono"));
             i++;
         }
 
-        if(request.queryParams("email") != null){
+        if ((request.queryParams("email") != null ) && (!request.queryParams("email").equals(""))) {
             contacto.setEmail(request.queryParams("email"));
             i++;
         }

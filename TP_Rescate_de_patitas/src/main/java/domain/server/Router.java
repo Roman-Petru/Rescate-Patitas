@@ -36,7 +36,7 @@ public class Router {
         //=============================================MASCOTA=================================================================================//
         Spark.get("/preRegistrarMascota", MascotaController.getInstancia()::preRegistrarMascota, Router.engine);
         Spark.get("/registrarMascota", MascotaController.getInstancia()::registrarMascota, Router.engine);
-        Spark.post("/registrarMascota", MascotaController.getInstancia()::registrarMascotayContacto);
+        Spark.post("/registrarMascota", MascotaController.getInstancia()::registrarMascotayContacto, Router.engine);
         Spark.post("/validarPersona", MascotaController.getInstancia()::validarPersona);
         Spark.get("/adoptarMascota", PublicacionInteresAdopcionController.getInstancia()::adoptarMascota, Router.engine);
         Spark.get("/agregarCaracteristica", CaracteristicaController.getInstancia()::agregarCaracteristicaPantalla, Router.engine);
