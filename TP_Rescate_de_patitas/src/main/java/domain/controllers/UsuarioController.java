@@ -161,15 +161,46 @@ public class UsuarioController {
             Usuario.UsuarioDTO usuarioDTO = mapper.readValue(request.body(), Usuario.UsuarioDTO.class);
             DatosDePersona.DatosDePersonaDTO personaDTO = mapper.readValue(request.body(), DatosDePersona.DatosDePersonaDTO.class);
 
-            DatosDePersona persona = personaController.buscarPersonaPorDNI(personaDTO.getDocumento());
+            Usuario existeUsuario = this.buscarUsuarioPorNombre(usuarioDTO.getUsuario());
+            if (existeUsuario != null){
+                //Ya existe un usuario registrado con ese nombre
+                response.status(409);
+            }
+            else {
 
-            if (persona != null){
+                DatosDePersona persona = personaController.buscarPersonaPorDNI(personaDTO.getDocumento());
 
-                Usuario laPersonaTieneUsuario = persona.getUsuario();
+                if (persona != null) {
 
-                if (laPersonaTieneUsuario == null){
+                    Usuario laPersonaEncontradaTieneUsuario = persona.getUsuario();
 
-                    //USUARIO: creo usuario
+                    if (laPersonaEncontradaTieneUsuario == null) {
+
+                        //USUARIO: creo usuario
+                        BuilderUsuario builderUsuario = new BuilderUsuario();
+                        builderUsuario.setUsername(usuarioDTO.getUsuario());
+                        builderUsuario.setPassword(usuarioDTO.getPassword());
+                        Usuario usuario = builderUsuario.crearUsuario();
+                        this.agregarUsuario(usuario.toDTO());
+
+                        Usuario nuevoUsuarioCreado = this.buscarUsuarioPorNombre(usuario.getUsuario());
+
+                        //PERSONA: A la persona le actualizo el id de creacion de usuario
+                        persona.setUsuario(nuevoUsuarioCreado);
+                        PersonaController.getInstancia().modificar(persona);
+
+                        request.session(true);
+                        request.session().attribute("id", nuevoUsuarioCreado.getId());
+                        response.status(200);
+
+                    } else {
+                        //no corresponde agregar un nuevo usuario porque ya existe un usuario registrado con ese dni
+                        response.status(401);
+                    }
+
+                } else {
+
+                    //USUARIO
                     BuilderUsuario builderUsuario = new BuilderUsuario();
                     builderUsuario.setUsername(usuarioDTO.getUsuario());
                     builderUsuario.setPassword(usuarioDTO.getPassword());
@@ -178,60 +209,29 @@ public class UsuarioController {
 
                     Usuario nuevoUsuarioCreado = this.buscarUsuarioPorNombre(usuario.getUsuario());
 
-                    //PERSONA: A la persona le actualizo el id de creacion de usuario
-                    persona.setUsuario(nuevoUsuarioCreado);
-                    PersonaController.getInstancia().modificar(persona);
+                    //PERSONA
+                    DatosDePersona personaAGuardar = new DatosDePersona();
+                    personaAGuardar.setNombre(personaDTO.getNombre());
+                    personaAGuardar.setApellido(personaDTO.getApellido());
+                    personaAGuardar.setDocumento(personaDTO.getDocumento());
+                    personaAGuardar.setUsuario(nuevoUsuarioCreado);
+                    personaController.agregar(personaAGuardar.toDTO());
 
                     request.session(true);
-                    request.session().attribute("id", usuario.getId());
+                    request.session().attribute("id", nuevoUsuarioCreado.getId());
                     response.status(200);
-
-                } else {
-                    //no corresponde agregar un nuevo usuario porque ya existe un usuario registrado con ese dni
-                    response.status(401);
                 }
-
-            } else{
-
-                //USUARIO
-                BuilderUsuario builderUsuario = new BuilderUsuario();
-                builderUsuario.setUsername(usuarioDTO.getUsuario());
-                builderUsuario.setPassword(usuarioDTO.getPassword());
-                Usuario usuario = builderUsuario.crearUsuario();
-                this.agregarUsuario(usuario.toDTO());
-
-                Usuario nuevoUsuarioCreado = this.buscarUsuarioPorNombre(usuario.getUsuario());
-
-                //PERSONA
-                DatosDePersona personaAGuardar = new DatosDePersona();
-                personaAGuardar.setNombre(personaDTO.getNombre());
-                personaAGuardar.setApellido(personaDTO.getApellido());
-                personaAGuardar.setDocumento(personaDTO.getDocumento());
-                personaAGuardar.setUsuario(nuevoUsuarioCreado);
-                personaController.agregar(personaAGuardar.toDTO());
-
-                request.session(true);
-                request.session().attribute("id", usuario.getId());
-                response.status(200);
             }
 
         } catch (Exception e) {
             //todo cambiar a pantalla de error
             System.out.println("Error al registrar usuario: " + e);
-
             response.redirect("/");
         } finally {
             return response;
         }
     }
 
-//    public void asignarUsuarioSiEstaLogueado(Request request, Map<String, Object> parametros){
-//        if(!request.session().isNew() && request.session().attribute("id") != null){
-//            Usuario usuario = this.buscarUsuarioPorID(request.session().attribute("id"));
-//            parametros.put("usuario", usuario);
-//            parametros.put("admin", usuario.EsAdmin());
-//        }
-//    }
 
     public Boolean esAdminLogeado(Request request) {
         if (!request.session().isNew() && request.session().attribute("id") != null) {

@@ -38,12 +38,17 @@ var btnListener = () => {
                             $("#nombre").val("");
                             $("#apellido").val("");
                             $("#dni").val("");
-                            window.location.replace("/");
-
+                            window.location.replace("/#success");
                         }
                         else if (resp.status == 401) {
                             hideLoadingDiv();
                             showMessage("El DNI ingresado ya posee un usuario asignado", "RegistroUsuario");
+                            $("#usuario").val("");
+                            $("#password").val("");
+                        }
+                        else if (resp.status == 409){
+                            hideLoadingDiv();
+                            showMessage("Ya existe registrado un usuario con ese nombre", "RegistroUsuario");
                             $("#usuario").val("");
                             $("#password").val("");
                         }

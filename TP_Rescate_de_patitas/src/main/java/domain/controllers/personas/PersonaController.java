@@ -49,7 +49,7 @@ public class PersonaController {
 
 
     public void agregar(DatosDePersona.DatosDePersonaDTO dto) {
-        DatosDePersona persona = new DatosDePersona(dto.getNombre(), dto.getApellido(), dto.getDocumento(),dto.getNumTramite(), dto.getEmail(), dto.getUbicacion(), dto.getContactos(), null);
+        DatosDePersona persona = new DatosDePersona(dto.getNombre(), dto.getApellido(), dto.getDocumento(),dto.getNumTramite(), dto.getEmail(), dto.getUbicacion(), dto.getContactos(), dto.getEntityUsuario());
         repositorio.agregar(persona);
     }
 

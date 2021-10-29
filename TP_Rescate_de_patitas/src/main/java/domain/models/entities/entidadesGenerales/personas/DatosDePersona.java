@@ -22,6 +22,7 @@ import java.util.List;
 @Entity
 @Table(name = "datosDePersona")
 @Getter @Setter
+@JsonIgnoreProperties
 public class DatosDePersona extends Persistente {
 
     @Column
@@ -46,7 +47,7 @@ public class DatosDePersona extends Persistente {
     @Column
     private boolean recibirRecomendacionAdopcion;
 
-    @OneToOne(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.ALL}, fetch= FetchType.EAGER)
     @JoinColumn(name="usuario_id")
     private Usuario usuario;
 
@@ -58,7 +59,7 @@ public class DatosDePersona extends Persistente {
         this.contactos = new ArrayList<>();
     }
 
-    public DatosDePersona(String nombre, String apellido, Integer documento, String numTramite, String email, Ubicacion ubicacion, List<Contacto> contactos, Usuario usuario) {
+    public DatosDePersona(String nombre, String apellido, Integer documento, String numTramite, String email, Ubicacion ubicacion, List<Contacto> contactos, Usuario entityUsuario) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.documento = documento;
@@ -66,7 +67,7 @@ public class DatosDePersona extends Persistente {
         this.email = email;
         this.ubicacion = ubicacion;
         this.contactos = contactos;
-        this.usuario = usuario;
+        this.usuario= entityUsuario;
         this.recibirRecomendacionAdopcion = false;
     }
 
@@ -85,6 +86,7 @@ public class DatosDePersona extends Persistente {
         dto.email = this.getEmail();
         dto.ubicacion = this.getUbicacion();
         dto.contactos = this.getContactos();
+        dto.entityUsuario = this.getUsuario();
         return dto;
     }
 
@@ -98,5 +100,6 @@ public class DatosDePersona extends Persistente {
         private String email;
         private Ubicacion ubicacion;
         private List<Contacto> contactos;
+        private Usuario entityUsuario;
     }
 }

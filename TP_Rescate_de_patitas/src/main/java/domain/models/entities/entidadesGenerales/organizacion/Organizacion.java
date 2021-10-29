@@ -1,6 +1,5 @@
 package domain.models.entities.entidadesGenerales.organizacion;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;

@@ -255,7 +255,7 @@ select {
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     pointer-events: none;
 }
 
