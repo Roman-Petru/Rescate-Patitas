@@ -75,6 +75,11 @@ public class DatosDePersona extends Persistente {
         contactos.add(contacto);
     }
 
+    public Integer getIDDeUsuario(){
+        if (this.getUsuario() != null)
+            return this.getUsuario().getId();
+        else return -1;
+    }
 
     public DatosDePersonaDTO toDTO() {
         DatosDePersonaDTO dto  = new DatosDePersonaDTO();

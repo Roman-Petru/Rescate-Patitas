@@ -67,6 +67,7 @@ public class MascotaController {
         try {
         Map<String, Object> parametros = new HashMap<>();
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        Utilidades.asignarPersonaUsuaria(request, parametros);
         parametros.put("caracteristicas", CaracteristicaController.getInstancia().listarTodos());
         return new ModelAndView(parametros,"registrarMascota.hbs");}
         catch  (Exception e) {
