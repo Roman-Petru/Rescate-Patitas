@@ -25,7 +25,7 @@ import java.util.List;
 @Getter @Setter
 public class PublicacionMascotaPerdida extends Persistente {
 
-    @OneToOne(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.ALL}, fetch= FetchType.EAGER)
     @JoinColumn(name="formulario_id")
     private FormularioMascota formulario;
 
@@ -35,19 +35,33 @@ public class PublicacionMascotaPerdida extends Persistente {
     @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<EstadoPublicacion> estadosPublicacion;
 
+    @Column
+    private PosibleEstadoPublicacion estadoActual;
+
     @ManyToOne
     @JoinColumn(name="organizacion_id" , referencedColumnName = "id")
     private Organizacion organizacion;
+
+    @Transient
+    private Boolean activa;
+
+    public PublicacionMascotaPerdida() {
+        this.estadosPublicacion = new ArrayList<>();
+        estadosPublicacion.add(new EstadoPublicacion(PosibleEstadoPublicacion.PAUSADA));
+        this.estadoActual = PosibleEstadoPublicacion.PAUSADA;
+    }
 
     public PublicacionMascotaPerdida(FormularioMascota formulario, boolean mascostaEncontrada) {
         this.formulario = formulario;
         this.mascostaEncontrada = mascostaEncontrada;
         this.estadosPublicacion = new ArrayList<>();
 
-        estadosPublicacion.add(new EstadoPublicacion(PosibleEstadoPublicacion.ACTIVA));
+        estadosPublicacion.add(new EstadoPublicacion(PosibleEstadoPublicacion.PAUSADA));
+        this.estadoActual = PosibleEstadoPublicacion.PAUSADA;
     }
 
-    public PosibleEstadoPublicacion estadoActualPublicacion(){
-        return estadosPublicacion.get(estadosPublicacion.size() - 1).getEstadoPublicacion();
+    public void cambiarEstadoPublicacion (PosibleEstadoPublicacion estado){
+        estadosPublicacion.add(new EstadoPublicacion(estado));
+        estadoActual = estado;
     }
 }

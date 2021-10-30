@@ -51,9 +51,6 @@ public class Organizacion extends Persistente {
     private List<Usuario> postulanteVoluntarios;
 
     @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<FormularioMascota> formulariosPendientes;
-
-    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Cuestionario> cuestionarios;
 
     @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
@@ -68,7 +65,6 @@ public class Organizacion extends Persistente {
     public Organizacion() {
         this.voluntarios = new ArrayList<>();
         this.publicaciones = new ArrayList<>();
-        this.formulariosPendientes = new ArrayList<>();
         this.postulanteVoluntarios = new ArrayList<>();
         this.publicacionesAdopcion = new ArrayList<>();
         this.cuestionarios = new ArrayList<>();
@@ -80,16 +76,12 @@ public class Organizacion extends Persistente {
         this.ubicacion = ubicacion;
         this.voluntarios = new ArrayList<>();
         this.publicaciones = new ArrayList<>();
-        this.formulariosPendientes = new ArrayList<>();
         this.postulanteVoluntarios = new ArrayList<>();
         this.publicacionesAdopcion = new ArrayList<>();
         this.cuestionarios = new ArrayList<>();
         this.publicacionInteresAdopcion = new ArrayList<>();
     }
 
-    public void agregarFormulario(FormularioMascota formularioMascota) {
-        this.formulariosPendientes.add(formularioMascota);
-    }
 
     public void agregarPublicacion(PublicacionMascotaPerdida publicacion) {
         this.publicaciones.add(publicacion);
@@ -142,7 +134,6 @@ public class Organizacion extends Persistente {
         dto.ubicacion = this.getUbicacion();
         dto.voluntarios = this.getVoluntarios();
         dto.publicaciones = this.getPublicaciones();
-        dto.formulariosPendientes = this.getFormulariosPendientes();
         dto.postulanteVoluntarios = this.getPostulanteVoluntarios();
         dto.cuestionarios = this.getCuestionarios();
         dto.publicacionesAdopcion = this.getPublicacionesAdopcion();

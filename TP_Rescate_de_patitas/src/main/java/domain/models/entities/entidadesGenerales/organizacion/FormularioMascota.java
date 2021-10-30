@@ -4,13 +4,9 @@ import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;
 import domain.models.entities.utils.Ubicacion;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,7 +23,8 @@ public class FormularioMascota extends Persistente {
     @JoinColumn(name="duenioMascota_id")
     private DuenioMascota duenioMascota;
 
-    @Column
+    @Lob
+    @Column(name = "imagen")
     private String imagen;
 
     @Column
@@ -42,10 +39,6 @@ public class FormularioMascota extends Persistente {
 
     @Column
     private Integer radioDeCercaniaEnKm;
-
-    @ManyToOne
-    @JoinColumn(name="organizacion_id" , referencedColumnName = "id")
-    private Organizacion organizacion;
 
     public FormularioMascota(){
 

@@ -71,6 +71,7 @@ public class Router {
 
         //=============================================PUBLICACION=================================================================================//
         Spark.get("/publicaciones/:id", PublicacionAdopcionController.getInstancia()::pantallaPublicacionesDeOrganizacion, Router.engine);
+        Spark.get("/publicacionesMascotaPerdida", PublicacionMascotaPerdidaController.getInstancia()::pantallaPublicacionesMascotaPerdida, Router.engine);
 
     }
 }

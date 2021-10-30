@@ -22,6 +22,10 @@ public class EstadoPublicacion extends Persistente {
     @Column(columnDefinition = "DATE")
     private LocalDate fecha;
 
+    public EstadoPublicacion() {
+        this.fecha = LocalDate.now();
+    }
+
     public EstadoPublicacion(PosibleEstadoPublicacion estado) {
         this.estadoPublicacion = estado;
         this.fecha = LocalDate.now();

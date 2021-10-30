@@ -164,6 +164,7 @@ public class RescatistaController {
 
             PersonaController.getInstancia().asignarAtributosA(persona, request);
 
+
             Contacto contacto = new Contacto();
             if (!ContactoController.getInstancia().asignarAtributosA(contacto, request)) {
                 if (persona.getContactos().size() == 0){

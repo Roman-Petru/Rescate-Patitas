@@ -66,20 +66,6 @@ public class OrganizacionController {
         //TODO
     }
 
-    public void aprobarFormulario(Organizacion.OrganizacionDTO dto, DatosDePersona voluntario, FormularioMascota formularioPendiente) throws Exception {  //personaDTO, formuDTO?
-
-        Organizacion organizacion = this.buscarOrganizacionPorID(dto.getId());
-
-        if (!organizacion.getVoluntarios().contains(voluntario))
-            throw new Exception("La persona no es voluntaria en esta organizacion");
-
-        organizacion.getFormulariosPendientes().remove(formularioPendiente);
-        PublicacionMascotaPerdida nuevaPublicacion = new PublicacionMascotaPerdida(formularioPendiente, false);
-        organizacion.agregarPublicacion(nuevaPublicacion);
-        repositorio.modificar(organizacion);
-    }
-
-
     public List<PublicacionDarAdopcion> buscarPublicacionAdopcionDeOrganizacion(Integer organizacionID) {
         return this.buscarOrganizacionPorID(organizacionID).getPublicacionesAdopcion();
     }
