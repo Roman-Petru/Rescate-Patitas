@@ -3,6 +3,7 @@ package domain.server;
 import domain.controllers.*;
 import domain.controllers.personas.PersonaController;
 import domain.controllers.personas.RescatistaController;
+import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
 import domain.spark.utils.BooleanHelper;
 import domain.spark.utils.HandlebarsTemplateEngineBuilder;
 import spark.Spark;
@@ -73,5 +74,19 @@ public class Router {
         Spark.get("/publicaciones/:id", PublicacionAdopcionController.getInstancia()::pantallaPublicacionesDeOrganizacion, Router.engine);
         Spark.get("/publicacionesMascotaPerdida", PublicacionMascotaPerdidaController.getInstancia()::pantallaPublicacionesMascotaPerdida, Router.engine);
 
+        //=============================================CUESTIONARIOS=================================================================================//
+        Spark.get("/gestionarCuestionarios", CuestionarioController.getInstancia()::gestionarCuestionariosPantalla, Router.engine);
+        Spark.get("/agregarCuestionario", CuestionarioController.getInstancia()::agregarCuestionarioPantalla, Router.engine);
+        Spark.post("/agregarCuestionario", CuestionarioController.getInstancia()::agregarCuestionarioPost);
+        //============================================PREGUNTAS==========================================================
+        Spark.get("/preguntas/:id", PreguntaAdopcionController.getInstancia()::pantallaDePreguntas, Router.engine);
+        Spark.get("/agregarPregunta", PreguntaAdopcionController.getInstancia()::agregarPreguntaPantalla, Router.engine);
+        Spark.post("/agregarPregunta", PreguntaAdopcionController.getInstancia()::agregarPreguntaPost);
+        Spark.get("/agregarPreguntaLibre", PreguntaAdopcionController.getInstancia()::agregarPreguntaLibrePantalla, Router.engine);
+        Spark.post("/agregarPreguntaLibre", PreguntaAdopcionController.getInstancia()::agregarPreguntaLibrePost);
+        Spark.get("/agregarPreguntaSingleChoice", PreguntaAdopcionController.getInstancia()::agregarPreguntaSingleChoicePantalla, Router.engine);
+        Spark.post("/agregarPreguntaSingleChoice", PreguntaAdopcionController.getInstancia()::agregarPreguntaSingleChoicePost);
+        Spark.get("/agregarPreguntaMultipleChoice", PreguntaAdopcionController.getInstancia()::agregarPreguntaMultipleChoicePantalla, Router.engine);
+        Spark.post("/agregarPreguntaMultipleChoice", PreguntaAdopcionController.getInstancia()::agregarPreguntaMultipleChoicePost);
     }
 }

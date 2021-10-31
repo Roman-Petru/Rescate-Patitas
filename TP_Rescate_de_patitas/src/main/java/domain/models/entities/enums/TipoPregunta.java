@@ -5,3 +5,4 @@ public enum TipoPregunta {
   SINGLE_CHOICE,
   MULTIPLE_CHOICE
 }
+

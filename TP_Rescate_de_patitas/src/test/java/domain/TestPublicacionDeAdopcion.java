@@ -39,7 +39,7 @@ public class TestPublicacionDeAdopcion {
         PreguntaAdopcion.PreguntaAdopcionDTO preg2 = new PreguntaAdopcion.PreguntaAdopcionDTO();
         preg2.setDescripcion("Rompe todo?");
 
-        PreguntaAdopcionController.getInstancia().agregarPreguntasObligatorias(preg1, adminMark);
+        PreguntaAdopcionController.getInstancia().agregar(preg1);
         //PreguntaAdopcionController.getInstancia().agregarPreguntasObligatorias(preg2, adminMark);
 
         assertThat(PreguntaAdopcionController.getInstancia().listarTodos().size(), is(1));

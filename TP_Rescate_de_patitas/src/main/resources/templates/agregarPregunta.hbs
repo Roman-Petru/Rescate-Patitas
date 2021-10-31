@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/login.estilos.css">
+    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/generales.js"></script>
+    <script src="/js/site.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Agregar caracteristica</title>
+</head>
+<body>
+
+{{> nav.hbs}}
+
+<div class="main_container">
+    <br><br>
+    <h1 align="center">
+    <h1> Crear nueva Pregunta</h1>
+        <br>
+        <form action="agregarPregunta" method="post" class="form-">
+            <div class="form-group">
+                <label for="inputEmail4">Elija el tipo de pregunta:</label>
+                <select class="form-select" name="tipo" aria-label="Default select example">
+                <option value="1">LIBRE</option>
+                <option value="2">SINGLE_CHOICE</option>
+                <option value="2">MULTIPLE_CHOICE</option>
+                </select>
+            </div>
+
+            <button type="submit">Continuar</button>
+        </form>
+        <br><br>
+        <p class="lead">
+            <a href="/" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Volver al home</a>
+        </p>
+    </h1>
+    </div>
+
+</div>
+</body>
+</html>

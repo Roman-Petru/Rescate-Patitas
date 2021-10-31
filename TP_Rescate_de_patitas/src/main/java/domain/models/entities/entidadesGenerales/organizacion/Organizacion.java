@@ -1,6 +1,7 @@
 package domain.models.entities.entidadesGenerales.organizacion;
 
 import domain.models.entities.entidadesGenerales.Persistente;
+import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.utils.Ubicacion;
@@ -50,7 +51,8 @@ public class Organizacion extends Persistente {
     )
     private List<Usuario> postulanteVoluntarios;
 
-    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @JoinColumn(name="organizacion_id" , referencedColumnName = "id")
     private List<Cuestionario> cuestionarios;
 
     @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
