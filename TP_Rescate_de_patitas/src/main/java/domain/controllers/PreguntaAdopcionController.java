@@ -2,8 +2,10 @@ package domain.controllers;
 
 import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
 import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.Permiso;
+import domain.models.entities.enums.TipoPregunta;
 import domain.models.modulos.notificador.mensaje.Mensaje;
 import domain.models.repositories.RepositorioPreguntasAdopcion;
 import spark.ModelAndView;
@@ -26,6 +28,9 @@ public class PreguntaAdopcionController {
             instancia = new PreguntaAdopcionController();
         }
         return instancia;
+    }
+    public PreguntaAdopcion buscarPreguntaPorID(Integer id){
+        return this.repositorio.buscar(id);
     }
 
     public PreguntaAdopcion.PreguntaAdopcionDTO ver(Integer id) {
@@ -57,8 +62,9 @@ public class PreguntaAdopcionController {
     }
 
     public ModelAndView pantallaDePreguntas(Request request, Response response) {
-
         Map<String, Object> parametros = new HashMap<>();
+        List<PreguntaAdopcion> preguntas = PreguntaAdopcionController.getInstancia().listarTodos();
+        parametros.put("preguntas", preguntas);
         return new ModelAndView(parametros, "preguntas.hbs");
 
     }
@@ -96,10 +102,10 @@ public class PreguntaAdopcionController {
     }
 
     public Response agregarPreguntaLibrePost(Request request, Response response) {
-     //   Cuestionario cuestionario = new Cuestionario(request.queryParams("cuestionario"));
+       PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(request.queryParams("pregunta_libre"));
        // cuestionario.setPreguntas(Collections.emptyList());
-       // this.agregar(cuestionario.toDTO());
-        response.redirect("/mensaje/pu agregado con exito");
+        preguntaAdopcion.setTipoPregunta(TipoPregunta.LIBRE);
+        this.agregar(preguntaAdopcion.toDTO());
         return response;
     }
 

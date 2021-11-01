@@ -3,6 +3,7 @@ package domain.models.entities.entidadesGenerales.cuestionarios;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.enums.TipoPregunta;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -29,6 +30,12 @@ public class PreguntaAdopcion extends Persistente {
 
     public PreguntaAdopcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public PreguntaAdopcion() {
+        this.descripcion = " ";
+        this.opciones = new ArrayList<>();
+        this.tipoPregunta = TipoPregunta.LIBRE;
     }
 
     public PreguntaAdopcion.PreguntaAdopcionDTO toDTO() {

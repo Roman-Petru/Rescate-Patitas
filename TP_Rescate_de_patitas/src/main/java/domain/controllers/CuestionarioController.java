@@ -2,7 +2,9 @@ package domain.controllers;
 
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
+import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
+import domain.models.entities.enums.TipoPregunta;
 import domain.models.repositories.RepositorioCuestionarios;
 import spark.ModelAndView;
 import spark.Request;
@@ -78,7 +80,62 @@ public class CuestionarioController {
         Cuestionario cuestionario = new Cuestionario(request.queryParams("cuestionario"));
         cuestionario.setPreguntas(Collections.emptyList());
         this.agregar(cuestionario.toDTO());
-        response.redirect("/mensaje/Cuesstionario agregado con exito");
+        response.redirect("/mensaje/Cuestionario agregado con exito");
         return response;
     }
+
+    public ModelAndView pantallaPreguntas(Request request, Response response) {
+        Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
+        Map<String, Object> parametros = new HashMap<>();
+        List<PreguntaAdopcion> preguntas = cuestionario.getPreguntas();
+        parametros.put("preguntas", preguntas);
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+
+        return new ModelAndView(parametros,"preguntas.hbs");
+    }
+
+    public ModelAndView agregarPreguntaPantalla(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+
+        return new ModelAndView(parametros, "agregarPregunta.hbs");
+
+    }
+
+    public Response agregarPreguntaPost(Request request, Response response) {
+        //  PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(request.queryParams("pregunta"));
+        //this.agregar(preguntaAdopcion.toDTO());
+        switch (request.queryParams("tipo")) {
+            case "1":
+                response.redirect("/gestionarCuestionarios/" + request.params("id") +"/agregarPreguntaLibre");
+                break;
+            case "2":
+                response.redirect("/gestionarCuestionarios/" + request.params("id") +"/agregarPreguntaSingleChoice");
+                break;
+            case "3":
+                response.redirect("/gestionarCuestionarios/"+ request.params("id") +"/agregarPreguntaMultipleChoice");
+                break;
+            default : response.redirect("/mensaje/Error")   ;
+        }
+
+        return response;
+    }
+
+    public Response agregarPreguntaLibrePost(Request request, Response response) {
+        Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
+        PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(request.queryParams("pregunta_libre"));
+        preguntaAdopcion.setTipoPregunta(TipoPregunta.LIBRE);
+        cuestionario.getPreguntas().add(preguntaAdopcion);
+        PreguntaAdopcionController.getInstancia().agregar(preguntaAdopcion.toDTO());
+        repositorio.modificar(cuestionario);
+        return response;
+    }
+
+ /*   public Response agregarPreguntaLibrePost(Request request, Response response) {
+        Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
+        cuestionario.setPreguntas(Collections.emptyList());
+        this.agregar(cuestionario.toDTO());
+        response.redirect("/mensaje/Cuestionario agregado con exito");
+        return response;
+    }
+*/
 }
