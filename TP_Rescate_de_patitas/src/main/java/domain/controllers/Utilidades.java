@@ -10,7 +10,7 @@ public class Utilidades {
     if(!request.session().isNew() && request.session().attribute("id") != null){
       Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorID(request.session().attribute("id"));
       parametros.put("usuarioLogueado", usuario);
-      parametros.put("esAdmin", usuario.EsAdmin());
+      parametros.put("esAdmin", usuario.esAdmin());
     }
   }
 

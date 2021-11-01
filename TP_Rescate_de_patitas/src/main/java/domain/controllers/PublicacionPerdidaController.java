@@ -1,7 +1,5 @@
-package domain.controllers.personas;
+package domain.controllers;
 
-import domain.controllers.OrganizacionController;
-import domain.controllers.Utilidades;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
 import domain.models.repositories.RepositorioPublicacionPerdida;
 import spark.ModelAndView;

@@ -13,13 +13,8 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "usuario")
-<<<<<<< HEAD
-@Getter
-@Setter
-=======
 @Getter @Setter
 @JsonIgnoreProperties
->>>>>>> 330a4fa5e817a512907eafa2a136122588edb4fc
 public class Usuario extends Persistente {
 
     @Column(unique = true)
@@ -29,14 +24,10 @@ public class Usuario extends Persistente {
     @Column(name = "password")
     private String hashedPasswordActual;
 
-<<<<<<< HEAD
     @Transient
     private String password;
 
     @Setter(value = AccessLevel.NONE)
-=======
-    @Setter(value=AccessLevel.NONE)
->>>>>>> 330a4fa5e817a512907eafa2a136122588edb4fc
     @Column(name = "salt")
     private String saltActual;
 
@@ -92,13 +83,8 @@ public class Usuario extends Persistente {
         return this.permiso == permiso;
     }
 
-<<<<<<< HEAD
-    @Getter
-    @Setter
-=======
     @JsonIgnoreProperties
     @Getter @Setter
->>>>>>> 330a4fa5e817a512907eafa2a136122588edb4fc
     public static class UsuarioDTO {
         private Integer id;
         private String usuario;

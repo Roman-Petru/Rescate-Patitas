@@ -71,13 +71,15 @@ public class Router {
         Spark.get("/organizacion/:id", OrganizacionController.getInstancia()::pantallaModificar, Router.engine);
 
         //=============================================PUBLICACION=================================================================================//
-        Spark.get("/publicaciones/:id", PublicacionAdopcionController.getInstancia()::pantallaPublicacionesDeOrganizacion, Router.engine);
-        Spark.get("/publicacionesMascotaPerdida", PublicacionMascotaPerdidaController.getInstancia()::pantallaPublicacionesMascotaPerdida, Router.engine);
+        Spark.get("/adopciones/:id", PublicacionAdopcionController.getInstancia()::pantallaAdopcionesDeOrganizacion, Router.engine);
+        Spark.get("/perdidas/:id", PublicacionPerdidaController.getInstancia()::pantallaPerdidasDeOrganizacion, Router.engine);
+        Spark.get("/interesesAdopcion/:id", PublicacionInteresAdopcionController.getInstancia()::pantallaInteresesDeOrganizacion, Router.engine);
 
         //=============================================CUESTIONARIOS=================================================================================//
         Spark.get("/gestionarCuestionarios", CuestionarioController.getInstancia()::gestionarCuestionariosPantalla, Router.engine);
         Spark.get("/agregarCuestionario", CuestionarioController.getInstancia()::agregarCuestionarioPantalla, Router.engine);
         Spark.post("/agregarCuestionario", CuestionarioController.getInstancia()::agregarCuestionarioPost);
+
         //============================================PREGUNTAS==========================================================
         Spark.get("/preguntas/:id", PreguntaAdopcionController.getInstancia()::pantallaDePreguntas, Router.engine);
         Spark.get("/agregarPregunta", PreguntaAdopcionController.getInstancia()::agregarPreguntaPantalla, Router.engine);

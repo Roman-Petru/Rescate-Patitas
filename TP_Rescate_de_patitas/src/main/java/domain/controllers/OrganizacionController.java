@@ -66,11 +66,15 @@ public class OrganizacionController {
         //TODO
     }
 
-    public List<PublicacionDarAdopcion> buscarPublicacionAdopcionDeOrganizacion(Integer organizacionID) {
+    public List<PublicacionDarAdopcion> buscarAdopcionesDeOrganizacion(Integer organizacionID) {
         return this.buscarOrganizacionPorID(organizacionID).getPublicacionesAdopcion();
     }
 
-    public List<PublicacionInteresAdopcion> buscarPublicacionesInteresAdopcionDeOrganizacion(Integer organizacionID) {
+    public List<PublicacionMascotaPerdida> buscarPerdidasDeOrganizacion(Integer organizacionID) {
+        return this.buscarOrganizacionPorID(organizacionID).getPublicaciones();
+    }
+
+    public List<PublicacionInteresAdopcion> buscarInteresesAdopcionDeOrganizacion(Integer organizacionID) {
         return this.buscarOrganizacionPorID(organizacionID).getPublicacionInteresAdopcion();
     }
 
@@ -90,6 +94,7 @@ public class OrganizacionController {
         repositorio.modificar(organizacion);
     }
 
+    /* Pantallas */
 
     public ModelAndView pantallaOrganizaciones(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
