@@ -11,6 +11,8 @@ public class Utilidades {
       Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorID(request.session().attribute("id"));
       parametros.put("usuarioLogueado", usuario);
       parametros.put("esAdmin", usuario.esAdmin());
+      parametros.put("esVoluntario", usuario.esVoluntario());
+      parametros.put("esComun", usuario.esComun());
     }
   }
 
