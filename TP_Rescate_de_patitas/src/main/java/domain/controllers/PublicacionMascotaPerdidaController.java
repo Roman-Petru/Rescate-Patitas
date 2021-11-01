@@ -60,7 +60,7 @@ public class PublicacionMascotaPerdidaController {
         publicacionMascotaPerdida.setOrganizacion(organizacion);
         organizacion.agregarPublicacion(publicacionMascotaPerdida);
         OrganizacionController.getInstancia().modificar(organizacion);
-       // this.modificar(publicacionMascotaPerdida);
+        // this.modificar(publicacionMascotaPerdida);
     }
 
     public List<PublicacionMascotaPerdida> buscarTodasPublicacionesDeMascotasPerdidas() {

@@ -1,6 +1,5 @@
 package domain.models.entities.entidadesGenerales.organizacion;
 
-
 import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.cuestionarios.RespuestaAdopcion;
@@ -13,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.ArrayList;

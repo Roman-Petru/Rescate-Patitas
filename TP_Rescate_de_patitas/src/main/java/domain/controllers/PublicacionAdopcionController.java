@@ -13,30 +13,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class PublicacionAdopcionController {
     private static PublicacionAdopcionController instancia = null;
 
     private static RepositorioPublicacionAdopcion repositorio;
-    private PublicacionAdopcionController() {this.repositorio = new RepositorioPublicacionAdopcion();}
 
-    public static PublicacionAdopcionController getInstancia(){
-        if (instancia == null){
+    private PublicacionAdopcionController() {
+        this.repositorio = new RepositorioPublicacionAdopcion();
+    }
+
+    public static PublicacionAdopcionController getInstancia() {
+        if (instancia == null) {
             instancia = new PublicacionAdopcionController();
         }
         return instancia;
     }
 
     public List<PublicacionDarAdopcion> listarTodos(){
-        List<PublicacionDarAdopcion> lista_adopcion = new ArrayList<>();
+        List<PublicacionDarAdopcion> listaAdopcion = new ArrayList<>();
         for (Organizacion organizacion : OrganizacionController.getInstancia().listarTodos())
-            lista_adopcion.addAll(OrganizacionController.getInstancia().buscarPublicacionAdopcionDeOrganizacion(organizacion.getId()));
+            listaAdopcion.addAll(OrganizacionController.getInstancia().buscarAdopcionesDeOrganizacion(organizacion.getId()));
 
-        return lista_adopcion;
+        return listaAdopcion;
     }
 
-    public List<PublicacionDarAdopcion> listarTodosDeOrganizacion(Integer organizacionId){
-        return OrganizacionController.getInstancia().buscarPublicacionAdopcionDeOrganizacion(organizacionId);
+    public List<PublicacionDarAdopcion> listarAdopcionesDeOrganizacion(Integer organizacionId){
+        return OrganizacionController.getInstancia().buscarAdopcionesDeOrganizacion(organizacionId);
     }
 
     public void agregarPublicacionAdopcion(PublicacionDarAdopcion.PublicacionAdopcionDTO dto, Integer organizacionID, RespuestaAdopcion... respuestas) {
@@ -68,12 +70,14 @@ public class PublicacionAdopcionController {
         //TODO
     }
 
-    public ModelAndView pantallaPublicacionesDeOrganizacion(Request request, Response response) {
+    /* Pantallas */
+
+    public ModelAndView pantallaAdopcionesDeOrganizacion(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        List<PublicacionDarAdopcion> publicaciones = PublicacionAdopcionController.getInstancia().listarTodosDeOrganizacion(Integer.valueOf(request.params("id")));
-        parametros.put("publicaciones", publicaciones);
+        List<PublicacionDarAdopcion> adopciones = PublicacionAdopcionController.getInstancia().listarAdopcionesDeOrganizacion(Integer.valueOf(request.params("id")));
+        parametros.put("adopciones", adopciones);
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
 
-        return new ModelAndView(parametros,"publicaciones.hbs");
+        return new ModelAndView(parametros, "adopciones.hbs");
     }
 }

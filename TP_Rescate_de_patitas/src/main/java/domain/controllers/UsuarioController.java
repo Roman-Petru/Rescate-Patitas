@@ -236,7 +236,7 @@ public class UsuarioController {
     public Boolean esAdminLogeado(Request request) {
         if (!request.session().isNew() && request.session().attribute("id") != null) {
             Usuario usuario = this.buscarUsuarioPorID(request.session().attribute("id"));
-            return usuario.EsAdmin();
+            return usuario.esAdmin();
         }
         return false;
     }
