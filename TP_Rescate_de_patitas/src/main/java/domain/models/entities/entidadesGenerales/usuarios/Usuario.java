@@ -10,26 +10,33 @@ import domain.models.entities.validaciones.validacionesContrasenias.ValidadorDeC
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import org.hsqldb.Constraint;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Entity
 @Table(name = "usuario")
+<<<<<<< HEAD
+@Getter
+@Setter
+=======
 @Getter @Setter
 @JsonIgnoreProperties
+>>>>>>> 330a4fa5e817a512907eafa2a136122588edb4fc
 public class Usuario extends Persistente {
 
     @Column(unique = true)
     private String usuario;
 
-    @Setter(value= AccessLevel.NONE)
+    @Setter(value = AccessLevel.NONE)
     @Column(name = "password")
     private String hashedPasswordActual;
 
+<<<<<<< HEAD
+    @Transient
+    private String password;
+
+    @Setter(value = AccessLevel.NONE)
+=======
     @Setter(value=AccessLevel.NONE)
+>>>>>>> 330a4fa5e817a512907eafa2a136122588edb4fc
     @Column(name = "salt")
     private String saltActual;
 
@@ -40,27 +47,34 @@ public class Usuario extends Persistente {
     @Enumerated(EnumType.STRING)
     private Permiso permiso;
 
-    public Usuario(){ }
+    public Usuario() {
+    }
 
     public Usuario(String usuario, String hashedPassword, String salt) {
         this.usuario = usuario;
-        this.hashedPasswordActual= hashedPassword;
+        this.hashedPasswordActual = hashedPassword;
         this.saltActual = salt;
         this.intentosFallidos = 0;
         this.permiso = Permiso.USUARIO_COMUN;
     }
 
-    public void cambiarContrasenia(String password)
-    {
+    public void cambiarContrasenia(String password) {
         ValidadorDeContrasenia validadorDeContrasenia = new ValidadorDeContrasenia();
         validadorDeContrasenia.validar(password);
-        this.saltActual  = Hasher.generarSalt();
-        this.hashedPasswordActual  = Hasher.hashSHA512(password, this.saltActual );
+        this.saltActual = Hasher.generarSalt();
+        this.hashedPasswordActual = Hasher.hashSHA512(password, this.saltActual);
     }
 
-
-    public Boolean EsAdmin(){
+    public Boolean esAdmin() {
         return this.permiso == Permiso.USUARIO_ADMIN;
+    }
+
+    public Boolean esVoluntario() {
+        return this.permiso == Permiso.USUARIO_VOLUNTARIO;
+    }
+
+    public Boolean esComun() {
+        return this.permiso == Permiso.USUARIO_COMUN;
     }
 
     public Usuario.UsuarioDTO toDTO() {
@@ -72,10 +86,19 @@ public class Usuario extends Persistente {
         dto.intentosFallidos = this.getIntentosFallidos();
         dto.permiso = this.getPermiso();
         return dto;
-}
+    }
 
+    public boolean tienePermisoPara(Permiso permiso) {
+        return this.permiso == permiso;
+    }
+
+<<<<<<< HEAD
+    @Getter
+    @Setter
+=======
     @JsonIgnoreProperties
     @Getter @Setter
+>>>>>>> 330a4fa5e817a512907eafa2a136122588edb4fc
     public static class UsuarioDTO {
         private Integer id;
         private String usuario;
@@ -85,10 +108,5 @@ public class Usuario extends Persistente {
         private Integer intentosFallidos;
         private Permiso permiso;
     }
-
-    public boolean tienePermisoPara(Permiso permiso) {
-         return this.permiso == permiso;
-    }
-
 
 }

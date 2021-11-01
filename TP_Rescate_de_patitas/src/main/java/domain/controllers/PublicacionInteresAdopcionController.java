@@ -19,21 +19,29 @@ public class PublicacionInteresAdopcionController {
 
     private static PublicacionInteresAdopcionController instancia = null;
     private static RepositorioPublicacionInteresAdopcion repositorio;
-    private PublicacionInteresAdopcionController() {this.repositorio = new RepositorioPublicacionInteresAdopcion();}
 
-    public static PublicacionInteresAdopcionController getInstancia(){
-        if (instancia == null){
+    private PublicacionInteresAdopcionController() {
+        this.repositorio = new RepositorioPublicacionInteresAdopcion();
+    }
+
+    public static PublicacionInteresAdopcionController getInstancia() {
+        if (instancia == null) {
             instancia = new PublicacionInteresAdopcionController();
         }
         return instancia;
     }
 
     public List<PublicacionInteresAdopcion> listarTodos(){
-        List<PublicacionInteresAdopcion> lista_adopcion = new ArrayList<>();
-        for (Organizacion organizacion : OrganizacionController.getInstancia().listarTodos())
-            lista_adopcion.addAll(OrganizacionController.getInstancia().buscarPublicacionesInteresAdopcionDeOrganizacion(organizacion.getId()));
+        List<PublicacionInteresAdopcion> listaInteres = new ArrayList<>();
+        for (Organizacion organizacion : OrganizacionController.getInstancia().listarTodos()) {
+            listaInteres.addAll(OrganizacionController.getInstancia().buscarInteresesAdopcionDeOrganizacion(organizacion.getId()));
+        }
 
-        return lista_adopcion;
+        return listaInteres;
+    }
+
+    public List<PublicacionInteresAdopcion> listarInteresesDeOrganizacion(Integer organizacionId){
+        return OrganizacionController.getInstancia().buscarInteresesAdopcionDeOrganizacion(organizacionId);
     }
 
 
@@ -74,4 +82,16 @@ public class PublicacionInteresAdopcionController {
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
         return new ModelAndView(parametros,"adoptarMascota.hbs");
     }
+
+    /* Pantallas */
+
+    public ModelAndView pantallaInteresesDeOrganizacion(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        List<PublicacionInteresAdopcion> interesesAdopcion = PublicacionInteresAdopcionController.getInstancia().listarInteresesDeOrganizacion(Integer.valueOf(request.params("id")));
+        parametros.put("interesesAdopcion", interesesAdopcion);
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+
+        return new ModelAndView(parametros, "interesesAdopcion.hbs");
+    }
+
 }

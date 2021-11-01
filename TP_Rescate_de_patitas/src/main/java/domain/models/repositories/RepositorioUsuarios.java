@@ -1,4 +1,5 @@
 package domain.models.repositories;
+import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 
@@ -48,6 +49,18 @@ public class RepositorioUsuarios extends RepositorioGenerico<Usuario>{
     }
 
     public List<Usuario> buscarTodosVoluntariosDeOrganizacion(Integer organizacionId) {
-        return RepositorioGenerico.get_manager().createQuery("SELECT o.voluntarios FROM Organizacion o WHERE o.id = '" + organizacionId + "'", Usuario.class).getResultList();
+        CriteriaBuilder criteriaBuilder = RepositorioGenerico.get_manager().getCriteriaBuilder();
+        CriteriaQuery<Organizacion> organizacionQuery = criteriaBuilder.createQuery(Organizacion.class);
+
+        Root<Organizacion> condicionRaiz = organizacionQuery.from(Organizacion.class);
+
+        Predicate condicionOrganizacionId = criteriaBuilder.equal(condicionRaiz.get("id"), organizacionId);
+
+        List<Usuario> usuarios = RepositorioGenerico.get_manager().createQuery("SELECT o.voluntarios FROM Organizacion o WHERE o.id = '" + organizacionId + "'", Usuario.class).getResultList();
+
+        return usuarios;
+
+        //return RepositorioGenerico.get_manager().createQuery("SELECT o.voluntarios FROM Organizacion o WHERE o.id = '" + organizacionId + "'", Usuario.class).getResultList();
+        //return RepositorioGenerico.get_manager().createQuery("SELECT o.voluntarios FROM Organizacion o WHERE o.id = '" + organizacionId + "'", Usuario.class).getResultList();
     }
 }
