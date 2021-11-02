@@ -2,6 +2,7 @@ package domain.controllers;
 
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
+import domain.models.entities.entidadesGenerales.cuestionarios.Opcion;
 import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.enums.TipoPregunta;
@@ -10,10 +11,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CuestionarioController {
 
@@ -127,9 +125,91 @@ public class CuestionarioController {
         cuestionario.getPreguntas().add(preguntaAdopcion);
         PreguntaAdopcionController.getInstancia().agregar(preguntaAdopcion.toDTO());
         repositorio.modificar(cuestionario);
+        response.redirect("/mensaje/pregunta agregada con exito");
         return response;
     }
 
+    public Response agregarPreguntaSingleChoicePost(Request request, Response response) {
+        Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
+        PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(request.queryParams("pregunta_single_choice"));
+        preguntaAdopcion.setTipoPregunta(TipoPregunta.SINGLE_CHOICE);
+
+        List<Opcion> opciones = new ArrayList<>();
+
+        Opcion opcion1 = new Opcion(request.queryParams("pregunta_opcion1"));
+        if(!(opcion1.getDescripcion().isEmpty())) {
+            opciones.add(opcion1);
+            //OpcionController.getInstancia().agregar(opcion1.toDTO());
+        }
+
+        Opcion opcion2 = new Opcion(request.queryParams("pregunta_opcion2"));
+        if(!(opcion2.getDescripcion().isEmpty())) {
+            opciones.add(opcion2);
+            //OpcionController.getInstancia().agregar(opcion2.toDTO());
+        }
+
+        Opcion opcion3 = new Opcion(request.queryParams("pregunta_opcion3"));
+        if(!(opcion3.getDescripcion().isEmpty()))  {
+            opciones.add(opcion3);
+          //  OpcionController.getInstancia().agregar(opcion3.toDTO());
+        }
+
+
+        Opcion opcion4 = new Opcion(request.queryParams("pregunta_opcion4"));
+        if(!(opcion4.getDescripcion().isEmpty())) {
+            opciones.add(opcion4);
+        //    OpcionController.getInstancia().agregar(opcion4.toDTO());
+        }
+
+        preguntaAdopcion.setOpciones(opciones);
+
+        cuestionario.getPreguntas().add(preguntaAdopcion);
+      //  PreguntaAdopcionController.getInstancia().agregar(preguntaAdopcion.toDTO());
+        repositorio.modificar(cuestionario);
+        response.redirect("/mensaje/pregunta agregada con exito");
+        return response;
+    }
+
+    public Response agregarPreguntaMultipleChoicePost(Request request, Response response) {
+        Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
+        PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(request.queryParams("pregunta_multiple_choice"));
+        preguntaAdopcion.setTipoPregunta(TipoPregunta.MULTIPLE_CHOICE);
+
+        List<Opcion> opciones = new ArrayList<>();
+
+        Opcion opcion1 = new Opcion(request.queryParams("pregunta_opcion1"));
+        if(!(opcion1.getDescripcion().isEmpty())) {
+            opciones.add(opcion1);
+            //OpcionController.getInstancia().agregar(opcion1.toDTO());
+        }
+
+        Opcion opcion2 = new Opcion(request.queryParams("pregunta_opcion2"));
+        if(!(opcion2.getDescripcion().isEmpty())) {
+            opciones.add(opcion2);
+            //OpcionController.getInstancia().agregar(opcion2.toDTO());
+        }
+
+        Opcion opcion3 = new Opcion(request.queryParams("pregunta_opcion3"));
+        if(!(opcion3.getDescripcion().isEmpty()))  {
+            opciones.add(opcion3);
+            //  OpcionController.getInstancia().agregar(opcion3.toDTO());
+        }
+
+
+        Opcion opcion4 = new Opcion(request.queryParams("pregunta_opcion4"));
+        if(!(opcion4.getDescripcion().isEmpty())) {
+            opciones.add(opcion4);
+            //    OpcionController.getInstancia().agregar(opcion4.toDTO());
+        }
+
+        preguntaAdopcion.setOpciones(opciones);
+
+        cuestionario.getPreguntas().add(preguntaAdopcion);
+        //  PreguntaAdopcionController.getInstancia().agregar(preguntaAdopcion.toDTO());
+        repositorio.modificar(cuestionario);
+        response.redirect("/mensaje/pregunta agregada con exito");
+        return response;
+    }
  /*   public Response agregarPreguntaLibrePost(Request request, Response response) {
         Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
         cuestionario.setPreguntas(Collections.emptyList());

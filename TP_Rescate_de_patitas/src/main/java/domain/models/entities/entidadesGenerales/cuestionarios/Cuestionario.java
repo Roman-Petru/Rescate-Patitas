@@ -18,7 +18,7 @@ public class Cuestionario extends Persistente {
     @Column
     private String descripcion;
 
-    @OneToMany(fetch= FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL},fetch= FetchType.LAZY)
     @JoinColumn(name="cuestionario_id" , referencedColumnName = "id")
     private List<PreguntaAdopcion> preguntas;
 

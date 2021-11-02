@@ -3,6 +3,7 @@ package domain.server;
 import domain.controllers.*;
 import domain.controllers.personas.PersonaController;
 import domain.controllers.personas.RescatistaController;
+import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
 import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
 import domain.spark.utils.BooleanHelper;
 import domain.spark.utils.HandlebarsTemplateEngineBuilder;
@@ -87,8 +88,8 @@ public class Router {
         Spark.get("/gestionarCuestionarios/:id/agregarPreguntaLibre", PreguntaAdopcionController.getInstancia()::agregarPreguntaLibrePantalla, Router.engine);
         Spark.post("/gestionarCuestionarios/:id/agregarPreguntaLibre", CuestionarioController.getInstancia()::agregarPreguntaLibrePost);
         Spark.get("/gestionarCuestionarios/:id/agregarPreguntaSingleChoice", PreguntaAdopcionController.getInstancia()::agregarPreguntaSingleChoicePantalla, Router.engine);
-        Spark.post("/gestionarCuestionarios/:id/agregarPreguntaSingleChoice", PreguntaAdopcionController.getInstancia()::agregarPreguntaSingleChoicePost);
+        Spark.post("/gestionarCuestionarios/:id/agregarPreguntaSingleChoice", CuestionarioController.getInstancia()::agregarPreguntaSingleChoicePost);
         Spark.get("/gestionarCuestionarios/:id/agregarPreguntaMultipleChoice", PreguntaAdopcionController.getInstancia()::agregarPreguntaMultipleChoicePantalla, Router.engine);
-        Spark.post("/gestionarCuestionarios/:id/agregarPreguntaMultipleChoice", PreguntaAdopcionController.getInstancia()::agregarPreguntaMultipleChoicePost);
+        Spark.post("/gestionarCuestionarios/:id/agregarPreguntaMultipleChoice", CuestionarioController.getInstancia()::agregarPreguntaMultipleChoicePost);
     }
 }

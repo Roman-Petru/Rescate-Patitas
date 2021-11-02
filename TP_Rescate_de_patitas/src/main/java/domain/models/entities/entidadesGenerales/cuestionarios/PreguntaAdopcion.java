@@ -28,24 +28,27 @@ public class PreguntaAdopcion extends Persistente {
     @Enumerated(EnumType.STRING)
     private TipoPregunta tipoPregunta;
 
-    public PreguntaAdopcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     public PreguntaAdopcion() {
         this.descripcion = " ";
         this.opciones = new ArrayList<>();
         this.tipoPregunta = TipoPregunta.LIBRE;
     }
 
+    public PreguntaAdopcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+
     public PreguntaAdopcion.PreguntaAdopcionDTO toDTO() {
         PreguntaAdopcion.PreguntaAdopcionDTO dto = new PreguntaAdopcion.PreguntaAdopcionDTO();
         dto.id = this.getId();
+        dto.opciones = this.getOpciones();
         dto.descripcion = this.getDescripcion();
         return dto;
     }
     @Getter @Setter
     public static class PreguntaAdopcionDTO {
+        public List<Opcion> opciones;
         private Integer id;
         private String descripcion;
     }
