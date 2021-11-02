@@ -14,12 +14,14 @@ import domain.models.modulos.resizer.NivelCalidad;
 import domain.models.modulos.resizer.Resizer;
 import domain.models.modulos.resizer.TamanioImagen;
 import domain.models.repositories.RepositorioUsuarios;
-
-import java.util.*;
-
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UsuarioController {
 
@@ -83,6 +85,14 @@ public class UsuarioController {
 
     public List<Usuario> listarTodosVoluntariosDeOrganizacion(Integer organizacionId) {
         return repositorio.buscarTodosVoluntariosDeOrganizacion(organizacionId);
+    }
+
+    public List<Usuario> listarVoluntariosDeOrganizacion(Integer organizacionId) {
+        return OrganizacionController.getInstancia().buscarVoluntariosDeOrganizacion(organizacionId);
+    }
+
+    public List<Usuario> listarPostulantesVoluntariosDeOrganizacion(Integer organizacionId) {
+        return OrganizacionController.getInstancia().buscarPostulantesVoluntariosDeOrganizacion(organizacionId);
     }
 
     public Usuario buscarUsuarioPorID(Integer id) {
@@ -241,6 +251,8 @@ public class UsuarioController {
         return false;
     }
 
+    /* Pantallas */
+
     public ModelAndView pantallaUsuarios(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         if (this.esAdminLogeado(request)) {
@@ -260,8 +272,10 @@ public class UsuarioController {
     public ModelAndView pantallaVoluntariosDeOrganizacion(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         if (this.esAdminLogeado(request)) {
-            List<Usuario> voluntarios = this.listarTodosVoluntariosDeOrganizacion(Integer.valueOf(request.params("id")));
+            List<Usuario> voluntarios = this.listarVoluntariosDeOrganizacion(Integer.valueOf(request.params("id")));
+            List<Usuario> postulanteVoluntarios = this.listarPostulantesVoluntariosDeOrganizacion(Integer.valueOf(request.params("id")));
             parametros.put("voluntarios", voluntarios);
+            parametros.put("postulantesVoluntarios", postulanteVoluntarios);
             Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
             return new ModelAndView(parametros, "voluntarios.hbs");
         }

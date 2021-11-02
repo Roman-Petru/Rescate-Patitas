@@ -50,6 +50,14 @@ function eliminarUsuario(){
     });
 }
 
+function aprobarVoluntario() {
+    // TODO
+}
+
+function negarVoluntario() {
+    // TODO
+}
+
 function cerrarModal(){
     document.getElementsByClassName("modal")[0].style.display = 'none';
 }

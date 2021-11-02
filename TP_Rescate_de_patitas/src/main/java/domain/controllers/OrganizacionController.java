@@ -1,26 +1,19 @@
 package domain.controllers;
 
 import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
-import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
-import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
-import domain.models.entities.enums.DescripcionPermiso;
-import domain.models.entities.enums.Permiso;
-import domain.models.entities.utils.DistanciaEntreDosPuntos;
 import domain.models.repositories.RepositorioOrganizaciones;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class OrganizacionController {
 
@@ -76,6 +69,14 @@ public class OrganizacionController {
 
     public List<PublicacionInteresAdopcion> buscarInteresesAdopcionDeOrganizacion(Integer organizacionID) {
         return this.buscarOrganizacionPorID(organizacionID).getPublicacionInteresAdopcion();
+    }
+
+    public List<Usuario> buscarVoluntariosDeOrganizacion(Integer organizacionID) {
+        return this.buscarOrganizacionPorID(organizacionID).getVoluntarios();
+    }
+
+    public List<Usuario> buscarPostulantesVoluntariosDeOrganizacion(Integer organizacionID) {
+        return this.buscarOrganizacionPorID(organizacionID).getPostulanteVoluntarios();
     }
 
     public void agregarPreguntaAdopcionOrganizacion(Integer organizacionID, PreguntaAdopcion.PreguntaAdopcionDTO dto, Usuario voluntario){

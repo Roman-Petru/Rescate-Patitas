@@ -17,12 +17,12 @@ import domain.models.modulos.notificador.estrategias.EnvioViaMail;
 import domain.models.modulos.notificador.estrategias.EnvioViaSMS;
 import domain.models.modulos.notificador.estrategias.EnvioViaWhatsapp;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
+import org.junit.Test;
 
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.junit.Test;
 
 public class ContextInsertSQLWorkbenchTest {
 
@@ -227,6 +227,51 @@ public class ContextInsertSQLWorkbenchTest {
 
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().persist(organizacion);
+        EntityManagerHelper.commit();
+    }
+
+    @Test
+    public void persistir_Voluntario() {
+        BuilderUsuario builderVoluntario = new BuilderUsuario();
+
+        builderVoluntario.setUsername("usuarioVoluntario");
+        builderVoluntario.setPassword("passwordParaProbar1234_");
+
+        Usuario voluntario = builderVoluntario.crearUsuario();
+
+        voluntario.setIntentosFallidos(3);
+        voluntario.setPermiso(Permiso.USUARIO_COMUN);
+
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().persist(voluntario);
+        EntityManagerHelper.commit();
+
+        Query query = EntityManagerHelper.getEntityManager().createQuery("SELECT o FROM Organizacion o WHERE o.id = 1");
+        Organizacion organizacion = (Organizacion) query.getSingleResult();
+        organizacion.agregarVoluntario(voluntario);
+        EntityManagerHelper.getEntityManager().refresh(organizacion);
+    }
+
+    @Test
+    public void persistir_PostulanteVoluntario() {
+        BuilderUsuario builderPostulanteVoluntario = new BuilderUsuario();
+
+        builderPostulanteVoluntario.setUsername("usuarioPostulanteVoluntario");
+        builderPostulanteVoluntario.setPassword("passwordParaProbar1234_");
+
+        Usuario postulanteVoluntario = builderPostulanteVoluntario.crearUsuario();
+
+        postulanteVoluntario.setIntentosFallidos(3);
+        postulanteVoluntario.setPermiso(Permiso.USUARIO_COMUN);
+
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().persist(postulanteVoluntario);
+        EntityManagerHelper.commit();
+
+        Query query = EntityManagerHelper.getEntityManager().createQuery("SELECT o FROM Organizacion o WHERE o.id = 1");
+        Organizacion organizacion = (Organizacion) query.getSingleResult();
+        organizacion.agregarVoluntario(postulanteVoluntario);
+        EntityManagerHelper.getEntityManager().refresh(organizacion);
         EntityManagerHelper.commit();
     }
 }
