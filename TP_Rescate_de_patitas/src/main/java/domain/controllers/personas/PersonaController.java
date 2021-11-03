@@ -95,6 +95,21 @@ public class PersonaController {
             persona.setDocumento(Integer.parseInt(request.queryParams("dni")));
         }
 
+    } // request.raw().getParameter
+
+    public void asignarAtributosAConRaw(DatosDePersona persona, Request request) {
+        if(request.raw().getParameter("nombrePersona") != null){
+            request.raw().getParameter(request.queryParams("nombrePersona"));
+        }
+
+        if(request.raw().getParameter("apellidoPersona") != null){
+            request.raw().getParameter(request.queryParams("apellidoPersona"));
+        }
+
+        if(request.raw().getParameter("dni") != null){
+            persona.setDocumento(Integer.parseInt(request.raw().getParameter("dni")));
+        }
+
     }
 
     public ModelAndView registrarPersonaPantalla(Request request, Response response) {

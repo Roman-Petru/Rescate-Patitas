@@ -92,10 +92,6 @@ public class PublicacionMascotaPerdidaController {
         }
 
 
-        if (request.queryParams("target") != null) {
-            formulario.setImagen(request.queryParams("target"));
-        }
-
         if (request.queryParams("latitud") != null) {
             Ubicacion ubicacion = new Ubicacion();
             ubicacion.setLatitud(new Double(request.queryParams("latitud")));
@@ -106,8 +102,26 @@ public class PublicacionMascotaPerdidaController {
 
             formulario.setLugarEncontrado(ubicacion);
         }
-    }
+    } //
 
+    public void asignarAtributosAConRaw(FormularioMascota formulario, Request request) {
+
+        if (request.raw().getParameter("descripcion") != null) {
+            formulario.setEstadoMascota(request.raw().getParameter("descripcion"));
+        }
+
+
+        if (request.raw().getParameter("latitud") != null) {
+            Ubicacion ubicacion = new Ubicacion();
+            ubicacion.setLatitud(new Double(request.raw().getParameter("latitud")));
+            ubicacion.setLongitud(new Double(request.raw().getParameter("longitud")));
+
+            if (request.raw().getParameter("direccion") != null) {
+                ubicacion.setDireccion(request.raw().getParameter("direccion"));}
+
+            formulario.setLugarEncontrado(ubicacion);
+        }
+    }
 
     public ModelAndView pantallaPublicacionesMascotaPerdida(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();

@@ -12,14 +12,19 @@ import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.enums.DescripcionPermiso;
 import domain.models.entities.enums.Permiso;
 import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeRescatistaADuenio;
+import domain.models.entities.utils.EncoderBase64;
 import domain.models.entities.utils.NotificadorHelper;
+import domain.models.entities.utils.excepciones.FaltaDniException;
+import domain.models.entities.utils.excepciones.FaltanDatosContactoException;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.models.repositories.personas.RepositorioRescatista;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.servlet.MultipartConfigElement;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 public class RescatistaController {
@@ -151,26 +156,30 @@ public class RescatistaController {
     }
 
     public Response crearFormulario(Request request, Response response) {
+        //- Servlet 3.x config
+        String location = "/aaa/bbb";  // the directory location where files will be stored
+        long maxFileSize = 100000000;  // the maximum size allowed for uploaded files
+        long maxRequestSize = 100000000;  // the maximum size allowed for multipart/form-data requests
+        int fileSizeThreshold = 1024;  // the size threshold after which files will be written to disk
+        MultipartConfigElement multipartConfigElement = new MultipartConfigElement(location, maxFileSize, maxRequestSize, fileSizeThreshold);
+        request.raw().setAttribute("org.eclipse.jetty.multipartConfig", multipartConfigElement);
+        //-/
         try{
-            if(request.queryParams("dni") == null){
-                response.redirect("/mensaje/Error al registrar rescate, favor ingresar DNI");
-                return response;
-            }
 
-            Integer dni = new Integer(request.queryParams("dni"));
+            if ((request.raw().getParameter("dni") == null) || (request.raw().getParameter("dni").equals(""))) throw new FaltaDniException();
+
+
+            Integer dni = new Integer(request.raw().getParameter("dni"));
 
             DatosDePersona persona = PersonaController.getInstancia().traerPersonaPorDNIONueva(dni);
             persona.setDocumento(dni);
 
-            PersonaController.getInstancia().asignarAtributosA(persona, request);
+            PersonaController.getInstancia().asignarAtributosAConRaw(persona, request);
 
 
             Contacto contacto = new Contacto();
-            if (!ContactoController.getInstancia().asignarAtributosA(contacto, request)) {
-                if (persona.getContactos().size() == 0){
-                    response.redirect("/mensaje/Error al registrar rescate, no tiene suficientes datos de contacto");
-                    return response;
-                }
+            if (!ContactoController.getInstancia().asignarAtributosAConRaw(contacto, request)) {
+                if (persona.getContactos().size() == 0) throw new FaltanDatosContactoException();
             } else {
                 contacto.setDatosDePersona(persona);
                 persona.agregarContacto(contacto);
@@ -182,8 +191,12 @@ public class RescatistaController {
 
             FormularioMascota formularioMascota = new FormularioMascota();
             formularioMascota.setTieneChapita(false);
-            PublicacionMascotaPerdidaController.getInstancia().asignarAtributosA(formularioMascota, request);
+            PublicacionMascotaPerdidaController.getInstancia().asignarAtributosAConRaw(formularioMascota, request);
             formularioMascota.setPersonaQueRescato(rescatista);
+
+            InputStream foto = request.raw().getPart("foto").getInputStream();
+            String encodstring = EncoderBase64.encodeUpstreamToBase64Binary(foto);
+            formularioMascota.setImagen(encodstring);
 
             PublicacionMascotaPerdidaController.getInstancia().crearFormularioMascotaPerdida(formularioMascota.toDTO());
 
@@ -193,6 +206,7 @@ public class RescatistaController {
             response.redirect("/mensaje/Error al crear formulario: " + e);
         }
         finally {
+            multipartConfigElement = null;
             return response;
         }
     }

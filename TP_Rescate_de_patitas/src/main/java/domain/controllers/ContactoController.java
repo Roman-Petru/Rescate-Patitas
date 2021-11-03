@@ -92,4 +92,41 @@ public class ContactoController {
         }
        return i==5;
     }
+
+    public Boolean asignarAtributosAConRaw(Contacto contacto, Request request) {
+        int i = 0; //verifica que esten todos los atributos
+
+        if ((request.raw().getParameter("nombreContacto") != null ) && (!request.raw().getParameter("nombreContacto").equals(""))) {
+            contacto.setNombre(request.raw().getParameter("nombreContacto"));
+            i++;
+        }
+
+        if ((request.raw().getParameter("apellidoContacto") != null ) && (!request.raw().getParameter("apellidoContacto").equals(""))) {
+            contacto.setApellido(request.raw().getParameter("apellidoContacto"));
+            i++;
+        }
+
+        if ((request.raw().getParameter("telefono") != null ) && (!request.raw().getParameter("telefono").equals(""))) {
+            contacto.setTelefono(request.raw().getParameter("telefono"));
+            i++;
+        }
+
+        if ((request.raw().getParameter("email") != null ) && (!request.raw().getParameter("email").equals(""))) {
+            contacto.setEmail(request.raw().getParameter("email"));
+            i++;
+        }
+
+        if(request.raw().getParameter("notificacion") != null){
+            contacto.setNotificacionEnString(request.raw().getParameter("notificacion"));
+
+            Integer notificacionID = new Integer(request.raw().getParameter("notificacion"));
+            List<EstrategiaNotificacion> lista = new ArrayList<>();
+            lista.add(NotificadorHelper.devolverNotificadoresConID(notificacionID));
+            contacto.setNotificadores(lista);
+            i++;
+        }
+        return i==5;
+    }
+
+
 }

@@ -29,7 +29,7 @@
         <div class="container">
             <h1>Registro de mascota perdida</h1>
             <br>
-            <form action="crearFormulario" method="post" accept-charset="utf-8">
+            <form action="crearFormulario" method="post" enctype='multipart/form-data'>
                 <h2>Ingrese sus datos, pero solo el DNI si ya los habías ingresado anteriormente</h2>
                 <br>
                 <div class="form-row">
@@ -142,32 +142,11 @@
                 <br>
                 <div>
                     <div class="custom-file">
-                        <label class="custom-file-label" for="customFile">Subir foto de mascota rescatada</label>
-                        <input type="file" class="custom-file-input" name="foto" id="foto" accept="image/*">
+                        <label class="custom-file-label" for="customFile">Subir foto de mascota rescatada, en formato JPG</label>
+                        <input type="file" class="custom-file-input" name="foto" id="foto" accept="image/jpeg">
                     </div>
                 </div>
-                <div class="form-row">
-                    <textarea style="display:none;"  id="target" name="target"  ></textarea>
-                </div>
                 <br>
-                <script>
-                function readFile() {
-
-                if (this.files && this.files[0]) {
-
-                var FR= new FileReader();
-
-                FR.addEventListener("load", function(e) {
-                document.getElementById("target").innerHTML = e.target.result;
-                });
-
-                FR.readAsDataURL( this.files[0] );
-                }
-
-                }
-
-                document.getElementById("foto").addEventListener("change", readFile);
-                    </script>
                 <button type="submit" class="btn btn-primary">Enviar formulario de Rescate</button>
             </form>
         </div>

@@ -1,11 +1,9 @@
 package domain.models.entities.utils;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
 public class EncoderBase64 {
 
@@ -25,4 +23,21 @@ public class EncoderBase64 {
         }
         return encodedfile;
     }
+
+    public static String encodeUpstreamToBase64Binary(InputStream inputStream){
+        String encodedfile = null;
+        try {
+            byte[] bytes = IOUtils.toByteArray(inputStream);
+            encodedfile = new String(Base64.encodeBase64(bytes), "UTF-8");
+            //encodedfile = Base64.encodeBase64String(bytes);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return encodedfile;
+    }
+
 }
