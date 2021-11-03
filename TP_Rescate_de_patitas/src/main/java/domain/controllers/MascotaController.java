@@ -50,18 +50,11 @@ public class MascotaController {
         repositorio.agregar(mascota);
     }
 
-    public Mascota.MascotaDTO ver(Integer id) {
-        //TODO
-        return null;
+
+    public void modificar(Mascota mascota) {
+        this.repositorio.modificar(mascota);
     }
 
-    public void modificar(Integer id, Mascota.MascotaDTO dto) {
-        //TODO
-    }
-
-    public void eliminar(Integer id) {
-        //TODO
-    }
 
     public ModelAndView registrarMascota(Request request, Response response){
         try {
@@ -172,7 +165,7 @@ public class MascotaController {
         mascota.setApodo(request.queryParams("apodo"));
         mascota.setEdadAproximada(Integer.valueOf(request.queryParams("edadAproximada")));
         mascota.setDescripcionFisica(request.queryParams("descripcionFisica"));
-        this.modificar(mascota.getId(), mascota.toDTO());
+        this.modificar(mascota);
         response.redirect("/mascotas");
         return response;
     }

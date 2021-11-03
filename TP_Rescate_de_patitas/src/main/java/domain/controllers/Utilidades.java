@@ -3,6 +3,8 @@ import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import java.util.Map;
+import java.util.Optional;
+
 import spark.Request;
 
 public class Utilidades {
@@ -19,8 +21,10 @@ public class Utilidades {
   public static void asignarPersonaUsuaria(Request request, Map<String, Object> parametros){
     if(!request.session().isNew() && request.session().attribute("id") != null){
       Integer usuarioID = request.session().attribute("id");
-      DatosDePersona persona = PersonaController.getInstancia().listarTodos().stream().filter(persona1 -> persona1.getIDDeUsuario() == usuarioID).findFirst().get();
-      parametros.put("personaUsuaria", persona);
+      Optional persona = PersonaController.getInstancia().listarTodos().stream().filter(persona1 -> persona1.getIDDeUsuario() == usuarioID).findFirst();
+      if (!persona.isPresent())
+        return;
+      parametros.put("personaUsuaria", persona.get());
     }
   }
 }

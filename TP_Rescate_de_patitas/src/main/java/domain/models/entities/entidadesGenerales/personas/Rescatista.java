@@ -29,16 +29,8 @@ public class Rescatista extends Persistente {
     @JoinColumn(name="datosMascotaParaHogar_id")
     private DatosMascotaParaHogar datosMascota;
 
-//    @OneToOne(cascade = {CascadeType.ALL})
-//    @JoinColumn(name="formulario_id")
-//    private FormularioMascota formulario;
-
     @Column
     private Boolean encontroConChapita;
-
-//    @OneToOne(cascade = {CascadeType.ALL})
-//    @JoinColumn(name="ubicacion_id")
-//    private Ubicacion ubicacion;
 
     @Transient
     private ServicioHogar servicioHogar;

@@ -1,12 +1,18 @@
 package domain.controllers;
 
+import domain.controllers.personas.PersonaController;
+import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;
 import domain.models.entities.enums.PosibleEstadoPublicacion;
+import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeDuenioARescatista;
+import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeLibre;
 import domain.models.entities.utils.DistanciaEntreDosPuntos;
+import domain.models.entities.utils.NotificadorHelper;
 import domain.models.entities.utils.Ubicacion;
 import domain.models.repositories.RepositorioFormularioMascota;
 import domain.models.repositories.RepositorioPublicacionMascotaPerdida;
@@ -14,6 +20,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,9 +43,14 @@ public class PublicacionMascotaPerdidaController {
         return instancia;
     }
 
+    public PublicacionMascotaPerdida buscarPorID(Integer id){
+        return this.repositorio.buscar(id);
+    }
+
     public void modificar(PublicacionMascotaPerdida publicacionMascotaPerdida) {
         repositorio.modificar(publicacionMascotaPerdida);
     }
+
 
     public void crearFormularioMascotaPerdida(FormularioMascota.FormularioMascotaDTO dto) {
 
@@ -100,10 +112,39 @@ public class PublicacionMascotaPerdidaController {
     public ModelAndView pantallaPublicacionesMascotaPerdida(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         List<PublicacionMascotaPerdida> publicaciones = this.buscarTodasPublicacionesDeMascotasPerdidas();
-        parametros.put("publicaciones", publicaciones);
         publicaciones.stream().forEach(p1 -> p1.setActiva(p1.getEstadoActual().equals(PosibleEstadoPublicacion.ACTIVA)));
-
+        parametros.put("publicaciones", publicaciones);
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
         return new ModelAndView(parametros,"publicacionMascotaPerdida.hbs");
+    }
+
+
+    public ModelAndView pantallaContactarRescatista(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("idPubli", request.params("id"));
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        return new ModelAndView(parametros,"publicacionContactarRescatista.hbs");
+    }
+
+    public Response contactarRescatista(Request request, Response response) {
+        try{
+
+            PublicacionMascotaPerdida publi = this.buscarPorID(new Integer(request.params("id")));
+            String mensaje = request.queryParams("mensaje");
+            this.notificarAlRescatista(publi, mensaje);
+
+            response.redirect("/mensaje/Se mando mensaje al rescatista de la mascota!");
+        }
+        catch (Exception e){
+            response.redirect("/mensaje/Error al mandar mensaje: " + e);
+        }
+        finally {
+            return response;
+        }
+    }
+
+    public void notificarAlRescatista(PublicacionMascotaPerdida publicacion, String mensaje) throws IOException {
+        ArmadorMensajeLibre armadorMensajeLibre = new ArmadorMensajeLibre("Mensaje por tu publicación en Patitas", mensaje);
+        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeLibre, publicacion.getFormulario().getPersonaQueRescato().getDatosDePersona().getContactos());
     }
 }

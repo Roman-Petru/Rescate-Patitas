@@ -30,16 +30,18 @@
             <h1>Registro de mascota perdida</h1>
             <br>
             <form action="crearFormulario" method="post" accept-charset="utf-8">
-                <h2>Ingrese sus datos</h2>
+                <h2>Ingrese sus datos, pero solo el DNI si ya los habías ingresado anteriormente</h2>
                 <br>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Nombre</label>
-                        <input type="text" class="form-control" name="nombrePersona" id="nombrePersona">
+                        <input type="text" class="form-control" name="nombrePersona" id="nombrePersona"{{#if
+                                personaUsuaria}} value="{{personaUsuaria.nombre}}" readonly {{/if}}>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputPassword4">Apellido</label>
-                        <input type="text" class="form-control" name="apellidoPersona" id="apellidoPersona">
+                        <input type="text" class="form-control" name="apellidoPersona" id="apellidoPersona"{{#if
+                                personaUsuaria}} value="{{personaUsuaria.apellido}}" readonly {{/if}}>
                     </div>
                 </div>
                 <div class="form-row">
@@ -49,11 +51,12 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputPassword4">DNI</label>
-                        <input type="number" class="form-control" name="dni" id="dni">
+                        <input type="number" class="form-control" name="dni" id="dni"{{#if
+                                personaUsuaria}} value="{{personaUsuaria.documento}}" readonly {{/if}}>
                     </div>
                     <br>
                 </div>
-                <h3>Ingrese datos de contacto</h3>
+                <h3>Ingrese datos de contacto, no es necesario si ya cargaste alguno anteriormente</h3>
                 <br>
                 <div class="form-row">
                     <div class="form-group col-md-6">

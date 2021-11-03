@@ -87,10 +87,6 @@ public class DuenioMascotaController {
         //TODO
     }
 
-    public void notificarDuenioAlRescatista(PublicacionMascotaPerdida publicacion, DatosDePersona duenio) throws IOException {
-        ArmadorMensajeDuenioARescatista armadorMensajeDuenioARescatista = new ArmadorMensajeDuenioARescatista(duenio);
-        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeDuenioARescatista, publicacion.getFormulario().getPersonaQueRescato().getDatosDePersona().getContactos());
-    }
 
 
 }

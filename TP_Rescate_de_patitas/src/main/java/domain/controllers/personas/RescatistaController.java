@@ -69,7 +69,7 @@ public class RescatistaController {
         //TODO
     }
 
-    //rescatistaController
+
     public void notificarRescatistaADuenio(Mascota mascota, DatosDePersona rescatista) throws IOException {
         ArmadorMensajeRescatistaADuenio armadorMensajeRescatistaADuenio = new ArmadorMensajeRescatistaADuenio(rescatista);
         NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeRescatistaADuenio, mascota.getDuenioMascota().getDatosDePersona().getContactos());
@@ -87,6 +87,7 @@ public class RescatistaController {
     public ModelAndView pantallaRescateSinChapita(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        Utilidades.asignarPersonaUsuaria(request, parametros);
         return new ModelAndView(parametros, "rescateSinChapita.hbs");
     }
 
@@ -94,13 +95,12 @@ public class RescatistaController {
     public Response notificarDuenio(Request request, Response response){
         try{
 
-            Mascota mascota = MascotaController.getInstancia().buscarMascotaPorID(new Integer(request.params("id")));
-
             if(request.queryParams("dni") == null){
                 response.redirect("/mensaje/Error al registrar rescate, favor ingresar DNI");
                 return response;
             }
 
+            Mascota mascota = MascotaController.getInstancia().buscarMascotaPorID(new Integer(request.params("id")));
             Integer dni = new Integer(request.queryParams("dni"));
 
             DatosDePersona persona = PersonaController.getInstancia().traerPersonaPorDNIONueva(dni);
