@@ -20,7 +20,7 @@
 {{> nav.hbs}}
 
 <div class="main_container">
-    <h1 class="encabezado"><i class="fas fa-users"></i> Cuestionarios</h1>
+    <h1 class="encabezado"> Cuestionarios</h1>
     <input type="text" name="" value="" placeholder="Buscar" id="inputUsuario">
     <a href="/agregarCuestionario" class="btn-border-blue fuente">
         <i class="fas fa-user-plus" style="margin-bottom:25px;"></i> Agregar Cuestionario
@@ -35,11 +35,8 @@
             <tr>
                 <td>{{descripcion}}</td>
                 <td>
-                    <a href="/gestionarCuestionarios/{{id}}" name="button" class="btn" style="width:115px;">Preguntas</a>
-                    <a href="/gestionarCuestionarios/{{id}}/agregarPregunta" name="button" class="btn" style="width:115px;">AgregarPregunta</a>
-                    <button type="button" name="button" class="btn" style="width:40px;"
-                            onclick="confirmarEliminacion('{{id}}')"><i
-                            class="fas fa-trash"></i></button>
+                    <a href="/gestionarCuestionarios/{{id}}" name="button" class="btn" style="width:115px;"> Ver Preguntas</a>
+                    <a href="/gestionarCuestionarios/{{id}}/agregarPregunta" name="button" class="btn" style="width:135px;">Agregar Pregunta</a>
                 </td>
             </tr>
         {{/each}}
@@ -48,21 +45,5 @@
 </div>
 </body>
 
-
-<!-- ================= MODAL ELIMINACION ================== -->
-<div class="modalEliminar modal" id="modalEliminar">
-    <div class="modalContent">
-        <input id="userId" type="hidden" value="">
-        <p>¿Desea eliminar el usuario?</p>
-        <button type="button" name="button" class="btn-close-modal" onclick="cerrarModal()"><i
-                class="fas fa-times-circle"></i></button>
-        <br>
-        <div class="">
-            <button type="button" name="button" class="btn-rojo" onclick="eliminarUsuario()">Eliminar</button>
-            <button type="button" name="button" class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
-        </div>
-    </div>
-</div>
-<!-- ================= FIN MODAL ELIMINACION ================== -->
 
 </html>

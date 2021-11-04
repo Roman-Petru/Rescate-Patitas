@@ -2,10 +2,16 @@ package domain.controllers;
 
 import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
 import domain.models.entities.entidadesGenerales.cuestionarios.Opcion;
+import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
 import domain.models.repositories.RepositorioCuestionarios;
 import domain.models.repositories.RepositorioOpcion;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OpcionController {
     private static OpcionController instancia = null;
@@ -51,4 +57,6 @@ public class OpcionController {
     public void eliminar(Integer id) {
         //TODO
     }
+
+
 }

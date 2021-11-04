@@ -1,6 +1,7 @@
 package domain.controllers;
 
 import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
+import domain.models.entities.entidadesGenerales.cuestionarios.Opcion;
 import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
@@ -89,5 +90,15 @@ public class PreguntaAdopcionController {
         return new ModelAndView(parametros, "agregarPreguntaMultipleChoice.hbs");
 
     }
+
+    public ModelAndView opcionesPantalla(Request request, Response response) {
+        PreguntaAdopcion preguntaAdopcion = this.buscarPreguntaPorID(Integer.valueOf(request.params("id")));
+        Map<String, Object> parametros = new HashMap<>();
+        List<Opcion> opciones = preguntaAdopcion.getOpciones();
+        parametros.put("opciones", opciones);
+        return new ModelAndView(parametros,"opciones.hbs");
+    }
+
+
 
 }

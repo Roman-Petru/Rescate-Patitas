@@ -96,5 +96,6 @@ public class Router {
         Spark.post("/gestionarCuestionarios/:id/agregarPreguntaSingleChoice", CuestionarioController.getInstancia()::agregarPreguntaSingleChoicePost);
         Spark.get("/gestionarCuestionarios/:id/agregarPreguntaMultipleChoice", PreguntaAdopcionController.getInstancia()::agregarPreguntaMultipleChoicePantalla, Router.engine);
         Spark.post("/gestionarCuestionarios/:id/agregarPreguntaMultipleChoice", CuestionarioController.getInstancia()::agregarPreguntaMultipleChoicePost);
+        Spark.get("/preguntas/:id",PreguntaAdopcionController.getInstancia()::opcionesPantalla, Router.engine);
     }
 }

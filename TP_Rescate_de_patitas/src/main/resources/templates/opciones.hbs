@@ -13,29 +13,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>Preguntas</title>
+    <title>Opciones</title>
 </head>
 <body id="body">
 
 {{> nav.hbs}}
 
 <div class="main_container">
-    <h1 class="encabezado"> Preguntas</h1>
+    <h1 class="encabezado"> Opciones</h1>
     <input type="text" name="" value="" placeholder="Buscar" id="inputUsuario">
     <table class="tabla" id="tabla">
         <thead>
         <th>Titulo</th>
-        <th><i class="fas fa-tools"></i> Acciones</th>
         </thead>
         <tbody>
-        {{#each preguntas}}
+        {{#each opciones}}
             <tr>
                 <td>{{descripcion}}</td>
-                </td>
-                <td>
-                    <a href="/preguntas/{{id}}" name="button" class="btn" style="width:115px;">Ver opciones</a>
-
-
                 </td>
             </tr>
         {{/each}}
