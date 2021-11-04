@@ -10,6 +10,7 @@ import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.enums.Animal;
 import domain.models.entities.enums.DescripcionPermiso;
+import domain.models.entities.utils.EncoderBase64;
 import domain.models.entities.utils.NotificadorHelper;
 import domain.models.entities.utils.excepciones.FaltaDniException;
 import domain.models.entities.utils.excepciones.FaltanDatosContactoException;
@@ -20,6 +21,8 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.servlet.MultipartConfigElement;
+import java.io.InputStream;
 import java.util.*;
 
 
@@ -73,21 +76,28 @@ public class MascotaController {
     public ModelAndView registrarMascotayContacto(Request request, Response response){
 
         Map<String, Object> parametros = new HashMap<>();
-
+        //- Servlet 3.x config
+        String location = "/aaa/bbb";  // the directory location where files will be stored
+        long maxFileSize = 100000000;  // the maximum size allowed for uploaded files
+        long maxRequestSize = 100000000;  // the maximum size allowed for multipart/form-data requests
+        int fileSizeThreshold = 1024;  // the size threshold after which files will be written to disk
+        MultipartConfigElement multipartConfigElement = new MultipartConfigElement(location, maxFileSize, maxRequestSize, fileSizeThreshold);
+        request.raw().setAttribute("org.eclipse.jetty.multipartConfig", multipartConfigElement);
+        //-/
     try {
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
-        if ((request.queryParams("dni") == null) || (request.queryParams("dni").equals(""))) throw new FaltaDniException();
+        if ((request.raw().getParameter("dni") == null) || (request.raw().getParameter("dni").equals(""))) throw new FaltaDniException();
 
-        Integer dni = new Integer(request.queryParams("dni"));
+        Integer dni = new Integer(request.raw().getParameter("dni"));
 
         DatosDePersona persona = PersonaController.getInstancia().traerPersonaPorDNIONueva(dni);
         persona.setDocumento(dni);
 
-        PersonaController.getInstancia().asignarAtributosA(persona, request);
+        PersonaController.getInstancia().asignarAtributosAConRaw(persona, request);
 
 
         Contacto contacto = new Contacto();
-        if (!ContactoController.getInstancia().asignarAtributosA(contacto, request)) {
+        if (!ContactoController.getInstancia().asignarAtributosAConRaw(contacto, request)) {
             if (persona.getContactos().size() == 0) throw new FaltanDatosContactoException();
         } else {
             contacto.setDatosDePersona(persona);
@@ -95,16 +105,17 @@ public class MascotaController {
         }
 
         Mascota mascota = new Mascota();
-        this.asignarAtributosA(mascota, request);
+        this.asignarAtributosAConRaw(mascota, request);
+        InputStream foto = request.raw().getPart("foto").getInputStream();
+        String encodstring = EncoderBase64.encodeUpstreamToBase64Binary(foto);
+        mascota.agregarFoto(encodstring);
 
         Integer idMascotaNueva = DuenioMascotaController.getInstancia().agregarMascota(persona, mascota);
         parametros.put("CodigoQR", GeneradorQR.generar(idMascotaNueva));
         parametros.put("numeroCodigo", idMascotaNueva);
-        //response.redirect("/mostrarQR/" + idMascotaNueva);}
         return new ModelAndView(parametros, "mostrarQR.hbs");
          }
         catch (Exception e){
-            //response.redirect("/mensaje/Error al registrar mascota: " + e);
             parametros.put("mensaje", "Error al registrar mascota: " + e.getMessage());
             return new ModelAndView(parametros,"mensaje.hbs");
         }
@@ -138,6 +149,36 @@ public class MascotaController {
             mascota.setEsMacho(request.queryParams("sexo").equals("1"));
         }
     }
+
+    public void asignarAtributosAConRaw(Mascota mascota, Request request) {
+        if (request.raw().getParameter("nombreMascota") != null) {
+            mascota.setNombre(request.raw().getParameter("nombreMascota"));
+        }
+
+        if (request.raw().getParameter("apodo") != null) {
+            mascota.setApodo(request.raw().getParameter("apodo"));
+        }
+
+        if (request.raw().getParameter("edad") != null) {
+            mascota.setEdadAproximada(new Integer(request.raw().getParameter("edad")));
+        }
+
+        if (request.raw().getParameter("descripcionFisica") != null) {
+            mascota.setDescripcionFisica(request.raw().getParameter("descripcionFisica"));
+        }
+
+        for (CaracteristicaGeneral caracteristicaGeneral:CaracteristicaController.getInstancia().listarTodos()) {
+            CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada(caracteristicaGeneral, request.raw().getParameter(caracteristicaGeneral.getDescripcion()));
+            mascota.agregarCaracteristicaPersonalizada(caracteristicaPersonalizada);
+        }
+        if (request.raw().getParameter("tipo") != null) {
+            mascota.setTipo(Animal.getAnimalConInteger(new Integer(request.raw().getParameter("tipo"))));
+        }
+        if (request.raw().getParameter("sexo") != null) {
+            mascota.setEsMacho(request.raw().getParameter("sexo").equals("1"));
+        }
+    }
+
 
     public Response validarPersona(Request request, Response response){
             String dniPersona = request.queryParams("dni");

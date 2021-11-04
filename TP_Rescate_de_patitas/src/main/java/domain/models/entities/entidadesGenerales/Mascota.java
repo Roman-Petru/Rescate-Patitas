@@ -78,6 +78,9 @@ public class Mascota extends Persistente {
         this.fotos = new ArrayList<>();
     }
 
+    public void agregarFoto(String foto){
+        this.fotos.add(foto);
+    }
 
     public void agregarCaracteristicaPersonalizada(CaracteristicaPersonalizada caracteristicaPersonalizada) {
         this.caracteristicas.add(caracteristicaPersonalizada);

@@ -25,7 +25,7 @@
         <div class="container">
             <h1>Registro de mascota</h1>
             <br>
-            <form action="registrarMascota" method="post">
+            <form action="registrarMascota" method="post" enctype='multipart/form-data'>
 
                 <h2>Ingrese los datos de la mascota</h2>
                 <br>
@@ -73,7 +73,12 @@
                         <textarea class="form-control" name="descripcionFisica" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                     <br>
-
+                <div>
+                    <div class="custom-file">
+                        <label class="custom-file-label" for="customFile">Subir foto de mascota, en formato JPG</label>
+                        <input type="file" class="custom-file-input" name="foto" id="foto" accept="image/jpeg">
+                    </div>
+                </div>
                 {{#each caracteristicas}}
 
                        <br>

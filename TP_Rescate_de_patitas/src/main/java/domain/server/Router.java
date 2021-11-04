@@ -3,10 +3,15 @@ package domain.server;
 import domain.controllers.*;
 import domain.controllers.personas.PersonaController;
 import domain.controllers.personas.RescatistaController;
+import domain.models.entities.entidadesGenerales.Mascota;
+import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
+import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
 import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
+import domain.models.entities.enums.Animal;
 import domain.spark.utils.BooleanHelper;
 import domain.spark.utils.HandlebarsTemplateEngineBuilder;
+import spark.Request;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -34,6 +39,7 @@ public class Router {
         Spark.post("/login", LoginController.getInstancia()::login);
         Spark.get("/logout", LoginController.getInstancia()::logout);
         Spark.get("/mensaje/:mensaje", LoginController.getInstancia()::mensaje, Router.engine);
+        Spark.get("/perfil/:id", LoginController.getInstancia()::pantallaPerfil, Router.engine);
 
         //=============================================MASCOTA=================================================================================//
         Spark.get("/preRegistrarMascota", MascotaController.getInstancia()::preRegistrarMascota, Router.engine);
@@ -99,3 +105,6 @@ public class Router {
         Spark.get("/preguntas/:id",PreguntaAdopcionController.getInstancia()::opcionesPantalla, Router.engine);
     }
 }
+
+
+

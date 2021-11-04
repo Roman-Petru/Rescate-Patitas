@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/generales.js"></script>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/usuarios.estilos.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Usuario</title>
+</head>
+<body>
+
+{{> nav.hbs}}
+
+<div class="main_container">
+
+            <form class=""  action="/usuario/{{usuario.id}}" method="post">
+                <h1 > Usuario  </h1>
+                <br>
+                <br>
+                    <div class="" style="margin:40px;">
+
+                        <label><i class="fas fa-user"></i> Nombre de usuario</label>
+                        <br>
+                        <input type="text" name="usuario" class="input-datos" value="{{usuario.usuario}}"}>
+                        <br>
+                        <br>
+                        <label><i class="fas fa-file-signature"></i> Password</label>
+                        <br>
+                        <input type="password" name="password" value="" class="input-datos" placeholder="">
+                        <br>
+                    </div>
+
+                {{#if personaUsuaria}}
+
+                    <h1 > Datos de la persona  </h1>
+                    <br>
+                    <br>
+
+                    <div class="" style="margin:40px;">
+
+                        <label><i class="fas fa-user"></i> Nombre</label>
+                        <br>
+                        <input type="text" name="nombrePersona" class="input-datos"  value="{{personaUsuaria.nombre}}"}>
+                        <br>
+                        <br>
+                        <label><i class="fas fa-file-signature"></i> Apellido</label>
+                        <br>
+                        <input type="text" name="apellidoPersona" class="input-datos"  value="{{personaUsuaria.apellido}}">
+                        <br>
+                        <label><i class="fas fa-user"></i> Documento</label>
+                        <br>
+                        <input type="number" name="dni" class="input-datos" value="{{personaUsuaria.documento}}"}>
+                        <br>
+                    </div>
+
+                    {{#each personaUsuaria.contactos}}
+
+                        <h1 > Datos de contacto  </h1>
+                        <br>
+                        <br>
+                    <div class="" style="margin:40px;">
+
+                        <label><i class="fas fa-user"></i> Nombre contacto</label>
+                        <br>
+                        <input type="text" name="nombreContacto" class="input-datos"  value="{{nombre}}"}>
+                        <br>
+                        <label><i class="fas fa-file-signature"></i> Apellido contacto</label>
+                        <br>
+                        <input type="text" name="apellidoContacto" class="input-datos"  value="{{apellido}}">
+                        <br>
+                        <label><i class="fas fa-user"></i>Telefono</label>
+                        <br>
+                        <input type="number" name="telefono" class="input-datos" value="{{telefono}}"}>
+                        <br>
+                        <label><i class="fas fa-user"></i> Mail</label>
+                        <br>
+                        <input type="text" name="email" class="input-datos" value="{{email}}"}>
+                        <br>
+
+                    </div>
+
+                    {{/each}}
+
+                    {{#if duenioUsuario}}
+
+                        {{#each duenioUsuario.mascotas}}
+
+                            <h1 > Datos de mascota  </h1>
+                            <br>
+                            <br>
+
+                            <div class="" style="margin:40px;">
+
+                                <label><i class="fas fa-user"></i> Nombre mascota</label>
+                                <br>
+                                <input type="text" name="nombreMascota" class="input-datos"  value="{{nombre}}"}>
+                                <br>
+                                <label><i class="fas fa-file-signature"></i> Apodo mascota</label>
+                                <br>
+                                <input type="text" name="apodo" class="input-datos"  value="{{apodo}}">
+                                <br>
+                                <label><i class="fas fa-file-signature"></i> Animal </label>
+                                <br>
+                                <input type="text" name="tipo" class="input-datos"  value="{{tipo}}" readonly>
+                                <br>
+                                <label><i class="fas fa-user"></i>Genero</label>
+                                <br>
+                                <input type="text" name="genero" class="input-datos" {{#if esMacho}} value="Macho" {{else}} value="Hembra" {{/if}} readonly>
+                                <br>
+                                <label><i class="fas fa-user"></i>Edad aproximada</label>
+                                <br>
+                                <input type="number" name="edad" class="input-datos" value="{{edadAproximada}}"}>
+                                <br>
+                                <label><i class="fas fa-user"></i>Descripción física</label>
+                                <br>
+                                <input type="text" name="descripcionFisica" class="input-datos" value="{{descripcionFisica}}"}>
+                                <br>
+                                {{#each fotos}}
+                                <label><i class="fas fa-user"></i>Fotos</label>
+                                <br>
+                                <<img src="data:image/jpeg;charset=utf-8;base64, {{this}}"}>
+                                <br>
+                            {{/each}}
+                            </div>
+
+                        {{/each}}
+                    {{/if}}
+                {{/if}}
+
+                    <input type="submit" name="" class="btn-verde" style="float:right;" value="Guardar cambios">
+                <a href="/" class="btn-border-blue" style="">Volver</a>
+            </form>
+
+
+</div>
+</body>
+</html>

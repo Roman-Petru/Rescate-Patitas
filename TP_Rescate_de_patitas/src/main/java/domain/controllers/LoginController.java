@@ -37,6 +37,7 @@ public class LoginController {
         return new ModelAndView(parametros,"mensaje.hbs");
     }
 
+
     public ModelAndView ingresoLogin(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
         return new ModelAndView(parametros, "login.hbs");
@@ -109,5 +110,15 @@ public class LoginController {
         response.redirect("/");
         return response;
     }
+
+    public ModelAndView pantallaPerfil(Request request, Response response){
+        Map<String, Object> parametros = new HashMap<>();
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        Utilidades.asignarPersonaUsuaria(request, parametros);
+        Utilidades.asignarDuenioMascotaUsuaria(request, parametros);
+        parametros.put("organizaciones", OrganizacionController.getInstancia().listarTodos());
+        return new ModelAndView(parametros,"perfil.hbs");
+    }
+
 
 }
