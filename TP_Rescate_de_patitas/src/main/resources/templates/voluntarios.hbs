@@ -39,30 +39,33 @@
     </table>
 </div>
 
-<div>
-    <h1 class="encabezado"><i class="fas fa-users"></i> Voluntarios pendientes aprobación</h1>
-    <input type="text" name="" value="" placeholder="Buscar" id="inputUsuario">
+{{#if esVoluntario}}
+    <div>
+        <h1 class="encabezado"><i class="fas fa-users"></i> Voluntarios pendientes aprobación</h1>
+        <input type="text" name="" value="" placeholder="Buscar" id="inputUsuario">
 
-    <table class="tabla" id="tabla">
-        <thead>
-        <th><i class="fas fa-user"></i> Nombre</th>
-        <th><i class="fas fa-user-cog"></i> Permiso</th>
-        <th><i class="fas fa-tools"></i> Acciones</th>
-        </thead>
-        <tbody>
-        {{#each postulantesVoluntarios}}
-            <tr>
-                <td>{{usuario}}</td>
-                <td>{{permiso}}</td>
-                <td>
-                    <button type="button" name="button" class="btn-verde" onclick="aprobarVoluntario()">Aprobar</button>
-                    <button type="button" name="button" class="btn-rojo" onclick="negarVoluntario()">Negar</button>
-                </td>
-            </tr>
-        {{/each}}
-        </tbody>
-    </table>
-</div>
+        <table class="tabla" id="tabla">
+            <thead>
+            <th><i class="fas fa-user"></i> Nombre</th>
+            <th><i class="fas fa-user-cog"></i> Permiso</th>
+            <th><i class="fas fa-tools"></i> Acciones</th>
+            </thead>
+            <tbody>
+            {{#each postulantesVoluntarios}}
+                <tr>
+                    <td>{{usuario}}</td>
+                    <td>{{permiso}}</td>
+                    <td>
+                        <button type="button" name="button" class="btn-verde" onclick="aprobarVoluntario()">Aprobar
+                        </button>
+                        <button type="button" name="button" class="btn-rojo" onclick="negarVoluntario()">Negar</button>
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+{{/if}}
 </body>
 
 

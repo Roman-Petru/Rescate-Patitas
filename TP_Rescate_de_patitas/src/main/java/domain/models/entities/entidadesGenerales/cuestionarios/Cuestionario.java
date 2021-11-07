@@ -1,7 +1,6 @@
 package domain.models.entities.entidadesGenerales.cuestionarios;
 
 import domain.models.entities.entidadesGenerales.Persistente;
-import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ public class Cuestionario extends Persistente {
 
     @OneToMany(cascade = {CascadeType.ALL},fetch= FetchType.LAZY)
     @JoinColumn(name="cuestionario_id" , referencedColumnName = "id")
-    private List<PreguntaAdopcion> preguntas;
+    private List<PreguntaAdopcion> preguntas = new ArrayList<>();
 
     public Cuestionario() {
         this.descripcion = " ";

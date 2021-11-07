@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.exception.ApiException;
 import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
+import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.usuarios.BuilderUsuario;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
@@ -27,9 +28,11 @@ public class UsuarioController {
 
     private static UsuarioController instancia = null;
     private static RepositorioUsuarios repositorio;
+    private static OrganizacionController organizacionController;
 
-    private UsuarioController() {
+    public UsuarioController() {
         repositorio = new RepositorioUsuarios();
+        organizacionController = new OrganizacionController();
     }
 
     public static UsuarioController getInstancia() {
@@ -76,6 +79,22 @@ public class UsuarioController {
         resizer.setCalidad(calidad);
     }
 
+    /* Permisos usuario */
+
+    public static Boolean esAdmin(Integer usuarioId) {
+        return repositorio.buscar(usuarioId).getPermiso().equals(Permiso.USUARIO_ADMIN);
+    }
+
+    public static Boolean esComun(Integer usuarioId) {
+        return repositorio.buscar(usuarioId).getPermiso().equals(Permiso.USUARIO_COMUN);
+    }
+
+    public static Boolean esVoluntario(Integer usuarioId) {
+        List<Organizacion> organizaciones = organizacionController.listarTodos();
+        return organizaciones.stream().anyMatch(organizacion ->
+                organizacion.getVoluntarios().stream().anyMatch(voluntario ->
+                        voluntario.getId().equals(usuarioId)));
+    }
 
     //-----------------------------------METODOS BASE-----------------------------------------
 
@@ -95,7 +114,7 @@ public class UsuarioController {
         return OrganizacionController.getInstancia().buscarPostulantesVoluntariosDeOrganizacion(organizacionId);
     }
 
-    public Usuario buscarUsuarioPorID(Integer id) {
+    public static Usuario buscarUsuarioPorID(Integer id) {
         return repositorio.buscar(id);
     }
 
@@ -243,10 +262,18 @@ public class UsuarioController {
     }
 
 
-    public Boolean esAdminLogeado(Request request) {
+    public static Boolean esAdminLogeado(Request request) {
         if (!request.session().isNew() && request.session().attribute("id") != null) {
-            Usuario usuario = this.buscarUsuarioPorID(request.session().attribute("id"));
-            return usuario.esAdmin();
+            Usuario usuario = buscarUsuarioPorID(request.session().attribute("id"));
+            return esAdmin(usuario.getId());
+        }
+        return false;
+    }
+
+    public static Boolean esVoluntarioLogeado(Request request) {
+        if (!request.session().isNew() && request.session().attribute("id") != null) {
+            Usuario usuario = buscarUsuarioPorID(request.session().attribute("id"));
+            return esVoluntario(usuario.getId());
         }
         return false;
     }
@@ -271,7 +298,7 @@ public class UsuarioController {
 
     public ModelAndView pantallaVoluntariosDeOrganizacion(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        if (this.esAdminLogeado(request)) {
+        if (this.esAdminLogeado(request) || this.esVoluntarioLogeado(request)) {
             List<Usuario> voluntarios = this.listarVoluntariosDeOrganizacion(Integer.valueOf(request.params("id")));
             List<Usuario> postulanteVoluntarios = this.listarPostulantesVoluntariosDeOrganizacion(Integer.valueOf(request.params("id")));
             parametros.put("voluntarios", voluntarios);

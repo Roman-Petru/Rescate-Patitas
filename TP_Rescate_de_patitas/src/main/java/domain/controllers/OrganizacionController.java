@@ -20,7 +20,7 @@ public class OrganizacionController {
     private static OrganizacionController instancia = null;
     private static RepositorioOrganizaciones repositorio;
 
-    private OrganizacionController() {this.repositorio = new RepositorioOrganizaciones();}
+    public OrganizacionController() {this.repositorio = new RepositorioOrganizaciones();}
 
     public static OrganizacionController getInstancia(){
         if (instancia == null){

@@ -1,16 +1,15 @@
 package domain.controllers;
 
-import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
 import domain.models.entities.entidadesGenerales.cuestionarios.Opcion;
 import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
-import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.enums.TipoPregunta;
 import domain.models.repositories.RepositorioCuestionarios;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class CuestionarioController {
@@ -59,19 +58,22 @@ public class CuestionarioController {
         //TODO
     }
 
-    public ModelAndView gestionarCuestionariosPantalla(Request request, Response response) {
+    public ModelAndView pantallaGestionarCuestionarios(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        List<Cuestionario> cuestionarios = CuestionarioController.getInstancia().listarTodos();
-        parametros.put("cuestionarios", cuestionarios);
-        return new ModelAndView(parametros, "cuestionarios.hbs");
-
+        if (UsuarioController.esAdminLogeado(request)) {
+            List<Cuestionario> cuestionarios = CuestionarioController.getInstancia().listarTodos();
+            parametros.put("cuestionarios", cuestionarios);
+            return new ModelAndView(parametros, "cuestionarios.hbs");
+        }
+        return new ModelAndView(parametros, "home.hbs");
     }
 
-    public ModelAndView agregarCuestionarioPantalla(Request request, Response response) {
+    public ModelAndView pantallaAgregarCuestionario(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-
-        return new ModelAndView(parametros, "agregarCuestionario.hbs");
-
+        if (UsuarioController.esAdminLogeado(request)) {
+            return new ModelAndView(parametros, "agregarCuestionario.hbs");
+        }
+        return new ModelAndView(parametros, "home.hbs");
     }
 
     public Response agregarCuestionarioPost(Request request, Response response) {
@@ -83,20 +85,23 @@ public class CuestionarioController {
     }
 
     public ModelAndView pantallaPreguntas(Request request, Response response) {
-        Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
         Map<String, Object> parametros = new HashMap<>();
-        List<PreguntaAdopcion> preguntas = cuestionario.getPreguntas();
-        parametros.put("preguntas", preguntas);
-        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
-
-        return new ModelAndView(parametros,"preguntas.hbs");
+        if (UsuarioController.esAdminLogeado(request)) {
+            Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
+            List<PreguntaAdopcion> preguntas = cuestionario.getPreguntas();
+            parametros.put("preguntas", preguntas);
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+            return new ModelAndView(parametros, "preguntas.hbs");
+        }
+        return new ModelAndView(parametros, "home.hbs");
     }
 
-    public ModelAndView agregarPreguntaPantalla(Request request, Response response) {
+    public ModelAndView pantallaAgregarPregunta(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-
-        return new ModelAndView(parametros, "agregarPregunta.hbs");
-
+        if (UsuarioController.esAdminLogeado(request)) {
+            return new ModelAndView(parametros, "agregarPregunta.hbs");
+        }
+        return new ModelAndView(parametros, "home.hbs");
     }
 
     public Response agregarPreguntaPost(Request request, Response response) {
@@ -121,9 +126,10 @@ public class CuestionarioController {
     public Response agregarPreguntaLibrePost(Request request, Response response) {
         Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
         PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(request.queryParams("pregunta_libre"));
+        preguntaAdopcion.setFecha(LocalDate.now());
         preguntaAdopcion.setTipoPregunta(TipoPregunta.LIBRE);
         cuestionario.getPreguntas().add(preguntaAdopcion);
-        PreguntaAdopcionController.getInstancia().agregar(preguntaAdopcion.toDTO());
+        //PreguntaAdopcionController.getInstancia().agregar(preguntaAdopcion.toDTO());
         repositorio.modificar(cuestionario);
         response.redirect("/mensaje/pregunta agregada con exito");
         return response;
@@ -132,6 +138,7 @@ public class CuestionarioController {
     public Response agregarPreguntaSingleChoicePost(Request request, Response response) {
         Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
         PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(request.queryParams("pregunta_single_choice"));
+        preguntaAdopcion.setFecha(LocalDate.now());
         preguntaAdopcion.setTipoPregunta(TipoPregunta.SINGLE_CHOICE);
 
         List<Opcion> opciones = new ArrayList<>();
@@ -173,6 +180,7 @@ public class CuestionarioController {
     public Response agregarPreguntaMultipleChoicePost(Request request, Response response) {
         Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
         PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(request.queryParams("pregunta_multiple_choice"));
+        preguntaAdopcion.setFecha(LocalDate.now());
         preguntaAdopcion.setTipoPregunta(TipoPregunta.MULTIPLE_CHOICE);
 
         List<Opcion> opciones = new ArrayList<>();

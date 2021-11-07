@@ -3,15 +3,8 @@ package domain.server;
 import domain.controllers.*;
 import domain.controllers.personas.PersonaController;
 import domain.controllers.personas.RescatistaController;
-import domain.models.entities.entidadesGenerales.Mascota;
-import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
-import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
-import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
-import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
-import domain.models.entities.enums.Animal;
 import domain.spark.utils.BooleanHelper;
 import domain.spark.utils.HandlebarsTemplateEngineBuilder;
-import spark.Request;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -88,13 +81,13 @@ public class Router {
         Spark.post("/contactarRescatista/:id", PublicacionMascotaPerdidaController.getInstancia()::contactarRescatista);
 
         //=============================================CUESTIONARIOS=================================================================================//
-        Spark.get("/gestionarCuestionarios", CuestionarioController.getInstancia()::gestionarCuestionariosPantalla, Router.engine);
-        Spark.get("/agregarCuestionario", CuestionarioController.getInstancia()::agregarCuestionarioPantalla, Router.engine);
+        Spark.get("/gestionarCuestionarios", CuestionarioController.getInstancia()::pantallaGestionarCuestionarios, Router.engine);
+        Spark.get("/agregarCuestionario", CuestionarioController.getInstancia()::pantallaAgregarCuestionario, Router.engine);
         Spark.post("/agregarCuestionario", CuestionarioController.getInstancia()::agregarCuestionarioPost);
 
         //============================================PREGUNTAS==========================================================
         Spark.get("/gestionarCuestionarios/:id", CuestionarioController.getInstancia()::pantallaPreguntas, Router.engine);
-        Spark.get("/gestionarCuestionarios/:id/agregarPregunta", CuestionarioController.getInstancia()::agregarPreguntaPantalla, Router.engine);
+        Spark.get("/gestionarCuestionarios/:id/agregarPregunta", CuestionarioController.getInstancia()::pantallaAgregarPregunta, Router.engine);
         Spark.post("/gestionarCuestionarios/:id/agregarPregunta", CuestionarioController.getInstancia()::agregarPreguntaPost);
         Spark.get("/gestionarCuestionarios/:id/agregarPreguntaLibre", PreguntaAdopcionController.getInstancia()::agregarPreguntaLibrePantalla, Router.engine);
         Spark.post("/gestionarCuestionarios/:id/agregarPreguntaLibre", CuestionarioController.getInstancia()::agregarPreguntaLibrePost);

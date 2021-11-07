@@ -1,4 +1,5 @@
 package domain.controllers;
+
 import domain.controllers.personas.DuenioMascotaController;
 import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
@@ -14,9 +15,9 @@ public class Utilidades {
     if(!request.session().isNew() && request.session().attribute("id") != null){
       Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorID(request.session().attribute("id"));
       parametros.put("usuarioLogueado", usuario);
-      parametros.put("esAdmin", usuario.esAdmin());
-      parametros.put("esVoluntario", usuario.esVoluntario());
-      parametros.put("esComun", usuario.esComun());
+      parametros.put("esAdmin", UsuarioController.esAdmin(usuario.getId()));
+      parametros.put("esVoluntario", UsuarioController.esVoluntario(usuario.getId()));
+      parametros.put("esComun", UsuarioController.esComun(usuario.getId()));
     }
   }
 
