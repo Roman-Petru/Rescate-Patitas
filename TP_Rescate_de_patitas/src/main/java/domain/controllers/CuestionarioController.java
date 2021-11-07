@@ -3,6 +3,7 @@ package domain.controllers;
 import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
 import domain.models.entities.entidadesGenerales.cuestionarios.Opcion;
 import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.enums.TipoPregunta;
 import domain.models.repositories.RepositorioCuestionarios;
 import spark.ModelAndView;
@@ -63,6 +64,14 @@ public class CuestionarioController {
         if (UsuarioController.esAdminLogeado(request)) {
             List<Cuestionario> cuestionarios = CuestionarioController.getInstancia().listarTodos();
             parametros.put("cuestionarios", cuestionarios);
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+            return new ModelAndView(parametros, "cuestionarios.hbs");
+        }
+        if (UsuarioController.esVoluntarioLogeado(request)) {
+            Organizacion organizacion = OrganizacionController.buscarOrganizacionPorID(Integer.valueOf(request.params("id")));
+            List<Cuestionario> cuestionarios = CuestionarioController.getInstancia().listarTodos();
+            parametros.put("cuestionarios", cuestionarios);
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
             return new ModelAndView(parametros, "cuestionarios.hbs");
         }
         return new ModelAndView(parametros, "home.hbs");
@@ -71,13 +80,14 @@ public class CuestionarioController {
     public ModelAndView pantallaAgregarCuestionario(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         if (UsuarioController.esAdminLogeado(request)) {
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
             return new ModelAndView(parametros, "agregarCuestionario.hbs");
         }
         return new ModelAndView(parametros, "home.hbs");
     }
 
     public Response agregarCuestionarioPost(Request request, Response response) {
-        Cuestionario cuestionario = new Cuestionario(request.queryParams("cuestionario"));
+        Cuestionario cuestionario = new Cuestionario(request.queryParams("descripcion"));
         cuestionario.setPreguntas(Collections.emptyList());
         this.agregar(cuestionario.toDTO());
         response.redirect("/mensaje/Cuestionario agregado con exito");
@@ -86,7 +96,7 @@ public class CuestionarioController {
 
     public ModelAndView pantallaPreguntas(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        if (UsuarioController.esAdminLogeado(request)) {
+        if (UsuarioController.esAdminLogeado(request) || UsuarioController.esVoluntarioLogeado(request)) {
             Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
             List<PreguntaAdopcion> preguntas = cuestionario.getPreguntas();
             parametros.put("preguntas", preguntas);
@@ -98,7 +108,8 @@ public class CuestionarioController {
 
     public ModelAndView pantallaAgregarPregunta(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        if (UsuarioController.esAdminLogeado(request)) {
+        if (UsuarioController.esAdminLogeado(request) || UsuarioController.esVoluntarioLogeado(request)) {
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
             return new ModelAndView(parametros, "agregarPregunta.hbs");
         }
         return new ModelAndView(parametros, "home.hbs");

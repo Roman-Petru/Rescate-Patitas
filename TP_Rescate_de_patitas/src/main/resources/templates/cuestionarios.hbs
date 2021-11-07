@@ -22,9 +22,16 @@
 <div class="main_container">
     <h1 class="encabezado"> Cuestionarios</h1>
     <input type="text" name="" value="" placeholder="Buscar" id="inputUsuario">
-    <a href="/agregarCuestionario" class="btn-border-blue fuente">
-        <i class="fas fa-user-plus" style="margin-bottom:25px;"></i> Agregar Cuestionario
-    </a>
+    {{#if esAdmin}}
+        <a href="/agregarCuestionario" class="btn-border-blue fuente">
+            <i class="fas fa-user-plus" style="margin-bottom:25px;"></i> Agregar Cuestionario
+        </a>
+    {{/if}}
+    {{#if esVoluntario}}
+        <a href="../{{organizacion.id}}/agregarCuestionario" class="btn-border-blue fuente">
+            <i class="fas fa-user-plus" style="margin-bottom:25px;"></i> Agregar Cuestionario
+        </a>
+    {{/if}}
     <table class="tabla" id="tabla">
         <thead>
         <th>Titulo</th>
@@ -35,8 +42,14 @@
             <tr>
                 <td>{{descripcion}}</td>
                 <td>
-                    <a href="/gestionarCuestionarios/{{id}}" name="button" class="btn" style="width:115px;"> Ver Preguntas</a>
-                    <a href="/gestionarCuestionarios/{{id}}/agregarPregunta" name="button" class="btn" style="width:135px;">Agregar Pregunta</a>
+                    {{#if esAdmin}}
+                        <a href="/gestionarCuestionarios/{{id}}" name="button" class="btn" style="width:115px;"> Ver Preguntas</a>
+                        <a href="/gestionarCuestionarios/{{id}}/agregarPregunta" name="button" class="btn" style="width:135px;">Agregar Pregunta</a>
+                    {{/if}}
+                    {{#if esVoluntario}}
+                        <a href="../{{organizacion.id}}/cuestionario/{{id}}" name="button" class="btn" style="width:115px;"> Ver Preguntas</a>
+                        <a href="../{{organizacion.id}}/cuestionario/{{id}}/agregarPregunta" name="button" class="btn" style="width:135px;">Agregar Pregunta</a>
+                    {{/if}}
                 </td>
             </tr>
         {{/each}}
