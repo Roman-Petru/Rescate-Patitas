@@ -2,6 +2,8 @@ TP_Rescate_de_patitas/TP_Rescate_de_patitas.iml
 TP_Rescate_de_patitas/.idea/*
 TP_Rescate_de_patitas/target/*
 TP_Rescate_de_patitas/**/persistence.xml
+*.jpg
+*.jpeg
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij+iml,macos,windows,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij+iml,macos,windows,maven
