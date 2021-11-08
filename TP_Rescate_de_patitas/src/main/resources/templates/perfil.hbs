@@ -29,7 +29,7 @@
 
                         <label><i class="fas fa-user"></i> Nombre de usuario</label>
                         <br>
-                        <input type="text" name="usuario" class="input-datos" value="{{usuario.usuario}}"}>
+                        <input type="text" name="usuario" class="input-datos" value="{{usuario.usuario}}">
                         <br>
                         <br>
                         <label><i class="fas fa-file-signature"></i> Password</label>
@@ -48,7 +48,7 @@
 
                         <label><i class="fas fa-user"></i> Nombre</label>
                         <br>
-                        <input type="text" name="nombrePersona" class="input-datos"  value="{{personaUsuaria.nombre}}"}>
+                        <input type="text" name="nombrePersona" class="input-datos"  value="{{personaUsuaria.nombre}}">
                         <br>
                         <br>
                         <label><i class="fas fa-file-signature"></i> Apellido</label>
@@ -57,7 +57,7 @@
                         <br>
                         <label><i class="fas fa-user"></i> Documento</label>
                         <br>
-                        <input type="number" name="dni" class="input-datos" value="{{personaUsuaria.documento}}"}>
+                        <input type="number" name="dni" class="input-datos" value="{{personaUsuaria.documento}}">
                         <br>
                     </div>
 
@@ -70,7 +70,7 @@
 
                         <label><i class="fas fa-user"></i> Nombre contacto</label>
                         <br>
-                        <input type="text" name="nombreContacto" class="input-datos"  value="{{nombre}}"}>
+                        <input type="text" name="nombreContacto" class="input-datos"  value="{{nombre}}">
                         <br>
                         <label><i class="fas fa-file-signature"></i> Apellido contacto</label>
                         <br>
@@ -78,31 +78,28 @@
                         <br>
                         <label><i class="fas fa-user"></i>Telefono</label>
                         <br>
-                        <input type="number" name="telefono" class="input-datos" value="{{telefono}}"}>
+                        <input type="number" name="telefono" class="input-datos" value="{{telefono}}">
                         <br>
                         <label><i class="fas fa-user"></i> Mail</label>
                         <br>
-                        <input type="text" name="email" class="input-datos" value="{{email}}"}>
+                        <input type="text" name="email" class="input-datos" value="{{email}}">
                         <br>
 
                     </div>
 
+
                     {{/each}}
+
+                    <input type="submit" name="" class="btn-verde" style="float:right;" value="Guardar cambios">
+                    <br>
 
                     {{#if duenioUsuario}}
 
                         {{#each duenioUsuario.mascotas}}
 
-                            <h1 > Datos de mascota  </h1>
-                            <br>
-                            <br>
-
+                            <h1 > {{nombre}}</h1>
                             <div class="" style="margin:40px;">
 
-                                <label><i class="fas fa-user"></i> Nombre mascota</label>
-                                <br>
-                                <input type="text" name="nombreMascota" class="input-datos"  value="{{nombre}}"}>
-                                <br>
                                 <label><i class="fas fa-file-signature"></i> Apodo mascota</label>
                                 <br>
                                 <input type="text" name="apodo" class="input-datos"  value="{{apodo}}">
@@ -117,25 +114,38 @@
                                 <br>
                                 <label><i class="fas fa-user"></i>Edad aproximada</label>
                                 <br>
-                                <input type="number" name="edad" class="input-datos" value="{{edadAproximada}}"}>
+                                <input type="number" name="edad" class="input-datos" value="{{edadAproximada}}">
                                 <br>
                                 <label><i class="fas fa-user"></i>Descripción física</label>
                                 <br>
-                                <input type="text" name="descripcionFisica" class="input-datos" value="{{descripcionFisica}}"}>
+                                <input type="text" name="descripcionFisica" class="input-datos" value="{{descripcionFisica}}">
                                 <br>
                                 {{#each fotos}}
                                 <label><i class="fas fa-user"></i>Fotos</label>
                                 <br>
-                                <<img src="data:image/jpeg;charset=utf-8;base64, {{this}}"}>
+                                <<img src="data:image/jpeg;charset=utf-8;base64, {{this}}" width="250" height="250" alt="Imagen Mascota" >
                                 <br>
+                                <form class=""  action="/crearFormularioDaradopcion/{{this.id}}" method="post">
+                                <br>
+                                <label><i class="fas fa-user-cog"></i> Elegir organizacion para dar en adopción </label>
+                                <br>
+                                  <select class="input-select" name="organizacion">
+                                    {{#each organizaciones}}
+                                        <option value="{{id}}">{{nombre}}</option>
+                                    {{/each}}
+                                  </select>
+                                    <input type="submit" name="" class="btn-verde" style="float:right;" value="Dar en adopción">
+                                    <br>
+                                    <br>
                             {{/each}}
+                            </form>
                             </div>
 
                         {{/each}}
                     {{/if}}
                 {{/if}}
 
-                    <input type="submit" name="" class="btn-verde" style="float:right;" value="Guardar cambios">
+
                 <a href="/" class="btn-border-blue" style="">Volver</a>
             </form>
 
