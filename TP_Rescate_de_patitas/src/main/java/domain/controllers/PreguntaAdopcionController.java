@@ -72,31 +72,58 @@ public class PreguntaAdopcionController {
 
     public ModelAndView agregarPreguntaLibrePantalla(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
+        if (UsuarioController.esAdminLogeado(request) || UsuarioController.esVoluntarioLogeado(request)) {
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+            return new ModelAndView(parametros, "agregarPreguntaLibre.hbs");
+        }
+        return new ModelAndView(parametros, "home.hbs");
 
-        return new ModelAndView(parametros, "agregarPreguntaLibre.hbs");
 
     }
 
     public ModelAndView agregarPreguntaSingleChoicePantalla(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
+        if (UsuarioController.esAdminLogeado(request) || UsuarioController.esVoluntarioLogeado(request)) {
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+            return new ModelAndView(parametros, "agregarPreguntaSingleChoice.hbs");
+        }
+        return new ModelAndView(parametros, "home.hbs");
 
-        return new ModelAndView(parametros, "agregarPreguntaSingleChoice.hbs");
 
     }
 
     public ModelAndView agregarPreguntaMultipleChoicePantalla(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
+        if (UsuarioController.esAdminLogeado(request) || UsuarioController.esVoluntarioLogeado(request)) {
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+            return new ModelAndView(parametros, "agregarPreguntaMultipleChoice.hbs");
+        }
+        return new ModelAndView(parametros, "home.hbs");
 
-        return new ModelAndView(parametros, "agregarPreguntaMultipleChoice.hbs");
 
     }
 
     public ModelAndView opcionesPantalla(Request request, Response response) {
-        PreguntaAdopcion preguntaAdopcion = this.buscarPreguntaPorID(Integer.valueOf(request.params("id")));
         Map<String, Object> parametros = new HashMap<>();
-        List<Opcion> opciones = preguntaAdopcion.getOpciones();
-        parametros.put("opciones", opciones);
-        return new ModelAndView(parametros,"opciones.hbs");
+        PreguntaAdopcion preguntaAdopcion = this.buscarPreguntaPorID(Integer.valueOf(request.params("id")));
+        if (UsuarioController.esAdminLogeado(request) || UsuarioController.esVoluntarioLogeado(request)) {
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+            List<Opcion> opciones = preguntaAdopcion.getOpciones();
+            parametros.put("opciones", opciones);
+            parametros.put("pregunta", preguntaAdopcion);
+
+            return new ModelAndView(parametros,"opciones.hbs");
+
+        }
+        return new ModelAndView(parametros, "home.hbs");
+
+    }
+
+    public ModelAndView pantallaAgregarOpciones(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+
+        return new ModelAndView(parametros, "agregarOpciones.hbs");
+
     }
 
 

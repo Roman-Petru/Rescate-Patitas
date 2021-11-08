@@ -96,10 +96,11 @@ public class CuestionarioController {
 
     public ModelAndView pantallaPreguntas(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
+        Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
         if (UsuarioController.esAdminLogeado(request) || UsuarioController.esVoluntarioLogeado(request)) {
-            Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
             List<PreguntaAdopcion> preguntas = cuestionario.getPreguntas();
             parametros.put("preguntas", preguntas);
+            parametros.put("cuestionario", cuestionario);
             Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
             return new ModelAndView(parametros, "preguntas.hbs");
         }
