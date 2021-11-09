@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/generales.js"></script>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/usuarios.estilos.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Formulario Dar en Adopcion</title>
+</head>
+<body>
+
+{{> nav.hbs}}
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="home">
+        <div class="container">
+            <h1>Dar en adopcion</h1>
+            <br>
+            <form action="crearPublicacionDarEnAdopcion/{{mascota.id}}" method="post">
+                <h2>Conteste las siguientes preguntas</h2>
+                <br>
+
+           {{#each PreguntasLibre}}
+
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label for="inputEmail4">{{descripcionParaDuenio}}</label>
+                        <input type="text" class="form-control" name="{{descripcionParaDuenio}}" id="{{descripcionParaDuenio}}">
+                    </div>
+                </div>
+
+            {{/each}}
+
+                {{#each PreguntasSingleChoice}}
+
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                    <label> {{descripcionParaDuenio}} </label>
+                    <select class="input-select" name="{{descripcionParaDuenio}}">
+                        {{#each opciones}}
+                            <option value="{{descripcion}}">{{descripcion}}</option>
+                        {{/each}}
+                    </select>
+                    </div>
+                </div>
+                {{/each}}
+
+
+                <button type="submit" class="btn btn-primary">Crear Publicacion</button>
+            </form>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="references">ccc</div>
+</div>
+</body>
+</html>

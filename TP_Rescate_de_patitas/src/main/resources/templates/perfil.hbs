@@ -92,7 +92,7 @@
 
                     <input type="submit" name="" class="btn-verde" style="float:right;" value="Guardar cambios">
                     <br>
-
+                </form>
                     {{#if duenioUsuario}}
 
                         {{#each duenioUsuario.mascotas}}
@@ -125,6 +125,7 @@
                                 <br>
                                 <<img src="data:image/jpeg;charset=utf-8;base64, {{this}}" width="250" height="250" alt="Imagen Mascota" >
                                 <br>
+                                {{/each}}
                                 <form class=""  action="/crearFormularioDaradopcion/{{this.id}}" method="post">
                                 <br>
                                 <label><i class="fas fa-user-cog"></i> Elegir organizacion para dar en adopción </label>
@@ -137,7 +138,6 @@
                                     <input type="submit" name="" class="btn-verde" style="float:right;" value="Dar en adopción">
                                     <br>
                                     <br>
-                            {{/each}}
                             </form>
                             </div>
 
@@ -147,7 +147,7 @@
 
 
                 <a href="/" class="btn-border-blue" style="">Volver</a>
-            </form>
+
 
 
 </div>

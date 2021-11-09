@@ -1,8 +1,11 @@
 package domain.controllers;
 
+import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
+import domain.models.entities.entidadesGenerales.cuestionarios.PreguntaAdopcion;
 import domain.models.entities.entidadesGenerales.cuestionarios.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
+import domain.models.entities.enums.TipoPregunta;
 import domain.models.repositories.RepositorioPublicacionAdopcion;
 import spark.ModelAndView;
 import spark.Request;
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class PublicacionAdopcionController {
     private static PublicacionAdopcionController instancia = null;
@@ -79,5 +83,25 @@ public class PublicacionAdopcionController {
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
 
         return new ModelAndView(parametros, "adopciones.hbs");
+    }
+
+    //
+
+    public ModelAndView pantallaFormulario(Request request, Response response) {
+
+        Map<String, Object> parametros = new HashMap<>();
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        parametros.put("mascotaID", request.params("id"));
+        Integer idOrg = new Integer (request.queryParams("organizacion"));
+        List<Cuestionario> cuestOrgs = OrganizacionController.getInstancia().buscarOrganizacionPorID(idOrg).getCuestionarios();
+        List <PreguntaAdopcion> pregSingle = cuestOrgs.stream().map(c -> c.getPreguntas()).flatMap(preguntas -> preguntas.stream()).filter(pregunta -> pregunta.getTipoPregunta().equals(TipoPregunta.SINGLE_CHOICE)).collect(Collectors.toList());
+        List <PreguntaAdopcion> pregLibre = cuestOrgs.stream().map(c -> c.getPreguntas()).flatMap(preguntas -> preguntas.stream()).filter(pregunta -> pregunta.getTipoPregunta().equals(TipoPregunta.LIBRE)).collect(Collectors.toList());
+        List <PreguntaAdopcion> pregMultiple = cuestOrgs.stream().map(c -> c.getPreguntas()).flatMap(preguntas -> preguntas.stream()).filter(pregunta -> pregunta.getTipoPregunta().equals(TipoPregunta.MULTIPLE_CHOICE)).collect(Collectors.toList());
+
+        parametros.put("PreguntasSingleChoice", pregSingle);
+        parametros.put("PreguntasLibre", pregLibre);
+        parametros.put("PreguntasMultipleChoice", pregMultiple);
+
+        return new ModelAndView(parametros, "formularioDarEnAdopcion.hbs");
     }
 }
