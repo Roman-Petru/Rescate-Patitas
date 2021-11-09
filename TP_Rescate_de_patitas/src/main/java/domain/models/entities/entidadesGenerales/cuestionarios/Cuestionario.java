@@ -17,6 +17,9 @@ public class Cuestionario extends Persistente {
     @Column
     private String descripcion;
 
+    @Column
+    private Boolean esGeneral;
+
     @OneToMany(cascade = {CascadeType.ALL},fetch= FetchType.LAZY)
     @JoinColumn(name="cuestionario_id" , referencedColumnName = "id")
     private List<PreguntaAdopcion> preguntas = new ArrayList<>();
@@ -24,6 +27,7 @@ public class Cuestionario extends Persistente {
     public Cuestionario() {
         this.descripcion = " ";
         this.preguntas = new ArrayList<>();
+        this.esGeneral = Boolean.FALSE;
     }
     public Cuestionario(String descripcion) {
         this.descripcion = descripcion;
@@ -34,6 +38,7 @@ public class Cuestionario extends Persistente {
         dto.id = this.getId();
         dto.descripcion = this.getDescripcion();
         dto.preguntas = this.getPreguntas();
+        dto.esGeneral = this.getEsGeneral();
         return dto;
     }
     @Getter @Setter
@@ -41,5 +46,6 @@ public class Cuestionario extends Persistente {
         private Integer id;
         private String descripcion;
         private List<PreguntaAdopcion> preguntas;
+        private Boolean esGeneral;
     }
 }

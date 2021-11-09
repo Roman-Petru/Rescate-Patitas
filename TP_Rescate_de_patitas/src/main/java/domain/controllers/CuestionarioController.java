@@ -39,9 +39,8 @@ public class CuestionarioController {
     }
 
 
-    public void agregar(Cuestionario.CuestionarioDTO dto) {
-        Cuestionario Cuestionario = new Cuestionario(dto.getDescripcion());
-        repositorio.agregar(Cuestionario);
+    public void agregar(Cuestionario cuestionario) {
+        repositorio.agregar(cuestionario);
     }
 
     public Cuestionario.CuestionarioDTO ver(Integer id) {
@@ -89,7 +88,8 @@ public class CuestionarioController {
     public Response agregarCuestionarioPost(Request request, Response response) {
         Cuestionario cuestionario = new Cuestionario(request.queryParams("descripcion"));
         cuestionario.setPreguntas(Collections.emptyList());
-        this.agregar(cuestionario.toDTO());
+        cuestionario.setEsGeneral(Boolean.TRUE);
+        this.agregar(cuestionario);
         response.redirect("/mensaje/Cuestionario agregado con exito");
         return response;
     }
