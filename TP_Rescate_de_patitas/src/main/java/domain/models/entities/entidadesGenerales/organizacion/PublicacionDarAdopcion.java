@@ -23,7 +23,7 @@ import java.util.List;
 @Getter @Setter
 public class PublicacionDarAdopcion extends Persistente {
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     @JoinColumn(name="publicacionDarAdopcion_id" , referencedColumnName = "id")
     private List<RespuestaAdopcion> respuestasAdopcion;
 
@@ -35,13 +35,15 @@ public class PublicacionDarAdopcion extends Persistente {
     private List<EstadoPublicacion> estadosPublicacion;
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @JoinColumn(name="interesados_id")
     private List<InteresadoEnAdopcion> interesadosEnAdoptar;
 
-    @ManyToOne
-    @JoinColumn(name="organizacion_id" , referencedColumnName = "id")
-    private Organizacion organizacion;
-
     public PublicacionDarAdopcion() {
+        this.respuestasAdopcion = new ArrayList<>();
+        this.estadosPublicacion = new ArrayList<>();
+        this.interesadosEnAdoptar = new ArrayList<>();
+
+        estadosPublicacion.add(new EstadoPublicacion(PosibleEstadoPublicacion.ACTIVA));
     }
 
     public PublicacionDarAdopcion(Mascota mascota) {

@@ -22,7 +22,7 @@ public class Cuestionario extends Persistente {
 
     @OneToMany(cascade = {CascadeType.ALL},fetch= FetchType.LAZY)
     @JoinColumn(name="cuestionario_id" , referencedColumnName = "id")
-    private List<PreguntaAdopcion> preguntas = new ArrayList<>();
+    private List<PreguntaAdopcion> preguntas;
 
     public Cuestionario() {
         this.descripcion = " ";
@@ -31,6 +31,7 @@ public class Cuestionario extends Persistente {
     }
     public Cuestionario(String descripcion) {
         this.descripcion = descripcion;
+        this.preguntas = new ArrayList<>();
     }
 
     public Cuestionario.CuestionarioDTO toDTO() {

@@ -44,6 +44,10 @@ public class PreguntaAdopcion extends Persistente {
 
     }
 
+    public Opcion traerOpcionPorString(String descripcionOpcion){
+       return opciones.stream().filter(o -> o.getDescripcion().equalsIgnoreCase(descripcionOpcion)).findFirst().get();
+    }
+
 
     public PreguntaAdopcion.PreguntaAdopcionDTO toDTO() {
         PreguntaAdopcion.PreguntaAdopcionDTO dto = new PreguntaAdopcion.PreguntaAdopcionDTO();

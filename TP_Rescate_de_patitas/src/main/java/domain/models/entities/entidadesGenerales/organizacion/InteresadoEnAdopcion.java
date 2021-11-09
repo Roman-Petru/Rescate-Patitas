@@ -30,6 +30,10 @@ public class InteresadoEnAdopcion extends Persistente {
     @Column
     private boolean adopto;
 
+    public InteresadoEnAdopcion() {
+        this.fecha = LocalDate.now();
+    }
+
     public InteresadoEnAdopcion(DatosDePersona interesado){
         this.interesado = interesado;
         this.adopto = false;
