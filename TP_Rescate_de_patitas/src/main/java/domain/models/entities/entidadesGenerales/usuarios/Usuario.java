@@ -60,10 +60,6 @@ public class Usuario extends Persistente {
         return this.permiso == Permiso.USUARIO_ADMIN;
     }
 
-    public Boolean esVoluntario() {
-        return this.permiso == Permiso.USUARIO_VOLUNTARIO;
-    }
-
     public Boolean esComun() {
         return this.permiso == Permiso.USUARIO_COMUN;
     }

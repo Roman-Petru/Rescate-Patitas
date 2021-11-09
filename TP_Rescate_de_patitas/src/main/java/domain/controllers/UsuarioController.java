@@ -19,10 +19,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UsuarioController {
 
@@ -86,7 +83,7 @@ public class UsuarioController {
     }
 
     public static Boolean esComun(Integer usuarioId) {
-        return repositorio.buscar(usuarioId).getPermiso().equals(Permiso.USUARIO_COMUN);
+        return repositorio.buscar(usuarioId).getPermiso().equals(Permiso.USUARIO_COMUN) && !esVoluntario(usuarioId);
     }
 
     public static Boolean esVoluntario(Integer usuarioId) {
@@ -94,6 +91,22 @@ public class UsuarioController {
         return organizaciones.stream().anyMatch(organizacion ->
                 organizacion.getVoluntarios().stream().anyMatch(voluntario ->
                         voluntario.getId().equals(usuarioId)));
+    }
+
+    public static Boolean esAdminLogeado(Request request) {
+        if (!request.session().isNew() && request.session().attribute("id") != null) {
+            Usuario usuario = buscarUsuarioPorID(request.session().attribute("id"));
+            return esAdmin(usuario.getId());
+        }
+        return false;
+    }
+
+    public static Boolean esVoluntarioLogeado(Request request) {
+        if (!request.session().isNew() && request.session().attribute("id") != null) {
+            Usuario usuario = buscarUsuarioPorID(request.session().attribute("id"));
+            return esVoluntario(usuario.getId());
+        }
+        return false;
     }
 
     //-----------------------------------METODOS BASE-----------------------------------------
@@ -261,71 +274,8 @@ public class UsuarioController {
         }
     }
 
-
-    public static Boolean esAdminLogeado(Request request) {
-        if (!request.session().isNew() && request.session().attribute("id") != null) {
-            Usuario usuario = buscarUsuarioPorID(request.session().attribute("id"));
-            return esAdmin(usuario.getId());
-        }
-        return false;
-    }
-
-    public static Boolean esVoluntarioLogeado(Request request) {
-        if (!request.session().isNew() && request.session().attribute("id") != null) {
-            Usuario usuario = buscarUsuarioPorID(request.session().attribute("id"));
-            return esVoluntario(usuario.getId());
-        }
-        return false;
-    }
-
-    /* Pantallas */
-
-    public ModelAndView pantallaUsuarios(Request request, Response response) {
-        Map<String, Object> parametros = new HashMap<>();
-        if (this.esAdminLogeado(request)) {
-            List<Usuario> usuarios = this.listarTodos();
-            parametros.put("usuarios", usuarios);
-            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
-            return new ModelAndView(parametros, "usuarios.hbs");
-        }
-        return new ModelAndView(parametros, "home.hbs");
-    }
-
-    public ModelAndView pantallaPersona(Request request, Response response) {
-        Map<String, Object> parametros = new HashMap<>();
-        return new ModelAndView(parametros, "datosPersona.hbs");
-    }
-
-    public ModelAndView pantallaVoluntariosDeOrganizacion(Request request, Response response) {
-        Map<String, Object> parametros = new HashMap<>();
-        if (this.esAdminLogeado(request) || this.esVoluntarioLogeado(request)) {
-            List<Usuario> voluntarios = this.listarVoluntariosDeOrganizacion(Integer.valueOf(request.params("id")));
-            List<Usuario> postulanteVoluntarios = this.listarPostulantesVoluntariosDeOrganizacion(Integer.valueOf(request.params("id")));
-            parametros.put("voluntarios", voluntarios);
-            parametros.put("postulantesVoluntarios", postulanteVoluntarios);
-            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
-            return new ModelAndView(parametros, "voluntarios.hbs");
-        }
-        return new ModelAndView(parametros, "home.hbs");
-    }
-
-    public ModelAndView pantallaModificar(Request request, Response response) {
-        Usuario usuario = this.buscarUsuarioPorID(Integer.valueOf(request.params("id")));
-        List<DescripcionPermiso> permisos = new ArrayList<>();
-        Integer i = 0;
-        for (Permiso permiso : Permiso.values()) {
-            permisos.add(new DescripcionPermiso(i, permiso.descripcionPermiso(permiso)));
-            i++;
-        }
-        Map<String, Object> parametros = new HashMap<>();
-        parametros.put("usuario", usuario);
-        parametros.put("roles", permisos);
-        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
-        return new ModelAndView(parametros, "usuario.hbs");
-    }
-
     public Response modificarUsuario(Request request, Response response) {
-        Usuario usuario = this.buscarUsuarioPorID(Integer.valueOf(request.params("id")));
+        Usuario usuario = buscarUsuarioPorID(Integer.valueOf(request.params("id")));
         usuario.setUsuario(request.queryParams("usuario"));
         usuario.cambiarContrasenia(request.queryParams("password"));
         usuario.setPermiso(DescripcionPermiso.getPermisoConInteger(Integer.valueOf(request.queryParams("permiso"))));
@@ -333,5 +283,55 @@ public class UsuarioController {
         response.redirect("/usuarios");
         return response;
     }
-}
 
+    /* Pantallas */
+
+    public ModelAndView pantallaUsuarios(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        if (esAdminLogeado(request)) {
+            List<Usuario> usuarios = this.listarTodos();
+            parametros.put("usuarios", usuarios);
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+
+            return new ModelAndView(parametros, "usuarios.hbs");
+        }
+        return new ModelAndView(parametros, "home.hbs");
+    }
+
+    public ModelAndView pantallaPersona(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+
+        return new ModelAndView(parametros, "datosPersona.hbs");
+    }
+
+    public ModelAndView pantallaVoluntariosDeOrganizacion(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        if (esAdminLogeado(request) || esVoluntarioLogeado(request)) {
+            List<Usuario> voluntarios = this.listarVoluntariosDeOrganizacion(Integer.valueOf(request.params("id")));
+            List<Usuario> postulanteVoluntarios = this.listarPostulantesVoluntariosDeOrganizacion(Integer.valueOf(request.params("id")));
+            parametros.put("voluntarios", voluntarios);
+            parametros.put("postulantesVoluntarios", postulanteVoluntarios);
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+
+            return new ModelAndView(parametros, "voluntarios.hbs");
+        }
+        return new ModelAndView(parametros, "home.hbs");
+    }
+
+    public ModelAndView pantallaModificar(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        if (esAdminLogeado(request)) {
+            Usuario usuario = buscarUsuarioPorID(Integer.valueOf(request.params("id")));
+            List<DescripcionPermiso> permisos = new ArrayList<>();
+            for (Permiso permiso : Permiso.values()) {
+                permisos.add(new DescripcionPermiso(permisos.size() + 1, permiso.descripcionPermiso()));
+            }
+            parametros.put("usuario", usuario);
+            parametros.put("roles", permisos);
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+
+            return new ModelAndView(parametros, "usuario.hbs");
+        }
+        return new ModelAndView(parametros, "home.hbs");
+    }
+}
