@@ -24,7 +24,7 @@ public class Utilidades {
   public static void asignarPersonaUsuaria(Request request, Map<String, Object> parametros){
     if(!request.session().isNew() && request.session().attribute("id") != null){
       Integer usuarioID = request.session().attribute("id");
-      Optional persona = PersonaController.getInstancia().listarTodos().stream().filter(persona1 -> persona1.getIDDeUsuario() == usuarioID).findFirst();
+      Optional<DatosDePersona> persona = PersonaController.getInstancia().listarTodos().stream().filter(p -> p.getIDDeUsuario().equals(usuarioID)).findFirst();
       if (!persona.isPresent())
         return;
       parametros.put("personaUsuaria", persona.get());

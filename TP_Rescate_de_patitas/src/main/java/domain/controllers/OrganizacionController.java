@@ -7,13 +7,11 @@ import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdop
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
-import domain.models.entities.enums.TipoPregunta;
 import domain.models.repositories.RepositorioOrganizaciones;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,12 +30,16 @@ public class OrganizacionController {
         return instancia;
     }
 
-    public List<Organizacion> listarTodos(){
-        return this.repositorio.buscarTodos();
+    public static List<Organizacion> listarTodos(){
+        return repositorio.buscarTodos();
     }
 
     public static Organizacion buscarOrganizacionPorID(Integer id){
         return repositorio.buscar(id);
+    }
+
+    public static Boolean esVoluntarioDeOrg(Integer orgId, Integer voluntarioId) {
+        return buscarOrganizacionPorID(orgId).getVoluntarios().stream().anyMatch(voluntario -> voluntario.getId().equals(voluntarioId));
     }
 
     public void agregar(Organizacion.OrganizacionDTO dto) {
@@ -83,7 +85,7 @@ public class OrganizacionController {
     }
 
     public void agregarPreguntaAdopcionOrganizacion(Integer organizacionID, PreguntaAdopcion.PreguntaAdopcionDTO dto, Usuario voluntario){
-        Organizacion organizacion = this.buscarOrganizacionPorID(organizacionID);
+        Organizacion organizacion = buscarOrganizacionPorID(organizacionID);
         if (!organizacion.esVoluntarioDeOrg(voluntario))
             return;  //TODO throw exception
         PreguntaAdopcion pregunta = new PreguntaAdopcion(dto.getDescripcionParaDuenio(),dto.getDescripcionParaInteresado());
@@ -93,13 +95,13 @@ public class OrganizacionController {
     }
 
     public void agregarVoluntarioALista(Integer organizacionID,Usuario voluntario){
-        Organizacion organizacion = this.buscarOrganizacionPorID(organizacionID);
+        Organizacion organizacion = buscarOrganizacionPorID(organizacionID);
         organizacion.agregarVoluntario(voluntario);
         repositorio.modificar(organizacion);
     }
 
     public Response agregarCuestionarioOrganizacion(Request request, Response response) {
-        Organizacion organizacion = this.buscarOrganizacionPorID(Integer.valueOf(request.params("id")));
+        Organizacion organizacion = buscarOrganizacionPorID(Integer.valueOf(request.params("id")));
         Cuestionario cuestionario = new Cuestionario(request.queryParams("descripcion"));
         organizacion.getCuestionarios().add(cuestionario);
         repositorio.modificar(organizacion);
@@ -111,7 +113,7 @@ public class OrganizacionController {
 
     public ModelAndView pantallaOrganizaciones(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        List<Organizacion> organizaciones = OrganizacionController.getInstancia().listarTodos();
+        List<Organizacion> organizaciones = listarTodos();
         parametros.put("organizaciones", organizaciones);
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
 
@@ -119,22 +121,27 @@ public class OrganizacionController {
     }
 
     public ModelAndView pantallaModificar(Request request, Response response) {
-        Organizacion organizacion = this.buscarOrganizacionPorID(Integer.valueOf(request.params("id")));
         Map<String, Object> parametros = new HashMap<>();
-        parametros.put("organizacion", organizacion);
-        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
-        return new ModelAndView(parametros, "organizacion.hbs");
+        if (UsuarioController.esAdminLogeado(request)) {
+            Organizacion organizacion = buscarOrganizacionPorID(Integer.valueOf(request.params("id")));
+            parametros.put("organizacion", organizacion);
+            Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+
+            return new ModelAndView(parametros, "organizacion.hbs");
+        }
+        return new ModelAndView(parametros, "home.hbs");
     }
 
     public ModelAndView pantallaOrganizacionCuestionarios(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        Organizacion organizacion = this.buscarOrganizacionPorID(Integer.valueOf(request.params("id")));
+        Organizacion organizacion = buscarOrganizacionPorID(Integer.valueOf(request.params("id")));
         Usuario voluntario = UsuarioController.buscarUsuarioPorID(request.session().attribute("id"));
         if (UsuarioController.esVoluntarioLogeado(request) && organizacion.esVoluntarioDeOrg(voluntario)) {
             List<Cuestionario> cuestionarios = organizacion.getCuestionarios();
             parametros.put("cuestionarios", cuestionarios);
             parametros.put("organizacion", organizacion);
             Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+
             return new ModelAndView(parametros, "cuestionarios.hbs");
         }
         return new ModelAndView(parametros, "home.hbs");
@@ -143,9 +150,10 @@ public class OrganizacionController {
     public ModelAndView pantallaAgregarCuestionarioOrganizacion(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         if (UsuarioController.esVoluntarioLogeado(request)) {
-            Organizacion organizacion = this.buscarOrganizacionPorID(Integer.valueOf(request.params("id")));
+            Organizacion organizacion = buscarOrganizacionPorID(Integer.valueOf(request.params("id")));
             parametros.put("organizacion", organizacion);
             Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+
             return new ModelAndView(parametros, "agregarCuestionario.hbs");
         }
         return new ModelAndView(parametros, "home.hbs");
