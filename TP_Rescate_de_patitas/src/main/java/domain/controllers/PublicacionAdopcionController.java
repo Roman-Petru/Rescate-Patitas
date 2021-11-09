@@ -10,6 +10,7 @@ import domain.models.entities.entidadesGenerales.cuestionarios.RespuestaAdopcion
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
+import domain.models.entities.enums.PosibleEstadoPublicacion;
 import domain.models.entities.enums.TipoPregunta;
 import domain.models.repositories.RepositorioPublicacionAdopcion;
 import spark.ModelAndView;
@@ -171,4 +172,15 @@ public class PublicacionAdopcionController {
             return response;
         }
     }
+
+    public ModelAndView pantallaPublicacionesDarAdopcion(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        List<PublicacionDarAdopcion> publicaciones = this.listarTodos();
+        publicaciones.stream().forEach(p1 -> p1.setActiva(p1.getEstadoActual().equals(PosibleEstadoPublicacion.ACTIVA)));
+        publicaciones.stream().forEach(p1 -> p1.setPrimeraFoto(p1.getMascota().getFotos().stream().findFirst().orElse(new String())));
+        parametros.put("publicaciones", publicaciones);
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        return new ModelAndView(parametros,"publicacionDarAdopcion.hbs");
+    }
+
 }

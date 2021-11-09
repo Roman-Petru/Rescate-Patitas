@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>Publicaciones de Mascota Perdida</title>
+    <title>Publicaciones de mascotas perdidas</title>
 </head>
 <body id="body">
 
@@ -25,23 +25,23 @@
     <table class="tabla" id="tabla">
         <thead>
         <th>Foto</th>
-        <th>Descripción del estado</th>
-        <th>Dirección donde se encontró</th>
+        <th>Nombre</th>
+        <th>Edad</th>
         <th>Estado</th>
         <th><i class="fas fa-tools"></i> Acciones</th>
         </thead>
         <tbody>
         {{#each publicaciones}}
             <tr>
-                <td> <img src="data:image/jpeg;charset=utf-8;base64, {{formulario.imagen}}" width="200" height="300" alt="Imagen Mascota"></td>
-                <td>{{formulario.estadoMascota}}</td>
-                <td>{{formulario.lugarEncontrado.direccion}}</td>
+                <td> <img src="data:image/jpeg;charset=utf-8;base64, {{primeraFoto}}" width="200" height="300" alt="Imagen Mascota"></td>
+                <td>{{mascota.nombre}}</td>
+                <td>{{mascota.edadAproximada}}</td>
                 <td>{{estadoActual}}</td>
                 <td>
-                    <a href="/contactarRescatista/{{id}}" name="button" class="btn" style="width:140px;">Contactar rescatista</a>
+                    <a href="/verPublicacionDarAdopcion/{{id}}" name="button" class="btn" style="width:140px;">Ver detalles</a>
                     {{#if activa}} <a href="/pausar/{{id}}" name="button" class="btn" style="width:90px;">Pausar</a>
                     {{else}}
-                    <a href="/activar/{{id}}" name="button" class="btn" style="width:90px;">Activar</a>{{/if}}
+                        <a href="/activar/{{id}}" name="button" class="btn" style="width:90px;">Activar</a>{{/if}}
                 </td>
             </tr>
         {{/each}}

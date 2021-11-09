@@ -50,9 +50,11 @@ public class PublicacionInteresAdopcion extends Persistente {
     @Enumerated(EnumType.STRING)
     private Animal tipoAnimal;
 
-    @ManyToOne
-    @JoinColumn(name="organizacion_id" , referencedColumnName = "id")
-    private Organizacion organizacion;
+    @Column
+    private PosibleEstadoPublicacion estadoActual;
+
+    @Transient
+    private Boolean activa;
 
     public PublicacionInteresAdopcion(DatosDePersona adoptante, boolean esMacho, Animal animal) {
         this.adoptante = adoptante;
@@ -85,6 +87,10 @@ public class PublicacionInteresAdopcion extends Persistente {
         return dto;
     }
 
+    public void cambiarEstadoPublicacion (PosibleEstadoPublicacion estado){
+        estadosPublicacion.add(new EstadoPublicacion(estado));
+        estadoActual = estado;
+    }
 
     public void agregarPreferencia(CaracteristicaPersonalizada preferencia){
         this.preferencias.add(preferencia);

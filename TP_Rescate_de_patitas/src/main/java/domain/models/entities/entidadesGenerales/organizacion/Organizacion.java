@@ -62,7 +62,8 @@ public class Organizacion extends Persistente {
     @JoinColumn(name="organizacion_id" , referencedColumnName = "id")
     private List<PublicacionDarAdopcion> publicacionesAdopcion;
 
-    @OneToMany(mappedBy = "organizacion", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name="organizacion_id" , referencedColumnName = "id")
     private List<PublicacionInteresAdopcion> publicacionInteresAdopcion;
 
     public Organizacion() {
