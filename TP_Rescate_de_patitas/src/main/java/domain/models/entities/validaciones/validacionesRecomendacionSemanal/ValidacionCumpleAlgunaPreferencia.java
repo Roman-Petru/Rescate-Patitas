@@ -13,8 +13,8 @@ public class ValidacionCumpleAlgunaPreferencia implements ValidacionRecomendacio
         for (CaracteristicaPersonalizada p: interesAdopcion.getPreferencias()){
 
             //BUSCO SI TIENEN EL MISMA DESCRIPCION
-            if(p.getCaracteristicaGeneral().getDescripcion()
-                    .equals(publiAdopcion.getMascota().getCaracteristicas().stream().findAny().get().getCaracteristicaGeneral().getDescripcion())){
+            if(p.getCaracteristicaGeneral().getDescripcionParaDuenio()
+                    .equals(publiAdopcion.getMascota().getCaracteristicas().stream().findAny().get().getCaracteristicaGeneral().getDescripcionParaDuenio())){
 
                 //BUSCO SI TIENEN EL MISMO VALOR DENTRO DE LA DESCRIPCION
                 if (p.getValor().equals(publiAdopcion.getMascota().getCaracteristicas().stream().findAny().get().getValor())){

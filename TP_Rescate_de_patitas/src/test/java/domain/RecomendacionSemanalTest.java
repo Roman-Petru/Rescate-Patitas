@@ -70,8 +70,8 @@ public class RecomendacionSemanalTest {
 
         //------------------------AGREGAR CARACTERISTICA MASCOTA----------------------------
         CaracteristicaController caracteristicaController = CaracteristicaController.getInstancia();
-        caracteristicaController.agregar(new CaracteristicaGeneral("Color").toDTO());
-        caracteristicaController.agregar(new CaracteristicaGeneral("Come Mucho").toDTO());
+        caracteristicaController.agregar(new CaracteristicaGeneral("Color","").toDTO());
+        caracteristicaController.agregar(new CaracteristicaGeneral("Come Mucho","").toDTO());
 
         CaracteristicaPersonalizada caracteristicaPersonalizada1 = new CaracteristicaPersonalizada();
         CaracteristicaGeneral color = getCaracteristicaGeneral(caracteristicaController, "Color");
@@ -90,8 +90,8 @@ public class RecomendacionSemanalTest {
 
         //--------------------AGREGO A PUBLICACIONES EN ADOPCION------------------------
 
-        PreguntaAdopcion pregunta1 = new PreguntaAdopcion("Cuantos añis tiene?");
-        PreguntaAdopcion pregunta2 = new PreguntaAdopcion("Veces que mordió gente?");
+        PreguntaAdopcion pregunta1 = new PreguntaAdopcion("Cuantos añis tiene?","");
+        PreguntaAdopcion pregunta2 = new PreguntaAdopcion("Veces que mordió gente?","");
 
         PublicacionDarAdopcion enAdopcionFirulais = new PublicacionDarAdopcion(firulais);
         PublicacionAdopcionController publicacionAdopcionController = PublicacionAdopcionController.getInstancia();
@@ -122,6 +122,6 @@ public class RecomendacionSemanalTest {
     }
 
     private CaracteristicaGeneral getCaracteristicaGeneral(CaracteristicaController controller, String descripcion) {
-        return controller.listarTodos().stream().filter(cg -> descripcion.equalsIgnoreCase(cg.getDescripcion())).findAny().get();
+        return controller.listarTodos().stream().filter(cg -> descripcion.equalsIgnoreCase(cg.getDescripcionParaDuenio())).findAny().get();
     }
 }

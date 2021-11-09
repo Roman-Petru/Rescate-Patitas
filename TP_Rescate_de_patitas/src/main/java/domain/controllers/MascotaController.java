@@ -7,15 +7,12 @@ import domain.models.entities.entidadesGenerales.Mascota;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
-import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.enums.Animal;
 import domain.models.entities.enums.DescripcionPermiso;
 import domain.models.entities.utils.EncoderBase64;
-import domain.models.entities.utils.NotificadorHelper;
 import domain.models.entities.utils.excepciones.FaltaDniException;
 import domain.models.entities.utils.excepciones.FaltanDatosContactoException;
 import domain.models.modulos.generadorQR.GeneradorQR;
-import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.models.repositories.RepositorioMascotas;
 import spark.ModelAndView;
 import spark.Request;
@@ -139,7 +136,7 @@ public class MascotaController {
         }
 
         for (CaracteristicaGeneral caracteristicaGeneral:CaracteristicaController.getInstancia().listarTodos()) {
-            CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada(caracteristicaGeneral, request.queryParams(caracteristicaGeneral.getDescripcion()));
+            CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada(caracteristicaGeneral, request.queryParams(caracteristicaGeneral.getDescripcionParaDuenio()));
             mascota.agregarCaracteristicaPersonalizada(caracteristicaPersonalizada);
         }
         if (request.queryParams("tipo") != null) {
@@ -168,7 +165,7 @@ public class MascotaController {
         }
 
         for (CaracteristicaGeneral caracteristicaGeneral:CaracteristicaController.getInstancia().listarTodos()) {
-            CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada(caracteristicaGeneral, request.raw().getParameter(caracteristicaGeneral.getDescripcion()));
+            CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada(caracteristicaGeneral, request.raw().getParameter(caracteristicaGeneral.getDescripcionParaDuenio()));
             mascota.agregarCaracteristicaPersonalizada(caracteristicaPersonalizada);
         }
         if (request.raw().getParameter("tipo") != null) {

@@ -2,7 +2,6 @@ package domain;
 
 import domain.controllers.CaracteristicaController;
 import domain.controllers.personas.DuenioMascotaController;
-import domain.controllers.personas.PersonaController;
 import domain.models.entities.entidadesGenerales.*;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
@@ -10,8 +9,6 @@ import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.utils.Ubicacion;
 import org.junit.Test;
-
-import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -45,7 +42,7 @@ public class TestAgregarMascota {
     public void testAgregarMascota_agregarCaractisticasPersonalizadaColorMarron() {
         DuenioMascotaController duenioMascotaController = DuenioMascotaController.getInstancia();
         CaracteristicaController caracteristicaController = CaracteristicaController.getInstancia();
-        caracteristicaController.agregar(new CaracteristicaGeneral("color").toDTO());
+        caracteristicaController.agregar(new CaracteristicaGeneral("color","").toDTO());
 
         Ubicacion ubicacion = new Ubicacion();
         ubicacion.setDireccion("Los hornos 4599, Buenos Aires");
@@ -74,6 +71,6 @@ public class TestAgregarMascota {
     }
 
     private CaracteristicaGeneral agregarCaracteristicaGeneral(CaracteristicaController controller) {
-        return controller.listarTodos().stream().filter(cg -> "color".equalsIgnoreCase(cg.getDescripcion())).findAny().get();
+        return controller.listarTodos().stream().filter(cg -> "color".equalsIgnoreCase(cg.getDescripcionParaDuenio())).findAny().get();
     }
 }

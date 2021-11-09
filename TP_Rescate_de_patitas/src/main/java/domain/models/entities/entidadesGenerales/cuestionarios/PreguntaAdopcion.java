@@ -16,7 +16,10 @@ import lombok.Setter;
 public class PreguntaAdopcion extends Persistente {
 
     @Column
-    private String descripcion;
+    private String descripcionParaDuenio;
+
+    @Column
+    private String descripcionParaInteresado;
 
     @Column(columnDefinition = "DATE")
     private LocalDate fecha;
@@ -29,13 +32,16 @@ public class PreguntaAdopcion extends Persistente {
     private TipoPregunta tipoPregunta;
 
     public PreguntaAdopcion() {
-        this.descripcion = " ";
+        this.descripcionParaDuenio = " ";
+        this.descripcionParaInteresado = " ";
         this.opciones = new ArrayList<>();
         this.tipoPregunta = TipoPregunta.LIBRE;
     }
 
-    public PreguntaAdopcion(String descripcion) {
-        this.descripcion = descripcion;
+    public PreguntaAdopcion(String descripcionParaDuenio,String descripcionParaInteresado) {
+        this.descripcionParaDuenio = descripcionParaDuenio;
+        this.descripcionParaInteresado = descripcionParaInteresado;
+
     }
 
 
@@ -43,13 +49,15 @@ public class PreguntaAdopcion extends Persistente {
         PreguntaAdopcion.PreguntaAdopcionDTO dto = new PreguntaAdopcion.PreguntaAdopcionDTO();
         dto.id = this.getId();
         dto.opciones = this.getOpciones();
-        dto.descripcion = this.getDescripcion();
+        dto.descripcionParaDuenio = this.getDescripcionParaDuenio();
+        dto.descripcionParaInteresado = this.getDescripcionParaDuenio();
         return dto;
     }
     @Getter @Setter
     public static class PreguntaAdopcionDTO {
         public List<Opcion> opciones;
         private Integer id;
-        private String descripcion;
+        private String descripcionParaDuenio;
+        private String descripcionParaInteresado;
     }
 }

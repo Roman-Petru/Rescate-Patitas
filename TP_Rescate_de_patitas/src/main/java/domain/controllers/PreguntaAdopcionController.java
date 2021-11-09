@@ -40,7 +40,7 @@ public class PreguntaAdopcionController {
     }
 
     public void agregar(PreguntaAdopcion.PreguntaAdopcionDTO dto) {
-            PreguntaAdopcion pregunta = new PreguntaAdopcion(dto.getDescripcion());
+            PreguntaAdopcion pregunta = new PreguntaAdopcion(dto.getDescripcionParaDuenio(), dto.getDescripcionParaInteresado());
             repositorio.agregar(pregunta);}
 
     public void modificar(Integer id, PreguntaAdopcion.PreguntaAdopcionDTO dto) {

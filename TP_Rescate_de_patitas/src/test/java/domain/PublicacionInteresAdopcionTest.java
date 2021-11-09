@@ -51,8 +51,8 @@ public class PublicacionInteresAdopcionTest {
         organizacionController.agregar(organizacion2.toDTO());
 
         //--------------------AGREGAR VOLUNTARIO A ORGANIZACION-----------
-        PreguntaAdopcion preg1 = new PreguntaAdopcion("Raza");
-        PreguntaAdopcion preg2 = new PreguntaAdopcion("Rompe todo?");
+        PreguntaAdopcion preg1 = new PreguntaAdopcion("Raza","");
+        PreguntaAdopcion preg2 = new PreguntaAdopcion("Rompe todo?","");
 
         BuilderUsuario builderUsuario = new BuilderUsuario();
         builderUsuario.setUsername("vol1");
@@ -88,8 +88,8 @@ public class PublicacionInteresAdopcionTest {
 
         //------------------------AGREGAR CARACTERISTICA MASCOTA----------------------------
         CaracteristicaController caracteristicaController = CaracteristicaController.getInstancia();
-        caracteristicaController.agregar(new CaracteristicaGeneral("Color").toDTO());
-        caracteristicaController.agregar(new CaracteristicaGeneral("Come Mucho").toDTO());
+        caracteristicaController.agregar(new CaracteristicaGeneral("Color","").toDTO());
+        caracteristicaController.agregar(new CaracteristicaGeneral("Come Mucho","").toDTO());
 
         CaracteristicaPersonalizada caracteristicaPersonalizada1 = new CaracteristicaPersonalizada();
         CaracteristicaGeneral color = getCaracteristicaGeneral(caracteristicaController, "Color");
@@ -108,8 +108,8 @@ public class PublicacionInteresAdopcionTest {
 
         //--------------------AGREGO A PUBLICACIONES EN ADOPCION------------------------
 
-        PreguntaAdopcion pregunta1 = new PreguntaAdopcion("Cuantos añis tiene?");
-        PreguntaAdopcion pregunta2 = new PreguntaAdopcion("Veces que mordió gente?");
+        PreguntaAdopcion pregunta1 = new PreguntaAdopcion("Cuantos añis tiene?","");
+        PreguntaAdopcion pregunta2 = new PreguntaAdopcion("Veces que mordió gente?","");
 
         PublicacionDarAdopcion enAdopcionFirulais = new PublicacionDarAdopcion(firulais);
         PublicacionAdopcionController publicacionAdopcionController = PublicacionAdopcionController.getInstancia();
@@ -124,6 +124,6 @@ public class PublicacionInteresAdopcionTest {
     }
 
     private CaracteristicaGeneral getCaracteristicaGeneral(CaracteristicaController controller, String descripcion) {
-        return controller.listarTodos().stream().filter(cg -> descripcion.equalsIgnoreCase(cg.getDescripcion())).findAny().get();
+        return controller.listarTodos().stream().filter(cg -> descripcion.equalsIgnoreCase(cg.getDescripcionParaDuenio())).findAny().get();
     }
 }

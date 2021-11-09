@@ -39,7 +39,7 @@ public class CaracteristicaController {
     }
 
     public void agregar(CaracteristicaGeneral.CaracteristicaGeneralDTO dto) {
-        CaracteristicaGeneral caracteristica = new CaracteristicaGeneral(dto.getDescripcion());
+        CaracteristicaGeneral caracteristica = new CaracteristicaGeneral(dto.getDescripcionParaDuenio(),dto.getDescripcionParaInteresado());
         repositorio.agregar(caracteristica);
     }
 
@@ -60,7 +60,7 @@ public class CaracteristicaController {
     }
 
     public Response agregarCaracteristicaPost(Request request, Response response) {
-        CaracteristicaGeneral caracteristicaGeneral = new CaracteristicaGeneral(request.queryParams("caracteristica"));
+        CaracteristicaGeneral caracteristicaGeneral = new CaracteristicaGeneral(request.queryParams("caracteristica"),request.queryParams("preferencia"));
         this.agregar(caracteristicaGeneral.toDTO());
         response.redirect("/mensaje/Caracteristica agregada con exito");
         return response;

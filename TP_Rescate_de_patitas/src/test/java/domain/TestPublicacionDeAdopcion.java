@@ -35,9 +35,9 @@ public class TestPublicacionDeAdopcion {
         adminMark.setPermiso(Permiso.USUARIO_ADMIN);
 
         PreguntaAdopcion.PreguntaAdopcionDTO preg1 = new PreguntaAdopcion.PreguntaAdopcionDTO();
-        preg1.setDescripcion("Raza");
+        preg1.setDescripcionParaDuenio("Raza");
         PreguntaAdopcion.PreguntaAdopcionDTO preg2 = new PreguntaAdopcion.PreguntaAdopcionDTO();
-        preg2.setDescripcion("Rompe todo?");
+        preg2.setDescripcionParaDuenio("Rompe todo?");
 
         PreguntaAdopcionController.getInstancia().agregar(preg1);
         //PreguntaAdopcionController.getInstancia().agregarPreguntasObligatorias(preg2, adminMark);
@@ -60,8 +60,8 @@ public class TestPublicacionDeAdopcion {
 
         OrganizacionController.getInstancia().agregarPreguntaAdopcionOrganizacion(1, preg2, adminMark);
 
-        PreguntaAdopcion pregun1 = new PreguntaAdopcion(preg1.getDescripcion()); //revisar esto
-        PreguntaAdopcion pregun2 = new PreguntaAdopcion(preg2.getDescripcion()); //revisar esto
+        PreguntaAdopcion pregun1 = new PreguntaAdopcion(preg1.getDescripcionParaDuenio(), preg1.getDescripcionParaInteresado()); //revisar esto
+        PreguntaAdopcion pregun2 = new PreguntaAdopcion(preg2.getDescripcionParaDuenio(),preg1.getDescripcionParaInteresado()); //revisar esto
 
         RespuestaAdopcion resp1 = new RespuestaAdopcion(pregun1, "galgo");
         RespuestaAdopcion resp2 = new RespuestaAdopcion(pregun2, "si");

@@ -35,7 +35,7 @@ public class ArmadorMensajeRecomendacionSemanal implements ArmadorDeMensaje {
     private String listadoDeCaracteristicasString(){
         StringBuilder stringBuilder = new StringBuilder();
         for(CaracteristicaPersonalizada c: mascota.getCaracteristicas()){
-            stringBuilder.append("      -" + c.getCaracteristicaGeneral().getDescripcion() + ": " + c.getValor());
+            stringBuilder.append("      -" + c.getCaracteristicaGeneral().getDescripcionParaDuenio() + ": " + c.getValor());
             stringBuilder.append(System.lineSeparator());
         }
         return stringBuilder.toString();

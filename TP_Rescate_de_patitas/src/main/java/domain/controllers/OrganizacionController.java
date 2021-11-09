@@ -86,7 +86,7 @@ public class OrganizacionController {
         Organizacion organizacion = this.buscarOrganizacionPorID(organizacionID);
         if (!organizacion.esVoluntarioDeOrg(voluntario))
             return;  //TODO throw exception
-        PreguntaAdopcion pregunta = new PreguntaAdopcion(dto.getDescripcion());
+        PreguntaAdopcion pregunta = new PreguntaAdopcion(dto.getDescripcionParaDuenio(),dto.getDescripcionParaInteresado());
         //TODO REVISAR
         //organizacion.agregarPreguntaAdopcion(pregunta);
         repositorio.modificar(organizacion);

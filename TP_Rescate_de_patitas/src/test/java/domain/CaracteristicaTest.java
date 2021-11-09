@@ -25,8 +25,8 @@ public class CaracteristicaTest {
         usuarioController.agregarUsuario(adminPepe.toDTO());
         adminPepe.setPermiso(Permiso.USUARIO_ADMIN);
 
-        CaracteristicaGeneral color = new CaracteristicaGeneral("color");
-        CaracteristicaGeneral contextura = new CaracteristicaGeneral("contextura");
+        CaracteristicaGeneral color = new CaracteristicaGeneral("color","");
+        CaracteristicaGeneral contextura = new CaracteristicaGeneral("contextura","");
 
 
         usuarioController.agregarCaracteristicaGeneral(adminPepe, color);

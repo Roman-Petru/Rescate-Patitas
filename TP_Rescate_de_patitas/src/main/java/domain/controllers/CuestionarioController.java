@@ -137,7 +137,7 @@ public class CuestionarioController {
 
     public Response agregarPreguntaLibrePost(Request request, Response response) {
         Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
-        PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(request.queryParams("pregunta_libre"));
+        PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(request.queryParams("pregunta_libre_duenio"),request.queryParams("pregunta_libre_interesado"));
         preguntaAdopcion.setFecha(LocalDate.now());
         preguntaAdopcion.setTipoPregunta(TipoPregunta.LIBRE);
         cuestionario.getPreguntas().add(preguntaAdopcion);
@@ -149,7 +149,7 @@ public class CuestionarioController {
 
     public Response agregarPreguntaSingleChoicePost(Request request, Response response) {
         Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
-        PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(request.queryParams("pregunta_single_choice"));
+        PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(request.queryParams("pregunta_single_choice_duenio"),request.queryParams("pregunta_single_choice_interesado"));
         preguntaAdopcion.setFecha(LocalDate.now());
         preguntaAdopcion.setTipoPregunta(TipoPregunta.SINGLE_CHOICE);
 
@@ -191,7 +191,7 @@ public class CuestionarioController {
 
     public Response agregarPreguntaMultipleChoicePost(Request request, Response response) {
         Cuestionario cuestionario = this.buscarCuestionarioPorID(Integer.valueOf(request.params("id")));
-        PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(request.queryParams("pregunta_multiple_choice"));
+        PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(request.queryParams("pregunta_multiple_choice_duenio"),request.queryParams("pregunta_multiple_choice_duenio"));
         preguntaAdopcion.setFecha(LocalDate.now());
         preguntaAdopcion.setTipoPregunta(TipoPregunta.MULTIPLE_CHOICE);
 
