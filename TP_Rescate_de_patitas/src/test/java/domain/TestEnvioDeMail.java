@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class TestEnvioDeMail {
 
+    /*
     @Test
     public void testEnvioMail() throws IOException {
 
@@ -20,6 +21,8 @@ public class TestEnvioDeMail {
         notificador.setEstrategiaParaNotificar(envioMail);
         notificador.enviar();
     }
+
+     */
 
 }
 

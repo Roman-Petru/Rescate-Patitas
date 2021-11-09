@@ -11,10 +11,22 @@
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
 
+<!--            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />-->
+<!--            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/rescate-de-patitas-g4" />-->
+<!--            <property name="hibernate.connection.username" value="root" />-->
+<!--            <property name="hibernate.connection.password" value="rootSQL1" />-->
+
+<!--            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />-->
+<!--            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/rescate-de-patitas-g4" />-->
+<!--            <property name="hibernate.connection.username" value="root" />-->
+<!--            <property name="hibernate.connection.password" value="Mundomarin94_" />-->
+
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/rescate-de-patitas-g4" />
-            <property name="hibernate.connection.username" value="root" />
-            <property name="hibernate.connection.password" value="rootSQL1" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://uiqcsoh4iv1oe5mm:vxnawjg9dz9ttcmv@pk1l4ihepirw9fob.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/e9l1yrshmyn6gfvn" />
+            <property name="hibernate.connection.username" value="uiqcsoh4iv1oe5mm" />
+            <property name="hibernate.connection.password" value="vxnawjg9dz9ttcmv" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+
 
             <property name="hibernate.show_sql" value="true" />
             <!-- Enable the logging of all the generated SQL statements to the console -->

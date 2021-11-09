@@ -15,6 +15,7 @@ import static org.junit.Assert.assertThat;
 
 public class GenerarPublicacionMascotaPerdidaTest {
 
+    /*
     @Test
     public void TestNuevosFormulariosMascotaALaOrgCercana(){
         OrganizacionController organizacionController = OrganizacionController.getInstancia();
@@ -49,5 +50,5 @@ public class GenerarPublicacionMascotaPerdidaTest {
         //assertThat(organizacionController.listarTodos().get(0).getFormulariosPendientes().size(), is(0));
         //assertThat(organizacionController.listarTodos().get(1).getFormulariosPendientes().size(), is(1));
     }
-
+    */
 }

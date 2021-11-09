@@ -54,7 +54,7 @@ public class RescatistaTest {
 
         Assert.assertTrue(hogares.size() > 0);
     }
-
+    /*
     @Test
     public void rescatistaTest_contactarConDuenioDeMascota_notificaViaMail() throws IOException {
 
@@ -92,4 +92,5 @@ public class RescatistaTest {
         //Empieza el flujo
         //juliRescatista.contactarConDuenio("1");
     }
+     */
 }

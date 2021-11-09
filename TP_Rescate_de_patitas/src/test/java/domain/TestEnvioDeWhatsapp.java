@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class TestEnvioDeWhatsapp {
 
+    /*
     @Test
     public void testEnvioWhatsappVonage() throws IOException {
 
@@ -25,6 +26,7 @@ public class TestEnvioDeWhatsapp {
         notificador.setEstrategiaParaNotificar(envioWhatsapp);
         notificador.enviar();
     }
+     */
 }
 
 

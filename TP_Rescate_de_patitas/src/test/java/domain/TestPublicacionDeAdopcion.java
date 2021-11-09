@@ -18,14 +18,9 @@ import static org.junit.Assert.assertThat;
 
 public class TestPublicacionDeAdopcion {
 
+    /*
     @Test
-
     public void testPreguntasParaAdopcion() {
-      /*  Usuario.UsuarioDTO dtoMark = new Usuario.UsuarioDTO();
-        dtoMark.setUsuario("mark");
-        dtoMark.setPassword("pASDakfsda3r!");
-        UsuarioController.getInstancia().agregarUsuario(dtoMark);*/
-
         //----------------------------------------------------TEST PREGUNTAS GENERALES-------------------------------------------------------------//
         BuilderUsuario builderUsuario = new BuilderUsuario();
         builderUsuario.setUsername("mark");
@@ -73,23 +68,6 @@ public class TestPublicacionDeAdopcion {
         PublicacionAdopcionController.getInstancia().agregarPublicacionAdopcion(dtoPubli, 1, resp1, resp2);
 
         assertThat(PublicacionAdopcionController.getInstancia().listarTodos().size(), is(1));
-
-        /*
-        PublicacionAdopcion.PublicacionAdopcionDTO dtoPubli = new PublicacionAdopcion.PublicacionAdopcionDTO();
-        dtoPubli.setMascota(firulais);
-        PersonaController instanciaPersona = PersonaController.getInstancia();
-        instanciaPersona.generarPublicacionParaDarEnAdopcion(firulais, dtoOrg.getId(), resp1, resp2);
-
-        assertThat(PersonaController.getInstancia().listarTodos().size(), is(1));
-       */
-
     }
-
-    @Test
-
-    public void testPublicacionAdopcion() {
-
-
-
-    }
+    */
 }

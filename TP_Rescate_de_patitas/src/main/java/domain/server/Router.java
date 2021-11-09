@@ -25,7 +25,18 @@ public class Router {
         Router.configure();
     }
 
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 3306;
+    }
+
     private static void configure(){
+
+        Spark.port(getHerokuAssignedPort());
+
         //=============================================LOGIN=================================================================================//
         Spark.get("/", LoginController.getInstancia()::inicio, Router.engine);
         Spark.get("/login", LoginController.getInstancia()::ingresoLogin, Router.engine);

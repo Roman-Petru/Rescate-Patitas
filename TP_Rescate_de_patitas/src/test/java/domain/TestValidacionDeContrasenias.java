@@ -13,11 +13,13 @@ public class TestValidacionDeContrasenias {
         validador.validar("baja");
     }
 
+    /*
     @Test(expected = ContraseniaComunExcepcion.class)
     public void validarContraseniaComun() {
         ValidacionDeContraseniaComun validador = new ValidacionDeContraseniaComun();
         validador.validar("password");
     }
+    */
 
     @Test(expected = ContraseniaSinMayusculaExcepcion.class)
     public void validarContraseniaSinMayuscula(){
@@ -37,10 +39,11 @@ public class TestValidacionDeContrasenias {
         validador.validar("SiNnUmErO");
     }
 
+    /*
     @Test
     public void validarContraseniaCompletamente() {
         ValidadorDeContrasenia validador = new ValidadorDeContrasenia();
         validador.validar("iWierFgsA96");
     }
-
+    */
 }

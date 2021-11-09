@@ -29,6 +29,7 @@ import static org.junit.Assert.assertThat;
 
 public class PublicacionInteresAdopcionTest {
 
+    /*
     @Test
     public void publicacionInteresAdopcionTest()  {
 
@@ -126,4 +127,6 @@ public class PublicacionInteresAdopcionTest {
     private CaracteristicaGeneral getCaracteristicaGeneral(CaracteristicaController controller, String descripcion) {
         return controller.listarTodos().stream().filter(cg -> descripcion.equalsIgnoreCase(cg.getDescripcionParaDuenio())).findAny().get();
     }
+
+    */
 }

@@ -5,10 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>TP_Rescate_de_patitas</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>rescate-patitas</artifactId>
+    <version>1.0</version>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -17,6 +18,42 @@
                     <configuration>
                         <source>1.8</source>
                         <target>1.8</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <descriptorRefs>
+                            <!-- This tells Maven to include all dependencies -->
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                        <archive>
+                            <manifest>
+                                <mainClass>domain/server/Server</mainClass>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>com.heroku.sdk</groupId>
+                    <artifactId>heroku-maven-plugin</artifactId>
+                    <configuration>
+                        <jdkVersion>1.8</jdkVersion>
+                        <!-- Use your own application name -->
+                        <appName>rescate-patitas</appName>
+                        <processTypes>
+                            <!-- Tell Heroku how to launch your application -->
+                            <!-- You might have to remove the ./ in front -->
+                            <web>java -jar target/rescate-patitas.jar</web>
+                        </processTypes>
                     </configuration>
                 </plugin>
             </plugins>
