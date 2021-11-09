@@ -24,7 +24,7 @@
         <div class="container">
             <h1>Dar en adopcion</h1>
             <br>
-            <form action="crearPublicacionDarEnAdopcion/{{mascota.id}}" method="post">
+            <form action="../crearPublicacionDarEnAdopcion/{{mascotaID}}" method="post">
                 <h2>Conteste las siguientes preguntas</h2>
                 <br>
 
@@ -53,8 +53,26 @@
                 </div>
                 {{/each}}
 
+                {{#each PreguntasMultipleChoice}}
 
-                <button type="submit" class="btn btn-primary">Crear Publicacion</button>
+                    <div class="form-row">
+                        <div class="form-group col-md-9">
+                            <label> {{descripcionParaDuenio}} </label>
+                            <select class="input-select" name="{{descripcionParaDuenio}}" multiple>
+                                {{#each opciones}}
+                                    <option value="{{descripcion}}">{{descripcion}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                {{/each}}
+
+                <input type="text" style="display:none;" class="form-group col-md-9" name="organizacionID"  value="{{organizacion}}" readonly>
+
+
+                <div class="form-group col-md-9">
+                <button type="submit"  width="130" >Crear Publicacion</button>
+                </div>
             </form>
         </div>
     </div>

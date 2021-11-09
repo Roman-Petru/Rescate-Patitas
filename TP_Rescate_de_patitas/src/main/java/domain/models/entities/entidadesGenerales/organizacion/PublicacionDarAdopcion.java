@@ -5,13 +5,9 @@ import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.entidadesGenerales.cuestionarios.RespuestaAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.enums.PosibleEstadoPublicacion;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 import java.util.ArrayList;
@@ -23,7 +19,7 @@ import java.util.List;
 @Getter @Setter
 public class PublicacionDarAdopcion extends Persistente {
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     @JoinColumn(name="publicacionDarAdopcion_id" , referencedColumnName = "id")
     private List<RespuestaAdopcion> respuestasAdopcion;
 
@@ -35,13 +31,25 @@ public class PublicacionDarAdopcion extends Persistente {
     private List<EstadoPublicacion> estadosPublicacion;
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @JoinColumn(name="interesados_id")
     private List<InteresadoEnAdopcion> interesadosEnAdoptar;
 
-    @ManyToOne
-    @JoinColumn(name="organizacion_id" , referencedColumnName = "id")
-    private Organizacion organizacion;
+    @Column
+    private PosibleEstadoPublicacion estadoActual;
+
+    @Transient
+    private Boolean activa;
+
+    @Transient
+    private String primeraFoto;
 
     public PublicacionDarAdopcion() {
+        this.respuestasAdopcion = new ArrayList<>();
+        this.estadosPublicacion = new ArrayList<>();
+        this.interesadosEnAdoptar = new ArrayList<>();
+
+        estadosPublicacion.add(new EstadoPublicacion(PosibleEstadoPublicacion.ACTIVA));
+        this.estadoActual = PosibleEstadoPublicacion.ACTIVA;
     }
 
     public PublicacionDarAdopcion(Mascota mascota) {
@@ -51,6 +59,7 @@ public class PublicacionDarAdopcion extends Persistente {
         this.interesadosEnAdoptar = new ArrayList<>();
 
         estadosPublicacion.add(new EstadoPublicacion(PosibleEstadoPublicacion.ACTIVA));
+        this.estadoActual = PosibleEstadoPublicacion.ACTIVA;
     }
 
     public void agregarRespuestasAdopcion(RespuestaAdopcion... respuestas) {
@@ -59,6 +68,11 @@ public class PublicacionDarAdopcion extends Persistente {
 
     public void agregarInteresado (DatosDePersona interesado){
         this.interesadosEnAdoptar.add(new InteresadoEnAdopcion(interesado));
+    }
+
+    public void cambiarEstadoPublicacion (PosibleEstadoPublicacion estado){
+        estadosPublicacion.add(new EstadoPublicacion(estado));
+        estadoActual = estado;
     }
 
     @Getter @Setter

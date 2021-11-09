@@ -87,7 +87,7 @@ public class CuestionarioController {
 
     public Response agregarCuestionarioPost(Request request, Response response) {
         Cuestionario cuestionario = new Cuestionario(request.queryParams("descripcion"));
-        cuestionario.setPreguntas(Collections.emptyList());
+        //cuestionario.setPreguntas(Collections.emptyList());
         cuestionario.setEsGeneral(Boolean.TRUE);
         this.agregar(cuestionario);
         response.redirect("/mensaje/Cuestionario agregado con exito");
