@@ -7,7 +7,6 @@ import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdop
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
-import domain.models.entities.enums.PosibleEstadoPublicacion;
 import domain.models.repositories.RepositorioOrganizaciones;
 import spark.ModelAndView;
 import spark.Request;
@@ -181,15 +180,36 @@ public class OrganizacionController {
     }
 
     public Response aprobarVoluntario(Request request, Response response) {
-        try { //
-            Organizacion organizacion = this.repositorio.buscar(new Integer(request.params("idOrganizacion")));
-            Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorID(new Integer(request.params("idUsuario")));
-            organizacion.agregarVoluntario(usuario);
-
-            this.repositorio.modificar(organizacion);
-            response.redirect("/");
+        try {
+            Usuario voluntario = UsuarioController.buscarUsuarioPorID(request.session().attribute("id"));
+            Organizacion organizacion = this.repositorio.buscar(Integer.valueOf(request.params("idOrganizacion")));
+            Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorID(Integer.valueOf(request.params("idUsuario")));
+            if (esVoluntarioDeOrg(organizacion.getId(), voluntario.getId())) {
+                organizacion.agregarVoluntario(usuario);
+                this.repositorio.modificar(organizacion);
+                response.redirect("/");
+            }
+            response.redirect("/mensaje/Acceso denegado");
         } catch (Exception e) {
             response.redirect("/mensaje/Error al aprobar voluntario: " + e);
+        } finally {
+            return response;
+        }
+    }
+
+    public Response denegarVoluntario(Request request, Response response) {
+        try {
+            Usuario voluntario = UsuarioController.buscarUsuarioPorID(request.session().attribute("id"));
+            Organizacion organizacion = repositorio.buscar(Integer.valueOf(request.params("idOrganizacion")));
+            Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorID(Integer.valueOf(request.params("idUsuario")));
+            if (esVoluntarioDeOrg(organizacion.getId(), voluntario.getId())) {
+                organizacion.eliminarVoluntario(usuario);
+                repositorio.modificar(organizacion);
+                response.redirect("/");
+            }
+            response.redirect("/mensaje/Acceso denegado");
+        } catch (Exception e) {
+            response.redirect("/mensaje/Error al denegar voluntario: " + e);
         } finally {
             return response;
         }
