@@ -77,6 +77,13 @@
 
             <button type="submit">Mandar</button>
         </form>
+        <br>
+
+        {{#if creadorPublicacion}}
+
+            <a class="btn" href="/finalizarAdopcion/{{publicacion.id}}">Finalizar Publicacion</a>
+
+        {{/if}}
         <br><br>
         <p class="lead">
             <a href="/">Volver al home</a>
