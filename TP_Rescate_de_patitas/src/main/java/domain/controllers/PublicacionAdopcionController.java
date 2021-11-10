@@ -89,6 +89,8 @@ public class PublicacionAdopcionController {
         publicaciones.stream().forEach(p1 -> p1.setPrimeraFoto(p1.getMascota().getFotos().stream().findFirst().orElse(new String())));
         parametros.put("publicaciones", publicaciones);
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+
+        Utilidades.asignarVoluntarioOAdmin(request, parametros, (Integer.valueOf(request.params("id"))));
         return new ModelAndView(parametros,"publicacionDarAdopcion.hbs");
     }
 
@@ -225,4 +227,19 @@ public class PublicacionAdopcionController {
         ArmadorMensajeLibre armadorMensajeLibre = new ArmadorMensajeLibre("Mensaje por tu publicación en Patitas", mensaje);
         NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeLibre, publicacion.getMascota().getDuenioMascota().getDatosDePersona().getContactos());
     }
+
+    public Response pausarPublicacion(Request request, Response response) {
+        try {
+            PublicacionDarAdopcion publicacion = this.repositorio.buscar(new Integer(request.params("id")));
+            publicacion.cambiarEstadoPublicacion(PosibleEstadoPublicacion.PAUSADA);
+            this.repositorio.modificar(publicacion);
+            response.redirect("/");
+        } catch (Exception e) {
+            response.redirect("/mensaje/Error al pausar publicacion: " + e);
+        } finally {
+            return response;
+        }
+    }
+
+
 }

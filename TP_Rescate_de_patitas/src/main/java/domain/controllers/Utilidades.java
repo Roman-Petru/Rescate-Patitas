@@ -45,4 +45,14 @@ public class Utilidades {
       parametros.put("duenioUsuario", duenio.get());
     }
   }
+
+  public static void asignarVoluntarioOAdmin(Request request, Map<String, Object> parametros, Integer orgID){
+    if(!request.session().isNew() && request.session().attribute("id") != null){
+      Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorID(request.session().attribute("id"));
+      Boolean voluntarioOAdmin = UsuarioController.esAdmin(usuario.getId()) || OrganizacionController.getInstancia().buscarOrganizacionPorID(orgID).esVoluntarioDeOrg(usuario);
+
+      parametros.put("voluntarioOAdmin", voluntarioOAdmin);
+    }
+  }
+
 }

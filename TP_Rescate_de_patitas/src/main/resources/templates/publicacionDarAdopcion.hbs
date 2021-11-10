@@ -27,23 +27,43 @@
         <th>Foto</th>
         <th>Nombre</th>
         <th>Edad</th>
-        <th>Estado</th>
+{{#if voluntarioOAdmin}}  <th>Estado</th> {{/if}}
         <th><i class="fas fa-tools"></i> Acciones</th>
         </thead>
         <tbody>
         {{#each publicaciones}}
-            <tr>
+            {{#if voluntarioOAdmin}}
+                <tr>
                 <td> <img src="data:image/jpeg;charset=utf-8;base64, {{primeraFoto}}" width="200" height="300" alt="Imagen Mascota"></td>
                 <td>{{mascota.nombre}}</td>
                 <td>{{mascota.edadAproximada}}</td>
-                <td>{{estadoActual}}</td>
+            {{#if voluntarioOAdmin}}    <td>{{estadoActual}}</td>   {{/if}}
                 <td>
-                    <a href="./verPublicacionDarAdopcion/{{id}}" name="button" class="btn" style="width:140px;">Ver detalles</a>
+                    <a href="../verPublicacionDarAdopcion/{{id}}" name="button" class="btn" style="width:140px;">Ver detalles</a>
+                 {{#if voluntarioOAdmin}}
                     {{#if activa}} <a href="/pausar/{{id}}" name="button" class="btn" style="width:90px;">Pausar</a>
                     {{else}}
                         <a href="/activar/{{id}}" name="button" class="btn" style="width:90px;">Activar</a>{{/if}}
+                 {{/if}}
                 </td>
             </tr>
+            {{else}}   {{#if activa}}
+                <tr>
+                    <td> <img src="data:image/jpeg;charset=utf-8;base64, {{primeraFoto}}" width="200" height="300" alt="Imagen Mascota"></td>
+                    <td>{{mascota.nombre}} </td>
+                    <td>{{mascota.edadAproximada}}</td>
+                    {{#if voluntarioOAdmin}}    <td>{{estadoActual}}</td>   {{/if}}
+                    <td>
+                        <a href="../verPublicacionDarAdopcion/{{id}}" name="button" class="btn" style="width:140px;">Ver detalles</a>
+                        {{#if voluntarioOAdmin}}
+                            {{#if activa}} <a href="/pausar/{{id}}" name="button" class="btn" style="width:90px;">Pausar</a>
+                            {{else}}
+                                <a href="/activar/{{id}}" name="button" class="btn" style="width:90px;">Activar</a>{{/if}}
+                        {{/if}}
+                    </td>
+                </tr>
+              {{/if}}
+            {{/if}}
         {{/each}}
         </tbody>
     </table>
