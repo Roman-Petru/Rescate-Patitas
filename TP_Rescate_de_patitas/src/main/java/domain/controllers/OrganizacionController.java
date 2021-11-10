@@ -7,6 +7,7 @@ import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdop
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
+import domain.models.entities.enums.PosibleEstadoPublicacion;
 import domain.models.repositories.RepositorioOrganizaciones;
 import spark.ModelAndView;
 import spark.Request;
@@ -103,6 +104,7 @@ public class OrganizacionController {
     public Response agregarCuestionarioOrganizacion(Request request, Response response) {
         Organizacion organizacion = buscarOrganizacionPorID(Integer.valueOf(request.params("id")));
         Cuestionario cuestionario = new Cuestionario(request.queryParams("descripcion"));
+        cuestionario.setEsGeneral(Boolean.FALSE);
         organizacion.getCuestionarios().add(cuestionario);
         repositorio.modificar(organizacion);
         response.redirect("/mensaje/Cuestionario creado con exito");
@@ -116,6 +118,8 @@ public class OrganizacionController {
         List<Organizacion> organizaciones = listarTodos();
         parametros.put("organizaciones", organizaciones);
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        Utilidades.asignarSiEsPostulanteAOrg(request, parametros);
+        organizaciones.stream().forEach(o1 -> o1.setEsUsuarioVoluntario(Utilidades.esPostulanteAOrg(request, o1.getId())));
 
         return new ModelAndView(parametros,"organizaciones.hbs");
     }
@@ -157,5 +161,33 @@ public class OrganizacionController {
             return new ModelAndView(parametros, "agregarCuestionario.hbs");
         }
         return new ModelAndView(parametros, "home.hbs");
+    }
+
+    public Response postularseAVoluntario(Request request, Response response) {
+        try {
+            Organizacion organizacion = this.repositorio.buscar(new Integer(request.params("id")));
+            organizacion.postularseVoluntario(UsuarioController.getInstancia().buscarUsuarioPorID(request.session().attribute("id")));
+            this.repositorio.modificar(organizacion);
+            response.redirect("/");
+        } catch (Exception e) {
+            response.redirect("/mensaje/Error al postularse: " + e);
+        } finally {
+            return response;
+        }
+    }
+
+    public Response aprobarVoluntario(Request request, Response response) {
+        try { //
+            Organizacion organizacion = this.repositorio.buscar(new Integer(request.params("idOrganizacion")));
+            Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorID(new Integer(request.params("idUsuario")));
+            organizacion.agregarVoluntario(usuario);
+
+            this.repositorio.modificar(organizacion);
+            response.redirect("/");
+        } catch (Exception e) {
+            response.redirect("/mensaje/Error al aprobar voluntario: " + e);
+        } finally {
+            return response;
+        }
     }
 }

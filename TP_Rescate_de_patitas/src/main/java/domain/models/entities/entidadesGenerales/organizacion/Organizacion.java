@@ -6,15 +6,7 @@ import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import domain.models.entities.utils.Ubicacion;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -66,6 +58,9 @@ public class Organizacion extends Persistente {
     @JoinColumn(name="organizacion_id" , referencedColumnName = "id")
     private List<PublicacionInteresAdopcion> publicacionInteresAdopcion;
 
+    @Transient
+    private Boolean esUsuarioVoluntario;
+
     public Organizacion() {
         this.voluntarios = new ArrayList<>();
         this.publicaciones = new ArrayList<>();
@@ -104,7 +99,9 @@ public class Organizacion extends Persistente {
     }
 
     public void postularseVoluntario(Usuario postulanteVoluntario) {
-        this.postulanteVoluntarios.add(postulanteVoluntario);
+        if (!this.postulanteVoluntarios.contains(postulanteVoluntario))
+            this.postulanteVoluntarios.add(postulanteVoluntario);
+
     }
 
     public static Organizacion getDefault(){
@@ -125,6 +122,8 @@ public class Organizacion extends Persistente {
 
     public void agregarVoluntario(Usuario voluntario) {
         this.voluntarios.add(voluntario);
+        if (this.postulanteVoluntarios.contains(voluntario))
+            this.postulanteVoluntarios.remove(voluntario);
     }
 
     public boolean esVoluntarioDeOrg(Usuario usuario) {

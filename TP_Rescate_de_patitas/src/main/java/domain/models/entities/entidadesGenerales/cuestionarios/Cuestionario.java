@@ -32,6 +32,7 @@ public class Cuestionario extends Persistente {
     public Cuestionario(String descripcion) {
         this.descripcion = descripcion;
         this.preguntas = new ArrayList<>();
+        this.esGeneral = Boolean.FALSE;
     }
 
     public Cuestionario.CuestionarioDTO toDTO() {

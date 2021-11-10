@@ -156,6 +156,45 @@ public class PublicacionMascotaPerdidaController {
             return response;
         }
     }
+    public Response pausarPublicacion(Request request, Response response) {
+        try {
+            PublicacionMascotaPerdida publicacion = this.repositorio.buscar(new Integer(request.params("id")));
+            publicacion.cambiarEstadoPublicacion(PosibleEstadoPublicacion.PAUSADA);
+            this.repositorio.modificar(publicacion);
+            response.redirect("/");
+        } catch (Exception e) {
+            response.redirect("/mensaje/Error al pausar publicacion: " + e);
+        } finally {
+            return response;
+        }
+    }
+
+    public Response activarPublicacion(Request request, Response response) {
+        try {
+            PublicacionMascotaPerdida publicacion = this.repositorio.buscar(new Integer(request.params("id")));
+            publicacion.cambiarEstadoPublicacion(PosibleEstadoPublicacion.ACTIVA);
+            this.repositorio.modificar(publicacion);
+            response.redirect("/");
+        } catch (Exception e) {
+            response.redirect("/mensaje/Error al activar publicacion: " + e);
+        } finally {
+            return response;
+        }
+    }
+
+    public Response finalizarPublicacion(Request request, Response response) {
+        try {
+            PublicacionMascotaPerdida publicacion = this.repositorio.buscar(new Integer(request.params("id")));
+            publicacion.cambiarEstadoPublicacion(PosibleEstadoPublicacion.FINALIZADA);
+            this.repositorio.modificar(publicacion);
+            response.redirect("/");
+        } catch (Exception e) {
+            response.redirect("/mensaje/Error al activar publicacion: " + e);
+        } finally {
+            return response;
+        }
+    }
+
 
     public void notificarAlRescatista(PublicacionMascotaPerdida publicacion, String mensaje) throws IOException {
         ArmadorMensajeLibre armadorMensajeLibre = new ArmadorMensajeLibre("Mensaje por tu publicación en Patitas", mensaje);

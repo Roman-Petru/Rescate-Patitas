@@ -45,6 +45,9 @@ public class PublicacionMascotaPerdida extends Persistente {
     @Transient
     private Boolean activa;
 
+    @Transient
+    private Boolean finalizada;
+
     public PublicacionMascotaPerdida() {
         this.estadosPublicacion = new ArrayList<>();
         estadosPublicacion.add(new EstadoPublicacion(PosibleEstadoPublicacion.PAUSADA));

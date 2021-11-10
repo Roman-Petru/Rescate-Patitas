@@ -117,6 +117,7 @@ public class PublicacionInteresAdopcionController {
     public ModelAndView pantallaFormulario (Request request, Response response) throws FaltanDatosContactoException, FaltaDniException {
         Map<String, Object> parametros = new HashMap<>();
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        Utilidades.asignarPersonaUsuaria(request, parametros);
 
         parametros.put("idpubli", request.params("id"));
 
@@ -141,8 +142,16 @@ public class PublicacionInteresAdopcionController {
 
     public Response crearPublicacionInteresAdopcion(Request request, Response response){
         try{
+            if ((request.queryParams("dni") == null) || (request.queryParams("dni").equals(""))) throw new FaltaDniException();
 
-            DatosDePersona persona = new DatosDePersona(request.queryParams("nombrePersona"),request.queryParams("apellidoPersona"),new Integer(request.raw().getParameter("dni")),null,request.queryParams("mail"),null,null,null);
+            Integer dni = new Integer(request.queryParams("dni"));
+
+            DatosDePersona persona = PersonaController.getInstancia().traerPersonaPorDNIONueva(dni);
+            persona.setDocumento(dni);
+
+            PersonaController.getInstancia().asignarAtributosA(persona, request);
+
+            //DatosDePersona persona = new DatosDePersona(request.queryParams("nombrePersona"),request.queryParams("apellidoPersona"),new Integer(request.raw().getParameter("dni")),null,request.queryParams("mail"),null,null,null);
 
             PublicacionInteresAdopcion publicacionInteresAdopcion = new PublicacionInteresAdopcion();
             publicacionInteresAdopcion.setEsMacho(request.queryParams("sexo").equals("1"));
