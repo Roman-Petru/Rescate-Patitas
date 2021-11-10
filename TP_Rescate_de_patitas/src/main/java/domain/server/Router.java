@@ -73,11 +73,10 @@ public class Router {
         Spark.get("/organizacion/:id/agregarCuestionario", OrganizacionController.getInstancia()::pantallaAgregarCuestionarioOrganizacion, Router.engine);
         Spark.post("/organizacion/:id/agregarCuestionario", OrganizacionController.getInstancia()::agregarCuestionarioOrganizacion);
 
-        //=============================================PUBLICACION=================================================================================//
-        Spark.get("/adopciones/:id", PublicacionAdopcionController.getInstancia()::pantallaAdopcionesDeOrganizacion, Router.engine);
-        Spark.get("/perdidas/:id", PublicacionPerdidaController.getInstancia()::pantallaPerdidasDeOrganizacion, Router.engine);
+//=============================================PUBLICACION=================================================================================//
+        Spark.get("/publicacionesDarAdopcion/:id", PublicacionAdopcionController.getInstancia()::pantallaAdopcionesDeOrganizacion, Router.engine);
+        Spark.get("/publicacionesMascotaPerdida/:id", PublicacionPerdidaController.getInstancia()::pantallaPerdidasDeOrganizacion, Router.engine);
         Spark.get("/interesesAdopcion/:id", PublicacionInteresAdopcionController.getInstancia()::pantallaInteresesDeOrganizacion, Router.engine);
-
 
         Spark.get("/publicacionesMascotaPerdida", PublicacionMascotaPerdidaController.getInstancia()::pantallaPublicacionesMascotaPerdida, Router.engine);
         Spark.get("/contactarRescatista/:id", PublicacionMascotaPerdidaController.getInstancia()::pantallaContactarRescatista, Router.engine);
@@ -87,6 +86,12 @@ public class Router {
         Spark.post("/crearFormularioDaradopcion/:id", PublicacionAdopcionController.getInstancia()::pantallaFormulario, Router.engine);
         Spark.post("/crearPublicacionDarEnAdopcion/:id", PublicacionAdopcionController.getInstancia()::crearPublicacionDarAdopcion);
         Spark.get("/publicacionesDarAdopcion", PublicacionAdopcionController.getInstancia()::pantallaPublicacionesDarAdopcion, Router.engine);
+        Spark.get("/verPublicacionDarAdopcion/:id", PublicacionAdopcionController.getInstancia()::pantallaPublicacionDarAdopcionEspecifica, Router.engine);
+        Spark.post("/contactarDuenioPubli/:id", PublicacionAdopcionController.getInstancia()::contactarDuenio);
+
+        Spark.get("/pausarAdopcion/:id", PublicacionAdopcionController.getInstancia()::pausarPublicacion);
+        Spark.get("/activarAdopcion/:id", PublicacionAdopcionController.getInstancia()::activarPublicacion);
+        Spark.get("/finalizarAdopcion/:id", PublicacionAdopcionController.getInstancia()::finalizarPublicacion);
 
         Spark.get("/interesDeAdopcion",PublicacionInteresAdopcionController.getInstancia()::prePantallaFormulario,Router.engine);
 

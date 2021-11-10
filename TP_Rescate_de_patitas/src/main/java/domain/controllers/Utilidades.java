@@ -2,6 +2,7 @@ package domain.controllers;
 
 import domain.controllers.personas.DuenioMascotaController;
 import domain.controllers.personas.PersonaController;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
@@ -43,6 +44,24 @@ public class Utilidades {
         return;
 
       parametros.put("duenioUsuario", duenio.get());
+    }
+  }
+
+  public static void asignarVoluntarioOAdmin(Request request, Map<String, Object> parametros, Integer orgID){
+    if(!request.session().isNew() && request.session().attribute("id") != null){
+      Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorID(request.session().attribute("id"));
+      Boolean voluntarioOAdmin = UsuarioController.esAdmin(usuario.getId()) || OrganizacionController.getInstancia().buscarOrganizacionPorID(orgID).esVoluntarioDeOrg(usuario);
+
+      parametros.put("voluntarioOAdmin", voluntarioOAdmin);
+    }
+  }
+
+  public static void asignarSiEsCreadorPublicacionAdopcion(Request request, Map<String, Object> parametros, PublicacionDarAdopcion publicacion) {
+    if(!request.session().isNew() && request.session().attribute("id") != null){
+      Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorID(request.session().attribute("id"));
+
+      Boolean creadorPublicacion = publicacion.getMascota().getDuenioMascota().getDatosDePersona().getIDDeUsuario() == usuario.getId();
+      parametros.put("creadorPublicacion", creadorPublicacion);
     }
   }
 }

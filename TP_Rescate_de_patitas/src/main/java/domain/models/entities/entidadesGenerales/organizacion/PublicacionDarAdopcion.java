@@ -41,6 +41,9 @@ public class PublicacionDarAdopcion extends Persistente {
     private Boolean activa;
 
     @Transient
+    private Boolean finalizada;
+
+    @Transient
     private String primeraFoto;
 
     public PublicacionDarAdopcion() {

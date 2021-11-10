@@ -27,8 +27,8 @@
             <!-- <li><a href="../adoptarMascota">Adoptar Mascota</a></li>-->
             <li><a href="../registrarMascota">Registrar Mascota</a></li>
             <li><a href="../rescateSinChapita">Rescaté una Mascota</a></li>
-            <li><a href="../publicacionesMascotaPerdida">Test Publi Masc Perdida</a></li>
-            <li><a href="../publicacionesDarAdopcion">Test Publi Dar Adop</a></li>
+<!--            <li><a href="../publicacionesMascotaPerdida">Test Publi Masc Perdida</a></li>-->
+<!--            <li><a href="../publicacionesDarAdopcion">Test Publi Dar Adop</a></li>-->
             <li><a href="../interesDeAdopcion">Quiero adoptar</a></li>
 
         </ul>
@@ -36,7 +36,7 @@
             {{#if usuarioLogueado}}
                 <li><a href="../perfil/{{usuarioLogueado.id}}"><span class="glyphicon glyphicon-user"></span> ¡Hola {{usuarioLogueado.usuario}}!</a>
                 </li>
-                <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Salir</a></li>
+                <li><a href="../logout"><span class="glyphicon glyphicon-log-in"></span> Salir</a></li>
             {{else}}
                 <li><a href="../registrarUsuario"><span class="glyphicon glyphicon-user"></span> Registrarse</a></li>
                 <li><a href="../login"><span class="glyphicon glyphicon-log-in"></span> Ingresar</a></li>
