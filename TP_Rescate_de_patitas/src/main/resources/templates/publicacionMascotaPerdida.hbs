@@ -27,11 +27,12 @@
         <th>Foto</th>
         <th>Descripción del estado</th>
         <th>Dirección donde se encontró</th>
-        <th>Estado</th>
+{{#if voluntarioOAdmin}}  <th>Estado</th>   {{/if}}
         <th><i class="fas fa-tools"></i> Acciones</th>
         </thead>
         <tbody>
         {{#each publicaciones}}
+            {{#if voluntarioOAdmin}}
             <tr>
                 <td> <img src="data:image/jpeg;charset=utf-8;base64, {{formulario.imagen}}" width="200" height="300" alt="Imagen Mascota"></td>
                 <td>{{formulario.estadoMascota}}</td>
@@ -39,11 +40,25 @@
                 <td>{{estadoActual}}</td>
                 <td>
                     <a href="/contactarRescatista/{{id}}" name="button" class="btn" style="width:140px;">Contactar rescatista</a>
-                    {{#if activa}} <a href="/pausar/{{id}}" name="button" class="btn" style="width:90px;">Pausar</a>
-                    {{else}}
-                    <a href="/activar/{{id}}" name="button" class="btn" style="width:90px;">Activar</a>{{/if}}
+                    {{#if finalizada}} {{else}}
+                        {{#if activa}} <a href="/pausarRescate/{{id}}" name="button" class="btn" style="width:90px;">Pausar</a>
+                        {{else}}
+                            <a href="/activarRescate/{{id}}" name="button" class="btn" style="width:90px;">Activar</a>{{/if}}
+                        <a href="/finalizarRescate/{{id}}" name="button" class="btn" style="width:90px;">Finalizar</a>
+                    {{/if}}
                 </td>
             </tr>
+            {{else}}   {{#if activa}}
+                <tr>
+                    <td> <img src="data:image/jpeg;charset=utf-8;base64, {{formulario.imagen}}" width="200" height="300" alt="Imagen Mascota"></td>
+                    <td>{{formulario.estadoMascota}}</td>
+                    <td>{{formulario.lugarEncontrado.direccion}}</td>
+                    <td>
+                        <a href="/contactarRescatista/{{id}}" name="button" class="btn" style="width:140px;">Contactar rescatista</a>
+                    </td>
+                </tr>
+            {{/if}}
+            {{/if}}
         {{/each}}
         </tbody>
     </table>

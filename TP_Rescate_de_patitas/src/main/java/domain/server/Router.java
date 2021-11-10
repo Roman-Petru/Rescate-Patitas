@@ -66,8 +66,6 @@ public class Router {
         Spark.post("/registrarPersona", PersonaController.getInstancia()::registrarPersona);
         Spark.get("/voluntarios/:id", UsuarioController.getInstancia()::pantallaVoluntariosDeOrganizacion, Router.engine);
 
-        Spark.get("/aprobarVoluntario/:idUsuario/:idOrganizacion", OrganizacionController.getInstancia()::aprobarVoluntario);
-
 
         //=============================================ORGANIZACION=================================================================================//
         Spark.get("/organizaciones", OrganizacionController.getInstancia()::pantallaOrganizaciones, Router.engine);
@@ -77,6 +75,7 @@ public class Router {
         Spark.post("/organizacion/:id/agregarCuestionario", OrganizacionController.getInstancia()::agregarCuestionarioOrganizacion);
 
         Spark.get("/postularse/:id", OrganizacionController.getInstancia()::postularseAVoluntario);
+        Spark.get("/aprobarVoluntario/:idUsuario/:idOrganizacion", OrganizacionController.getInstancia()::aprobarVoluntario);
 
 
 //=============================================PUBLICACION=================================================================================//
@@ -98,6 +97,10 @@ public class Router {
         Spark.get("/pausarAdopcion/:id", PublicacionAdopcionController.getInstancia()::pausarPublicacion);
         Spark.get("/activarAdopcion/:id", PublicacionAdopcionController.getInstancia()::activarPublicacion);
         Spark.get("/finalizarAdopcion/:id", PublicacionAdopcionController.getInstancia()::finalizarPublicacion);
+
+        Spark.get("/pausarRescate/:id", PublicacionMascotaPerdidaController.getInstancia()::pausarPublicacion);
+        Spark.get("/activarRescate/:id", PublicacionMascotaPerdidaController.getInstancia()::activarPublicacion);
+        Spark.get("/finalizarRescate/:id", PublicacionMascotaPerdidaController.getInstancia()::finalizarPublicacion);
 
         Spark.get("/interesDeAdopcion",PublicacionInteresAdopcionController.getInstancia()::prePantallaFormulario,Router.engine);
 

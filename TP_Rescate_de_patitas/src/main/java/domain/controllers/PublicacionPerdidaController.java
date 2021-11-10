@@ -42,8 +42,10 @@ public class PublicacionPerdidaController {
         List<PublicacionMascotaPerdida> publicaciones = this.listarPerdidasDeOrganizacion(Integer.valueOf(request.params("id")));
         publicaciones.stream().filter(p -> p.getOrganizacion().equals(Integer.valueOf(request.params("id"))));
         publicaciones.stream().forEach(p1 -> p1.setActiva(p1.getEstadoActual().equals(PosibleEstadoPublicacion.ACTIVA)));
+        publicaciones.stream().forEach(p1 -> p1.setFinalizada(p1.getEstadoActual().equals(PosibleEstadoPublicacion.FINALIZADA)));
         parametros.put("publicaciones", publicaciones);
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        Utilidades.asignarVoluntarioOAdmin(request, parametros, Integer.valueOf(request.params("id")));
         return new ModelAndView(parametros,"publicacionMascotaPerdida.hbs");
     }
 

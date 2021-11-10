@@ -95,6 +95,10 @@ public class PersonaController {
             persona.setDocumento(Integer.parseInt(request.queryParams("dni")));
         }
 
+        if(request.queryParams("mail") != null && request.queryParams("mail") != ""){
+            persona.setEmail(request.queryParams("mail"));
+        }
+
     } // request.raw().getParameter
 
     public void asignarAtributosAConRaw(DatosDePersona persona, Request request) {
