@@ -1,5 +1,7 @@
 package domain.controllers;
 
+import domain.controllers.personas.PersonaController;
+import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaGeneral;
 import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaPersonalizada;
 import domain.models.entities.entidadesGenerales.cuestionarios.Cuestionario;
@@ -8,8 +10,11 @@ import domain.models.entities.entidadesGenerales.cuestionarios.RespuestaAdopcion
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
+import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.enums.Animal;
 import domain.models.entities.enums.TipoPregunta;
+import domain.models.entities.utils.excepciones.FaltaDniException;
+import domain.models.entities.utils.excepciones.FaltanDatosContactoException;
 import domain.models.repositories.RepositorioPublicacionInteresAdopcion;
 
 import java.util.*;
@@ -109,9 +114,10 @@ public class PublicacionInteresAdopcionController {
         return new ModelAndView(parametros, "preFormularioInteresAdopcion.hbs");
     }
 
-    public ModelAndView pantallaFormulario (Request request, Response response){
+    public ModelAndView pantallaFormulario (Request request, Response response) throws FaltanDatosContactoException, FaltaDniException {
         Map<String, Object> parametros = new HashMap<>();
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+
         parametros.put("idpubli", request.params("id"));
 
 
@@ -135,9 +141,13 @@ public class PublicacionInteresAdopcionController {
 
     public Response crearPublicacionInteresAdopcion(Request request, Response response){
         try{
+
+            DatosDePersona persona = new DatosDePersona(request.queryParams("nombrePersona"),request.queryParams("apellidoPersona"),new Integer(request.raw().getParameter("dni")),null,request.queryParams("mail"),null,null,null);
+
             PublicacionInteresAdopcion publicacionInteresAdopcion = new PublicacionInteresAdopcion();
             publicacionInteresAdopcion.setEsMacho(request.queryParams("sexo").equals("1"));
             publicacionInteresAdopcion.setTipoAnimal(Animal.getAnimalConInteger(new Integer(request.queryParams("tipo"))));
+            publicacionInteresAdopcion.setAdoptante(persona);
 
             Integer idOrg = new Integer (request.queryParams("organizacionID"));
             Organizacion org = OrganizacionController.getInstancia().buscarOrganizacionPorID(idOrg);
