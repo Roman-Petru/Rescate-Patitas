@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/login.estilos.css">
+    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/generales.js"></script>
+    <script src="/js/site.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Contactar Rescatista</title>
+</head>
+<body>
+
+{{> nav.hbs}}
+
+<div class="main_container">
+    <br>
+    <h1>Datos de la mascota</h1>
+
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <h1>{{publicacion.mascota.nombre}}</h1>
+            <br>
+            <label>Apodo: {{publicacion.mascota.apodo}}</label>
+            <br>
+            <label>Edad: {{publicacion.mascota.edadAproximada}}</label>
+            <br>
+            <label>Descripcion: {{publicacion.mascota.descripcionFisica}}</label>
+            <br>
+            <label>Animal: {{publicacion.mascota.tipo}}</label>
+            <br>
+            <label>Sexo: {{#if esMacho}}Macho{{else}}Hembra{{/if}}</label>
+        </div>
+    </div>
+    <br>
+
+    {{#each restLibres}}
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label>{{pregunta.descripcionParaDuenio}} : </label>
+                <label>{{respuestaLibre}}</label>
+            </div>
+        </div>
+        <br>
+    {{/each}}
+
+    {{#each restChoice}}
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label>{{pregunta.descripcionParaDuenio}}</label>
+                <br>
+                      {{#each opcionesSeleccionadas}}
+                            <label>{{this}}  </label>
+                       {{/each}}
+            </div>
+        </div>
+        <br>
+    {{/each}}
+    <br>
+    <br>
+    <br>
+
+        <h1>Ingrese mensaje para mandar al dueño, recomendamos dejar dato de contacto para que éste se comunique</h1>
+        <br>
+        <form action="../contactarDuenioPubli/{{publicacion.id}}" method="post" class="form-">
+            <div class="form-group">
+                <label>Mensaje:</label>
+                <input class="form-control" name="mensaje">
+            </div>
+
+            <button type="submit">Mandar</button>
+        </form>
+        <br><br>
+        <p class="lead">
+            <a href="/">Volver al home</a>
+        </p>
+
+</div>
+
+</div>
+</body>
+</html>

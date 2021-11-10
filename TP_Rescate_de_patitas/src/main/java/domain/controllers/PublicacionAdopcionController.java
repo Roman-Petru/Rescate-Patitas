@@ -12,11 +12,14 @@ import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdop
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
 import domain.models.entities.enums.PosibleEstadoPublicacion;
 import domain.models.entities.enums.TipoPregunta;
+import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeLibre;
+import domain.models.entities.utils.NotificadorHelper;
 import domain.models.repositories.RepositorioPublicacionAdopcion;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -183,4 +186,42 @@ public class PublicacionAdopcionController {
         return new ModelAndView(parametros,"publicacionDarAdopcion.hbs");
     }
 
+
+
+    public ModelAndView pantallaPublicacionDarAdopcionEspecifica(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        PublicacionDarAdopcion publicacion = this.repositorio.buscar(new Integer(request.params("id")));
+
+        List<RespuestaAdopcion> restLibres = publicacion.getRespuestasAdopcion().stream().filter(r1 -> r1.getPregunta().getTipoPregunta().equals(TipoPregunta.LIBRE)).collect(Collectors.toList());
+        List<RespuestaAdopcion> restChoice = publicacion.getRespuestasAdopcion().stream().filter(r1 -> !(r1.getPregunta().getTipoPregunta().equals(TipoPregunta.LIBRE))).collect(Collectors.toList());
+
+        parametros.put("restLibres", restLibres);
+        parametros.put("restChoice", restChoice);
+        parametros.put("publicacion", publicacion);
+
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        return new ModelAndView(parametros,"publicacionAdopcionDetalles.hbs");
+    }
+
+    public Response contactarDuenio(Request request, Response response) {
+        try{
+
+            PublicacionDarAdopcion publicacion = this.repositorio.buscar(new Integer(request.params("id")));
+            String mensaje = request.queryParams("mensaje");
+            this.notificarAlDuenio(publicacion, mensaje);
+
+            response.redirect("/mensaje/Se mando mensaje al rescatista de la mascota!");
+        }
+        catch (Exception e){
+            response.redirect("/mensaje/Error al mandar mensaje: " + e);
+        }
+        finally {
+            return response;
+        }
+    }
+
+    public void notificarAlDuenio(PublicacionDarAdopcion publicacion, String mensaje) throws IOException {
+        ArmadorMensajeLibre armadorMensajeLibre = new ArmadorMensajeLibre("Mensaje por tu publicación en Patitas", mensaje);
+        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeLibre, publicacion.getMascota().getDuenioMascota().getDatosDePersona().getContactos());
+    }
 }

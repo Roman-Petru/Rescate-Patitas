@@ -20,7 +20,7 @@
 {{> nav.hbs}}
 
 <div class="main_container">
-    <h1 class="encabezado"><i class="fas fa-users"></i> Publicaciones de mascotas perdidas</h1>
+    <h1 class="encabezado"><i class="fas fa-users"></i> Publicaciones de adopción </h1>
     <input type="text" name="" value="" placeholder="Buscar" id="inputUsuario">
     <table class="tabla" id="tabla">
         <thead>
@@ -38,7 +38,7 @@
                 <td>{{mascota.edadAproximada}}</td>
                 <td>{{estadoActual}}</td>
                 <td>
-                    <a href="/verPublicacionDarAdopcion/{{id}}" name="button" class="btn" style="width:140px;">Ver detalles</a>
+                    <a href="./verPublicacionDarAdopcion/{{id}}" name="button" class="btn" style="width:140px;">Ver detalles</a>
                     {{#if activa}} <a href="/pausar/{{id}}" name="button" class="btn" style="width:90px;">Pausar</a>
                     {{else}}
                         <a href="/activar/{{id}}" name="button" class="btn" style="width:90px;">Activar</a>{{/if}}
