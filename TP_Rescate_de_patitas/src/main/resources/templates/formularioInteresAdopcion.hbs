@@ -49,18 +49,22 @@
                         <input type="number" class="form-control" name="dni" id="dni"{{#if
                                 personaUsuaria}} value="{{personaUsuaria.documento}}" readonly {{/if}}>
                     </div>
+                </div>
+
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-12">
                         <label for="inputEmail4">Mail para recibir recomendaciones</label>
                         <input type="email" class="form-control" name="mail" id="mail"{{#if
                                 personaUsuaria}} value="{{personaUsuaria.email}}" {{/if}}>
                     </div>
+                </div>
                     <br>
             <br>
-
+            <br>
+            <br>
+            <div class="form-row">
             <h2>Responda las siguientes preguntas para elegir sus preferencias</h2>
             <br>
-            <div>
             <label for="inputEmail4">Elija el tipo de mascota que desea: </label>
                 <select class="form-select" name="tipo" aria-label="Default select example">
                     <!--  <option selected>Seleccionar</option>-->
@@ -69,7 +73,7 @@
                 </select>
             </div>
             <br>
-            <div>
+            <div class="form-row">
             <label for="inputEmail4">Elija el sexo que desea: </label>
                 <select class="form-select" name="sexo" aria-label="Default select example">
                     <!--  <option selected>Seleccionar</option>-->
