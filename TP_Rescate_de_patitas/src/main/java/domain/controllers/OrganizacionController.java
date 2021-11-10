@@ -156,7 +156,7 @@ public class OrganizacionController {
 
     public ModelAndView pantallaAgregarCuestionarioOrganizacion(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        if (UsuarioController.esVoluntarioLogeado(request)) {
+        if (UsuarioController.esVoluntarioLogeado(request) || UsuarioController.esAdmin(Integer.valueOf(request.params("id")))) {
             Organizacion organizacion = buscarOrganizacionPorID(Integer.valueOf(request.params("id")));
             parametros.put("organizacion", organizacion);
             Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
