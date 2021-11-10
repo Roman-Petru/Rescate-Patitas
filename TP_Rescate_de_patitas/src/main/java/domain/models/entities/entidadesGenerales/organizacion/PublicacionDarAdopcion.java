@@ -28,11 +28,11 @@ public class PublicacionDarAdopcion extends Persistente {
     private Mascota mascota;
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
-    private List<EstadoPublicacion> estadosPublicacion;
-
-    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
     @JoinColumn(name="interesados_id")
     private List<InteresadoEnAdopcion> interesadosEnAdoptar;
+
+    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    private List<EstadoPublicacion> estadosPublicacion;
 
     @Column
     private PosibleEstadoPublicacion estadoActual;

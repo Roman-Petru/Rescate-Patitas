@@ -88,6 +88,10 @@ public class Router {
         Spark.post("/crearPublicacionDarEnAdopcion/:id", PublicacionAdopcionController.getInstancia()::crearPublicacionDarAdopcion);
         Spark.get("/publicacionesDarAdopcion", PublicacionAdopcionController.getInstancia()::pantallaPublicacionesDarAdopcion, Router.engine);
 
+        Spark.get("/interesDeAdopcion",PublicacionInteresAdopcionController.getInstancia()::prePantallaFormulario,Router.engine);
+
+        Spark.post("/crearFormularioInteres", PublicacionInteresAdopcionController.getInstancia()::pantallaFormulario, Router.engine);
+        Spark.post("/crearPublicacionInteresAdopcion",PublicacionInteresAdopcionController.getInstancia()::crearPublicacionInteresAdopcion);
         //=============================================CUESTIONARIOS=================================================================================//
         Spark.get("/gestionarCuestionarios", CuestionarioController.getInstancia()::pantallaGestionarCuestionarios, Router.engine);
         Spark.get("/agregarCuestionario", CuestionarioController.getInstancia()::pantallaAgregarCuestionario, Router.engine);
