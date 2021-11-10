@@ -1,7 +1,10 @@
 package domain.controllers;
 
+import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
+import domain.models.entities.enums.PosibleEstadoPublicacion;
 import domain.models.repositories.RepositorioPublicacionPerdida;
+import java.util.ArrayList;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -35,11 +38,23 @@ public class PublicacionPerdidaController {
 
     public ModelAndView pantallaPerdidasDeOrganizacion(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        List<PublicacionMascotaPerdida> perdidas = PublicacionPerdidaController.getInstancia().listarPerdidasDeOrganizacion(Integer.valueOf(request.params("id")));
-        parametros.put("perdidas", perdidas);
+        List<PublicacionMascotaPerdida> publicaciones = this.buscarTodasPublicacionesDeMascotasPerdidas();
+        publicaciones.stream().filter(p -> p.getOrganizacion().equals(Integer.valueOf(request.params("id"))));
+        publicaciones.stream().forEach(p1 -> p1.setActiva(p1.getEstadoActual().equals(PosibleEstadoPublicacion.ACTIVA)));
+        parametros.put("publicaciones", publicaciones);
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        return new ModelAndView(parametros,"publicacionMascotaPerdida.hbs");
+    }
 
-        return new ModelAndView(parametros, "perdidas.hbs");
+
+    public List<PublicacionMascotaPerdida> buscarTodasPublicacionesDeMascotasPerdidas() {
+        List<Organizacion> organizaciones = OrganizacionController.getInstancia().listarTodos();
+        List<PublicacionMascotaPerdida> lista_publicaciones = new ArrayList<>();
+
+        for (Organizacion organizacion : organizaciones)
+            lista_publicaciones.addAll(organizacion.getPublicaciones());
+
+        return lista_publicaciones;
     }
 
 }

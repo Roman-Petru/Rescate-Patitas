@@ -55,6 +55,7 @@ public class CaracteristicaController {
     public ModelAndView agregarCaracteristicaPantalla(Request request, Response response) {
 
         Map<String, Object> parametros = new HashMap<>();
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
         return new ModelAndView(parametros, "agregarCaracteristica.hbs");
 
     }

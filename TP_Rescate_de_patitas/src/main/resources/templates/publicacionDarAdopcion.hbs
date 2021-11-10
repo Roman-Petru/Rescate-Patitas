@@ -13,37 +13,52 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>Publicaciones de mascotas perdidas</title>
+    <title>Publicaciones - Mascotas en Adopción</title>
 </head>
 <body id="body">
 
 {{> nav.hbs}}
 
 <div class="main_container">
-    <h1 class="encabezado"><i class="fas fa-users"></i> Publicaciones de mascotas perdidas</h1>
+    <h1 class="encabezado"><i class="fas fa-users"></i> Publicaciones - Mascotas en Adopción </h1>
     <input type="text" name="" value="" placeholder="Buscar" id="inputUsuario">
     <table class="tabla" id="tabla">
         <thead>
         <th>Foto</th>
         <th>Nombre</th>
         <th>Edad</th>
-        <th>Estado</th>
+{{#if voluntarioOAdmin}}  <th>Estado</th> {{/if}}
         <th><i class="fas fa-tools"></i> Acciones</th>
         </thead>
         <tbody>
         {{#each publicaciones}}
-            <tr>
+            {{#if voluntarioOAdmin}}
+                <tr>
                 <td> <img src="data:image/jpeg;charset=utf-8;base64, {{primeraFoto}}" width="200" height="300" alt="Imagen Mascota"></td>
                 <td>{{mascota.nombre}}</td>
                 <td>{{mascota.edadAproximada}}</td>
                 <td>{{estadoActual}}</td>
                 <td>
-                    <a href="/verPublicacionDarAdopcion/{{id}}" name="button" class="btn" style="width:140px;">Ver detalles</a>
-                    {{#if activa}} <a href="/pausar/{{id}}" name="button" class="btn" style="width:90px;">Pausar</a>
+                    <a href="../verPublicacionDarAdopcion/{{id}}" name="button" class="btn" style="width:140px;">Ver detalles</a>
+                    {{#if finalizada}} {{else}}
+                    {{#if activa}} <a href="/pausarAdopcion/{{id}}" name="button" class="btn" style="width:90px;">Pausar</a>
                     {{else}}
-                        <a href="/activar/{{id}}" name="button" class="btn" style="width:90px;">Activar</a>{{/if}}
+                        <a href="/activarAdopcion/{{id}}" name="button" class="btn" style="width:90px;">Activar</a>{{/if}}
+                      <a href="/finalizarAdopcion/{{id}}" name="button" class="btn" style="width:90px;">Finalizar</a>
+                {{/if}}
                 </td>
             </tr>
+            {{else}}   {{#if activa}}
+                <tr>
+                    <td> <img src="data:image/jpeg;charset=utf-8;base64, {{primeraFoto}}" width="200" height="300" alt="Imagen Mascota"></td>
+                    <td>{{mascota.nombre}} </td>
+                    <td>{{mascota.edadAproximada}}</td>
+                    <td>
+                        <a href="../verPublicacionDarAdopcion/{{id}}" name="button" class="btn" style="width:140px;">Ver detalles</a>
+                    </td>
+                </tr>
+              {{/if}}
+            {{/if}}
         {{/each}}
         </tbody>
     </table>
