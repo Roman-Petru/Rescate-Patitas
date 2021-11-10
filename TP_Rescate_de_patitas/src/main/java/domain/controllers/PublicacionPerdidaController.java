@@ -1,6 +1,7 @@
 package domain.controllers;
 
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
 import domain.models.entities.enums.PosibleEstadoPublicacion;
 import domain.models.repositories.RepositorioPublicacionPerdida;
@@ -38,7 +39,7 @@ public class PublicacionPerdidaController {
 
     public ModelAndView pantallaPerdidasDeOrganizacion(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        List<PublicacionMascotaPerdida> publicaciones = this.buscarTodasPublicacionesDeMascotasPerdidas();
+        List<PublicacionMascotaPerdida> publicaciones = this.listarPerdidasDeOrganizacion(Integer.valueOf(request.params("id")));
         publicaciones.stream().filter(p -> p.getOrganizacion().equals(Integer.valueOf(request.params("id"))));
         publicaciones.stream().forEach(p1 -> p1.setActiva(p1.getEstadoActual().equals(PosibleEstadoPublicacion.ACTIVA)));
         parametros.put("publicaciones", publicaciones);

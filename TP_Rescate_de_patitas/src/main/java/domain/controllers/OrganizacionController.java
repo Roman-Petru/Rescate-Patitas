@@ -103,6 +103,7 @@ public class OrganizacionController {
     public Response agregarCuestionarioOrganizacion(Request request, Response response) {
         Organizacion organizacion = buscarOrganizacionPorID(Integer.valueOf(request.params("id")));
         Cuestionario cuestionario = new Cuestionario(request.queryParams("descripcion"));
+        cuestionario.setEsGeneral(Boolean.FALSE);
         organizacion.getCuestionarios().add(cuestionario);
         repositorio.modificar(organizacion);
         response.redirect("/mensaje/Cuestionario creado con exito");
