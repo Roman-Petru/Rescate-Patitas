@@ -32,7 +32,7 @@ public class PublicacionInteresAdopcion extends Persistente {
     //Comodidades -> Respuestas para adopcion
 
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL},fetch= FetchType.LAZY)
     @JoinColumn(name="datosDePersona_id" , referencedColumnName = "id")
     private DatosDePersona adoptante;
 

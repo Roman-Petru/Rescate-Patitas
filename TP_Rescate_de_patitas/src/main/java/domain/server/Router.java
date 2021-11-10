@@ -114,8 +114,8 @@ public class Router {
         Spark.post("/agregarCuestionario", CuestionarioController.getInstancia()::agregarCuestionarioPost);
 
         Spark.get("/organizacion/:org-id/cuestionario/:id", CuestionarioController.getInstancia()::pantallaPreguntas, Router.engine);
-        Spark.get("/organizacion/:org-id/cuestionario/:id/agregarPregunta", CuestionarioController.getInstancia()::pantallaAgregarPregunta, Router.engine);
-        Spark.post("/organizacion/:org-id/cuestionario/:id/agregarPregunta", CuestionarioController.getInstancia()::agregarPreguntaPost);
+        Spark.get("/organizacion/:org-id/gestionarCuestionarios/:id/agregarPregunta", CuestionarioController.getInstancia()::pantallaAgregarPregunta, Router.engine);
+        Spark.post("/organizacion/:org-id/gestionarCuestionarios/:id/agregarPregunta", CuestionarioController.getInstancia()::agregarPreguntaPost);
 
         //============================================PREGUNTAS==========================================================//
         Spark.get("/gestionarCuestionarios/:id", CuestionarioController.getInstancia()::pantallaPreguntas, Router.engine);

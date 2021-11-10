@@ -25,6 +25,41 @@
             <h1>Interes de adopcion</h1>
             <br>
             <form action="../crearPublicacionInteresAdopcion" method="post">
+                <h2>Ingrese sus datos</h2>
+                <br>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Nombre</label>
+                        <input type="text" class="form-control" name="nombrePersona"  id="nombre"  {{#if
+                                personaUsuaria}} value="{{personaUsuaria.nombre}}" readonly {{/if}}>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Apellido</label>
+                        <input type="text" class="form-control" name="apellidoPersona" id="apellidoPersona" {{#if
+                                personaUsuaria}} value="{{personaUsuaria.apellido}}" readonly {{/if}}>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Fecha de nacimiento</label>
+                        <input type="date" class="form-control" id="inputEfmail4">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">DNI</label>
+                        <input type="number" class="form-control" name="dni" id="dni"{{#if
+                                personaUsuaria}} value="{{personaUsuaria.documento}}" readonly {{/if}}>
+                    </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Mail</label>
+                        <input type="text" class="form-control" name="mail" id="dni"{{#if
+                                personaUsuaria}} value="{{personaUsuaria.email}}" readonly {{/if}}>
+                    </div>
+                    <br>
+            <br>
+
+            <h2>Responda las siguientes preguntas para elegir sus preferencias</h2>
+            <br>
             <div>
             <label for="inputEmail4">Elija el tipo de mascota que desea: </label>
                 <select class="form-select" name="tipo" aria-label="Default select example">
@@ -53,6 +88,9 @@
                     </div>
 
             {{/each}}
+            <br>
+
+            <h2>Responda las siguientes preguntas para adecuar a la mascota a sus comodidades</h2>
             <br>
            {{#each PreguntasLibre}}
 
