@@ -99,15 +99,15 @@ public class PersonaController {
             persona.setEmail(request.queryParams("mail"));
         }
 
-    } // request.raw().getParameter
+    }
 
     public void asignarAtributosAConRaw(DatosDePersona persona, Request request) {
         if(request.raw().getParameter("nombrePersona") != null){
-            request.raw().getParameter(request.queryParams("nombrePersona"));
+            persona.setNombre(request.raw().getParameter("nombrePersona"));
         }
 
         if(request.raw().getParameter("apellidoPersona") != null){
-            request.raw().getParameter(request.queryParams("apellidoPersona"));
+            persona.setApellido(request.raw().getParameter("apellidoPersona"));
         }
 
         if(request.raw().getParameter("dni") != null){
