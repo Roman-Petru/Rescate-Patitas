@@ -59,6 +59,9 @@ public class PublicacionInteresAdopcion extends Persistente {
     @Transient
     private Boolean activa;
 
+    @Transient
+    private Boolean finalizada;
+
     public PublicacionInteresAdopcion() {
         this.estadosPublicacion = new ArrayList<>();
         this.preferencias = new ArrayList<>();

@@ -61,6 +61,10 @@ public class OrganizacionController {
         repositorio.modificar(org);
     }
 
+    public Organizacion modificarDevolviendoOrg(Organizacion org) {
+        return repositorio.modificar(org);
+    }
+
     public void eliminar(Integer id) {
         //TODO
     }

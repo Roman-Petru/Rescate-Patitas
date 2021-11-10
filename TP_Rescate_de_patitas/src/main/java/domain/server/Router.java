@@ -102,6 +102,10 @@ public class Router {
         Spark.get("/activarRescate/:id", PublicacionMascotaPerdidaController.getInstancia()::activarPublicacion);
         Spark.get("/finalizarRescate/:id", PublicacionMascotaPerdidaController.getInstancia()::finalizarPublicacion);
 
+        Spark.get("/pausarInteres/:id", PublicacionInteresAdopcionController.getInstancia()::pausarPublicacion);
+        Spark.get("/activarInteres/:id", PublicacionInteresAdopcionController.getInstancia()::activarPublicacion);
+        Spark.get("/finalizarInteres/:id", PublicacionInteresAdopcionController.getInstancia()::finalizarPublicacion);
+
         Spark.get("/interesDeAdopcion",PublicacionInteresAdopcionController.getInstancia()::prePantallaFormulario,Router.engine);
 
         Spark.post("/crearFormularioInteres", PublicacionInteresAdopcionController.getInstancia()::pantallaFormulario, Router.engine);
