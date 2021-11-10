@@ -105,7 +105,7 @@ public class OrganizacionController {
         Cuestionario cuestionario = new Cuestionario(request.queryParams("descripcion"));
         organizacion.getCuestionarios().add(cuestionario);
         repositorio.modificar(organizacion);
-        response.redirect("/mensaje/Cuestionario creado con éxito");
+        response.redirect("/mensaje/Cuestionario creado con exito");
         return response;
     }
 
