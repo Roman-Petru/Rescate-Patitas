@@ -84,11 +84,12 @@ public class PublicacionAdopcionController {
 
     public ModelAndView pantallaAdopcionesDeOrganizacion(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        List<PublicacionDarAdopcion> adopciones = PublicacionAdopcionController.getInstancia().listarAdopcionesDeOrganizacion(Integer.valueOf(request.params("id")));
-        parametros.put("adopciones", adopciones);
+        List<PublicacionDarAdopcion> publicaciones = PublicacionAdopcionController.getInstancia().listarAdopcionesDeOrganizacion(Integer.valueOf(request.params("id")));
+        publicaciones.stream().forEach(p1 -> p1.setActiva(p1.getEstadoActual().equals(PosibleEstadoPublicacion.ACTIVA)));
+        publicaciones.stream().forEach(p1 -> p1.setPrimeraFoto(p1.getMascota().getFotos().stream().findFirst().orElse(new String())));
+        parametros.put("publicaciones", publicaciones);
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
-
-        return new ModelAndView(parametros, "adopciones.hbs");
+        return new ModelAndView(parametros,"publicacionDarAdopcion.hbs");
     }
 
     //

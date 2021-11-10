@@ -19,7 +19,7 @@ public class CaracteristicaTest {
         UsuarioController usuarioController = UsuarioController.getInstancia();
         BuilderUsuario builderUsuario = new BuilderUsuario();
         builderUsuario.setUsername("admin_pepe");
-        builderUsuario.setPassword("passwordParaProbar123_");
+        builderUsuario.setPassword("passwordParaProbar1234_");
 
         Usuario adminPepe = builderUsuario.crearUsuario();;
         usuarioController.agregarUsuario(adminPepe.toDTO());

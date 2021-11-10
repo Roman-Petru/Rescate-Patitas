@@ -73,11 +73,10 @@ public class Router {
         Spark.get("/organizacion/:id/agregarCuestionario", OrganizacionController.getInstancia()::pantallaAgregarCuestionarioOrganizacion, Router.engine);
         Spark.post("/organizacion/:id/agregarCuestionario", OrganizacionController.getInstancia()::agregarCuestionarioOrganizacion);
 
-        //=============================================PUBLICACION=================================================================================//
-        Spark.get("/adopciones/:id", PublicacionAdopcionController.getInstancia()::pantallaAdopcionesDeOrganizacion, Router.engine);
-        Spark.get("/perdidas/:id", PublicacionPerdidaController.getInstancia()::pantallaPerdidasDeOrganizacion, Router.engine);
+//=============================================PUBLICACION=================================================================================//
+        Spark.get("/publicacionesDarAdopcion/:id", PublicacionAdopcionController.getInstancia()::pantallaAdopcionesDeOrganizacion, Router.engine);
+        Spark.get("/publicacionesMascotaPerdida/:id", PublicacionPerdidaController.getInstancia()::pantallaPerdidasDeOrganizacion, Router.engine);
         Spark.get("/interesesAdopcion/:id", PublicacionInteresAdopcionController.getInstancia()::pantallaInteresesDeOrganizacion, Router.engine);
-
 
         Spark.get("/publicacionesMascotaPerdida", PublicacionMascotaPerdidaController.getInstancia()::pantallaPublicacionesMascotaPerdida, Router.engine);
         Spark.get("/contactarRescatista/:id", PublicacionMascotaPerdidaController.getInstancia()::pantallaContactarRescatista, Router.engine);
