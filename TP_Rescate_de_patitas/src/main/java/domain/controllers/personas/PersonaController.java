@@ -116,11 +116,7 @@ public class PersonaController {
 
     }
 
-    public ModelAndView registrarPersonaPantalla(Request request, Response response) {
-        Map<String, Object> parametros = new HashMap<>();
-        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
-        return new ModelAndView(parametros,"registrarPersona.hbs");
-    }
+
 
     public Response registrarPersona(Request request, Response response){
         try{

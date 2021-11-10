@@ -62,7 +62,6 @@ public class Router {
         Spark.post("/crearFormulario", RescatistaController.getInstancia()::crearFormulario);
 
         //=============================================PERSONA=================================================================================//
-        Spark.get("/registrarPersona", PersonaController.getInstancia()::registrarPersonaPantalla, Router.engine);
         Spark.post("/registrarPersona", PersonaController.getInstancia()::registrarPersona);
         Spark.get("/voluntarios/:id", UsuarioController.getInstancia()::pantallaVoluntariosDeOrganizacion, Router.engine);
 
