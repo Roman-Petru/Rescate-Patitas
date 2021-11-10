@@ -41,14 +41,19 @@
                     <a href="/publicacionesDarAdopcion/{{id}}" name="button" class="btn" style="width:135px;">Dar en Adopción</a>
                     <a href="/publicacionesMascotaPerdida/{{id}}" name="button" class="btn" style="width:135px;">Masc.Perdidas</a>
                     <a href="/interesesAdopcion/{{id}}" name="button" class="btn" style="width:135px;">Interes Adopción</a>
-                    {{#if esVoluntario}}
+                    {{#if esUsuarioVoluntario}}
                         <a href="/voluntarios/{{id}}" name="button" class="btn" style="width:100px;">Voluntarios</a>
                         <a href="/organizacion/{{id}}/cuestionarios" name="button" class="btn" style="width:110px;">Cuestionario</a>
                     {{/if}}
 
-                    {{#if esComun}}
-                        <a href="#" name="btn" class="btn" style="width:160px;">Quiero ser voluntario</a>
+                    {{#if esAdmin}}
+                        <a href="/voluntarios/{{id}}" name="button" class="btn" style="width:100px;">Voluntarios</a>
+                        <a href="/organizacion/{{id}}/cuestionarios" name="button" class="btn" style="width:110px;">Cuestionario</a>
                     {{/if}}
+
+                    {{#if esComun}} {{#if esPostulanteAOrg}}  {{else}}
+                        <a href="/postularse/{{id}}" name="btn" class="btn" style="width:160px;">Quiero ser voluntario</a>
+                    {{/if}} {{/if}}
                 </td>
             </tr>
         {{/each}}

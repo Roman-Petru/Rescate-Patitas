@@ -39,7 +39,7 @@
     </table>
 </div>
 
-{{#if esVoluntario}}
+{{#if voluntarioOAdmin}}
     <div>
         <h1 class="encabezado"><i class="fas fa-users"></i> Voluntarios pendientes aprobación</h1>
         <input type="text" name="" value="" placeholder="Buscar" id="inputUsuario">
@@ -56,9 +56,11 @@
                     <td>{{usuario}}</td>
                     <td>{{permiso}}</td>
                     <td>
-                        <button type="button" name="button" class="btn-verde" onclick="aprobarVoluntario()">Aprobar
+                        <!-- <button type="button" name="button" class="btn-verde" onclick="aprobarVoluntario()">Aprobar
                         </button>
-                        <button type="button" name="button" class="btn-rojo" onclick="negarVoluntario()">Negar</button>
+
+                        <button type="button" name="button" class="btn-rojo" onclick="negarVoluntario()">Negar</button>-->
+                        <a class="btn" href="/aprobarVoluntario/{{this.id}}/{{orgID}}"  style="width:120px;" >Aprobar</a>
                     </td>
                 </tr>
             {{/each}}

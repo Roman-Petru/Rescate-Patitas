@@ -8,6 +8,7 @@ import domain.models.entities.entidadesGenerales.personas.DuenioMascota;
 import domain.models.entities.entidadesGenerales.usuarios.Usuario;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import spark.Request;
 
@@ -63,5 +64,24 @@ public class Utilidades {
       Boolean creadorPublicacion = publicacion.getMascota().getDuenioMascota().getDatosDePersona().getIDDeUsuario() == usuario.getId();
       parametros.put("creadorPublicacion", creadorPublicacion);
     }
+  }
+
+  public static void asignarSiEsPostulanteAOrg(Request request, Map<String, Object> parametros) {
+    if(!request.session().isNew() && request.session().attribute("id") != null){
+      Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorID(request.session().attribute("id"));
+
+      Boolean esPostulanteAOrg = OrganizacionController.getInstancia().listarTodos().stream().map(o -> o.getPostulanteVoluntarios()).flatMap(v -> v.stream()).collect(Collectors.toList()).contains(usuario);
+
+      parametros.put("esPostulanteAOrg", esPostulanteAOrg);
+    }
+  }
+
+  public static Boolean esPostulanteAOrg(Request request, Integer orgID) {
+    if(!request.session().isNew() && request.session().attribute("id") != null){
+      Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorID(request.session().attribute("id"));
+
+      return OrganizacionController.getInstancia().buscarOrganizacionPorID(orgID).esVoluntarioDeOrg(usuario);
+    }
+    else return false;
   }
 }

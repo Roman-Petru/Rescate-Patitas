@@ -311,7 +311,9 @@ public class UsuarioController {
             List<Usuario> postulanteVoluntarios = this.listarPostulantesVoluntariosDeOrganizacion(Integer.valueOf(request.params("id")));
             parametros.put("voluntarios", voluntarios);
             parametros.put("postulantesVoluntarios", postulanteVoluntarios);
+            parametros.put("orgID", request.params("id"));
             Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+            Utilidades.asignarVoluntarioOAdmin(request, parametros, Integer.valueOf(request.params("id")));
 
             return new ModelAndView(parametros, "voluntarios.hbs");
         }

@@ -66,12 +66,18 @@ public class Router {
         Spark.post("/registrarPersona", PersonaController.getInstancia()::registrarPersona);
         Spark.get("/voluntarios/:id", UsuarioController.getInstancia()::pantallaVoluntariosDeOrganizacion, Router.engine);
 
+        Spark.get("/aprobarVoluntario/:idUsuario/:idOrganizacion", OrganizacionController.getInstancia()::aprobarVoluntario);
+
+
         //=============================================ORGANIZACION=================================================================================//
         Spark.get("/organizaciones", OrganizacionController.getInstancia()::pantallaOrganizaciones, Router.engine);
         Spark.get("/organizacion/:id", OrganizacionController.getInstancia()::pantallaModificar, Router.engine);
         Spark.get("/organizacion/:id/cuestionarios", OrganizacionController.getInstancia()::pantallaOrganizacionCuestionarios, Router.engine);
         Spark.get("/organizacion/:id/agregarCuestionario", OrganizacionController.getInstancia()::pantallaAgregarCuestionarioOrganizacion, Router.engine);
         Spark.post("/organizacion/:id/agregarCuestionario", OrganizacionController.getInstancia()::agregarCuestionarioOrganizacion);
+
+        Spark.get("/postularse/:id", OrganizacionController.getInstancia()::postularseAVoluntario);
+
 
 //=============================================PUBLICACION=================================================================================//
         Spark.get("/publicacionesDarAdopcion/:id", PublicacionAdopcionController.getInstancia()::pantallaAdopcionesDeOrganizacion, Router.engine);
