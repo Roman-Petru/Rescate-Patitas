@@ -86,6 +86,7 @@ public class PublicacionAdopcionController {
         Map<String, Object> parametros = new HashMap<>();
         List<PublicacionDarAdopcion> publicaciones = PublicacionAdopcionController.getInstancia().listarAdopcionesDeOrganizacion(Integer.valueOf(request.params("id")));
         publicaciones.stream().forEach(p1 -> p1.setActiva(p1.getEstadoActual().equals(PosibleEstadoPublicacion.ACTIVA)));
+        publicaciones.stream().forEach(p1 -> p1.setFinalizada(p1.getEstadoActual().equals(PosibleEstadoPublicacion.FINALIZADA)));
         publicaciones.stream().forEach(p1 -> p1.setPrimeraFoto(p1.getMascota().getFotos().stream().findFirst().orElse(new String())));
         parametros.put("publicaciones", publicaciones);
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
@@ -203,6 +204,7 @@ public class PublicacionAdopcionController {
         parametros.put("publicacion", publicacion);
 
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        Utilidades.asignarSiEsCreadorPublicacionAdopcion(request, parametros, publicacion);
         return new ModelAndView(parametros,"publicacionAdopcionDetalles.hbs");
     }
 
@@ -241,5 +243,29 @@ public class PublicacionAdopcionController {
         }
     }
 
+    public Response activarPublicacion(Request request, Response response) {
+        try {
+            PublicacionDarAdopcion publicacion = this.repositorio.buscar(new Integer(request.params("id")));
+            publicacion.cambiarEstadoPublicacion(PosibleEstadoPublicacion.ACTIVA);
+            this.repositorio.modificar(publicacion);
+            response.redirect("/");
+        } catch (Exception e) {
+            response.redirect("/mensaje/Error al activar publicacion: " + e);
+        } finally {
+            return response;
+        }
+    }
 
+    public Response finalizarPublicacion(Request request, Response response) {
+        try {
+            PublicacionDarAdopcion publicacion = this.repositorio.buscar(new Integer(request.params("id")));
+            publicacion.cambiarEstadoPublicacion(PosibleEstadoPublicacion.FINALIZADA);
+            this.repositorio.modificar(publicacion);
+            response.redirect("/");
+        } catch (Exception e) {
+            response.redirect("/mensaje/Error al activar publicacion: " + e);
+        } finally {
+            return response;
+        }
+    }
 }
