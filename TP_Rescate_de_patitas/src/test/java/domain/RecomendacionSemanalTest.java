@@ -19,6 +19,8 @@ import domain.models.modulos.notificador.estrategias.EnvioViaWhatsapp;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.models.modulos.recomendacionSemanal.EnviarEmailsConRecomendacion;
 import org.junit.Test;
+import sun.font.TrueTypeFont;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -99,7 +101,7 @@ public class RecomendacionSemanalTest {
         publicacionAdopcionController.agregarPublicacionAdopcion(enAdopcionFirulais.toDTO(),1, new RespuestaAdopcion(pregunta1,"10"), new RespuestaAdopcion(pregunta2, "NO"));
 
         //----------------------------INTERESADOS EN ADOPCION--------------------------
-        PublicacionInteresAdopcion interesAdopcion = new PublicacionInteresAdopcion(persona1, true, Animal.PERRO);
+        PublicacionInteresAdopcion interesAdopcion = new PublicacionInteresAdopcion(Boolean.TRUE, Animal.PERRO);
 
         PublicacionInteresAdopcionController interesController = PublicacionInteresAdopcionController.getInstancia();
         interesController.agregar(interesAdopcion.toDTO(),1,null, Arrays.asList(caracteristicaPersonalizada1,caracteristicaPersonalizada2));

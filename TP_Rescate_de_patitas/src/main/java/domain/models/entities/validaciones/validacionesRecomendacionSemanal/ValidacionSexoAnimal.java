@@ -6,6 +6,7 @@ import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteres
 public class ValidacionSexoAnimal implements ValidacionRecomendacion{
     @Override
     public boolean validarRecomendacion(PublicacionInteresAdopcion interesAdopcion, PublicacionDarAdopcion publiAdopcion) {
-        return interesAdopcion.isEsMacho() == publiAdopcion.getMascota().getEsMacho();
+        return interesAdopcion.getEsMacho() == publiAdopcion.getMascota().getEsMacho();
+
     }
 }

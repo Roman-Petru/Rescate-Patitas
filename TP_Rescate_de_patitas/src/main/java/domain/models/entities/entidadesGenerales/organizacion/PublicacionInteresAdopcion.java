@@ -31,21 +31,24 @@ public class PublicacionInteresAdopcion extends Persistente {
     //Preferencias -> caracteristicas personalizadas
     //Comodidades -> Respuestas para adopcion
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
-    private List<EstadoPublicacion> estadosPublicacion;
 
     @ManyToOne
     @JoinColumn(name="datosDePersona_id" , referencedColumnName = "id")
     private DatosDePersona adoptante;
 
-    @Transient
+    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @JoinColumn(name="publicacionInteresAdopcion_id" , referencedColumnName = "id")
     private List<CaracteristicaPersonalizada> preferencias;
 
-    @Transient
+    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    @JoinColumn(name="publicacionInteresAdopcion_id" , referencedColumnName = "id")
     private List<RespuestaAdopcion> comodidades;
 
+    @OneToMany(cascade = {CascadeType.ALL}, fetch= FetchType.LAZY)
+    private List<EstadoPublicacion> estadosPublicacion;
+
     @Column
-    private boolean esMacho;
+    private Boolean esMacho;
 
     @Enumerated(EnumType.STRING)
     private Animal tipoAnimal;
@@ -56,8 +59,16 @@ public class PublicacionInteresAdopcion extends Persistente {
     @Transient
     private Boolean activa;
 
-    public PublicacionInteresAdopcion(DatosDePersona adoptante, boolean esMacho, Animal animal) {
-        this.adoptante = adoptante;
+    public PublicacionInteresAdopcion() {
+        this.estadosPublicacion = new ArrayList<>();
+        this.preferencias = new ArrayList<>();
+        this.comodidades = new ArrayList<>();
+
+        estadosPublicacion.add(new EstadoPublicacion(PosibleEstadoPublicacion.ACTIVA));
+        this.estadoActual = PosibleEstadoPublicacion.ACTIVA;
+    }
+
+    public PublicacionInteresAdopcion(Boolean esMacho, Animal animal) {
         this.preferencias = new ArrayList<>();
         this.comodidades = new ArrayList<>();
         this.estadosPublicacion = new ArrayList<>();
@@ -65,6 +76,7 @@ public class PublicacionInteresAdopcion extends Persistente {
         this.tipoAnimal = animal;
 
         estadosPublicacion.add(new EstadoPublicacion(PosibleEstadoPublicacion.ACTIVA));
+        this.estadoActual = PosibleEstadoPublicacion.ACTIVA;
     }
 
     @Getter
@@ -73,7 +85,7 @@ public class PublicacionInteresAdopcion extends Persistente {
         private DatosDePersona persona;
         private List<CaracteristicaPersonalizada> preferencias;
         private List<RespuestaAdopcion> comodidades ;
-        private boolean esMacho;
+        private Boolean esMacho;
         private Animal tipoAnimal;
     }
 
@@ -82,7 +94,7 @@ public class PublicacionInteresAdopcion extends Persistente {
         dto.persona = this.getAdoptante();
         dto.preferencias = this.getPreferencias();
         dto.comodidades = this.getComodidades();
-        dto.esMacho = this.isEsMacho();
+        dto.esMacho = this.getEsMacho();
         dto.tipoAnimal = this.getTipoAnimal();
         return dto;
     }

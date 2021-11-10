@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/login.estilos.css">
+    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/generales.js"></script>
+    <script src="/js/site.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Formulario de interes de adopcion</title>
+</head>
+<body>
+
+{{> nav.hbs}}
+
+<div class="main_container">
+    <br><br>
+    <h1 align="center">
+    <h1> Formulario de interes de adopcion</h1>
+        <br>
+        <form class=""  action="/crearFormularioInteres" method="post">
+        <br>
+        <label><i class="fas fa-user-cog"></i> Elegir organizacion para publicar el formulario de interes de adopción </label>
+        <br>
+          <select class="input-select" name="organizacion">
+            {{#each organizaciones}}
+                <option value="{{id}}">{{nombre}}</option>
+            {{/each}}
+          </select>
+                <div class="form-group col-md-9">
+                <button type="submit"  width="130" >Elegir</button>
+                </div>
+
+        </form>
+        <br><br>
+        <p class="lead">
+            <a href="/" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Volver al home</a>
+        </p>
+    </h1>
+    </div>
+
+</div>
+</body>
+</html>

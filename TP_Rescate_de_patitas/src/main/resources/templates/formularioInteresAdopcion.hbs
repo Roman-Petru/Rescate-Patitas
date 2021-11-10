@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/generales.js"></script>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/usuarios.estilos.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Formulario interes de adopcion</title>
+</head>
+<body>
+
+{{> nav.hbs}}
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="home">
+        <div class="container">
+            <h1>Interes de adopcion</h1>
+            <br>
+            <form action="../crearPublicacionInteresAdopcion" method="post">
+            <div>
+            <label for="inputEmail4">Elija el tipo de mascota que desea: </label>
+                <select class="form-select" name="tipo" aria-label="Default select example">
+                    <!--  <option selected>Seleccionar</option>-->
+                    <option value="1">Perro</option>
+                    <option value="2">Gato</option>
+                </select>
+            </div>
+            <br>
+            <div>
+            <label for="inputEmail4">Elija el sexo que desea: </label>
+                <select class="form-select" name="sexo" aria-label="Default select example">
+                    <!--  <option selected>Seleccionar</option>-->
+                    <option value="1">Macho</option>
+                    <option value="2">Hembra</option>
+                </select>
+            </div>
+                <br>
+
+            {{#each caracteristicas}}
+
+                   <br>
+                    <div class="form-row">
+                        <label for="nombreMascota">{{descripcionParaInteresado}}</label>
+                        <input type="text" class="form-control" name="{{descripcion}}" id="{{descripcion}}">
+                    </div>
+
+            {{/each}}
+            <br>
+           {{#each PreguntasLibre}}
+
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label for="inputEmail4">{{descripcionParaInteresado}}</label>
+                        <input type="text" class="form-control" name="{{descripcionParaDuenio}}" id="{{descripcionParaDuenio}}">
+                    </div>
+                </div>
+
+            {{/each}}
+
+                {{#each PreguntasSingleChoice}}
+
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                    <label> {{descripcionParaInteresado}} </label>
+                    <select class="input-select" name="{{descripcionParaDuenio}}">
+                        {{#each opciones}}
+                            <option value="{{descripcion}}">{{descripcion}}</option>
+                        {{/each}}
+                    </select>
+                    </div>
+                </div>
+                {{/each}}
+
+                {{#each PreguntasMultipleChoice}}
+
+                    <div class="form-row">
+                        <div class="form-group col-md-9">
+                            <label> {{descripcionParaInteresado}} </label>
+                            <select class="input-select" name="{{descripcionParaDuenio}}" multiple>
+                                {{#each opciones}}
+                                    <option value="{{descripcion}}">{{descripcion}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                {{/each}}
+
+                <input type="text" style="display:none;" class="form-group col-md-9" name="organizacionID"  value="{{organizacion}}" readonly>
+
+
+                <div class="form-group col-md-9">
+                <button type="submit"  width="130" >Crear Publicacion</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="references">ccc</div>
+</div>
+</body>
+</html>
