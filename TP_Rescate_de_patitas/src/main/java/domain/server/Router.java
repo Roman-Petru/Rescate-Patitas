@@ -73,10 +73,8 @@ public class Router {
         Spark.post("/crearFormulario", RescatistaController.getInstancia()::crearFormulario);
 
         //=============================================PERSONA=================================================================================//
-        Spark.get("/registrarPersona", PersonaController.getInstancia()::registrarPersonaPantalla, Router.engine);
         Spark.post("/registrarPersona", PersonaController.getInstancia()::registrarPersona);
         Spark.get("/voluntarios/:id", UsuarioController.getInstancia()::pantallaVoluntariosDeOrganizacion, Router.engine);
-
 
         //=============================================ORGANIZACION=================================================================================//
         Spark.get("/organizaciones", OrganizacionController.getInstancia()::pantallaOrganizaciones, Router.engine);
@@ -86,8 +84,8 @@ public class Router {
         Spark.post("/organizacion/:id/agregarCuestionario", OrganizacionController.getInstancia()::agregarCuestionarioOrganizacion);
 
         Spark.get("/postularse/:id", OrganizacionController.getInstancia()::postularseAVoluntario);
-        Spark.get("/aprobarVoluntario/:idUsuario/:idOrganizacion", OrganizacionController.getInstancia()::aprobarVoluntario);
-
+        Spark.get("/organizacion/:idOrganizacion/aprobarVoluntario/:idUsuario", OrganizacionController.getInstancia()::aprobarVoluntario);
+        Spark.get("/organizacion/:idOrganizacion/denegarVoluntario/:idUsuario", OrganizacionController.getInstancia()::denegarVoluntario);
 
 //=============================================PUBLICACION=================================================================================//
         Spark.get("/publicacionesDarAdopcion/:id", PublicacionAdopcionController.getInstancia()::pantallaAdopcionesDeOrganizacion, Router.engine);
@@ -113,10 +111,15 @@ public class Router {
         Spark.get("/activarRescate/:id", PublicacionMascotaPerdidaController.getInstancia()::activarPublicacion);
         Spark.get("/finalizarRescate/:id", PublicacionMascotaPerdidaController.getInstancia()::finalizarPublicacion);
 
+        Spark.get("/pausarInteres/:id", PublicacionInteresAdopcionController.getInstancia()::pausarPublicacion);
+        Spark.get("/activarInteres/:id", PublicacionInteresAdopcionController.getInstancia()::activarPublicacion);
+        Spark.get("/finalizarInteres/:id", PublicacionInteresAdopcionController.getInstancia()::finalizarPublicacion);
+
         Spark.get("/interesDeAdopcion",PublicacionInteresAdopcionController.getInstancia()::prePantallaFormulario,Router.engine);
 
         Spark.post("/crearFormularioInteres", PublicacionInteresAdopcionController.getInstancia()::pantallaFormulario, Router.engine);
         Spark.post("/crearPublicacionInteresAdopcion",PublicacionInteresAdopcionController.getInstancia()::crearPublicacionInteresAdopcion);
+
         //=============================================CUESTIONARIOS=================================================================================//
         Spark.get("/gestionarCuestionarios", CuestionarioController.getInstancia()::pantallaGestionarCuestionarios, Router.engine);
         Spark.get("/agregarCuestionario", CuestionarioController.getInstancia()::pantallaAgregarCuestionario, Router.engine);

@@ -60,7 +60,8 @@
                         </button>
 
                         <button type="button" name="button" class="btn-rojo" onclick="negarVoluntario()">Negar</button>-->
-                        <a class="btn" href="/aprobarVoluntario/{{this.id}}/{{orgID}}"  style="width:120px;" >Aprobar</a>
+                        <a class="btn" href="/organizacion/{{orgID}}/aprobarVoluntario/{{this.id}}"  style="width:120px;" >Aprobar</a>
+                        <a class="btn" href="/organizacion/{{orgID}}/denegarVoluntario/{{this.id}}"  style="width:120px;" >Denegar</a>
                     </td>
                 </tr>
             {{/each}}

@@ -99,15 +99,15 @@ public class PersonaController {
             persona.setEmail(request.queryParams("mail"));
         }
 
-    } // request.raw().getParameter
+    }
 
     public void asignarAtributosAConRaw(DatosDePersona persona, Request request) {
         if(request.raw().getParameter("nombrePersona") != null){
-            request.raw().getParameter(request.queryParams("nombrePersona"));
+            persona.setNombre(request.raw().getParameter("nombrePersona"));
         }
 
         if(request.raw().getParameter("apellidoPersona") != null){
-            request.raw().getParameter(request.queryParams("apellidoPersona"));
+            persona.setApellido(request.raw().getParameter("apellidoPersona"));
         }
 
         if(request.raw().getParameter("dni") != null){
@@ -116,11 +116,7 @@ public class PersonaController {
 
     }
 
-    public ModelAndView registrarPersonaPantalla(Request request, Response response) {
-        Map<String, Object> parametros = new HashMap<>();
-        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
-        return new ModelAndView(parametros,"registrarPersona.hbs");
-    }
+
 
     public Response registrarPersona(Request request, Response response){
         try{

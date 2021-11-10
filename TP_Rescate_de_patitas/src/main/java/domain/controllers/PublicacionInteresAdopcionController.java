@@ -10,13 +10,20 @@ import domain.models.entities.entidadesGenerales.cuestionarios.RespuestaAdopcion
 import domain.models.entities.entidadesGenerales.organizacion.Organizacion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionMascotaPerdida;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.enums.Animal;
+import domain.models.entities.enums.PosibleEstadoPublicacion;
 import domain.models.entities.enums.TipoPregunta;
+import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeLibre;
+import domain.models.entities.utils.NotificadorHelper;
 import domain.models.entities.utils.excepciones.FaltaDniException;
 import domain.models.entities.utils.excepciones.FaltanDatosContactoException;
+import domain.models.modulos.notificador.estrategias.EnvioViaMail;
+import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.models.repositories.RepositorioPublicacionInteresAdopcion;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -98,11 +105,14 @@ public class PublicacionInteresAdopcionController {
 
     public ModelAndView pantallaInteresesDeOrganizacion(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        List<PublicacionInteresAdopcion> interesesAdopcion = PublicacionInteresAdopcionController.getInstancia().listarInteresesDeOrganizacion(Integer.valueOf(request.params("id")));
-        parametros.put("interesesAdopcion", interesesAdopcion);
+        List<PublicacionInteresAdopcion> publicaciones = this.listarInteresesDeOrganizacion(Integer.valueOf(request.params("id")));
+        publicaciones.stream().forEach(p1 -> p1.setActiva(p1.getEstadoActual().equals(PosibleEstadoPublicacion.ACTIVA)));
+        publicaciones.stream().forEach(p1 -> p1.setFinalizada(p1.getEstadoActual().equals(PosibleEstadoPublicacion.FINALIZADA)));
+        parametros.put("publicaciones", publicaciones);
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        Utilidades.asignarVoluntarioOAdmin(request, parametros, Integer.valueOf(request.params("id")));
 
-        return new ModelAndView(parametros, "interesesAdopcion.hbs");
+        return new ModelAndView(parametros, "PublicacionInteresesAdopcion.hbs");
 
     }
 
@@ -204,9 +214,11 @@ public class PublicacionInteresAdopcionController {
 
             org.agregarPublicacionInteresAdopcion(publicacionInteresAdopcion);
             //publicacionDarAdopcion.setOrganizacion(org);
-            OrganizacionController.getInstancia().modificar(org);
+            org = OrganizacionController.getInstancia().modificarDevolviendoOrg(org);
             //this.repositorio.agregar(publicacionDarAdopcion);
 
+
+            this.notificarAlCreadorPublicacionInteres(org.getPublicacionInteresAdopcion().get(org.getPublicacionInteresAdopcion().size()-1));
             response.redirect("/mensaje/Se creo publicacion!");
 
         }
@@ -216,5 +228,61 @@ public class PublicacionInteresAdopcionController {
         finally {
             return response;
         }
+    }
+
+
+    public Response pausarPublicacion(Request request, Response response) {
+        try {
+            PublicacionInteresAdopcion publicacion = this.repositorio.buscar(new Integer(request.params("id")));
+            publicacion.cambiarEstadoPublicacion(PosibleEstadoPublicacion.PAUSADA);
+            this.repositorio.modificar(publicacion);
+            response.redirect("/");
+        } catch (Exception e) {
+            response.redirect("/mensaje/Error al pausar publicacion: " + e);
+        } finally {
+            return response;
+        }
+    }
+
+    public Response activarPublicacion(Request request, Response response) {
+        try {
+            PublicacionInteresAdopcion publicacion = this.repositorio.buscar(new Integer(request.params("id")));
+            publicacion.cambiarEstadoPublicacion(PosibleEstadoPublicacion.ACTIVA);
+            this.repositorio.modificar(publicacion);
+            response.redirect("/");
+        } catch (Exception e) {
+            response.redirect("/mensaje/Error al activar publicacion: " + e);
+        } finally {
+            return response;
+        }
+    }
+
+    public Response finalizarPublicacion(Request request, Response response) {
+        try {
+            PublicacionInteresAdopcion publicacion = this.repositorio.buscar(new Integer(request.params("id")));
+            publicacion.cambiarEstadoPublicacion(PosibleEstadoPublicacion.FINALIZADA);
+            this.repositorio.modificar(publicacion);
+            response.redirect("/");
+        } catch (Exception e) {
+            response.redirect("/mensaje/Error al activar publicacion: " + e);
+        } finally {
+            return response;
+        }
+    }
+
+    public void notificarAlCreadorPublicacionInteres(PublicacionInteresAdopcion publicacion) throws IOException {
+        List <Contacto> contactosTemp = new ArrayList<>();
+        Contacto contactoTemp = new Contacto();
+        contactoTemp.setEmail(publicacion.getAdoptante().getEmail());
+
+        List<EstrategiaNotificacion> listaNots = new ArrayList<>();
+        EnvioViaMail strat = new EnvioViaMail();
+        listaNots.add(NotificadorHelper.devolverNotificadoresConID(1));
+        contactoTemp.setNotificadores(listaNots);
+        contactosTemp.add(contactoTemp);
+
+        ArmadorMensajeLibre armadorMensajeLibre = new ArmadorMensajeLibre("Link para finalizacion de tu publicación en Patitas",
+            "Se ha publicado en la pagina de Patitas tu interés por adoptar, si quieres dar de baja a la publicación y a las recomendaciones semanales tan solo entra en el siguiente link: http://localhost:9000/finalizarInteres/" + publicacion.getId());
+        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeLibre, contactosTemp);
     }
 }

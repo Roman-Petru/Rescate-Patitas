@@ -126,6 +126,10 @@ public class Organizacion extends Persistente {
             this.postulanteVoluntarios.remove(voluntario);
     }
 
+    public void eliminarVoluntario(Usuario voluntario) {
+        this.postulanteVoluntarios.remove(voluntario);
+    }
+
     public boolean esVoluntarioDeOrg(Usuario usuario) {
         return this.voluntarios.contains(usuario);
     }

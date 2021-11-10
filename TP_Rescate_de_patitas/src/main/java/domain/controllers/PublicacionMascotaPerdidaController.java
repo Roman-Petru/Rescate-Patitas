@@ -14,6 +14,8 @@ import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeLibre;
 import domain.models.entities.utils.DistanciaEntreDosPuntos;
 import domain.models.entities.utils.NotificadorHelper;
 import domain.models.entities.utils.Ubicacion;
+import domain.models.entities.utils.excepciones.FaltaDniException;
+import domain.models.entities.utils.excepciones.FaltanDatosContactoException;
 import domain.models.repositories.RepositorioFormularioMascota;
 import domain.models.repositories.RepositorioPublicacionMascotaPerdida;
 import spark.ModelAndView;
@@ -137,15 +139,32 @@ public class PublicacionMascotaPerdidaController {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("idPubli", request.params("id"));
         Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        Utilidades.asignarPersonaUsuaria(request, parametros);
         return new ModelAndView(parametros,"publicacionContactarRescatista.hbs");
     }
 
     public Response contactarRescatista(Request request, Response response) {
         try{
+            if ((request.queryParams("dni") == null) || (request.queryParams("dni").equals(""))) throw new FaltaDniException();
+
+            Integer dni = new Integer(request.queryParams("dni"));
+
+            DatosDePersona persona = PersonaController.getInstancia().traerPersonaPorDNIONueva(dni);
+            persona.setDocumento(dni);
+
+            PersonaController.getInstancia().asignarAtributosA(persona, request);
+
+            Contacto contacto = new Contacto();
+            if (!ContactoController.getInstancia().asignarAtributosA(contacto, request)) {
+                if (persona.getContactos().size() == 0) throw new FaltanDatosContactoException();
+            } else {
+                contacto.setDatosDePersona(persona);
+                persona.agregarContacto(contacto);
+            }
 
             PublicacionMascotaPerdida publi = this.buscarPorID(new Integer(request.params("id")));
-            String mensaje = request.queryParams("mensaje");
-            this.notificarAlRescatista(publi, mensaje);
+
+            this.notificarAlRescatista(publi, persona);
 
             response.redirect("/mensaje/Se mando mensaje al rescatista de la mascota!");
         }
@@ -196,8 +215,9 @@ public class PublicacionMascotaPerdidaController {
     }
 
 
-    public void notificarAlRescatista(PublicacionMascotaPerdida publicacion, String mensaje) throws IOException {
-        ArmadorMensajeLibre armadorMensajeLibre = new ArmadorMensajeLibre("Mensaje por tu publicación en Patitas", mensaje);
-        NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeLibre, publicacion.getFormulario().getPersonaQueRescato().getDatosDePersona().getContactos());
+    public void notificarAlRescatista(PublicacionMascotaPerdida publicacion, DatosDePersona persona) throws IOException {
+
+        ArmadorMensajeDuenioARescatista armador = new ArmadorMensajeDuenioARescatista(persona);
+        NotificadorHelper.getInstancia().enviarMensaje(armador, publicacion.getFormulario().getPersonaQueRescato().getDatosDePersona().getContactos());
     }
 }

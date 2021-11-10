@@ -169,31 +169,6 @@ public class UsuarioController {
         return new ModelAndView(parametros, "registrarUsuario.hbs");
     }
 
-//    public Response registrar(Request request, Response response) {
-//        try {
-//            String nombreDeUsuario = request.queryParams("nombreDeUsuario");
-//            String contrasenia = request.queryParams("contrasenia");
-//
-//            validarUsuario(nombreDeUsuario);
-//            BuilderUsuario builderUsuario = new BuilderUsuario();
-//            builderUsuario.setUsername(nombreDeUsuario);
-//            builderUsuario.setPassword(contrasenia);
-//
-//            Usuario usuario = builderUsuario.crearUsuario();
-//
-//            this.agregarUsuario(usuario.toDTO());
-//            response.redirect("/");
-//        } catch (Exception e) {
-//            //todo cambiar a pantalla de error
-//            System.out.println("Error al registrar usuario: " + e);
-//
-//            response.redirect("/");
-//        } finally {
-//            return response;
-//        }
-//    }
-
-
     public Response registrar(Request request, Response response) {
         try {
             PersonaController personaController = PersonaController.getInstancia();
