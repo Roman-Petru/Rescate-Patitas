@@ -50,7 +50,15 @@
                                 personaUsuaria}} value="{{personaUsuaria.documento}}" readonly {{/if}}>
                     </div>
                 </div>
-
+                <div>
+                    <label for="inputEmail4">¿Queres recibir recomendaciones semanales? </label>
+                    <select class="form-select" name="suscripto" aria-label="Default select example">
+                        <!--  <option selected>Seleccionar</option>-->
+                        <option value="1">SI</option>
+                        <option value="2">NO</option>
+                    </select>
+                </div>
+                <br>
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="inputEmail4">Mail para recibir recomendaciones</label>
@@ -88,7 +96,7 @@
                    <br>
                     <div class="form-row">
                         <label for="nombreMascota">{{descripcionParaInteresado}}</label>
-                        <input type="text" class="form-control" name="{{descripcion}}" id="{{descripcion}}">
+                        <input type="text" class="form-control" name="{{descripcionParaDuenio}}" id="{{descripcionParaDuenio}}">
                     </div>
 
             {{/each}}

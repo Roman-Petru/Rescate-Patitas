@@ -17,6 +17,6 @@ public class ValidadorRecomendacionSemanal {
     }
 
     public boolean validarRecomendacion(PublicacionInteresAdopcion interesAdopcion, PublicacionDarAdopcion publiAdopcion) {
-        return this.validaciones.stream().allMatch(validacion -> validacion.validarRecomendacion(interesAdopcion, publiAdopcion));
+        return this.validaciones.stream().anyMatch(validacion -> validacion.validarRecomendacion(interesAdopcion, publiAdopcion));
     }
 }

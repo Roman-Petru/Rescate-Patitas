@@ -3,6 +3,8 @@ import domain.models.entities.entidadesGenerales.caracteristicas.CaracteristicaP
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 
+import java.util.Optional;
+
 public class ValidacionCumpleAlgunaPreferencia implements ValidacionRecomendacion {
 
     @Override
@@ -10,18 +12,16 @@ public class ValidacionCumpleAlgunaPreferencia implements ValidacionRecomendacio
 
         boolean encontrado = false;
 
-        for (CaracteristicaPersonalizada p: interesAdopcion.getPreferencias()){
+        for (CaracteristicaPersonalizada caracteristicaInteresAdopcion: interesAdopcion.getPreferencias()){
 
-            //BUSCO SI TIENEN EL MISMA DESCRIPCION
-            if(p.getCaracteristicaGeneral().getDescripcionParaDuenio()
-                    .equals(publiAdopcion.getMascota().getCaracteristicas().stream().findAny().get().getCaracteristicaGeneral().getDescripcionParaDuenio())){
-
-                //BUSCO SI TIENEN EL MISMO VALOR DENTRO DE LA DESCRIPCION
-                if (p.getValor().equals(publiAdopcion.getMascota().getCaracteristicas().stream().findAny().get().getValor())){
+            Optional<CaracteristicaPersonalizada> caracteristicaPersonalizadaDarEnAdopcion =
+                    publiAdopcion.getMascota().getCaracteristicas().stream().filter(c -> c.getCaracteristicaGeneral() == caracteristicaInteresAdopcion.getCaracteristicaGeneral()).findFirst();
+                if(caracteristicaPersonalizadaDarEnAdopcion.isPresent() && caracteristicaInteresAdopcion.getValor() != null &&
+                        caracteristicaPersonalizadaDarEnAdopcion.get().getValor() != null &&
+                        caracteristicaInteresAdopcion.getValor().equalsIgnoreCase(caracteristicaPersonalizadaDarEnAdopcion.get().getValor()) ){
                     encontrado = true;
                     break;
                 }
-            }
         }
         return encontrado;
     }

@@ -215,7 +215,7 @@ public class PublicacionAdopcionController {
             String mensaje = request.queryParams("mensaje");
             this.notificarAlDuenio(publicacion, mensaje);
 
-            response.redirect("/mensaje/Se mando mensaje al rescatista de la mascota!");
+            response.redirect("/mensaje/Se mando mensaje al dueño de la mascota!");
         }
         catch (Exception e){
             response.redirect("/mensaje/Error al mandar mensaje: " + e);
