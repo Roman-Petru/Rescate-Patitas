@@ -19,7 +19,6 @@ import domain.models.modulos.notificador.estrategias.EnvioViaWhatsapp;
 import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.models.modulos.recomendacionSemanal.EnviarEmailsConRecomendacion;
 import org.junit.Test;
-import sun.font.TrueTypeFont;
 
 import java.util.Arrays;
 import java.util.List;

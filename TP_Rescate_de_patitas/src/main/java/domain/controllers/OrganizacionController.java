@@ -156,7 +156,7 @@ public class OrganizacionController {
 
     public ModelAndView pantallaAgregarCuestionarioOrganizacion(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
-        if (UsuarioController.esVoluntarioLogeado(request)) {
+        if (UsuarioController.esVoluntarioLogeado(request) || UsuarioController.esAdmin(Integer.valueOf(request.params("id")))) {
             Organizacion organizacion = buscarOrganizacionPorID(Integer.valueOf(request.params("id")));
             parametros.put("organizacion", organizacion);
             Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
@@ -171,7 +171,7 @@ public class OrganizacionController {
             Organizacion organizacion = this.repositorio.buscar(new Integer(request.params("id")));
             organizacion.postularseVoluntario(UsuarioController.getInstancia().buscarUsuarioPorID(request.session().attribute("id")));
             this.repositorio.modificar(organizacion);
-            response.redirect("/");
+            response.redirect("/organizaciones");
         } catch (Exception e) {
             response.redirect("/mensaje/Error al postularse: " + e);
         } finally {
@@ -181,13 +181,13 @@ public class OrganizacionController {
 
     public Response aprobarVoluntario(Request request, Response response) {
         try {
-            Usuario voluntario = UsuarioController.buscarUsuarioPorID(request.session().attribute("id"));
-            Organizacion organizacion = this.repositorio.buscar(Integer.valueOf(request.params("idOrganizacion")));
+            Usuario usuarioSesion = UsuarioController.buscarUsuarioPorID(request.session().attribute("id"));
+            Organizacion organizacion = repositorio.buscar(Integer.valueOf(request.params("idOrganizacion")));
             Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorID(Integer.valueOf(request.params("idUsuario")));
-            if (esVoluntarioDeOrg(organizacion.getId(), voluntario.getId())) {
+            if (esVoluntarioDeOrg(organizacion.getId(), usuarioSesion.getId()) || UsuarioController.esAdmin(usuarioSesion.getId())) {
                 organizacion.agregarVoluntario(usuario);
-                this.repositorio.modificar(organizacion);
-                response.redirect("/");
+                repositorio.modificar(organizacion);
+                response.redirect("/voluntarios/" + organizacion.getId());
             }
             response.redirect("/mensaje/Acceso denegado");
         } catch (Exception e) {
@@ -199,13 +199,13 @@ public class OrganizacionController {
 
     public Response denegarVoluntario(Request request, Response response) {
         try {
-            Usuario voluntario = UsuarioController.buscarUsuarioPorID(request.session().attribute("id"));
+            Usuario usuarioSesion = UsuarioController.buscarUsuarioPorID(request.session().attribute("id"));
             Organizacion organizacion = repositorio.buscar(Integer.valueOf(request.params("idOrganizacion")));
             Usuario usuario = UsuarioController.getInstancia().buscarUsuarioPorID(Integer.valueOf(request.params("idUsuario")));
-            if (esVoluntarioDeOrg(organizacion.getId(), voluntario.getId())) {
+            if (esVoluntarioDeOrg(organizacion.getId(), usuarioSesion.getId()) || UsuarioController.esAdmin(usuarioSesion.getId())) {
                 organizacion.eliminarVoluntario(usuario);
                 repositorio.modificar(organizacion);
-                response.redirect("/");
+                response.redirect("/voluntarios/" + organizacion.getId());
             }
             response.redirect("/mensaje/Acceso denegado");
         } catch (Exception e) {
