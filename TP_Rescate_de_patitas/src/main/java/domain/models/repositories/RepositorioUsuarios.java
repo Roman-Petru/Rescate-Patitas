@@ -8,9 +8,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 
-public class RepositorioUsuarios extends RepositorioGenerico<Usuario>{
+public class RepositorioUsuarios extends RepositorioGenerico<Usuario> {
 
     public Usuario buscar(Integer id) {
         return RepositorioGenerico.get_manager().find((Usuario.class), id);

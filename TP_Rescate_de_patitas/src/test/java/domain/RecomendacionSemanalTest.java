@@ -28,6 +28,7 @@ import static org.junit.Assert.assertThat;
 
 public class RecomendacionSemanalTest {
 
+    /*
     @Test
     public void testRecomendacionSemanal() {
 
@@ -126,6 +127,9 @@ public class RecomendacionSemanalTest {
         return controller.listarTodos().stream().filter(cg -> descripcion.equalsIgnoreCase(cg.getDescripcionParaDuenio())).findAny().get();
     }
 
+    */
+
+    /*
     @Test
     public void prueba() {
         //------------------ENVIO EMAIL A LAS PERSONAS INTERESADAS---------------
@@ -141,4 +145,7 @@ public class RecomendacionSemanalTest {
             System.out.println(e);
         }
     }
+    */
+
+
 }

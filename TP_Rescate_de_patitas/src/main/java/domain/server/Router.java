@@ -5,10 +5,12 @@ import domain.controllers.personas.PersonaController;
 import domain.controllers.personas.RescatistaController;
 import domain.spark.utils.BooleanHelper;
 import domain.spark.utils.HandlebarsTemplateEngineBuilder;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
-public class Router {
+public class Router implements WithGlobalEntityManager, TransactionalOps {
     private static HandlebarsTemplateEngine engine;
 
     private static void initEngine() {
@@ -31,7 +33,7 @@ public class Router {
         if (processBuilder.environment().get("PORT") != null) {
             return Integer.parseInt(processBuilder.environment().get("PORT"));
         }
-        return 8080;
+        return 9000;
     }
 
     private static void configure(){

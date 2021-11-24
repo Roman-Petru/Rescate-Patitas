@@ -15,6 +15,7 @@ import static org.junit.Assert.assertThat;
 
 public class TestAgregarMascota {
 
+
     /*
     @Test
     public void testAgregarMascota_agregaDosMascotas(){
@@ -38,7 +39,9 @@ public class TestAgregarMascota {
 
         assertThat(jorgeDuenio.getMascotas().size(), is(2));
     }
+    */
 
+    /*
     @Test
     public void testAgregarMascota_agregarCaractisticasPersonalizadaColorMarron() {
         DuenioMascotaController duenioMascotaController = DuenioMascotaController.getInstancia();
@@ -74,5 +77,7 @@ public class TestAgregarMascota {
     private CaracteristicaGeneral agregarCaracteristicaGeneral(CaracteristicaController controller) {
         return controller.listarTodos().stream().filter(cg -> "color".equalsIgnoreCase(cg.getDescripcionParaDuenio())).findAny().get();
     }
-     */
+
+    */
+
 }

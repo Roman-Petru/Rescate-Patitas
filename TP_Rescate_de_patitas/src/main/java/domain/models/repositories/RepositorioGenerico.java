@@ -8,8 +8,9 @@ import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
-public abstract class RepositorioGenerico <T extends Persistente> {
+public abstract class RepositorioGenerico <T extends Persistente> implements WithGlobalEntityManager {
 
     private static EntityManager manager;
     private static EntityManagerFactory emf;

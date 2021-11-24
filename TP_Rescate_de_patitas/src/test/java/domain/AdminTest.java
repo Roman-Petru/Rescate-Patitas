@@ -11,6 +11,7 @@ import static org.junit.Assert.assertThat;
 
 public class AdminTest {
 
+
     /*
     @Test
     public void agregarAdmin_adminCarlosAgrega_a_AdminPepe() throws Exception {
@@ -34,6 +35,6 @@ public class AdminTest {
         usuarioController.agregarAdmin(adminCarlos, adminPepe.toDTO());
         assertThat(usuarioController.listarTodos().size(), is(2));
     }
-
     */
+
 }
