@@ -266,6 +266,7 @@ public class PublicacionInteresAdopcionController {
         try {
             PublicacionInteresAdopcion publicacion = this.repositorio.buscar(new Integer(request.params("id")));
             publicacion.cambiarEstadoPublicacion(PosibleEstadoPublicacion.FINALIZADA);
+            publicacion.getAdoptante().setRecibirRecomendacionAdopcion(false);
             this.repositorio.modificar(publicacion);
             response.redirect("/");
         } catch (Exception e) {

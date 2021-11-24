@@ -28,7 +28,7 @@ public class ArmadorMensajeRecomendacionSemanal implements ArmadorDeMensaje {
                 "podría estar interesado: " + System.lineSeparator() + System.lineSeparator() +
                 " •Apodo: " + mascota.getApodo() + System.lineSeparator() +
                 " •Edad aproximada: " + mascota.getEdadAproximada() + " años" + System.lineSeparator() +
-                " •Caracteristicas: " + System.lineSeparator() + this.listadoDeCaracteristicasString() +
+                //" •Caracteristicas: " + System.lineSeparator() + this.listadoDeCaracteristicasString() +
                 " •Genero: " + this.generoAnimal() + System.lineSeparator() + System.lineSeparator() +
                 "Link a la publicacion: http://localhost:9000/verPublicacionDarAdopcion/"+ idPublicacion + System.lineSeparator() +
                 "Muchas gracias!";

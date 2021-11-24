@@ -72,7 +72,7 @@ public class TaskRecomendacion implements Runnable {
     public List<InteresadosEnMascota> puedeEstarInteresadoEnAdoptar(){
         List<PublicacionDarAdopcion> publicacionesParaAdoptar = adopcionController.listarTodos();
         List<PublicacionInteresAdopcion> publicacionesInteresadosEnAdoptar = interesAdopcionController.listarTodos()
-                .stream().filter(p -> p.getAdoptante().isRecibirRecomendacionAdopcion()).collect(Collectors.toList());
+                .stream().filter(p -> p.getAdoptante().isRecibirRecomendacionAdopcion() && p.getActiva()).collect(Collectors.toList());
 
         List<InteresadosEnMascota> interesados = new ArrayList<>();
 

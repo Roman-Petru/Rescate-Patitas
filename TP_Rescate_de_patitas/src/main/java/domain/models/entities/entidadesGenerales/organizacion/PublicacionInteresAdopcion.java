@@ -82,6 +82,10 @@ public class PublicacionInteresAdopcion extends Persistente {
         this.estadoActual = PosibleEstadoPublicacion.ACTIVA;
     }
 
+    public Boolean getActiva() {
+        return this.getEstadoActual().equals(PosibleEstadoPublicacion.ACTIVA);
+    }
+
     @Getter
     @Setter
     public static class PublicacionInteresAdopcionDTO {
@@ -106,6 +110,8 @@ public class PublicacionInteresAdopcion extends Persistente {
         estadosPublicacion.add(new EstadoPublicacion(estado));
         estadoActual = estado;
     }
+
+
 
     public void agregarPreferencia(CaracteristicaPersonalizada preferencia){
         this.preferencias.add(preferencia);

@@ -24,7 +24,7 @@ public abstract class RepositorioGenerico <T extends Persistente> {
         manager = emf.createEntityManager();
     }
 
-    protected static EntityManager get_manager() {
+    protected synchronized static EntityManager get_manager() {
         return manager;
     }
 
@@ -35,14 +35,15 @@ public abstract class RepositorioGenerico <T extends Persistente> {
         //T elemento = manager.find((T.class), id);
     //}
 
-    public void agregar(T elemento) {
+    public synchronized void agregar(T elemento) {
         //INSERT
+
         manager.getTransaction().begin();
         manager.persist(elemento);
         manager.getTransaction().commit();
     }
 
-    public T modificar(T elemento) {
+    public synchronized T modificar(T elemento) {
         //UPDATE
         manager.getTransaction().begin();
         //manager.remove(elemento);
@@ -52,7 +53,7 @@ public abstract class RepositorioGenerico <T extends Persistente> {
         return elemento;
     }
 
-    public void eliminar(T unElemento) {
+    public synchronized void eliminar(T unElemento) {
         //DELETE
         manager.getTransaction().begin();
         manager.remove(unElemento);

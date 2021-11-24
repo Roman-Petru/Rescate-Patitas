@@ -6,8 +6,8 @@ import spark.debug.DebugScreen;
 
 public class Server {
     public static void main(String[] args) {
-        //EnviarEmailsConRecomendacion enviarEmailsConRecomendacion = new EnviarEmailsConRecomendacion();
-        //enviarEmailsConRecomendacion.iniciarTarea();
+        EnviarEmailsConRecomendacion enviarEmailsConRecomendacion = new EnviarEmailsConRecomendacion();
+        enviarEmailsConRecomendacion.iniciarTarea();
         Spark.port(9000);
         Router.init();
         DebugScreen.enableDebugScreen();
