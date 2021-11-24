@@ -290,4 +290,20 @@ public class PublicacionInteresAdopcionController {
             "Se ha publicado en la pagina de Patitas tu interés por adoptar, si quieres dar de baja a la publicación y a las recomendaciones semanales tan solo entra en el siguiente link: http://localhost:9000/finalizarInteres/" + publicacion.getId());
         NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeLibre, contactosTemp);
     }
+
+
+    public ModelAndView pantallaPublicacionInteresAdopcionEspecifica(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        PublicacionInteresAdopcion publicacion = this.repositorio.buscar(new Integer(request.params("id")));
+
+        List<RespuestaAdopcion> restLibres = publicacion.getComodidades().stream().filter(r1 -> r1.getPregunta().getTipoPregunta().equals(TipoPregunta.LIBRE)).collect(Collectors.toList());
+        List<RespuestaAdopcion> restChoice = publicacion.getComodidades().stream().filter(r1 -> !(r1.getPregunta().getTipoPregunta().equals(TipoPregunta.LIBRE))).collect(Collectors.toList());
+
+        parametros.put("restLibres", restLibres);
+        parametros.put("restChoice", restChoice);
+        parametros.put("publicacion", publicacion);
+
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        return new ModelAndView(parametros,"publicacionInteresDetalle.hbs");
+    }
 }

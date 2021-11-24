@@ -90,6 +90,8 @@ public class Router {
         Spark.post("/crearPublicacionDarEnAdopcion/:id", PublicacionAdopcionController.getInstancia()::crearPublicacionDarAdopcion);
         Spark.get("/publicacionesDarAdopcion", PublicacionAdopcionController.getInstancia()::pantallaPublicacionesDarAdopcion, Router.engine);
         Spark.get("/verPublicacionDarAdopcion/:id", PublicacionAdopcionController.getInstancia()::pantallaPublicacionDarAdopcionEspecifica, Router.engine);
+
+        Spark.get("/verPublicacionInteres/:id", PublicacionInteresAdopcionController.getInstancia()::pantallaPublicacionInteresAdopcionEspecifica, Router.engine);
         Spark.post("/contactarDuenioPubli/:id", PublicacionAdopcionController.getInstancia()::contactarDuenio);
 
         Spark.get("/pausarAdopcion/:id", PublicacionAdopcionController.getInstancia()::pausarPublicacion);

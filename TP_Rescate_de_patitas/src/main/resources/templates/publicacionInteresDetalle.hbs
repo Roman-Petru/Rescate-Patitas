@@ -14,7 +14,7 @@
     <script src="/js/login.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>Adopcion Detalle</title>
+    <title>Interes Detalle</title>
 </head>
 <body>
 
@@ -22,24 +22,31 @@
 
 <div class="main_container">
     <br>
-    <h1>Datos de la mascota</h1>
+    <h1>Datos del interesado</h1>
 
     <div class="form-row">
         <div class="form-group col-md-12">
-            <h1>{{publicacion.mascota.nombre}}</h1>
+            <h1>{{publicacion.adoptante.nombre}}</h1>
             <br>
-            <label>Apodo: {{publicacion.mascota.apodo}}</label>
+            <label>Animal que busca: {{publicacion.tipoAnimal}}</label>
             <br>
-            <label>Edad: {{publicacion.mascota.edadAproximada}}</label>
+            <label>Sexo que busca: {{#if publicacion.esMacho}}Macho{{else}}Hembra{{/if}}</label>
             <br>
-            <label>Descripcion: {{publicacion.mascota.descripcionFisica}}</label>
+            <label>¿Esta recibiendo recomendaciones?: {{#if publicacion.adoptante.recibirRecomendacionAdopcion}}Si{{else}}No{{/if}}</label>
             <br>
-            <label>Animal: {{publicacion.mascota.tipo}}</label>
-            <br>
-            <label>Sexo: {{#if publicacion.mascota.esMacho}}Macho{{else}}Hembra{{/if}}</label>
         </div>
     </div>
     <br>
+
+    {{#each publicacion.preferencias}}
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label>{{caracteristicaGeneral.descripcionParaInteresado}} : </label>
+                <label>{{valor}}</label>
+            </div>
+        </div>
+        <br>
+    {{/each}}
 
     {{#each restLibres}}
         <div class="form-row">
@@ -56,9 +63,9 @@
             <div class="form-group col-md-12">
                 <label>{{pregunta.descripcionParaDuenio}}</label>
                 <br>
-                      {{#each opcionesSeleccionadas}}
-                            <label>{{this}}  </label>
-                       {{/each}}
+                {{#each opcionesSeleccionadas}}
+                    <label>{{this}}  </label>
+                {{/each}}
             </div>
         </div>
         <br>
@@ -67,27 +74,10 @@
     <br>
     <br>
 
-        <h1>Ingrese mensaje para mandar al dueño, recomendamos dejar dato de contacto para que éste se comunique</h1>
-        <br>
-        <form action="../contactarDuenioPubli/{{publicacion.id}}" method="post" class="form-">
-            <div class="form-group">
-                <label>Mensaje:</label>
-                <input class="form-control" name="mensaje">
-            </div>
-
-            <button type="submit">Mandar</button>
-        </form>
-        <br>
-
-        {{#if creadorPublicacion}}
-
-            <a class="btn" href="/finalizarAdopcion/{{publicacion.id}}">Finalizar Publicacion</a>
-
-        {{/if}}
-        <br><br>
-        <p class="lead">
-            <a href="/">Volver al home</a>
-        </p>
+    <br><br>
+    <p class="lead">
+        <a href="/">Volver al home</a>
+    </p>
 
 </div>
 
