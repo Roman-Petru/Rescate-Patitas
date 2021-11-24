@@ -132,6 +132,12 @@ public class Router {
         Spark.post("/gestionarCuestionarios/:id/agregarPreguntaMultipleChoice", CuestionarioController.getInstancia()::agregarPreguntaMultipleChoicePost);
         Spark.get("/preguntas/:id",PreguntaAdopcionController.getInstancia()::opcionesPantalla, Router.engine);
         Spark.post("/preguntas/:id/agregarOpciones",PreguntaAdopcionController.getInstancia()::pantallaAgregarOpciones);
+
+
+        //============================================BUSCAR HOGAR==========================================================//
+
+        Spark.get("/buscarHogar", RescatistaController.getInstancia()::pantallaBuscarHogar, Router.engine);
+        Spark.post("/buscarHogar", RescatistaController.getInstancia()::buscarHogar, Router.engine);
     }
 }
 

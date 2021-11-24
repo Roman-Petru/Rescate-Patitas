@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/login.estilos.css">
+    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/generales.js"></script>
+    <script src="/js/site.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Buscar hogares resultado</title>
+</head>
+<body>
+
+{{> nav.hbs}}
+
+<div class="main_container">
+    <br>
+    <h1>Hogares disponible para su mascota y su información para contactarse: </h1>
+
+    <br>
+    {{#each hogares}}
+        <h1>{{nombre}}</h1>
+        <br>
+        <label>Direccion: {{ubicacion.direccion}}</label>
+        <br>
+        <label>Telefono: {{telefono}}</label>
+        <br>
+        <label>Lugares disponibles / capacidad: {{lugaresDisponibles}} / {{capacidad}}</label>
+        <br>
+        <label>{{#if patio}}Con{{else}}Sin{{/if}} patio</label>
+        <br>
+        <br>
+    {{/each}}
+
+    <br><br>
+    <p class="lead">
+        <a href="/">Volver al home</a>
+    </p>
+
+</div>
+
+</div>
+</body>
+</html>

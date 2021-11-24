@@ -3,6 +3,8 @@ package domain.models.entities.entidadesGenerales.hogares;
 import domain.models.entities.entidadesGenerales.Persistente;
 import domain.models.entities.enums.Animal;
 import domain.models.entities.enums.TamanioAnimal;
+
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -28,10 +30,17 @@ public class DatosMascotaParaHogar extends Persistente {
     @Column(name = "caracteristicaAnimal", nullable = false)
     private List<String> caracteristicasAnimal;
 
+    public DatosMascotaParaHogar(){
+        this.caracteristicasAnimal = new ArrayList<>();
+    }
+
     public DatosMascotaParaHogar(Animal animal, TamanioAnimal tamanio, List<String> caracteristicas) {
         this.animal = animal;
         this.tamanio = tamanio;
         this.caracteristicasAnimal = caracteristicas;
     }
 
+    public void agregarCaracteristica(String caracteristica){
+        this.caracteristicasAnimal.add(caracteristica);
+    }
 }

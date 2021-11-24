@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/generales.js"></script>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/usuarios.estilos.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Buscar hogar</title>
+    <style> #map {
+        height: 500px;
+        width: 50%:
+    }
+    </style>
+</head>
+<body>
+
+{{> nav.hbs}}
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="home">
+        <div class="container">
+            <h1>Buscar hogar de tránsito</h1>
+            <br>
+            <form action="../buscarHogar" method="post">
+                <h2>Complete los siguientes datos con las características de la mascota encontrada</h2>
+                <br>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Tipo de animal: </label>
+                        <select class="form-select" name="tipo" aria-label="Default select example">
+                            <option value="1">Perro</option>
+                            <option value="2">Gato</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Tamaño: </label>
+                        <select class="form-select" name="tamanio" aria-label="Default select example">
+                            <option value="1">Chico</option>
+                            <option value="2">Mediano</option>
+                            <option value="2">Grande</option>
+                        </select>
+                    </div>
+                </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-9">
+                            <label> Seleccione todas las características que cumpla su mascota:</label>
+                            <select class="input-select" name="caracteristicas" multiple>
+                                {{#each caracteristicasHogares}}
+                                    <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+
+                <br>
+                <div class="form-row">
+                <div id="map">  </div>
+                <script>
+                        let markers = [];
+                        function initMap() {
+                          const myLatlng = { lat: -34.6083, lng: -58.3712 };
+                          const map = new google.maps.Map(document.getElementById("map"), {
+                            zoom: 10,
+                            center: myLatlng,
+                          });
+
+                          map.addListener("click",  (mapsMouseEvent) => {
+                            for (let i = 0; i < markers.length; i++) {
+                            markers[i].setMap(null);  }
+                           markers = [];
+                           document.getElementById('latitud').value = mapsMouseEvent.latLng.lat();
+                           document.getElementById('longitud').value = mapsMouseEvent.latLng.lng();
+                           const marker = new google.maps.Marker({
+                            position: mapsMouseEvent.latLng,
+                            map,
+                          });
+                          markers.push(marker);
+                          });
+                        }
+                </script>
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMGmJNzS9hI8_NvXnaTpgD37w4dWs7AE&callback=initMap"> </script>
+                </div>
+                <br>
+                <br>
+                <div class="form-row">
+                    <label for="exampleFormControlTextarea1">Latitud</label>
+                    <textarea class="form-control" name="latitud" id="latitud" rows="1" readonly></textarea>
+                </div>
+                <div class="form-row">
+                    <label for="exampleFormControlTextarea1">Longitud</label>
+                    <textarea class="form-control" name="longitud" id="longitud" rows="1" readonly></textarea>
+                </div>
+                <div class="form-row">
+                        <label for="inputPassword4">Radio de cercanía en kilómetros</label>
+                        <input type="number" class="form-control"name="radio" id="radio">
+                </div>
+                <br>
+                <div class="form-group col-md-9">
+                    <button type="submit"  width="130" >Buscar hogares</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="references">ccc</div>
+</div>
+</body>
+</html>

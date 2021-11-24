@@ -1,23 +1,27 @@
 package domain.controllers.personas;
-import domain.controllers.ContactoController;
-import domain.controllers.MascotaController;
-import domain.controllers.PublicacionMascotaPerdidaController;
-import domain.controllers.Utilidades;
+import com.google.gson.JsonObject;
+import domain.controllers.*;
 import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.Mascota;
+import domain.models.entities.entidadesGenerales.hogares.BuscarHogar;
+import domain.models.entities.entidadesGenerales.hogares.DatosMascotaParaHogar;
+import domain.models.entities.entidadesGenerales.hogares.HogarDeTransito;
 import domain.models.entities.entidadesGenerales.organizacion.FormularioMascota;
+import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.entidadesGenerales.personas.Rescatista;
-import domain.models.entities.entidadesGenerales.usuarios.Usuario;
-import domain.models.entities.enums.DescripcionPermiso;
-import domain.models.entities.enums.Permiso;
+import domain.models.entities.enums.Animal;
+import domain.models.entities.enums.PosibleEstadoPublicacion;
+import domain.models.entities.enums.TamanioAnimal;
 import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeRescatistaADuenio;
 import domain.models.entities.utils.EncoderBase64;
 import domain.models.entities.utils.NotificadorHelper;
 import domain.models.entities.utils.excepciones.FaltaDniException;
 import domain.models.entities.utils.excepciones.FaltanDatosContactoException;
-import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import domain.models.repositories.personas.RepositorioRescatista;
+import domain.servicios.hogares.ServicioHogar;
+import domain.servicios.hogares.entities.BearerToken_Molde;
+import domain.servicios.hogares.entities.ListadoDeHogares;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -26,6 +30,7 @@ import javax.servlet.MultipartConfigElement;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class RescatistaController {
 
@@ -210,4 +215,53 @@ public class RescatistaController {
             return response;
         }
     }
+
+    public ModelAndView pantallaBuscarHogar(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+
+        try {
+            BuscarHogar busquedaDehogar = new BuscarHogar();
+            List<HogarDeTransito> listadoDeHogares2 = busquedaDehogar.obtenerTodosLosHogaresDisponibles();
+
+            List<String> caracteristicasHogares = listadoDeHogares2.stream().map(h -> h.getCaracteristicasPuntuales()).flatMap(caracteristica -> caracteristica.stream()).distinct().collect(Collectors.toList());
+
+            parametros.put("caracteristicasHogares", caracteristicasHogares);
+            return new ModelAndView(parametros, "buscarHogar.hbs");
+
+        }  catch (Exception e){
+
+            parametros.put("mensaje", "Error al buscar hogares: " + e.getMessage());
+            return new ModelAndView(parametros,"mensaje.hbs");
+
+        }
+    }
+
+    public ModelAndView buscarHogar(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        Utilidades.asignarUsuarioSiEstaLogueado(request, parametros);
+        try {
+            DatosMascotaParaHogar datosParaHogar = new DatosMascotaParaHogar();
+            datosParaHogar.setAnimal(Animal.getAnimalConInteger(new Integer(request.queryParams("tipo"))));
+            datosParaHogar.setTamanio(TamanioAnimal.getTamanioConInteger(new Integer(request.queryParams("tamanio"))));
+
+            String[] opciones = request.queryParamsValues("caracteristicas");
+            Arrays.stream(opciones).forEach(o -> datosParaHogar.agregarCaracteristica(o));
+
+            FormularioMascota formularioTemp = new FormularioMascota();
+            PublicacionMascotaPerdidaController.getInstancia().asignarAtributosA(formularioTemp, request);
+            formularioTemp.setRadioDeCercaniaEnKm(new Integer(request.queryParams("radio")));
+
+            BuscarHogar busquedaDehogar = new BuscarHogar();
+            List<HogarDeTransito> hogares = busquedaDehogar.obtenerHogaresDependiendoMascota(datosParaHogar,formularioTemp);
+
+            parametros.put("hogares", hogares);
+
+            return new ModelAndView(parametros, "buscarHogarResultado.hbs");
+        } catch (Exception e) {
+            parametros.put("mensaje", "Error al buscar hogares: " + e.getMessage());
+            return new ModelAndView(parametros,"mensaje.hbs");
+        }
+    }
+
 }

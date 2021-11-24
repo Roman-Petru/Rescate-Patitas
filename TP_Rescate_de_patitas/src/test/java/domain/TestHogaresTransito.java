@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TestHogaresTransito {
 
@@ -29,6 +31,9 @@ public class TestHogaresTransito {
         }
 
         ListadoDeHogares listadoDeHogares = servicioHogar.listadoDeHogares(1, bearer_token);
+
+        List<String> caracteristicasHogares = listadoDeHogares.hogares.stream().map(h -> h.caracteristicas).flatMap(caracteristica -> caracteristica.stream()).collect(Collectors.toList());
+
         Assert.assertEquals(10, listadoDeHogares.hogares.size());
     }
 }

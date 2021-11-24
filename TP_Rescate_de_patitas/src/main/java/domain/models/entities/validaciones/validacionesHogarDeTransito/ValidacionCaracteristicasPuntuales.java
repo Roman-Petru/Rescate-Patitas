@@ -9,7 +9,15 @@ public class ValidacionCaracteristicasPuntuales implements  ValidacionHogar {
 
     @Override
     public boolean validarHogar(HogarDeTransito hogar, DatosMascotaParaHogar datosMascota, FormularioMascota formulario) {
-        return datosMascota.getCaracteristicasAnimal().stream()
-                .allMatch(car -> hogar.getCaracteristicasPuntuales().contains(car));
+
+        Boolean test = hogar.getCaracteristicasPuntuales().stream()
+                .allMatch(car -> datosMascota.getCaracteristicasAnimal().contains(car));
+
+
+        return hogar.getCaracteristicasPuntuales().stream()
+                .allMatch(car -> datosMascota.getCaracteristicasAnimal().contains(car));
+
+        //return datosMascota.getCaracteristicasAnimal().stream()
+        //        .allMatch(car -> hogar.getCaracteristicasPuntuales().contains(car));
     }
 }

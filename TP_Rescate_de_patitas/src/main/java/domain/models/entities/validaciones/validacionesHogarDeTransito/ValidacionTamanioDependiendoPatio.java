@@ -10,7 +10,8 @@ public class ValidacionTamanioDependiendoPatio implements ValidacionHogar{
     public boolean validarHogar(HogarDeTransito hogar, DatosMascotaParaHogar datosMascota, FormularioMascota formulario) {
         if (hogar.getPatio()){
             return datosMascota.getTamanio().equals(TamanioAnimal.MEDIANO) ||
-                    datosMascota.getTamanio().equals(TamanioAnimal.GRANDE);
+                    datosMascota.getTamanio().equals(TamanioAnimal.GRANDE) ||
+                    datosMascota.getTamanio().equals(TamanioAnimal.CHICO);
         }
         else{
             return datosMascota.getTamanio().equals(TamanioAnimal.CHICO);
