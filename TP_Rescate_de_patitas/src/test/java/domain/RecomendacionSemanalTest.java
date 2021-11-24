@@ -28,7 +28,6 @@ import static org.junit.Assert.assertThat;
 
 public class RecomendacionSemanalTest {
 
-    /*
     @Test
     public void testRecomendacionSemanal() {
 
@@ -127,5 +126,19 @@ public class RecomendacionSemanalTest {
         return controller.listarTodos().stream().filter(cg -> descripcion.equalsIgnoreCase(cg.getDescripcionParaDuenio())).findAny().get();
     }
 
-    */
+    @Test
+    public void prueba() {
+        //------------------ENVIO EMAIL A LAS PERSONAS INTERESADAS---------------
+        EnviarEmailsConRecomendacion enviarEmailsConRecomendacion = new EnviarEmailsConRecomendacion();
+        enviarEmailsConRecomendacion.iniciarTarea();
+
+        //En el test necesito agregar delay para poder probarlo
+        try {
+            while (true) {
+                Thread.sleep(30000);
+            }
+        }catch(Exception e) {
+            System.out.println(e);
+        }
+    }
 }

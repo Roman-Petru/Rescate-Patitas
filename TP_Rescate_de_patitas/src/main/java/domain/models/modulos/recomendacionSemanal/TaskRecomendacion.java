@@ -1,12 +1,15 @@
 package domain.models.modulos.recomendacionSemanal;
 import domain.controllers.PublicacionAdopcionController;
 import domain.controllers.PublicacionInteresAdopcionController;
+import domain.models.entities.entidadesGenerales.Contacto;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionDarAdopcion;
 import domain.models.entities.entidadesGenerales.organizacion.PublicacionInteresAdopcion;
 import domain.models.entities.entidadesGenerales.personas.DatosDePersona;
 import domain.models.entities.utils.ArmadoresDeMensajes.ArmadorMensajeRecomendacionSemanal;
 import domain.models.entities.utils.NotificadorHelper;
 import domain.models.entities.validaciones.validacionesRecomendacionSemanal.ValidadorRecomendacionSemanal;
+import domain.models.modulos.notificador.estrategias.EnvioViaMail;
+import domain.models.modulos.notificador.estrategias.EstrategiaNotificacion;
 import lombok.SneakyThrows;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class TaskRecomendacion implements Runnable {
 
@@ -34,8 +39,17 @@ public class TaskRecomendacion implements Runnable {
             for (InteresadosEnMascota interesados : listadoPosiblesInteresadosEnMascotas) {
                 for (DatosDePersona persona: interesados.getPersonas()){
 
-                    ArmadorMensajeRecomendacionSemanal armadorMensajeSemanal = new ArmadorMensajeRecomendacionSemanal(persona, interesados.getMascota());
-                    NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeSemanal, persona.getContactos());
+                    List <Contacto> contactosTemp = new ArrayList<>();
+                    Contacto contactoTemp = new Contacto();
+                    contactoTemp.setEmail(persona.getEmail());
+
+                    List<EstrategiaNotificacion> listaNots = new ArrayList<>();
+                    listaNots.add(NotificadorHelper.devolverNotificadoresConID(1));
+                    contactoTemp.setNotificadores(listaNots);
+                    contactosTemp.add(contactoTemp);
+
+                    ArmadorMensajeRecomendacionSemanal armadorMensajeSemanal = new ArmadorMensajeRecomendacionSemanal(persona, interesados.getMascota(), interesados.getIdPublicacion());
+                    NotificadorHelper.getInstancia().enviarMensaje(armadorMensajeSemanal, contactosTemp);
 
                     //-----INFORMACION PARA EL LOG EN TEST------
                     LocalDateTime instance = LocalDateTime.now();
@@ -46,18 +60,19 @@ public class TaskRecomendacion implements Runnable {
 
 
             //Tiempo que se repite la notificación
-            executorService.schedule(this, 20, TimeUnit.SECONDS);
+            executorService.schedule(this, 5, TimeUnit.SECONDS);
             //scheduler.schedule(new TaskRecomendacion(persona, scheduler), 7, TimeUnit.DAYS);
 
         } catch (Exception e) {
-            System.out.println("Error en TaskRecomendacion: " + e.getMessage());
+            System.out.println("Error en TaskRecomendacion: " + e);
         }
     }
 
 
     public List<InteresadosEnMascota> puedeEstarInteresadoEnAdoptar(){
         List<PublicacionDarAdopcion> publicacionesParaAdoptar = adopcionController.listarTodos();
-        List<PublicacionInteresAdopcion> publicacionesInteresadosEnAdoptar = interesAdopcionController.listarTodos();
+        List<PublicacionInteresAdopcion> publicacionesInteresadosEnAdoptar = interesAdopcionController.listarTodos()
+                .stream().filter(p -> p.getAdoptante().isRecibirRecomendacionAdopcion()).collect(Collectors.toList());
 
         List<InteresadosEnMascota> interesados = new ArrayList<>();
 
@@ -76,6 +91,7 @@ public class TaskRecomendacion implements Runnable {
                 }
             }
 
+            interesado.setIdPublicacion(publiAdopcion.getId());
             interesado.setMascota(publiAdopcion.getMascota());
             interesado.setPersonas(personasInteresadas);
             interesados.add(interesado);

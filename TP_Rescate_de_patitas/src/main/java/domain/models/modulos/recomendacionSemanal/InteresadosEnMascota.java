@@ -12,6 +12,7 @@ import java.util.List;
 public class InteresadosEnMascota {
     Mascota mascota;
     List<DatosDePersona> personas;
+    Integer idPublicacion;
 
     public InteresadosEnMascota(){
         this.personas = new ArrayList<>();

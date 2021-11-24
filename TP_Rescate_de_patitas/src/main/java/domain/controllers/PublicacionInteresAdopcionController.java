@@ -160,6 +160,11 @@ public class PublicacionInteresAdopcionController {
             persona.setDocumento(dni);
 
             PersonaController.getInstancia().asignarAtributosA(persona, request);
+            if(request.queryParams("suscripto") != null && new Integer(request.queryParams("suscripto")) ==  1) {
+                persona.setRecibirRecomendacionAdopcion(true);
+            }else{
+                persona.setRecibirRecomendacionAdopcion(false);
+            }
 
             //DatosDePersona persona = new DatosDePersona(request.queryParams("nombrePersona"),request.queryParams("apellidoPersona"),new Integer(request.raw().getParameter("dni")),null,request.queryParams("mail"),null,null,null);
 
@@ -208,7 +213,7 @@ public class PublicacionInteresAdopcionController {
             }
 
             for (CaracteristicaGeneral caracteristicaGeneral:CaracteristicaController.getInstancia().listarTodos()) {
-                CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada(caracteristicaGeneral, request.raw().getParameter(caracteristicaGeneral.getDescripcionParaInteresado()));
+                CaracteristicaPersonalizada caracteristicaPersonalizada = new CaracteristicaPersonalizada(caracteristicaGeneral, request.queryParams(caracteristicaGeneral.getDescripcionParaDuenio()));
                 publicacionInteresAdopcion.agregarPreferencia(caracteristicaPersonalizada);
             }
 
@@ -276,7 +281,6 @@ public class PublicacionInteresAdopcionController {
         contactoTemp.setEmail(publicacion.getAdoptante().getEmail());
 
         List<EstrategiaNotificacion> listaNots = new ArrayList<>();
-        EnvioViaMail strat = new EnvioViaMail();
         listaNots.add(NotificadorHelper.devolverNotificadoresConID(1));
         contactoTemp.setNotificadores(listaNots);
         contactosTemp.add(contactoTemp);
