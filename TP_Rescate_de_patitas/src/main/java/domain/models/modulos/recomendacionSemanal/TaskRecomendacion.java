@@ -60,7 +60,7 @@ public class TaskRecomendacion implements Runnable {
 
 
             //Tiempo que se repite la notificación
-            executorService.schedule(this, 5, TimeUnit.SECONDS);
+            executorService.schedule(this, 7, TimeUnit.DAYS);
             //scheduler.schedule(new TaskRecomendacion(persona, scheduler), 7, TimeUnit.DAYS);
 
         } catch (Exception e) {

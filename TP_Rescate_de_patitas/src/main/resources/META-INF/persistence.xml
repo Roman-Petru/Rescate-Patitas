@@ -11,10 +11,17 @@
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
 
-            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+            <!--
+            mysql://b0ebfaa9169e76:60023279@us-cdbr-east-05.cleardb.net/heroku_947b636944ea7af?reconnect=true
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/rescate-de-patitas-g4" />
             <property name="hibernate.connection.username" value="root" />
-            <property name="hibernate.connection.password" value="rootSQL1" />
+            <property name="hibernate.connection.password" value="123456" />
+ -->
+
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://us-cdbr-east-05.cleardb.net/heroku_947b636944ea7af" />
+            <property name="hibernate.connection.username" value="b0ebfaa9169e76" />
+            <property name="hibernate.connection.password" value="60023279" />
 
             <property name="hibernate.show_sql" value="true" />
             <!-- Enable the logging of all the generated SQL statements to the console -->
@@ -25,7 +32,7 @@
             <property name="use_sql_comments" value="true" />
             <!-- Hibernate will put comments inside all generated SQL statements to hint what’s the generated SQL trying to do -->
 
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.hbm2ddl.auto" value="validate" />
             <!--
                 - validate: validate the schema, makes no changes to the database.
                 - update: update the schema.
