@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/TP DDS.iml" filepath="$PROJECT_DIR$/.idea/TP DDS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TP_Rescate_de_patitas.iml" filepath="$PROJECT_DIR$/TP_Rescate_de_patitas.iml" />
     </modules>
   </component>
 </project>
